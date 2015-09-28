@@ -1,0 +1,30 @@
+experiment name : two numbers multiplication
+conditions : 
+	neuron type 2
+	input vector size 3
+	output vector size 2
+	layers count 2
+	weight range <-1.000,  1.000>
+	polynom order 5
+	eta 0.100000
+	gamma 0.000000
+	bias value : input[2] = 1.000000 
+	learning patterns count 5000
+	testing patterns count 10000
+	layers configuration : 
+		layer 0 : inputs count 3 , outputs count 8
+		layer 1 : inputs count 8 , outputs count 2
+	input example : 
+		input[0] = 0.875513 
+		input[1] = -0.590606 
+		input[2] = 1.000000 
+	required output example : 
+		required_output[0] = -0.517083 
+		required_output[1] = 0.517083 
+aproximated function : 
+		required_output[0] = input[0]*input[1];
+		required_output[1] = -input[0]*input[1];
+results : 
+		total error 5627.118652
+		average error 0.562712
+		learning result file name function_aproximation/01_multiplication_2_layers/multiplication_taylor.txt

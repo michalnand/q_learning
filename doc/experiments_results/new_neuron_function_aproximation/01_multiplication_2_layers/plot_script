@@ -1,0 +1,66 @@
+set   autoscale                        # scale axes automatically
+unset log                              # remove any log-scaling
+unset label                            # remove any previous labels
+set xtic auto                         	# set xtics automatically
+set ytic auto                         # set ytics automatically
+
+set key right top
+
+set grid ytics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set grid xtics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set terminal png size 1024,768 enhanced font "Helvetica,20"
+
+
+
+set key
+set xlabel "iteration"
+set ylabel "error value"
+
+set output 'multiplication.png'
+
+plot "multiplication_common.txt" using 8 title "common neuron" with line, \
+"multiplication_taylor.txt" using 8 title "taylor neuron" with line, \
+"multiplication_testing.txt" using 8 title "testing neuron" with line, \
+
+
+
+
+
+
+set lmargin 5
+set key below
+set border 4095
+
+set label
+
+set xlabel "input[1]"
+set ylabel "input[0]"
+set zlabel "output[0]"
+
+set xrange [-1:1]
+set yrange [-1:1]
+set zrange [-1:1]
+
+#set hidden3d
+
+set dgrid3d 32,32
+set xyplane at 0
+set surface
+
+ 	
+
+set style fill transparent solid 0.5 noborder
+
+set output 'signal_mutliplication_data_common.png' 
+splot 'signal_mutliplication_data_common.txt' using 2:1:8 title "network error" with lines lw 1.2, \
+	'signal_mutliplication_data_common.txt' using 2:1:6 title "network output" with lines
+
+set output 'signal_mutliplication_data_taylor.png' 
+splot 'signal_mutliplication_data_taylor.txt' using 2:1:8 title "network error" with lines  lw 1.2, \
+	'signal_mutliplication_data_taylor.txt' using 2:1:6 title "network output" with lines
+
+set output 'signal_mutliplication_data_testing.png' 
+splot 'signal_mutliplication_data_testing.txt' using 2:1:8 title "network error" with lines  lw 1.2, \
+	'signal_mutliplication_data_testing.txt' using 2:1:6 title "network output" with lines
+
+# 'signal_mutliplication_data_testing.txt' using 2:1:6 title "network output" with pm3d

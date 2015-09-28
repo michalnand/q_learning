@@ -1,0 +1,661 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,slovak]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usetheme{Pittsburgh}
+\useoutertheme{shadow}
+
+\usepackage{amsmath}
+\usepackage{amscd,amssymb,amsfonts}
+
+
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+
+\iffalse
+%\iftrue
+\usetheme{Warsaw}
+% \usecolortheme{beetle}
+
+\setbeamercolor{normal text}{fg=white,bg=black!90}
+\setbeamercolor{structure}{fg=white}
+
+\setbeamercolor{alerted text}{fg=red!85!black}
+
+\setbeamercolor{item projected}{use=item,fg=black,bg=item.fg!35}
+
+\setbeamercolor*{palette primary}{use=structure,fg=structure.fg}
+\setbeamercolor*{palette secondary}{use=structure,fg=structure.fg!95!black}
+\setbeamercolor*{palette tertiary}{use=structure,fg=structure.fg!90!black}
+\setbeamercolor*{palette quaternary}{use=structure,fg=structure.fg!95!black,bg=black!80}
+
+\setbeamercolor*{framesubtitle}{fg=white}
+
+\setbeamercolor*{block title}{parent=structure,bg=black!60}
+\setbeamercolor*{block body}{fg=black,bg=black!10}
+\setbeamercolor*{block title alerted}{parent=alerted text,bg=black!15}
+\setbeamercolor*{block title example}{parent=example text,bg=black!15}
+\fi
+
+
+\lstset{language=C++,
+                basicstyle=\ttfamily,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                numberstyle=\color{green}\ttfamily,
+                commentstyle=\color{green}\ttfamily,
+                morecomment=[l][\color{magenta}]{\#}}
+
+%-------------------------------------------------------------------------------------
+\title{\bf Q learning - aproximácia funkcie ohodnotení neurónovou sieťou}
+\author{Michal CHOVANEC \\Fakulta riadenia a informatiky}
+
+\date[EURP]{\it Jún 2015}
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Úvod}
+
+Cieľom je nájsť optimálnu stratégiu - maximalizácia odmeny (účelovej funckie)
+
+\begin{itemize}
+\item{Vopred nie je známa hodnota odmeny vykonanej akcie}
+\item{Vopred nie je známi ani stav do ktorého sa systém dostane}
+\item{Je možné určiť v akom stave sa systém nachádza}
+\item{Je presne daná množina akcií v každom stave}
+\item{Aspoň pre cieľový stav je daná výška odmeny}
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Úvod}
+
+Aplikácie zo sveta robotických sytémov
+
+\begin{itemize}
+\item{Učenie sa pohybu, s ohľadom na techické prostriedky a terén}
+\item{Multirobotické plánovanie - hľadanie optimálneho rozhodnutia pre celú skupinu}
+    \begin{itemize}
+    \item{Mapovanie}
+    \item{Hľadanie cieľa}
+    \item{Robotický futbal}
+    \item{Capture the flag}
+    \end{itemize}
+\item{Optimalizácia v automatických dopravných systémov}
+    \begin{itemize}
+    \item{Dať prednosť, alebo predbehnúť}
+    \item{Kedy ísť zobrať náklad, predikcia}
+    \end{itemize}
+\item{Všetky problémy kde : ako niečo urobiť je zložité popísať}
+    \begin{itemize}
+    \item{Systém si učením sám nájde postup ako niečo robiť}
+    \item{Vyžaduje sa adativita a samostatnosť}
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Q learning}
+
+\begin{itemize}
+\item{$Q(s, a)$ - funkcia ohodnotení}
+\item{$s$ - stav}
+\item{$a$ - akcia v stave $s$}
+\item{$R(s, a)$ - funkcia okamžitých odmien, za vykonanie $a$ v stave $s$}
+\end{itemize}
+
+\begin{eqnarray}
+\label{eq:state_action_set}
+	s   &\in \mathbb{S}  \nonumber \\
+    a_s &\in \mathbb{A}_s \nonumber
+\end{eqnarray}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Q learning - prechod stavovým priestorom}
+
+Markovov rozhodovací proces
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{diagrams/markov_decision.eps}
+\end{center}
+\end{figure}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Q learning - ohodnotenie Q(s, a)}
+
+Z Bellmanového princípu optimality
+
+\begin{equation}
+\label{q_learning}
+   Q_{n+1}(s, a) = R_{n+1}(s, a) + \gamma \max_{a'} Q_n(s_{n+1}', a')
+\end{equation}
+
+Kde \\
+$R_{n+1}(s, a)$ je získaná odmena (reward) za vykonanie akcie $a$ v stave $s$ v čase
+$n+1$ \\
+\bigskip
+$\max_{a'} Q_n(s_{n+1}', a')$ je výber akcie v stave $s_{n+1}$ ktorá má najväčšia odmenu \\
+\bigskip
+$\gamma$ je podiel z maximálnej odmeny v stave $s_{n+1}'$ pri vykonaní najlepšej
+možnej akcie v tomto stave \\
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Q learning - ohodnotenie Q(s, a)}
+
+Varianty algoritmu \\
+
+Filtrovanie v stochastickom prostredí
+\begin{equation}
+\label{q_learning}
+   Q_{n+1}(s, a) = \alpha Q_{n}(s, a) + (1-\alpha) ( R_{n+1}(s, a) + \gamma \max_{a'} Q_n(s_{n+1}', a') ) \nonumber
+\end{equation}
+
+SARSA algoritmus
+\begin{equation}
+\label{q_learning}
+   Q_{n+1}(s, a) = \alpha Q_{n}(s, a) + (1-\alpha) ( R_{n+1}(s, a) + \gamma Q_n(s_{n+1}', a') ) \nonumber
+\end{equation}
+
+\bigskip
+kde $\alpha \in \langle 0, 1) $ \\
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Q learning - výber akcie}
+
+Boltzmanové rozdelanie
+
+\begin{equation}
+P(s|a_i) = \frac{k^{Q(s, a_i)}} {{\sum_{j \in \mathbb{A}}{} k^{Q(s, a_j)}}} \nonumber
+\end{equation}
+
+Kde $k \in \langle 0, \infty )$ a určuje správanie sa agenta, pre $Q(s, a) \in \langle -1, 1 \rangle$
+možno pozorovať tieto druhy správania
+
+\begin{itemize}
+\item{$k = 1$ prieskumník}
+\item{$k = \langle 2, 10 \rangle$ zlatý stred}
+\item{$k >> 10$ pažravý (greedy) agent}
+\end{itemize}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Q learning - problémy}
+
+\begin{itemize}
+\item{Rosiahly stavový priestor, $Q(s, a)$ je možné nájsť len približne}
+
+    \begin{itemize}
+    \item{Interpolácia}
+    \item{Transformácia pomocou features a ich lineárna kombinácia}
+    \item{Aproximácia neurónovou sieťou}
+    \end{itemize}
+
+\item{Výber akcie}
+    \begin{itemize}
+    \item{Tak aby neboli prehľadávané akcie ktoré nemajú cenu}
+    \end{itemize}
+
+\item{Zdieľanie a syntéza $Q(s, a)$ medzi viacerími agentami}
+
+\end{itemize}
+
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Experiment}
+
+Cieľom je overiť aproximáciu $Q(s, a)$ dvoma rôznymi neurónovými sieťami pri
+rôznych veľkostiach $k$ v malom stavovom priestore - Q(s, a) vieme spočítať presne.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{diagrams/1D_robot_diagram.eps}
+\end{center}
+\end{figure}
+
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Experiment}
+
+Boli porovnávané dva modely neurónov s optimálnym riešením
+
+\begin{equation}
+\label{mcculloch_pitts_model}
+  y(n) = \varphi(\sum_{i = 0}^{N-1} x_i(n)w_i(n))
+\end{equation}
+
+
+\begin{equation}
+\label{testing_neuron_model}
+  y(n) = \sum_{j = 1}^{\infty}{\sum_{i = 0}^{N-1} x_i^j(n)w_{ji}(n)} +
+  \sum_{j = 0}^{N-1}{\sum_{i = j + 1}^{N-1} x_i(n)x_j(n)v_{ji}(n)}
+\end{equation}
+
+Prečo by \ref{testing_neuron_model} mal byt lepší? Kolmogorov teorém 3 skryté vrstvy !
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Experiment}
+
+Hypotéza : \\
+\bigskip
+Problém aproximácie $q = Q(s, a)$ je pridelenie každému $s$, $a$ práve jedno $q$.
+To vedie na formuláciu : \\
+AK je systém v stave s A bola vykonaná akcia a, POTOM výstup je q. \\
+\bigskip
+Pre jeden stav a dve akcie (ohodnotené ako $a_0$, $a_1$) možno napísať
+
+\begin{equation}
+\label{multiplexer}
+  q =  v a_0 + (1 - v) a_1
+\end{equation}
+
+Kde $v$ je výber akcie a platí $v \in \langle 0, 1 \rangle$. Pozn. všetky veličiny
+sú premenné.
+\bigskip
+To je ale potom v súlade s \ref{testing_neuron_model}.
+
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}[fragile]{\bf Experiment - parametre}
+
+\begin{lstlisting}
+
+iterations = 10000000
+
+agent :
+
+state_density = 1/8.0
+alpha = 0.98
+gamma = 0.7
+
+neural network :
+
+hidden layers = 2
+neurons in hidden layers = 10
+weight range = 4.0
+neuron order = 7
+init weight range = 0.1
+eta = 0.001
+
+\end{lstlisting}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Experiment, k = 1.1, optimálne riešenie}
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_01/table/q_map.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_01/table/q_action_id.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+\end{columns}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Experiment, k = 1.1, mcculloch pitts neurón}
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_01/mcculloch_pitts_neuron/q_map.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_01/mcculloch_pitts_neuron/q_action_id.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+\end{columns}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Experiment, k = 1.1, testovaný neurón}
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_01/testing_neuron/q_map.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_01/testing_neuron/q_action_id.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Experiment, k = 2.0, optimálne riešenie}
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_02/table/q_map.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_02/table/q_action_id.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+\end{columns}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Experiment, k = 2.0, mcculloch pitts neurón}
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_02/mcculloch_pitts_neuron/q_map.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_02/mcculloch_pitts_neuron/q_action_id.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+\end{columns}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Experiment, k = 2.0, testovaný neurón}
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_02/testing_neuron/q_map.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_02/testing_neuron/q_action_id.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+
+
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Experiment, k = 10.0, optimálne riešenie}
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_03/table/q_map.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_03/table/q_action_id.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+\end{columns}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Experiment, k = 10.0, mcculloch pitts neurón}
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_03/mcculloch_pitts_neuron/q_map.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_03/mcculloch_pitts_neuron/q_action_id.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+\end{columns}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Experiment, k = 10.0, testovaný neurón}
+
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_03/testing_neuron/q_map.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+	\begin{column}{0.5\textwidth}
+
+        \begin{figure}[ht]
+
+        \begin{center}
+        \includegraphics[width=1.0\textwidth]{experiment_03/testing_neuron/q_action_id.png}
+        \end{center}
+
+        \end{figure}
+
+	\end{column}
+\end{columns}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------------
+\begin{frame}[fragile]{\bf Experiment - zhrnutie}
+
+\begin{figure}[ht]
+\begin{center}
+\begin{minipage}{0.8\linewidth}
+\begin{center}
+  \includegraphics[width=1.0\textwidth]{comparsion.png}
+\end{center}
+\end{minipage}
+\end{center}
+\end{figure}
+
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}[fragile]{\bf Nevyriešené otázky}
+
+    ... ktorými sa momentálne zaoberám
+
+	\begin{enumerate}
+	\item{Zrýchliť učenie neurónovej siete}
+	\item{Urobiť experiment vo veľkom stavovom priestore}
+    \item{Implementácia do vyvíjaného multirobotického frameworku}
+	\end{enumerate}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Ďakujem za pozornosť}
+
+\begin{figure}[ht]
+\begin{center}
+\begin{minipage}{0.8\linewidth}
+\begin{center}
+  \includegraphics[width=1.0\textwidth]{images/krivan.jpg}
+\end{center}
+\end{minipage}
+\end{center}
+\end{figure}
+
+
+\centerline{michal.chovanec@yandex.com}
+
+\end{frame}
+
+\end{document}

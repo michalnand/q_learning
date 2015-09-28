@@ -1,0 +1,23 @@
+set   autoscale                        # scale axes automatically
+unset log                              # remove any log-scaling
+unset label                            # remove any previous labels
+set xtic auto                         	# set xtics automatically
+set ytic auto                         # set ytics automatically
+
+set key right top
+
+set grid ytics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set grid xtics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set terminal png size 1024,768 enhanced font "Helvetica,20"
+
+
+
+set key
+set xlabel "iteration"
+set ylabel "error value"
+
+set output '2d_vector_rotation.png'
+
+plot "2d_vector_rotation_common.txt" using 9 title "common neuron" with line, \
+"2d_vector_rotation_taylor.txt" using 9 title "taylor neuron" with line, \
+"2d_vector_rotation_testing.txt" using 9 title "testing neuron" with line, \

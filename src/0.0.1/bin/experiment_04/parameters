@@ -1,0 +1,39 @@
+goal : 1D target hunting, 1 Robot
+
+
+iterations = 10000000
+
+agent :
+
+state_density = 1/8.0
+k = 1.1 -> AGENT_TYPE_EXPLORER
+alpha = 0.98
+gamma = 0.7
+
+
+
+neural network :
+
+feed forward + kohonen
+
+kohonen :
+neurons count = 16;
+weight_range = 1.0;
+learning_constant = 0.001;
+weight_range_init = 1.0;
+
+
+
+feed forward :
+hidden layers = 1
+neurons in hidden layers = 8
+
+mcculloch_pitts_neuron:
+                    weight range = 4.0
+
+testing neuron :
+                    weight range = 1.0
+
+neuron order = 7
+init weight range = 0.1
+eta = 0.001

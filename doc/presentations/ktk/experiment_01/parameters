@@ -1,0 +1,21 @@
+goal : 1D target hunting, 1 Robot
+
+iterations = 10000000
+
+agent :
+
+state_density = 1/8.0
+k = 1.1 -> AGENT_TYPE_EXPLORER
+alpha = 0.98
+gamma = 0.7
+
+
+
+neural network :
+
+hidden layers = 2
+neurons in hidden layers = 10
+weight range = 4.0
+neuron order = 7
+init weight range = 0.1
+eta = 0.001

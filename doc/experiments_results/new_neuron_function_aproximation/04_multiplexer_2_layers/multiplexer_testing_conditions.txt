@@ -1,0 +1,32 @@
+experiment name : two inputs multiplexer
+conditions : 
+	neuron type 3
+	input vector size 4
+	output vector size 1
+	layers count 2
+	weight range <-1.000,  1.000>
+	polynom order 5
+	eta 0.100000
+	gamma 0.000000
+	bias value : input[3] = 1.000000 
+	learning patterns count 5000
+	testing patterns count 10000
+	layers configuration : 
+		layer 0 : inputs count 4 , outputs count 8
+		layer 1 : inputs count 8 , outputs count 1
+	input example : 
+		input[0] = 0.896340 
+		input[1] = 0.261631 
+		input[2] = 0.920095 
+		input[3] = 1.000000 
+	required output example : 
+		required_output[0] = 0.870982 
+aproximated function : 
+		float a = input[0];
+		float b = input[1];
+		float s = (input[2] + 1.0)/2.0;
+		required_output[0] = a*s + b*(1.0 - s);
+results : 
+		total error 84.745338
+		average error 0.008475
+		learning result file name function_aproximation/04_multiplexer_2_layers/multiplexer_testing.txt

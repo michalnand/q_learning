@@ -1,0 +1,34 @@
+experiment name : 2D vector rotation
+conditions : 
+	neuron type 2
+	input vector size 4
+	output vector size 2
+	layers count 2
+	weight range <-1.000,  1.000>
+	polynom order 5
+	eta 0.100000
+	gamma 0.000000
+	bias value : input[3] = 1.000000 
+	learning patterns count 5000
+	testing patterns count 10000
+	layers configuration : 
+		layer 0 : inputs count 4 , outputs count 8
+		layer 1 : inputs count 8 , outputs count 2
+	input example : 
+		input[0] = -0.597573 
+		input[1] = 0.725429 
+		input[2] = -0.753772 
+		input[3] = 1.000000 
+	required output example : 
+		required_output[0] = 0.223218 
+		required_output[1] = 0.413532 
+aproximated function : 
+		float x = input[0];
+		float y = input[1];
+		float  phi = input[2]*M_PI/2.0
+		required_output[0] = (x*cos(phi) - y*sin(phi))/2.0;
+		required_output[1] = (x*sin(phi) + y*cos(phi))/2.0;
+results : 
+		total error 5147.678223
+		average error 0.514768
+		learning result file name function_aproximation/03_2d_vector_rotation_2_layers/2d_vector_taylor_testing.txt
