@@ -7,7 +7,7 @@
 #include "q_func_knn.h"
 
 //#define Q_FUNC_NN  1
-#define Q_FUNC_KNN  1
+//#define Q_FUNC_KNN  1 
 
 struct sQRes
 {

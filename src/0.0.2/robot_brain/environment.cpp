@@ -22,6 +22,23 @@ CEnvironment::CEnvironment(u32 agents_count)
 				);
 
 
+    map = new CMap(0, 0, 34, 19, 55.0, 55.0);
+
+    //if (map->load((char*)"map_targets.txt") == 0)
+    if (map->load((char*)"q_learning_test_00.txt") == 0)
+    {
+        printf("map success loaded\n");
+    }
+    else
+    {
+        printf("map loading failed\n");
+    }
+
+    printf("\nmap\n");
+    map->print();
+
+
+
  	//this robot is for sharing solution
  	collective_agent = NULL;
  	//collective_agent = new CAgent(agent_init, NULL);
@@ -40,6 +57,8 @@ CEnvironment::CEnvironment(u32 agents_count)
  		respawn(&agent_init);
 
  		agent = new CAgent(agent_init, collective_agent);
+
+
  		agents.push_back(agent);
 
  		s_agents.push_back(agent_init);
@@ -49,23 +68,6 @@ CEnvironment::CEnvironment(u32 agents_count)
 		agents[j]->merge();
 
 
-    map = new CMap(0, 0, 34, 19, 55.0, 55.0);
-
-
-
-
-    //if (map->load((char*)"map_targets.txt") == 0)
-    if (map->load((char*)"q_learning_test_01.txt") == 0)
-    {
-        printf("map success loaded\n");
-    }
-    else
-    {
-        printf("map loading failed\n");
-    }
-
-    printf("\nmap\n");
-    map->print();
 
     printf("\nagent\n");
 
@@ -77,6 +79,7 @@ CEnvironment::CEnvironment(u32 agents_count)
 
 
     float x, y;
+    float sx = 0.0, sy = 0.0;
     float tx = 0.0, ty = 0.0;
     float delta = state_density/4.0;
 
@@ -84,16 +87,30 @@ CEnvironment::CEnvironment(u32 agents_count)
     {
         for (x = -1.0; x < 1.0; x+= delta)
         {
-            if (map->get_at_normalised(y, x).type == 3)
+            if (map->get_at_normalised(x, y).type == 3)
             {
                 tx = x;
                 ty = y;
             }
+
+            if (map->get_at_normalised(x, y).type == 9)
+            {
+                sx = x;
+                sy = y;
+            }
         }
     }
 
+/*
+    start_position.push_back(sx);
+    start_position.push_back(sy);
+*/
+
     target_position.push_back(tx);
     target_position.push_back(ty);
+
+    loops = 0;
+
 
     printf("\ntarget position %f %f\n", tx, ty);
 
@@ -127,7 +144,9 @@ void CEnvironment::process()
 	{
 		float target_min_dist = s_agents[j].state_density;
 
-		float target_dist  = abs_(target_position[0] - s_agents[j].state[0]);
+		float target_dist  = abs_(target_position[0] - s_agents[j].state[0]) +
+                             abs_(target_position[1] - s_agents[j].state[1]);
+
 		float reward = map->get_at_normalised(s_agents[j].state[0], s_agents[j].state[1]).reward;
 
 
@@ -145,6 +164,12 @@ void CEnvironment::process()
 			for (i = 0; i < agents.size(); i++)
 				agents[i]->merge();
 		}
+
+        if ((loops%1000) == 0)
+        {
+            s_agents[j].reward = 0.0;
+            respawn(&s_agents[j]);
+        }
 
 		if (target_dist < target_min_dist)
 		{
@@ -168,6 +193,8 @@ void CEnvironment::process()
             }
 		}
 	}
+
+    loops++;
 }
 
 void CEnvironment::print(std::vector<float> subspace)
@@ -185,9 +212,16 @@ void CEnvironment::print(std::vector<float> subspace)
 void CEnvironment::respawn(struct sAgent *agent)
 {
 	u32 i;
-	for (i = 0; i < agent->inputs_count; i++)
-		agent->state[i] = rnd_(); //agent to random place
 
+    printf("respawning \n" );
+   do
+    {
+    	for (i = 0; i < agent->inputs_count; i++)
+    		agent->state[i] =  rnd_(); //agent to random place
+    }
+    while (map->get_at_normalised(agent->state[0], agent->state[1]).type != 0);
 
 	agent->score = 0.0;
+
+    printf("respawn done\n" );
 }

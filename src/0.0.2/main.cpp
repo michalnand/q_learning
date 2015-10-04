@@ -6,10 +6,9 @@ void test()
 	class CQlearningTest *q_learning_test;
 	q_learning_test = new CQlearningTest();
 
-	 //q_learning_test->run(1000);
-	//q_learning_test->run(10000000);
-	q_learning_test->run(1000000);
-
+	//q_learning_test->run(1000);
+	//q_learning_test->run(1000000);
+	q_learning_test->run(10000000);
 	delete q_learning_test;
 }
 

@@ -9,7 +9,7 @@ void s_agent_init(
 					float state_density
 				)
 
-{
+{ 
 	agent->id = id;
 	agent->type = type;
 	agent->outputs_count = outputs_count;

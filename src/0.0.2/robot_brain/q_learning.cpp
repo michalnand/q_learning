@@ -4,9 +4,9 @@ void q_res_init(struct sQRes *q_res, u32 state_dimensions, u32 action_size)
 {
 	u32 i;
 
-	q_res->q = 0.0; 
+	q_res->q = 0.0;
 	q_res->q_max = 0.0;
-	q_res->action_id = 0;
+	q_res->action_id = 0; 
 
 	q_res->action.fitness = 0.0;
 	q_res->action.usability = 0.0;
@@ -73,6 +73,7 @@ void CQLearning::process(std::vector<float> state, float reward, float k, float 
 	q_res.q_max = get_max_q(q_res.state);
 
 	float tmp = q_res_prev.reward + gamma*q_res.q_max;
+
 	q_func->learn(q_res_prev.state, q_res_prev.action.action, tmp);
 
 	q_res_prev = q_res;

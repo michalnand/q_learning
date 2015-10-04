@@ -8,9 +8,9 @@ CQFuncKNN::CQFuncKNN(u32 state_size, u32 action_size, float state_density,
     struct sKohonenNeuralNetworkInitStructure knn_init;
 
     knn_init.input_size = state_size;
-    knn_init.output_size = 16;
+    knn_init.output_size = 4;
     knn_init.weight_range = 1.0;
-    knn_init.learning_constant = 0.001;
+    knn_init.learning_constant = 0.01;
     knn_init.weight_range_init = 1.0;
 
     knn = new CKohonenNeuralNetwork(knn_init);
@@ -20,7 +20,7 @@ CQFuncKNN::CQFuncKNN(u32 state_size, u32 action_size, float state_density,
 
     //u32 neuron_type = NEURON_TYPE_COMMON;
 	u32 neuron_type = NEURON_TYPE_MIXED;
-	u32 hidden_neurons_count = 8;
+	u32 hidden_neurons_count = 64;
     float eta = 0.001;
 
     NeuralNetworkInitStructure_init(&nn_init,
@@ -73,7 +73,8 @@ void CQFuncKNN::learn(std::vector<float> state, std::vector<float> action, float
 {
     std::vector<float> required_value_;
 
-    required_value_.push_back(tanh(1.3*required_value));
+    required_value_.push_back( tanh(1.3*required_value));
+
 
     u32 ptr = 0, i;
 

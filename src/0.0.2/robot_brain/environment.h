@@ -18,11 +18,13 @@ class CEnvironment
 
 		float state_density;
 
-		std::vector<float> target_position;
+		std::vector<float> start_position, target_position;
 
 
 		class CMap *map;
 
+		u32 loops;
+		
 	public:
 		CEnvironment(u32 agents_count);
 		~CEnvironment();

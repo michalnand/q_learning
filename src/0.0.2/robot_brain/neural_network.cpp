@@ -121,7 +121,6 @@ CNeuralNetwork::CNeuralNetwork(struct sNeuralNetworkInitStructure nn_init_struct
 
 	nn_output_limit = 1.0;
 
-
 	/*
 	k = 1;
 	for (j = 0; j < nn.size_output[k]; j++)

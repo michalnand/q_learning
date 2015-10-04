@@ -41,6 +41,7 @@ CMap::CMap(	u32 type, u32 id, u32 width, u32 height,
 			 	float base_width, float base_height,
 			 	void *next_info_ptr)
 {
+
 	map.magic = MAP_MAGIC;
 	map.type = type;
 	map.id = id;
@@ -94,7 +95,7 @@ CMap::CMap(	u32 type, u32 id, u32 width, u32 height,
 			field.id++;
 		}
 	}
-
+	printf("map size %i %i\n", map.height, map.width);
 }
 
 CMap::~CMap()
@@ -303,10 +304,27 @@ struct sMapField CMap::get_at_normalised(float x, float y)
 	if (y < -1.0)
 		y = -1.0;
 
-	u32 x_ = map.width*(x + 1.0)/2.001;
-	u32 y_ = map.height*(y + 1.0)/2.001;
+	x = (x + 1.0)/2.0;
+	y = (y + 1.0)/2.0;
 
-	return map.fields[y_][x_];
+	if (x < 0.0)
+		x = 0.0;
+	if (x > 0.999)
+		x = 0.999;
+
+	if (y < 0.0)
+		y = 0.0;
+	if (y > 0.999)
+		y = 0.999;
+
+
+
+
+	u32 x_ = (u32)(map.width*x);
+	u32 y_ = (u32)(map.height*y);
+	struct sMapField res = map.fields[y_][x_];
+
+	return res;
 }
 
 u32 CMap::set_at_normalised(float x, float y, struct sMapField field)

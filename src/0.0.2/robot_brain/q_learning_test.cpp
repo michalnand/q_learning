@@ -3,6 +3,7 @@
 CQlearningTest::CQlearningTest()
 {
 	//environment = new CEnvironment(16); //16 robots
+
 	environment = new CEnvironment(1); //1 robots
 }
 
