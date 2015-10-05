@@ -9,7 +9,7 @@ void s_agent_init(
 					float state_density
 				)
 
-{ 
+{
 	agent->id = id;
 	agent->type = type;
 	agent->outputs_count = outputs_count;
@@ -38,8 +38,8 @@ CAgent::CAgent(struct sAgent agent_init, class CAgent *collective_agent)
 	float gamma = 0.7;
 	*/
 
-	float alpha = 0.98;
-	float gamma = 0.7;
+	float alpha = 0.8; //98;
+	float gamma = 0.95;
 
 	std::vector<std::vector<float>> action_init;
 

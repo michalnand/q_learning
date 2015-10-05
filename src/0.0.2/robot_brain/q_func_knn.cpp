@@ -88,7 +88,7 @@ void CQFuncKNN::learn(std::vector<float> state, std::vector<float> action, float
     for (i = 0; i < action.size(); i++)
         nn_input[ptr++] = action[i];
 
-    nn_input[ptr++] = 1.0;
+    nn_input[ptr++] = 1.0; //add bias
 
     nn->process(nn_input);
     nn->learn(required_value_);

@@ -238,6 +238,8 @@ i32 CMap::load(char *file_name)
 
 			if (map.fields[j][i].reward < -1.0)
 				map.fields[j][i].reward = -1.0;
+
+			// map.fields[j][i].reward = (map.fields[j][i].reward + 1.0)/2.0;
 		}
 	}
 

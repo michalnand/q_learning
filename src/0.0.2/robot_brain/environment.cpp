@@ -8,7 +8,7 @@ CEnvironment::CEnvironment(u32 agents_count)
  	u32 agent_inputs_count = 2;
  	u32 actions_per_state = 4;
 
- 	state_density = 1.0/16.0;
+ 	state_density = 1.0/10.0;
 
  	u32 id = 0;
  	u32 type = AGENT_TYPE_NULL;
@@ -25,7 +25,8 @@ CEnvironment::CEnvironment(u32 agents_count)
     map = new CMap(0, 0, 34, 19, 55.0, 55.0);
 
     //if (map->load((char*)"map_targets.txt") == 0)
-    if (map->load((char*)"q_learning_test_00.txt") == 0)
+    //if (map->load((char*)"q_learning_test_00.txt") == 0)
+    if (map->load((char*)"q_learning_test_01.txt") == 0)
     {
         printf("map success loaded\n");
     }
@@ -37,6 +38,7 @@ CEnvironment::CEnvironment(u32 agents_count)
     printf("\nmap\n");
     map->print();
 
+    sleep(2);
 
 
  	//this robot is for sharing solution
