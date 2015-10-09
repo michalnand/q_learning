@@ -3,6 +3,8 @@
 
 #include "../common.h"
 
+#define Q_FUNC_MAGIC    (u32)0xABCD0001
+
 class CQFunc
 {
     private:
@@ -23,6 +25,13 @@ class CQFunc
 
         float get(std::vector<float> state, std::vector<float> action);
         void learn(std::vector<float> state, std::vector<float> action, float required_value);
+
+        i32 save(char *file_name);
+        i32 load(char *file_name);
+
+
+        float get_q_value(u32 j, u32 i);
+        void merge(class CQFunc *q_func);
 };
 
 #endif

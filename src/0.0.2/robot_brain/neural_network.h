@@ -7,6 +7,8 @@
 #define NEURON_TYPE_COMMON	((u32)1)
 #define NEURON_TYPE_MIXED	((u32)2)
 
+#define NEURAL_NETWORK_MAGIC 	(u32)0xABCD0003
+
 
 struct sNeuralNetworkInitStructure
 {
@@ -57,6 +59,7 @@ void NeuralNetworkInitStructure_uninit(struct sNeuralNetworkInitStructure *nn_in
 class CNeuralNetwork
 {
 	private:
+		struct sNeuralNetworkInitStructure nn_init_structure;
 		struct sNeuralNetwork nn;
 		float nn_output_limit;
 
@@ -84,6 +87,9 @@ class CNeuralNetwork
 		void learn(std::vector<float> required_output);
 
 		void set_learning_constant(float learning_constant);
+
+		i32 save_weights(char *file_name);
+		i32 load_weights(char *file_name);
 
 	private:
 

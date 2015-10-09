@@ -164,7 +164,10 @@ CQLearning* CAgent::get_brain()
 void CAgent::merge()
 {
 	if (collective_agent != NULL)
+	{
+		printf("MERGING AGENT\n" );
 		q_learning->merge(collective_agent->get_brain());
+	}
 }
 
 void CAgent::print(std::vector<float> subspace)

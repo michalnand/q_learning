@@ -1,8 +1,13 @@
 #include "environment.h"
 
-CEnvironment::CEnvironment(u32 agents_count)
+extern struct sVisualisation g_visualisation;
+
+CEnvironment::CEnvironment(u32 agents_count, class CAgent *collective_agent, bool visualisation_enabled)
 {
- 	u32 j;
+    this->visualisation_enabled = visualisation_enabled;
+
+
+ 	u32 j,i ;
 
  	u32 outputs_count = 2;
  	u32 agent_inputs_count = 2;
@@ -35,14 +40,17 @@ CEnvironment::CEnvironment(u32 agents_count)
         printf("map loading failed\n");
     }
 
-    printf("\nmap\n");
-    map->print();
+    if (visualisation_enabled == false)
+    {
+        printf("\nmap\n");
+        map->print();
+    }
 
-    sleep(2);
+    // sleep(2);
 
 
  	//this robot is for sharing solution
- 	collective_agent = NULL;
+ 	//collective_agent = NULL;
  	//collective_agent = new CAgent(agent_init, NULL);
 
  	for (j = 0; j < agents_count; j++)
@@ -70,14 +78,13 @@ CEnvironment::CEnvironment(u32 agents_count)
 		agents[j]->merge();
 
 
+    if (visualisation_enabled == false)
+    {
+        printf("\nagent\n");
 
-    printf("\nagent\n");
-
-    std::vector<float> subspace;
-
-
-    agents[0]->print(subspace);
-
+        std::vector<float> subspace;
+        agents[0]->print(subspace);
+    }
 
 
     float x, y;
@@ -103,18 +110,56 @@ CEnvironment::CEnvironment(u32 agents_count)
         }
     }
 
-/*
-    start_position.push_back(sx);
-    start_position.push_back(sy);
-*/
-
     target_position.push_back(tx);
     target_position.push_back(ty);
 
     loops = 0;
 
 
-    printf("\ntarget position %f %f\n", tx, ty);
+
+    if (visualisation_enabled == true)
+    {
+        g_visualisation.window_width = VISUALISATION_SCREEN_WIDTH;
+        g_visualisation.window_height = VISUALISATION_SCREEN_HEIGHT;
+
+        g_visualisation.base_size = 1.0/1.0; //VISUALISATION_ROBOT_SIZE;
+
+
+        g_visualisation.position_max_x = 1.0;
+        g_visualisation.position_max_y = 1.0;
+        g_visualisation.position_max_z = 2.0;
+
+        visualisation_init();
+
+        u32 robot_id = 0;
+        for (j = 0; j < agents.size(); j++)
+        {
+            struct sRobot robot;
+            robot.id = /* cfg_get_id() + */ robot_id + 1;
+            robot.type = ROBOT_TYPE_COMMON;
+            robot.request = REQUEST_NULL;
+            robot.parameter = 0;
+
+            robot.dt = 1.0/100.0;   //dt in ms
+            robot.time = 0.0;
+
+            robot_id++;
+
+            for (i = 0; i < ROBOT_SENSORS_COUNT; i++)
+                robot.sensors[i] = 0.0;
+
+            for (i = 0; i < ROBOT_SPACE_DIMENSION; i++)
+            {
+                robot.d[i] = 0.0;
+                robot.position[i] = s_agents[j].state[i];
+                robot.angles[i] = 0.0;
+            }
+
+            robots.push_back(robot);
+        }
+
+        visualisation_update_all(&robots);
+    }
 
  	printf("init done\n");
 }
@@ -175,13 +220,15 @@ void CEnvironment::process()
 
 		if (target_dist < target_min_dist)
 		{
-			printf("robot %u on target, score %f\n", j, s_agents[j].score);
+            if (visualisation_enabled == false)
+            {
+    			printf("robot %u on target, score %f\n", j, s_agents[j].score);
 
-            std::vector<float> subspace;
-            agents[j]->print(subspace);
+                std::vector<float> subspace;
+                agents[j]->print(subspace);
+            }
 
 			s_agents[j].reward = 0.0;
-
 			respawn(&s_agents[j]);
 		}
 		else
@@ -197,6 +244,19 @@ void CEnvironment::process()
 	}
 
     loops++;
+
+    if (visualisation_enabled == true)
+    {
+        for (j = 0; j < agents.size(); j++)
+        for (i = 0; i < ROBOT_SPACE_DIMENSION; i++)
+        {
+            robots[j].d[i] = 0.0;
+            robots[j].position[i] = s_agents[j].state[i];
+            robots[j].angles[i] = 0.0;
+        }
+
+        visualisation_update_all(&robots);
+    }
 }
 
 void CEnvironment::print(std::vector<float> subspace)
@@ -211,11 +271,16 @@ void CEnvironment::print(std::vector<float> subspace)
  	agents[0]->print(subspace);
 }
 
+class CAgent* CEnvironment::get_agent(u32 id)
+{
+    return agents[id];
+}
+
 void CEnvironment::respawn(struct sAgent *agent)
 {
 	u32 i;
 
-    printf("respawning \n" );
+
    do
     {
     	for (i = 0; i < agent->inputs_count; i++)
@@ -224,6 +289,4 @@ void CEnvironment::respawn(struct sAgent *agent)
     while (map->get_at_normalised(agent->state[0], agent->state[1]).type != 0);
 
 	agent->score = 0.0;
-
-    printf("respawn done\n" );
 }

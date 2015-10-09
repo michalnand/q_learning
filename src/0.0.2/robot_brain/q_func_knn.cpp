@@ -93,3 +93,13 @@ void CQFuncKNN::learn(std::vector<float> state, std::vector<float> action, float
     nn->process(nn_input);
     nn->learn(required_value_);
 }
+
+i32 save(char *file_name)
+{
+    return -1;
+}
+
+i32 load(char *file_name)
+{
+    return -1;
+}

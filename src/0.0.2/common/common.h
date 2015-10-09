@@ -3,7 +3,7 @@
 
 #ifndef _BSD_SOURCE
 #define _BSD_SOURCE
-#endif 
+#endif
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -32,5 +32,10 @@
 #include "robot_container.h"
 
 #include "associative_array.h"
+
+
+
+#include "s_robot.h"
+#include "visualisation_gl.h"
 
 #endif

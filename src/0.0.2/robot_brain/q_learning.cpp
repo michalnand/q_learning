@@ -78,7 +78,7 @@ void CQLearning::process(std::vector<float> state, float reward, float k, float 
 	// erase the 6th element
   	myvector.erase (myvector.begin()+5);
 	*/
-	
+
 	q_func->learn(q_res_prev.state, q_res_prev.action.action, tmp);
 
 	q_res_prev = q_res;
@@ -203,5 +203,5 @@ class CQFunc* CQLearning::get_func()
 
 void CQLearning::merge(CQLearning *q_learning)
 {
-
+	q_func->merge(q_learning->get_func());
 }

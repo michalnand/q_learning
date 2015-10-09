@@ -42,6 +42,8 @@ CNeuralNetwork::CNeuralNetwork(struct sNeuralNetworkInitStructure nn_init_struct
 {
 	u32 i, j, k;
 
+	this->nn_init_structure = nn_init_structure;
+
 	nn.layers_count = nn_init_structure.init_vector_size-1;
 	nn.weight_range = nn_init_structure.weight_range;
 	nn.learning_constant = nn_init_structure.learning_constant;
@@ -370,4 +372,57 @@ float CNeuralNetwork::rnd()
 void CNeuralNetwork::set_learning_constant(float learning_constant)
 {
 	nn.learning_constant = learning_constant;
+}
+
+
+
+
+i32 CNeuralNetwork::save_weights(char *file_name)
+{
+	u32 i, j, k;
+
+	FILE *f;
+
+	f = fopen(file_name,"w");
+
+	if (f == NULL)
+		return -1;
+
+	fprintf(f, "%u \n", NEURAL_NETWORK_MAGIC);
+
+	for (k = 0; k < nn.layers_count; k++)
+		for (j = 0; j < nn.size_output[k]; j++)
+			for (i = 0; i < nn.size_input_[k]; i++)
+				fprintf(f, "%f ", nn.w[k][j][i]);
+
+	fclose(f);
+
+	return 1;
+}
+
+i32 CNeuralNetwork::load_weights(char *file_name)
+{
+	u32 i, j, k;
+
+	FILE *f;
+
+	f = fopen(file_name,"r");
+
+	if (f == NULL)
+		return -1;
+
+	u32 magic;
+	fscanf(f, "%u", &magic);
+
+	if (magic != NEURAL_NETWORK_MAGIC)
+		return -2;
+
+	for (k = 0; k < nn.layers_count; k++)
+		for (j = 0; j < nn.size_output[k]; j++)
+			for (i = 0; i < nn.size_input_[k]; i++)
+				fscanf(f, "%f ",&nn.w[k][j][i]);
+
+	fclose(f);
+
+	return 1;
 }
