@@ -41,16 +41,3 @@ splot 'q_max.txt' using 1:2:3 title "q max value" with pm3d
 set zlabel "action id"
 set output 'q_action_id.png'
 splot 'q_action_id.txt' using 1:2:3 title "best action id" with pm3d
-
-
-
-set pm3d map
-set palette rgbformulae 22,13,-31
-
-set zlabel "Q max"
-set output 'q_max_grad.png'
-splot 'q_max.txt' using 1:2:3 title "q max value"
-
-set zlabel "action id"
-set output 'q_action_id_grad.png'
-splot 'q_action_id.txt' using 1:2:3 title "best action id"
