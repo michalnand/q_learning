@@ -73,6 +73,8 @@ class CAgent
 
 		void merge();
 		void print(std::vector<float> subspace);
+
+		u32 get_type();
 };
 
 

@@ -13,7 +13,7 @@
 
 #include "common.h"
 
-#define VISUALISATION_3D_MODE 1
+// #define VISUALISATION_3D_MODE 1
 
 
 struct sVisualisation

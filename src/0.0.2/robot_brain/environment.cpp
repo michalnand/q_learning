@@ -13,7 +13,7 @@ CEnvironment::CEnvironment(u32 agents_count, class CAgent *collective_agent, boo
  	u32 agent_inputs_count = 2;
  	u32 actions_per_state = 4;
 
- 	state_density = 1.0/10.0;
+ 	state_density = 1.0/16.0;
 
  	u32 id = 0;
  	u32 type = AGENT_TYPE_NULL;
@@ -58,6 +58,9 @@ CEnvironment::CEnvironment(u32 agents_count, class CAgent *collective_agent, boo
  		id++;
  		agent_init.id = id;
 
+        if (visualisation_enabled)
+            agent_init.type = AGENT_TYPE_GREEDY;
+        else
         agent_init.type = AGENT_TYPE_EXPLORER;
         //agent_init.type = AGENT_TYPE_COMMON;
         //agent_init.type = AGENT_TYPE_GREEDY;
@@ -122,11 +125,11 @@ CEnvironment::CEnvironment(u32 agents_count, class CAgent *collective_agent, boo
         g_visualisation.window_width = VISUALISATION_SCREEN_WIDTH;
         g_visualisation.window_height = VISUALISATION_SCREEN_HEIGHT;
 
-        g_visualisation.base_size = 1.0/1.0; //VISUALISATION_ROBOT_SIZE;
+        g_visualisation.base_size = VISUALISATION_ROBOT_SIZE;
 
 
-        g_visualisation.position_max_x = 1.0;
-        g_visualisation.position_max_y = 1.0;
+        g_visualisation.position_max_x = map->get_width()/2.0;;
+        g_visualisation.position_max_y = map->get_height()/2.0;;
         g_visualisation.position_max_z = 2.0;
 
         visualisation_init();
@@ -140,7 +143,7 @@ CEnvironment::CEnvironment(u32 agents_count, class CAgent *collective_agent, boo
             robot.request = REQUEST_NULL;
             robot.parameter = 0;
 
-            robot.dt = 1.0/100.0;   //dt in ms
+            robot.dt = 1.0/10.0;   //dt in ms
             robot.time = 0.0;
 
             robot_id++;
@@ -157,6 +160,45 @@ CEnvironment::CEnvironment(u32 agents_count, class CAgent *collective_agent, boo
 
             robots.push_back(robot);
         }
+
+        u32 x, y;
+        for (y = 0; y < map->get_height(); y++)
+            for (x = 0; x < map->get_width(); x++)
+            if (map->get_at(x, y).type != MAP_FIELD_TYPE_EMPTY)
+            {
+                printf("loading from map %i %i\n", x,y );
+                struct sRobot robot;
+                robot.id = /* cfg_get_id() + */ robot_id + 1;
+                robot.type = ROBOT_TYPE_COMMON;
+                robot.request = REQUEST_NULL;
+                robot.parameter = 0;
+
+                robot.dt = 1.0/100.0;   //dt in ms
+                robot.time = 0.0;
+
+                robot_id++;
+
+                for (i = 0; i < ROBOT_SENSORS_COUNT; i++)
+                    robot.sensors[i] = 0.0;
+
+                for (i = 0; i < ROBOT_SPACE_DIMENSION; i++)
+                {
+                    robot.d[i] = 0.0;
+                    robot.position[i] = 0.0;
+                    robot.angles[i] = 0.0;
+                }
+
+                robot.position[0] = 2*((1.0*x)/map->get_width() - 0.5);
+                robot.position[1] = 2*((1.0*y)/map->get_height() - 0.5);
+
+                switch (map->get_at(x, y).type)
+                {
+                    case MAP_FIELD_TYPE_WALL : robot.type = ROBOT_TYPE_WALL; break;
+                    case MAP_FIELD_TYPE_TARGET : robot.type = ROBOT_TYPE_TARGET; break;
+                }
+
+                robots.push_back(robot);
+            }
 
         visualisation_update_all(&robots);
     }
@@ -189,7 +231,7 @@ void CEnvironment::process()
 
 	for (j = 0; j < agents.size(); j++)
 	{
-		float target_min_dist = s_agents[j].state_density;
+		float target_min_dist = s_agents[j].state_density*1.2;
 
 		float target_dist  = abs_(target_position[0] - s_agents[j].state[0]) +
                              abs_(target_position[1] - s_agents[j].state[1]);
@@ -233,13 +275,25 @@ void CEnvironment::process()
 		}
 		else
 		{
+            std::vector<float> tmp_state, tmp_dif_state;
             for (i = 0; i < s_agents[j].state.size(); i++)
             {
-			    s_agents[j].state[i] = s_agents[j].state[i] +
-									s_agents[j].output_action.action[i]*s_agents[j].state_density;
-
-                s_agents[j].state[i] = saturate(s_agents[j].state[i], -1.0, 1.0);
+                tmp_dif_state.push_back(s_agents[j].output_action.action[i]*s_agents[j].state_density);
+                tmp_state.push_back(s_agents[j].state[i] + tmp_dif_state[i]);
             }
+
+            //if (colision(j) > 0.01)
+            if (colision_from_point(j, tmp_state) > s_agents[j].state_density)
+            {
+                for (i = 0; i < s_agents[j].state.size(); i++)
+                    s_agents[j].state[i] = saturate(s_agents[j].state[i] + tmp_dif_state[i], -1.0, 1.0);
+            }
+            else
+            {
+                for (i = 0; i < s_agents[j].state.size(); i++)
+                    s_agents[j].state[i] = saturate(s_agents[j].state[i] - 0.1*tmp_dif_state[i], -1.0, 1.0);
+            }
+
 		}
 	}
 
@@ -256,6 +310,7 @@ void CEnvironment::process()
         }
 
         visualisation_update_all(&robots);
+        usleep(robots[0].dt*1000.0*1000.0);
     }
 }
 
@@ -289,4 +344,44 @@ void CEnvironment::respawn(struct sAgent *agent)
     while (map->get_at_normalised(agent->state[0], agent->state[1]).type != 0);
 
 	agent->score = 0.0;
+}
+
+float CEnvironment::colision(u32 id)
+{
+    u32 i, j;
+    float sum_min = s_agents[id].state.size()*1000.0;
+
+    for (j = 0; j < agents.size(); j++)
+        if (j != id)
+        {
+            float sum = 0.0;
+            for (i = 0; i < s_agents[j].state.size(); i++)
+                sum+= pow(s_agents[id].state[i] - s_agents[j].state[i], 2.0);
+            sum = pow(sum, 0.5);
+
+            if (sum < sum_min)
+                sum_min = sum;
+        }
+
+    return sum_min;
+}
+
+float CEnvironment::colision_from_point(u32 id, std::vector<float> point)
+{
+    u32 i, j;
+    float sum_min = point.size()*1000.0;
+
+    for (j = 0; j < agents.size(); j++)
+        if (j != id)
+        {
+            float sum = 0.0;
+            for (i = 0; i < s_agents[j].state.size(); i++)
+                sum+= pow(point[i] - s_agents[j].state[i], 2.0);
+            sum = pow(sum, 0.5);
+
+            if (sum < sum_min)
+                sum_min = sum;
+        }
+
+    return sum_min;
 }

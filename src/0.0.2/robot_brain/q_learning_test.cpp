@@ -10,7 +10,7 @@ CQlearningTest::CQlearningTest()
 
 	agent = environment->get_agent(0);
 
-	environment_visualisation = new CEnvironment(100, agent, true);
+	environment_visualisation = new CEnvironment(16, agent, true);
 }
 
 CQlearningTest::~CQlearningTest()

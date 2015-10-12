@@ -124,7 +124,7 @@ void CAgent::process(struct sAgent *agent_)
 	{
 		case AGENT_TYPE_EXPLORER : k = 1.1; explore_probality = 0.9; break;
 		case AGENT_TYPE_COMMON : k = 2.0; explore_probality = 0.0; break;
-		case AGENT_TYPE_GREEDY : k = 10.0; explore_probality = 0.0; break;
+		case AGENT_TYPE_GREEDY : k = 1000000.0; explore_probality = 0.0; break;
 	}
 
 	q_learning->process(state_vect, agent.reward, k, explore_probality);
@@ -165,7 +165,6 @@ void CAgent::merge()
 {
 	if (collective_agent != NULL)
 	{
-		printf("MERGING AGENT\n" );
 		q_learning->merge(collective_agent->get_brain());
 	}
 }
@@ -185,6 +184,8 @@ void CAgent::print(std::vector<float> subspace)
 		state[i] = subspace[i];
 
 	printf("\n q max \n");
+
+	float tmp = 0.0;
 	for (y = -1.0; y < 1.0; y+= agent.state_density)
 	{
 		for (x = -1.0; x < 1.0; x+= agent.state_density)
@@ -194,13 +195,15 @@ void CAgent::print(std::vector<float> subspace)
 
 			float res = q_learning->get_max_q(state);
 
-			printf("%3.2f ", res);
+			printf("%6.3f ", res);
 
 			//u32 state_idx = q_learning->get_state_idx();
 			//printf("%3u ", state_idx);
 			log.add(0, x);
 			log.add(1, y);
 			log.add(2, res);
+
+			tmp+= res;
 		}
 
 		printf("\n");
@@ -209,7 +212,8 @@ void CAgent::print(std::vector<float> subspace)
 	log.save();
 
 
-	printf("\n\n");
+	printf("TMP %f\n", tmp);
+	//printf("\n\n");
 
 
 	printf("\n q min \n");
@@ -222,17 +226,17 @@ void CAgent::print(std::vector<float> subspace)
 
 			float res = q_learning->get_min_q(state);
 
-			printf("%3.2f ", res);
+			//printf("%3.2f ", res);
 		}
 
-		printf("\n");
+	//	printf("\n");
 	}
 
-	printf("\n\n");
+//	printf("\n\n");
 
 
 
-	printf("\n q id \n");
+//	printf("\n q id \n");
 
 	CLog log_action_id((char*)"q_action_id.txt", 3);
 
@@ -245,14 +249,14 @@ void CAgent::print(std::vector<float> subspace)
 
 			u32 res = q_learning->get_max_q_id(state);
 
-			printf("%3i ", res);
+			//printf("%3i ", res);
 
 			log_action_id.add(0, x);
 			log_action_id.add(1, y);
 			log_action_id.add(2, res);
 		}
 
-		printf("\n");
+		//printf("\n");
 	}
 
 	printf("\n\n");
@@ -289,4 +293,9 @@ void CAgent::print(std::vector<float> subspace)
 
 	log_action.save();
 	*/
+}
+
+u32 CAgent::get_type()
+{
+	return agent.type;
 }

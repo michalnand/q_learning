@@ -5,9 +5,15 @@
 #include "../common/map.h"
 
 
-#define VISUALISATION_SCREEN_WIDTH 		800
-#define VISUALISATION_SCREEN_HEIGHT 	600
-#define VISUALISATION_ROBOT_SIZE		55.0
+#define VISUALISATION_SCREEN_WIDTH		(u32)800
+#define VISUALISATION_SCREEN_HEIGHT		(u32)600
+
+//#define VISUALISATION_FULL_SCREEN		(u32)1
+
+
+#define VISUALISATION_ROBOT_SIZE 		(float)(0.5)	//robot size, 55 ?
+#define VISUALISATION_SIZE_RATIO		(float)(1.0)
+// #define VISUALISATION_SIZE_RATIO		(float)0.01
 
 class CEnvironment
 {
@@ -45,6 +51,9 @@ class CEnvironment
 
 	private:
 		void respawn(struct sAgent *agent);
+		float colision(u32 id);
+		float colision_from_point(u32 id, std::vector<float> point);
+
 };
 
 #endif

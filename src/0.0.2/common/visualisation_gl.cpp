@@ -80,7 +80,7 @@ void visualisation_paint_robot(struct sRobot robot, float base_size)
     float y_pos = 0.0;
     float z_pos = 0.0;
 
-    float ratio = 1.0;
+    float ratio = 0.1;
 
 
     if (ROBOT_SPACE_DIMENSION > 0)
@@ -200,11 +200,11 @@ void visualisation_render()
 
 
     glClearColor(0.0, 0.0, 0.0, 0.0);
-
+ 
     switch (g_visualisation.view_state)
     {
         case 0:
-                glTranslatef(0.0, 0.0, -14.0);
+                glTranslatef(0.0, 0.0, -2.0);
                 glRotatef(0.0, 1.0, 0.0, 0.0);
                 break;
 
@@ -216,7 +216,7 @@ void visualisation_render()
                 break;
 
         case 2:
-                glTranslatef(0.0, -1.0, -18.5);
+                glTranslatef(0.0, -0.2, -2.5);
                 glRotatef(-70.0, 1.0, 0.0, 0.0);
                 glRotatef(g_visualisation.angle, 0.0, 0.0, 1.0);
                 g_visualisation.angle+= 0.4;
