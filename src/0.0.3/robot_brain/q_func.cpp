@@ -120,7 +120,7 @@ float CQFunc::get_q_value(u32 j, u32 i)
 void CQFunc::merge(class CQFunc *q_func)
 {
     u32 j, i;
-    
+
     for (j = 0; j < q_values.size(); j++)
         for (i = 0; i < q_values[j].size(); i++)
             q_values[j][i] = q_func->get_q_value(j, i);

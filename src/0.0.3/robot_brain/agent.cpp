@@ -38,8 +38,8 @@ CAgent::CAgent(struct sAgent agent_init, class CAgent *collective_agent)
 	float gamma = 0.7;
 	*/
 
-	float alpha = 0.8; //98;
-	float gamma = 0.95;
+	float alpha = 0.7; ///0.8; //98;
+	float gamma = 0.9; //0.95;
 
 	std::vector<std::vector<float>> action_init;
 
@@ -140,6 +140,15 @@ void CAgent::process(struct sAgent *agent_)
 	*agent_ = agent;
 }
 
+void CAgent::reset(struct sAgent *agent_)
+{
+	agent = *agent_;
+
+	agent.reward = 0.0;
+	agent.score = 0.0;
+
+	*agent_ = agent;
+}
 
 //agent output
 struct sAction CAgent::get_action()
@@ -210,6 +219,8 @@ void CAgent::print(std::vector<float> subspace)
 	}
 
 	log.save();
+
+	q_learning->save("file.txt");
 
 
 	printf("TMP %f\n", tmp);

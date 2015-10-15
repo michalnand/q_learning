@@ -42,12 +42,16 @@ CQLearning::CQLearning(
 	#ifdef Q_FUNC_NN
 	q_func = new CQFuncNN(state_dimensions, actions->get_action_size(), states_density, actions_density, alpha);
 	#else
+	#ifdef Q_FUNC_ENN
+	q_func = new CQFuncENN(state_dimensions, actions->get_action_size(), states_density, actions_density, alpha);
+	#else
 	#ifdef Q_FUNC_KNN
 	q_func = new CQFuncKNN(state_dimensions, actions->get_action_size(), states_density, actions_density, alpha);
 	#else
 	q_func = new CQFunc(state_dimensions, actions->get_action_size(), states_density, actions_density, alpha);
 	#endif
-	#endif 
+	#endif
+	#endif
 
 	q_res_init(&q_res, state_dimensions, actions->get_action_size());
 	q_res_init(&q_res_prev, state_dimensions, actions->get_action_size());
@@ -72,7 +76,9 @@ void CQLearning::process(std::vector<float> state, float reward, float k, float 
 	q_res.reward = reward;
 	q_res.q_max = get_max_q(q_res.state);
 
-	float tmp = q_res_prev.reward + gamma*q_res.q_max;
+	// float tmp = sin(10.0*q_res.state[0])*cos(10.0*q_res.state[1]);
+
+	float tmp =  q_res_prev.reward  + gamma*q_res.q_max;
 
 	/*
 	// erase the 6th element
@@ -188,6 +194,12 @@ class CQFuncNN* CQLearning::get_func()
 	return q_func;
 }
 #else
+#ifdef Q_FUNC_ENN
+class CQFuncENN* CQLearning::get_func()
+{
+	return q_func;
+}
+#else
 #ifdef Q_FUNC_KNN
 class CQFuncKNN* CQLearning::get_func()
 {
@@ -200,8 +212,15 @@ class CQFunc* CQLearning::get_func()
 }
 #endif
 #endif
+#endif
 
 void CQLearning::merge(CQLearning *q_learning)
 {
 	q_func->merge(q_learning->get_func());
+}
+
+
+void CQLearning::save(char *file_name)
+{
+	q_func->save(file_name);
 }

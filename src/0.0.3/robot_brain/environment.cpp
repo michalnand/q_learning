@@ -13,7 +13,7 @@ CEnvironment::CEnvironment(u32 agents_count, class CAgent *collective_agent, boo
  	u32 agent_inputs_count = 2;
  	u32 actions_per_state = 4;
 
- 	state_density = 1.0/20.0;
+ 	state_density = 1.0/8.0;
 
  	u32 id = 0;
  	u32 type = AGENT_TYPE_NULL;
@@ -29,9 +29,8 @@ CEnvironment::CEnvironment(u32 agents_count, class CAgent *collective_agent, boo
 
     map = new CMap(0, 0, 34, 19, 55.0, 55.0);
 
-    //if (map->load((char*)"map_targets.txt") == 0)
-    //if (map->load((char*)"q_learning_test_00.txt") == 0)
-    if (map->load((char*)"q_learning_test_01.txt") == 0)
+    if (map->load((char*)"q_learning_test_00.txt") == 0)
+    //if (map->load((char*)"q_learning_test_01.txt") == 0)
     {
         printf("map success loaded\n");
     }
@@ -61,6 +60,7 @@ CEnvironment::CEnvironment(u32 agents_count, class CAgent *collective_agent, boo
         if (visualisation_enabled)
             agent_init.type = AGENT_TYPE_GREEDY;
         else
+
         agent_init.type = AGENT_TYPE_EXPLORER;
         //agent_init.type = AGENT_TYPE_COMMON;
         //agent_init.type = AGENT_TYPE_GREEDY;
@@ -128,8 +128,8 @@ CEnvironment::CEnvironment(u32 agents_count, class CAgent *collective_agent, boo
         g_visualisation.base_size = VISUALISATION_ROBOT_SIZE;
 
 
-        g_visualisation.position_max_x = map->get_width()/2.0;;
-        g_visualisation.position_max_y = map->get_height()/2.0;;
+        g_visualisation.position_max_x = map->get_width()/2.0;
+        g_visualisation.position_max_y = map->get_height()/2.0;
         g_visualisation.position_max_z = 2.0;
 
         visualisation_init();
@@ -231,7 +231,7 @@ void CEnvironment::process()
 
 	for (j = 0; j < agents.size(); j++)
 	{
-		float target_min_dist = s_agents[j].state_density*1.5;
+		float target_min_dist = s_agents[j].state_density*3.0;
 
 		float target_dist  = abs_(target_position[0] - s_agents[j].state[0]) +
                              abs_(target_position[1] - s_agents[j].state[1]);
@@ -344,27 +344,19 @@ void CEnvironment::respawn(struct sAgent *agent)
     while (map->get_at_normalised(agent->state[0], agent->state[1]).type != 0);
 
 	agent->score = 0.0;
+
+    agent->reward = 0.0;
 }
 
 float CEnvironment::colision(u32 id)
 {
-    u32 i, j;
-    float sum_min = ROBOT_SPACE_DIMENSION*1000.0;
+    std::vector<float> tmp;
+    u32 i;
 
-/*
-    for (j = 0; j < robots.size(); j++)
-        if ((j != id) && (robots[id].type != robots[j].type))
-        {
-            float sum = 0.0;
-            for (i = 0; i < ROBOT_SPACE_DIMENSION; i++)
-                sum+= pow(robots[id].position[i] - robots[j].position[i], 2.0);
-            sum = pow(sum, 0.5);
+    for ( i = 0; i < ROBOT_SPACE_DIMENSION; i++)
+        tmp.push_back(robots[id].position[i]);
 
-            if (sum < sum_min)
-                sum_min = sum;
-        }
-*/
-    return sum_min;
+    return colision_from_point(id, tmp);
 }
 
 float CEnvironment::colision_from_point(u32 id, std::vector<float> point)
@@ -372,7 +364,8 @@ float CEnvironment::colision_from_point(u32 id, std::vector<float> point)
     u32 i, j;
     float sum_min = ROBOT_SPACE_DIMENSION*1000.0;
 
-/*
+    return sum_min;
+
     for (j = 0; j < robots.size(); j++)
         if ((j != id) && (robots[id].type != robots[j].type))
         {
@@ -384,6 +377,6 @@ float CEnvironment::colision_from_point(u32 id, std::vector<float> point)
             if (sum < sum_min)
                 sum_min = sum;
         }
-*/
+
     return sum_min;
 }

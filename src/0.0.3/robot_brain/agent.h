@@ -62,7 +62,7 @@ class CAgent
 		void reset(struct sAgent *agent_);
 
 		//get output
-		struct sAction get_action();
+		struct sAction get_action(); 
 
 		//merging functions
 		#ifdef Q_LEARNING_NN

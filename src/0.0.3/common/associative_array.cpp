@@ -19,10 +19,10 @@ CAssociativeArray::CAssociativeArray(u32 dimensions, float density)
 			if (tmp[i] >= 1.0)
 			{
 				tmp[i] = -1.0;
-				tmp[i+1]+= density;
+	 			tmp[i+1]+= density;
 			}
 	}
-		while (tmp[dimensions-1] < 1.0);
+	while (tmp[dimensions-1] < 1.0);
 }
 
 CAssociativeArray::~CAssociativeArray()
