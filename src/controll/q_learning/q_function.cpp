@@ -9,9 +9,9 @@ CQfunction::CQfunction(u32 state_vector_size, u32 action_vector_size, float alph
     state_idx = 0;
     action_idx = 0;
 
-    u32 state_neurons_count = 16;
-    u32 action_neurons_count = 16;
-    float eta = 0.01;
+    u32 state_neurons_count = 1000;
+    u32 action_neurons_count = 8;
+    float eta = 0.001;
 
     struct sKohonenNeuralNetworkInitStructure knn_init;
 

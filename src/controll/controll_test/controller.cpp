@@ -8,13 +8,13 @@ CController::CController(float dt)
     this->dt  = dt;
 
     float state_density = 1.0/100.0;
-    u32 state_dimensions = 1;
+    u32 state_dimensions = 3;
     u32 actions_per_state = 8;
 
     u32 outputs_count = 1;
 
     float gamma = 0.9;
-    float alpha = 0.8;
+    float alpha = 0.98;
 
 
     u32 j, i;
@@ -52,24 +52,33 @@ void CController::reset()
 
 void CController::process(float required_value, float plant_output, bool explore)
 {
-    reward = 1.0 - abs_(tanh(required_value - plant_output));
+    float error = required_value - plant_output;
+
+    float f = 0.7;
+    reward = f*reward + (1.0 - f)*pow(4.0, 1.0 - abs_(tanh(error)));
 
     reward_sum+= reward;
 
-    //state[2] = state[1];
-    //state[1] = state[0];
-    state[0] = tanh( (required_value - plant_output));
 
-    q_learning->process(state, reward, 1.0);
+
+    state[2] = state[1];
+    state[1] = state[0];
+    //state[0] = sgn(error)*pow(2.0, tanh( error / 2.0));
+    state[0] = tanh(error);
+
+    q_learning->process(state, reward, 1.1);
 
     /*
+    float res = 0.0;
+
     if (abs_(state[0]) < 0.1)
-        action_id = 1;
+        res = 0.0;
     else
     if (state[0] > 0)
-        action_id = 2;
+        res = 1.0;
     else
-        action_id = 0;
+        res = -1.0;
+
     */
 
     q_max = q_learning->get_max_q(state);
@@ -81,8 +90,9 @@ void CController::process(float required_value, float plant_output, bool explore
     else
         action = q_learning->select_best_action();
 
+
     float limit = 2.0;
-    output = 2.0*action[0];
+    output = action[0];
 
     if (output > limit)
         output = limit;
