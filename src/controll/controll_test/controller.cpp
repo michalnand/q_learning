@@ -64,7 +64,8 @@ void CController::process(float required_value, float plant_output, bool explore
     state[2] = state[1];
     state[1] = state[0];
     //state[0] = sgn(error)*pow(2.0, tanh( error / 2.0));
-    state[0] = tanh(error);
+    state[0] = sgn(error)*log(tanh(abs_(error)) + 0.01);
+    //state[0] = tanh(error);
 
     q_learning->process(state, reward, 1.1);
 
@@ -92,6 +93,7 @@ void CController::process(float required_value, float plant_output, bool explore
 
 
     float limit = 2.0;
+    
     output = action[0];
 
     if (output > limit)

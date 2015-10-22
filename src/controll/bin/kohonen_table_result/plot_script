@@ -1,0 +1,33 @@
+set   autoscale                        # scale axes automatically
+unset log                              # remove any log-scaling
+unset label                            # remove any previous labels
+set xtic auto                         	# set xtics automatically
+set ytic auto                         # set ytics automatically
+set ztic auto
+
+
+
+set grid ytics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set grid xtics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set terminal png size 1024,768 enhanced font "Helvetica,20"
+
+
+set label
+
+set xlabel "sample"
+set ylabel "value"
+
+
+#set key below
+
+set output 'response_log.png'
+plot 'response_log.txt' using 1 title "required output" with line lw 2.0,\
+    'response_log.txt' using 2 title "plant output" with line lw 2.0, \
+    'response_log.txt' using 3 title "controller output" with line, \
+    'response_log.txt' using 4 title "reward" with line, \
+    'response_log.txt' using 5 title "error" with line
+
+set output 'q_log.png'
+plot 'q_log.txt' using 1 title "q max" with line ,\
+    'q_log.txt' using 2 title "q state" with line ,\
+    'q_log.txt' using 3 title "reward" with line
