@@ -1,0 +1,10 @@
+\frametitle{\bf Nevyriešené otázky}
+
+    ... ktorými sa momentálne zaoberám
+
+\begin{enumerate}
+\item{Zrýchliť učenie neurónovej siete}
+\item{Urobiť experiment vo veľkom stavovom priestore}
+    \item{Implementácia do vyvíjaného multirobotického frameworku}
+\end{enumerate}
+
