@@ -1,0 +1,5 @@
+./main.elf
+
+cd results
+./plot
+cd ..

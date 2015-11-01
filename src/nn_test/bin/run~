@@ -1,0 +1,9 @@
+cd results
+./clean
+cd ..
+
+./main.elf
+
+cd results
+./plot
+cd ..
