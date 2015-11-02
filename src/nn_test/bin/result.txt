@@ -1,0 +1,505 @@
+***********************************************************
+processing experiment 0 0 : 
+results saved into results/linear_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.230235 Emax = 3.000000 Emin = 0.000012
+***********************************************************
+
+
+***********************************************************
+processing experiment 0 1 : 
+results saved into results/linear_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.260611 Emax = 2.291222 Emin = 0.000001
+***********************************************************
+
+
+***********************************************************
+processing experiment 0 2 : 
+results saved into results/linear_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.245326 Emax = 3.031250 Emin = 0.000006
+***********************************************************
+
+
+***********************************************************
+processing experiment 0 3 : 
+results saved into results/linear_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.372519 Emax = 2.748824 Emin = 0.000002
+***********************************************************
+
+
+***********************************************************
+processing experiment 0 4 : 
+results saved into results/linear_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.256961 Emax = 2.390618 Emin = 0.000001
+***********************************************************
+
+
+***********************************************************
+processing experiment 0 5 : 
+results saved into results/linear_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.325700 Emax = 2.018794 Emin = 0.000005
+***********************************************************
+
+
+***********************************************************
+processing experiment 0 6 : 
+results saved into results/linear_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.481878 Emax = 3.632612 Emin = 0.000007
+***********************************************************
+
+
+***********************************************************
+processing experiment 0 7 : 
+results saved into results/linear_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.225755 Emax = 2.154628 Emin = 0.000001
+***********************************************************
+
+
+***********************************************************
+processing experiment 1 0 : 
+results saved into results/linear_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.138573 Emax = 3.312500 Emin = 0.000000
+***********************************************************
+
+
+***********************************************************
+processing experiment 1 1 : 
+results saved into results/linear_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.183003 Emax = 3.562500 Emin = 0.000001
+***********************************************************
+
+
+***********************************************************
+processing experiment 1 2 : 
+results saved into results/linear_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.153380 Emax = 4.875000 Emin = 0.000000
+***********************************************************
+
+
+***********************************************************
+processing experiment 1 3 : 
+results saved into results/linear_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.437444 Emax = 4.999690 Emin = 0.000001
+***********************************************************
+
+
+***********************************************************
+processing experiment 1 4 : 
+results saved into results/linear_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.178944 Emax = 4.306434 Emin = 0.000003
+***********************************************************
+
+
+***********************************************************
+processing experiment 1 5 : 
+results saved into results/linear_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.321319 Emax = 4.108404 Emin = 0.000003
+***********************************************************
+
+
+***********************************************************
+processing experiment 1 6 : 
+results saved into results/linear_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.548500 Emax = 3.245502 Emin = 0.000001
+***********************************************************
+
+
+***********************************************************
+processing experiment 1 7 : 
+results saved into results/linear_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 0
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.113394 Emax = 3.439301 Emin = 0.000001
+***********************************************************
+
+
+***********************************************************
+processing experiment 2 0 : 
+results saved into results/mcculloch_pitts_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.081749 Emax = 0.800394 Emin = 0.000001
+***********************************************************
+
+
+***********************************************************
+processing experiment 2 1 : 
+results saved into results/mcculloch_pitts_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.080564 Emax = 0.613670 Emin = 0.000001
+***********************************************************
+
+
+***********************************************************
+processing experiment 2 2 : 
+results saved into results/mcculloch_pitts_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.077891 Emax = 0.856652 Emin = 0.000001
+***********************************************************
+
+
+***********************************************************
+processing experiment 2 3 : 
+results saved into results/mcculloch_pitts_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.307676 Emax = 1.823493 Emin = 0.000001
+***********************************************************
+
+
+***********************************************************
+processing experiment 2 4 : 
+results saved into results/mcculloch_pitts_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.107050 Emax = 0.815622 Emin = 0.000001
+***********************************************************
+
+
+***********************************************************
+processing experiment 2 5 : 
+results saved into results/mcculloch_pitts_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.217211 Emax = 1.189781 Emin = 0.000005
+***********************************************************
+
+
+***********************************************************
+processing experiment 2 6 : 
+results saved into results/mcculloch_pitts_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.418701 Emax = 1.967746 Emin = 0.000000
+***********************************************************
+
+
+***********************************************************
+processing experiment 2 7 : 
+results saved into results/mcculloch_pitts_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.058083 Emax = 0.649007 Emin = 0.000000
+***********************************************************
+
+
+***********************************************************
+processing experiment 3 0 : 
+results saved into results/mcculloch_pitts_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.149370 Emax = 1.990945 Emin = 0.000002
+***********************************************************
+
+
+***********************************************************
+processing experiment 3 1 : 
+results saved into results/mcculloch_pitts_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.154886 Emax = 1.880257 Emin = 0.000004
+***********************************************************
+
+
+***********************************************************
+processing experiment 3 2 : 
+results saved into results/mcculloch_pitts_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.140202 Emax = 1.256570 Emin = 0.000003
+***********************************************************
+
+
+***********************************************************
+processing experiment 3 3 : 
+results saved into results/mcculloch_pitts_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.394298 Emax = 1.940726 Emin = 0.000003
+***********************************************************
+
+
+***********************************************************
+processing experiment 3 4 : 
+results saved into results/mcculloch_pitts_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.139119 Emax = 1.586658 Emin = 0.000008
+***********************************************************
+
+
+***********************************************************
+processing experiment 3 5 : 
+results saved into results/mcculloch_pitts_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.286792 Emax = 1.498905 Emin = 0.000010
+***********************************************************
+
+
+***********************************************************
+processing experiment 3 6 : 
+results saved into results/mcculloch_pitts_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.488791 Emax = 1.998420 Emin = 0.000000
+***********************************************************
+
+
+***********************************************************
+processing experiment 3 7 : 
+results saved into results/mcculloch_pitts_neuron_2_layers/
+    network configuration : 3 32 32 1 
+    neuron_type 1
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.093317 Emax = 1.967650 Emin = 0.000000
+***********************************************************
+
+
+***********************************************************
+processing experiment 4 0 : 
+results saved into results/testing_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 2
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.058742 Emax = 0.744926 Emin = 0.000000
+***********************************************************
+
+
+***********************************************************
+processing experiment 4 1 : 
+results saved into results/testing_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 2
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.062333 Emax = 0.525309 Emin = 0.000000
+***********************************************************
+
+
+***********************************************************
+processing experiment 4 2 : 
+results saved into results/testing_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 2
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.057445 Emax = 0.832596 Emin = 0.000001
+***********************************************************
+
+
+***********************************************************
+processing experiment 4 3 : 
+results saved into results/testing_neuron_1_layer/
+    network configuration : 3 32 1 
+    neuron_type 2
+    weight_range 4.000000
+    init_weight_range 1.000000
+    learning_constant 0.001000
+    output_limit 4.000000
+    iterations 100000
+  result : Eav = 0.089201 Emax = 1.213336 Emin = 0.000000
+***********************************************************
+
+
+********

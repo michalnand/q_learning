@@ -20,8 +20,8 @@ class CNNTest
 
         void process();
 
-        void process_test(char *result_path, u32 id);
-        void process_single_test(u32 id, bool log_enabled, char *log_path);
+        void process_test(char *result_path, u32 id, u32 type);
+        void process_single_test(u32 id, bool log_enabled, char *log_path, u32 type);
 
     private:
 

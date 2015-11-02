@@ -15,46 +15,70 @@ CNNTest::~CNNTest()
 
 void CNNTest::process()
 {
-    u32 i;
+    u32 i, j;
 
- // char result_path[] = "results/mcculloch_pitts_neuron_1_layer/";
- // char result_path[] = "results/mcculloch_pitts_neuron_2_layers/";
-  //char result_path[] = "results/testing_neuron_1_layer/";
+    char result_path_0[] = "results/linear_neuron_1_layer/";
+    char result_path_1[] = "results/linear_neuron_2_layers/";
+    char result_path_2[] = "results/mcculloch_pitts_neuron_1_layer/";
+    char result_path_3[] = "results/mcculloch_pitts_neuron_2_layers/";
 
-  char result_path[] = "results/mcculloch_pitts_neuron_kohonen_1_layer/";
-  //char result_path[] = "results/testing_neuron_kohonen_1_layer/";
+    char result_path_4[] = "results/testing_neuron_1_layer/";
+    char result_path_5[] = "results/testing_neuron_2_layers/";
 
+    char result_path_6[] = "results/mcculloch_pitts_neuron_kohonen_1_layer/";
+    char result_path_7[] = "results/testing_neuron_kohonen_1_layer/";
 
     char log_file_name[1024];
 
-    sprintf(log_file_name, "%ssummary_result_log.txt", result_path);
-    class CLog *summary_result_log;
-    summary_result_log = new CLog(log_file_name, 3);
 
-    experiment_result.error_average = 0.0;
-    experiment_result.error_max = 0.0;
-    experiment_result.error_min = 0.0;
 
-   for (i = 0; i < 8; i++)
-    //i = 2;
+    for (j = 0; j < 6; j++)
     {
-        printf("processing experiment %u\n", i);
-        process_test(result_path, i);
+        char *result_path;
+        switch (j)
+        {
+            case 0: result_path = result_path_0;  break;
+            case 1: result_path = result_path_1;  break;
+            case 2: result_path = result_path_2;  break;
+            case 3: result_path = result_path_3;  break;
+            case 4: result_path = result_path_4;  break;
+            case 5: result_path = result_path_5;  break;
+            default : result_path = NULL;
+        }
 
-        printf("  result : %f %f %f\n", experiment_result.error_average,  experiment_result.error_max,  experiment_result.error_min);
+        sprintf(log_file_name, "%ssummary_result_log.txt", result_path);
+        class CLog *summary_result_log;
+        summary_result_log = new CLog(log_file_name, 3);
 
-        summary_result_log->add(0, experiment_result.error_average);
-        summary_result_log->add(1, experiment_result.error_max);
-        summary_result_log->add(2, experiment_result.error_min);
+        experiment_result.error_average = 0.0;
+        experiment_result.error_max = 0.0;
+        experiment_result.error_min = 0.0;
+
+        for (i = 0; i < 8; i++)
+        {
+            printf("***********************************************************\n");
+            printf("processing experiment %u %u : \n", j, i);
+            printf("results saved into %s\n", result_path);
+
+            process_test(result_path, i, j);
+
+            printf("  result : Eav = %f Emax = %f Emin = %f\n", experiment_result.error_average,  experiment_result.error_max,  experiment_result.error_min);
+            printf("***********************************************************\n\n\n");
+
+            summary_result_log->add(0, experiment_result.error_average);
+            summary_result_log->add(1, experiment_result.error_max);
+            summary_result_log->add(2, experiment_result.error_min);
+        }
+
+
+        //printf("save to >%s\n", );
+        summary_result_log->save();
+        delete summary_result_log;
     }
-
-    //printf("save to >%s\n", );
-    summary_result_log->save();
-    delete summary_result_log;
 }
 
 
-void CNNTest::process_test(char *result_path, u32 id)
+void CNNTest::process_test(char *result_path, u32 id, u32 type)
 {
     u32 k;
     u32 tests_count = 30;
@@ -76,7 +100,7 @@ void CNNTest::process_test(char *result_path, u32 id)
 
     for (k = 0; k < tests_count; k++)
     {
-        process_single_test(id, false, log_file_name_tmp);
+        process_single_test(id, false, log_file_name_tmp, type);
 
         log->add(0, test_result.error_average);
         log->add(1, test_result.error_max);
@@ -96,12 +120,12 @@ void CNNTest::process_test(char *result_path, u32 id)
     log->save();
 
 
-    process_single_test(id, true, log_file_name_tmp);
+    process_single_test(id, true, log_file_name_tmp, type);
 }
 
 
 
-void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path)
+void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path, u32 type)
 {
     srand(time(NULL));
 
@@ -114,7 +138,7 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path)
 
     struct KNNLayerInitStructure knn_init;
 
-    knn_init.neurons_count = 32;
+    knn_init.neurons_count = 8;
     knn_init.inputs_count = input.size();
 
     knn_init.weight_range = 1.0;
@@ -128,34 +152,100 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path)
     struct sNNInitStruct nn_init;
 
 
+    u32 input_size = input.size();
+    u32 hidden_neurons_count = 32;
 
 
+    switch (type&255)
+    {
+        case 0:
+                    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_LINEAR;
 
-    nn_init.init_vector.push_back(knn_init.neurons_count + 1); //input.size());
-    //nn_init.init_vector.push_back(input.size());
-    nn_init.init_vector.push_back(32);
-   // nn_init.init_vector.push_back(32);
-    nn_init.init_vector.push_back(required_output.size());
+                    nn_init.init_vector.push_back(input_size);
+                    nn_init.init_vector.push_back(hidden_neurons_count);
+                    nn_init.init_vector.push_back(required_output.size());
+
+                    break;
+
+        case 1:
+                    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_LINEAR;
+
+                    nn_init.init_vector.push_back(input_size);
+                    nn_init.init_vector.push_back(hidden_neurons_count);
+                    nn_init.init_vector.push_back(hidden_neurons_count);
+                    nn_init.init_vector.push_back(required_output.size());
+
+                    break;
+
+        case 2:
+                    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_TANH;
+
+                    nn_init.init_vector.push_back(input_size);
+                    nn_init.init_vector.push_back(hidden_neurons_count);
+                    nn_init.init_vector.push_back(required_output.size());
+
+                    break;
+        case 3:
+                    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_TANH;
+
+                    nn_init.init_vector.push_back(input_size);
+                    nn_init.init_vector.push_back(hidden_neurons_count);
+                    nn_init.init_vector.push_back(hidden_neurons_count);
+                    nn_init.init_vector.push_back(required_output.size());
+
+                    break;
+
+
+        case 4:
+                    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_INTERSYNAPTICS;
+
+                    nn_init.init_vector.push_back(input_size);
+                    nn_init.init_vector.push_back(hidden_neurons_count);
+                    nn_init.init_vector.push_back(required_output.size());
+                    break;
+
+        case 5:
+                    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_INTERSYNAPTICS;
+
+                    nn_init.init_vector.push_back(input_size);
+                    nn_init.init_vector.push_back(hidden_neurons_count);
+                    nn_init.init_vector.push_back(hidden_neurons_count);
+                    nn_init.init_vector.push_back(required_output.size());
+
+                    break;
+    }
 
     nn_init.weight_range = 4.0;
     nn_init.init_weight_range = nn_init.weight_range*0.25;
     nn_init.learning_constant = 1.0/1000.0;
     nn_init.output_limit = 4.0;
-
-     nn_init.neuron_type = NN_LAYER_NEURON_TYPE_TANH;
-
-    //nn_init.neuron_type = NN_LAYER_NEURON_TYPE_INTERSYNAPTICS;
-
     nn_init.order = 5;
 
     u32 iterations = 100000;
+
+    u32 k;
+
+    if (log_enabled)
+    {
+        printf("    network configuration : ");
+        for (k = 0; k < nn_init.init_vector.size(); k++)
+            printf("%u ", nn_init.init_vector[k]);
+
+        printf("\n");
+
+        printf("    neuron_type %u\n", nn_init.neuron_type);
+        printf("    weight_range %f\n", nn_init.weight_range);
+        printf("    init_weight_range %f\n", nn_init.init_weight_range);
+        printf("    learning_constant %f\n", nn_init.learning_constant);
+        printf("    output_limit %f\n", nn_init.output_limit);
+        printf("    iterations %u\n",iterations);
+    }
 
 
     class CNN *nn;
 
     nn = new CNN(nn_init);
 
-    u32 k;
 
     std::vector<float> nn_input;
 
@@ -164,18 +254,19 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path)
   		input = get_input(rnd(), rnd());
   		required_output = get_required_output(input, id);
 
-      knn->process(input);
-      knn->learn();
+        //knn->process(input);
+        //knn->learn();
 
-      //nn_input = input;
-      nn_input = knn->get_output();
-      nn_input.push_back(1.0);
+        nn_input = input;
+        //nn_input = knn->get_output();
+        //nn_input.push_back(1.0);
 
-      nn->process(nn_input);
+        nn->process(nn_input);
 
   		nn_output = nn->get();
 
-  		nn->learn(required_output);
+        //if (k > iterations*0.1)
+  		    nn->learn(required_output);
   	}
 
     float dt = 1.0/32.0;
@@ -221,11 +312,11 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path)
 		input = get_input(x, y);
 		required_output = get_required_output(input, id);
 
-    knn->process(input);
+        knn->process(input);
 
-    //nn_input = input;
-    nn_input = knn->get_output();
-    nn_input.push_back(1.0);
+        nn_input = input;
+        //nn_input = knn->get_output();
+        //nn_input.push_back(1.0);
 
 		nn->process(nn_input);
 
