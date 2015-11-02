@@ -81,7 +81,7 @@ void CNNTest::process()
 void CNNTest::process_test(char *result_path, u32 id, u32 type)
 {
     u32 k;
-    u32 tests_count = 30;
+    u32 tests_count = 100; //30;
 
     char log_file_name_tmp[1024];
     char log_file_name[1024];

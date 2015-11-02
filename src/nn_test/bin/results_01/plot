@@ -1,0 +1,38 @@
+gnuplot plot_script_summary_all
+
+
+cd linear_neuron_1_layer
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..
+
+cd linear_neuron_2_layers
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..
+
+cd mcculloch_pitts_neuron_1_layer
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..
+
+cd mcculloch_pitts_neuron_2_layers
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..
+
+cd testing_neuron_1_layer
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..
+
+cd testing_neuron_2_layers
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..

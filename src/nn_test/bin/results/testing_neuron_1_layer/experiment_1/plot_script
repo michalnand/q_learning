@@ -34,6 +34,8 @@ set surface
 
 set autoscale
 
+# set pm3d at b
+
 set output 'result_log_required_output.png'
 splot "result_log.txt" using 1:2:4 title "required output"  with pm3d
 

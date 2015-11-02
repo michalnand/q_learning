@@ -19,7 +19,7 @@ cp null testing_neuron_2_layers -r
 cd ..
 
 
-./main.elf > result.txt
+./main.elf > results/result.txt
 
 cd results
 ./plot
