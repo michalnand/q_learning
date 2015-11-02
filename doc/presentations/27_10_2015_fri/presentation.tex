@@ -52,7 +52,7 @@
                 morecomment=[l][\color{magenta}]{\#}}
 
 %-------------------------------------------------------------------------------------
-\title{\bf Q learning - aproximácia funkcie ohodnotení neurónovou sieťou}
+\title{\bf Aproximácia funkcie ohodnotení v algoritmoch Q-learning neurónovou sieťou}
 \author{Michal CHOVANEC \\Fakulta riadenia a informatiky}
 
 \date[EURP]{\it Október 2015}
@@ -81,55 +81,9 @@ Cieľom je nájsť optimálnu stratégiu - maximalizácia odmeny (účelovej fun
 \end{frame}
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Úvod}
-
-Aplikácie zo sveta robotických sytémov
-
-\begin{itemize}
-\item{Učenie sa pohybu, s ohľadom na techické prostriedky a terén}
-\item{Multirobotické plánovanie - hľadanie optimálneho rozhodnutia pre celú skupinu}
-    \begin{itemize}
-    \item{Mapovanie}
-    \item{Hľadanie cieľa}
-    \item{Robotický futbal}
-    \item{Capture the flag}
-    \end{itemize}
-\item{Optimalizácia v automatických dopravných systémov}
-    \begin{itemize}
-    \item{Dať prednosť, alebo predbehnúť}
-    \item{Kedy ísť zobrať náklad, predikcia}
-    \end{itemize}
-\item{Všetky problémy kde : ako niečo urobiť je zložité popísať}
-    \begin{itemize}
-    \item{Systém si učením sám nájde postup ako niečo robiť}
-    \item{Vyžaduje sa adaptivita a samostatnosť}
-    \end{itemize}
-\end{itemize}
-
-\end{frame}
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q learning}
-
-\begin{itemize}
-\item{$Q(s, a)$ - funkcia ohodnotení}
-\item{$s$ - stav}
-\item{$a$ - akcia v stave $s$}
-\item{$R(s, a)$ - funkcia okamžitých odmien, za vykonanie $a$ v stave $s$}
-\end{itemize}
-
-\begin{eqnarray}
-\label{eq:state_action_set}
-	s   &\in \mathbb{S}  \nonumber \\
-    a_s &\in \mathbb{A}_s \nonumber
-\end{eqnarray}
-\end{frame}
-
-
-%-------------------------------------------------------------------------------------
 \begin{frame}{\bf Q learning - prechod stavovým priestorom}
 
-Markovov rozhodovací proces
+%Markovov rozhodovací proces
 
 \begin{figure}[ht]
 \begin{center}
@@ -138,7 +92,6 @@ Markovov rozhodovací proces
 \end{figure}
 
 \end{frame}
-
 
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Q learning - ohodnotenie Q(s, a)}
@@ -152,10 +105,10 @@ Kde \\
 $R_{n+1}(s, a)$ je získaná odmena (reward) za vykonanie akcie $a$ v stave $s$ v čase
 $n+1$ \\
 \bigskip
-$\max_{a'} Q_n(s_{n+1}', a')$ je výber akcie v stave $s_{n+1}$ ktorá má najväčšia odmenu \\
+$\max_{a'} Q_n(s_{n+1}', a')$ je výber akcie v stave $s_{n+1}$ ktorá má najväčšiu odmenu \\
 \bigskip
 $\gamma$ je podiel z maximálnej odmeny v stave $s_{n+1}'$ pri vykonaní najlepšej
-možnej akcie v tomto stave \\
+možnej akcie v tomto stave
 
 \end{frame}
 
@@ -202,31 +155,6 @@ možno pozorovať tieto druhy správania
 \end{itemize}
 
 \end{frame}
-
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q learning - problémy}
-
-\begin{itemize}
-\item{Rosiahly stavový priestor, $Q(s, a)$ je možné nájsť len približne}
-
-    \begin{itemize}
-    \item{Interpolácia}
-    \item{Transformácia pomocou features a ich lineárna kombinácia}
-    \item{Aproximácia neurónovou sieťou}
-    \end{itemize}
-
-\item{Výber akcie}
-    \begin{itemize}
-    \item{Tak aby neboli prehľadávané akcie ktoré nemajú cenu}
-    \end{itemize}
-
-\item{Zdieľanie a syntéza $Q(s, a)$ medzi viacerími agentami}
-
-\end{itemize}
-
-\end{frame}
-
 
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Experiment}
@@ -409,14 +337,6 @@ eta = 0.001
 \end{columns}
 
 \end{frame}
-
-
-
-
-
-
-
-
 
 
 %-------------------------------------------------------------------------------------
@@ -612,15 +532,20 @@ eta = 0.001
 %-------------------------------------------------------------------------------------
 \begin{frame}[fragile]{\bf Experiment - zhrnutie}
 
-\begin{figure}[ht]
 \begin{center}
-\begin{minipage}{0.8\linewidth}
-\begin{center}
-  \includegraphics[width=1.0\textwidth]{comparsion.png}
+  \begin{tabular}{ l | c | r }
+    \hline
+    \hline
+    Neurón & k & chyba $\sum|Q_o(s,a) - Q(s,a)|$\\ \hline
+    McCulloch Pitts & 1.1 & 95 \\ \hline
+    Testing & 1.1 & 37 \\ \hline
+    McCulloch Pitts & 2.0 & 110 \\ \hline
+    Testing & 2.0 & 50 \\ \hline
+    McCulloch Pitts & 10.0 & 79 \\ \hline
+    Testing & 10.0 & 69 \\ \hline
+    \hline
+  \end{tabular}
 \end{center}
-\end{minipage}
-\end{center}
-\end{figure}
 
 \end{frame}
 
@@ -718,19 +643,6 @@ eta = 0.001
 
     	\end{column}
     \end{columns}
-
-\end{frame}
-
-%-------------------------------------------------------------------------------------
-\begin{frame}[fragile]{\bf Nevyriešené otázky}
-
-    ... ktorými sa momentálne zaoberám
-
-	\begin{enumerate}
-	\item{Zrýchliť učenie neurónovej siete}
-	\item{Urobiť experiment vo veľkom stavovom priestore}
-    \item{Implementácia do vyvíjaného multirobotického frameworku}
-	\end{enumerate}
 
 \end{frame}
 

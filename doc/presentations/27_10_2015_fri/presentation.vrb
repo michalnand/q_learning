@@ -1,10 +1,27 @@
-\frametitle{\bf Nevyriešené otázky}
+\frametitle{\bf Prebiehajúci experiment - učiaci sa regulačný systém}
 
-    ... ktorými sa momentálne zaoberám
+    \begin{columns}
+     \begin{column}{0.5\textwidth}
 
-\begin{enumerate}
-\item{Zrýchliť učenie neurónovej siete}
-\item{Urobiť experiment vo veľkom stavovom priestore}
-    \item{Implementácia do vyvíjaného multirobotického frameworku}
-\end{enumerate}
+            \begin{figure}[ht]
+
+            \begin{center}
+            \includegraphics[width=1.0\textwidth]{diagrams/controller.eps}
+            \end{center}
+
+            \end{figure}
+
+     \end{column}
+     \begin{column}{0.5\textwidth}
+
+            \begin{figure}[ht]
+
+            \begin{center}
+            \includegraphics[width=1.0\textwidth]{images/response_log.png}
+            \end{center}
+
+            \end{figure}
+
+     \end{column}
+    \end{columns}
 

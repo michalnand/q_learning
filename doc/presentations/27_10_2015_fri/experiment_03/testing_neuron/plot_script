@@ -38,10 +38,15 @@ set zlabel "Q max"
 set output 'q_map.png'
 splot 'q_map.txt' using 1:2:3 title "q learning result" with pm3d
 
-set zlabel "action id"
-set output 'q_action_id.png'
-splot 'q_action_id.txt' using 1:2:3 title "best action id" with pm3d
 
 set zlabel "action[0]"
 set output 'q_action.png'
 splot 'q_action.txt' using 1:2:3 title "best action" with pm3d
+
+
+#set view map
+set dgrid3d 32,32 qnorm 2
+
+set zlabel "action id"
+set output 'q_action_id.png'
+splot 'q_action_id.txt' using 1:2:3 title "best action id" with pm3d at bs

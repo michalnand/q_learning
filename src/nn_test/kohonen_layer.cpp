@@ -75,9 +75,9 @@ void CKohonenLayer::process(std::vector<float> input)
   {
     float sum = 0.0;
     for (i = 0; i < nn_init.inputs_count; i++)
-      sum+= (w[j][i] - input[i])*(w[j][i] - input[i]);
+      sum+= abs_(w[j][i] - input[i]);
 
-    sum = sqrt(sum)/(nn_init.inputs_count*sqrt(2.0));
+    sum = sum/(2.0*nn_init.inputs_count);
 
     if (sum < min_dist)
     {
@@ -101,7 +101,7 @@ void CKohonenLayer::learn()
     if (j != winning_neuron)
     {
       a = -1.0;
-      k = k/100.0;
+      k = k/10.0;
     }
 
     for (i = 0; i < nn_init.inputs_count; i++)

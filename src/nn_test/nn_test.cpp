@@ -17,11 +17,12 @@ void CNNTest::process()
 {
     u32 i;
 
-  //  char result_path[] = "results/mcculloch_pitts_neuron_1_layer/";
-//  char result_path[] = "results/mcculloch_pitts_neuron_2_layers/";
-  char result_path[] = "results/testing_neuron/";
+ // char result_path[] = "results/mcculloch_pitts_neuron_1_layer/";
+ // char result_path[] = "results/mcculloch_pitts_neuron_2_layers/";
+  //char result_path[] = "results/testing_neuron_1_layer/";
 
-  //char result_path[] = "results/mcculloch_pitts_neuron_kohonen_1_layer/";
+  char result_path[] = "results/mcculloch_pitts_neuron_kohonen_1_layer/";
+  //char result_path[] = "results/testing_neuron_kohonen_1_layer/";
 
 
     char log_file_name[1024];
@@ -34,7 +35,8 @@ void CNNTest::process()
     experiment_result.error_max = 0.0;
     experiment_result.error_min = 0.0;
 
-    for (i = 0; i < 8; i++)
+   for (i = 0; i < 8; i++)
+    //i = 2;
     {
         printf("processing experiment %u\n", i);
         process_test(result_path, i);
@@ -115,8 +117,6 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path)
     knn_init.neurons_count = 32;
     knn_init.inputs_count = input.size();
 
-
-
     knn_init.weight_range = 1.0;
     knn_init.learning_constant = 1.0/100.0;
     knn_init.output_limit = 1.0;
@@ -131,8 +131,8 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path)
 
 
 
-    //nn_init.init_vector.push_back(knn_init.neurons_count + 1); //input.size());
-    nn_init.init_vector.push_back(input.size());
+    nn_init.init_vector.push_back(knn_init.neurons_count + 1); //input.size());
+    //nn_init.init_vector.push_back(input.size());
     nn_init.init_vector.push_back(32);
    // nn_init.init_vector.push_back(32);
     nn_init.init_vector.push_back(required_output.size());
@@ -142,9 +142,9 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path)
     nn_init.learning_constant = 1.0/1000.0;
     nn_init.output_limit = 4.0;
 
-    //nn_init.neuron_type = NN_LAYER_NEURON_TYPE_TANH;
+     nn_init.neuron_type = NN_LAYER_NEURON_TYPE_TANH;
 
-    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_INTERSYNAPTICS;
+    //nn_init.neuron_type = NN_LAYER_NEURON_TYPE_INTERSYNAPTICS;
 
     nn_init.order = 5;
 
@@ -167,9 +167,9 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path)
       knn->process(input);
       knn->learn();
 
-      nn_input = input;
-      //nn_input = knn->get_output();
-      //nn_input.push_back(1.0);
+      //nn_input = input;
+      nn_input = knn->get_output();
+      nn_input.push_back(1.0);
 
       nn->process(nn_input);
 
@@ -223,9 +223,9 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path)
 
     knn->process(input);
 
-    nn_input = input;
-    //nn_input = knn->get_output();
-    //nn_input.push_back(1.0);
+    //nn_input = input;
+    nn_input = knn->get_output();
+    nn_input.push_back(1.0);
 
 		nn->process(nn_input);
 

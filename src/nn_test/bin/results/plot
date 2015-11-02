@@ -13,7 +13,7 @@ cp ../plot_script_summary .
 ./plot
 cd ..
 
-cd testing_neuron
+cd testing_neuron_1_layer
 cp ../plot_script .
 cp ../plot_script_summary .
 ./plot
@@ -21,6 +21,12 @@ cd ..
 
 
 cd mcculloch_pitts_neuron_kohonen_1_layer
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..
+
+cd testing_neuron_kohonen_1_layer
 cp ../plot_script .
 cp ../plot_script_summary .
 ./plot

@@ -23,14 +23,17 @@ set style fill solid border rgb "black"
 set ylabel "average error"
 
 set output 'summary_result_all_average_error_log.png'
-plot "mcculloch_pitts_neuron_1_layer/summary_result_log.txt" using 1 title "mcculloch pitts neuron 1 layer"  with histogram lw 2.0, \
-    "mcculloch_pitts_neuron_2_layers/summary_result_log.txt" using 1 title "mcculloch pitts neuron 2 layers"  with histogram lw 2.0, \
-    "testing_neuron/summary_result_log.txt" using 1 title "testing neuron"  with histogram lw 2.0
-
+plot "mcculloch_pitts_neuron_1_layer/summary_result_log.txt" using 1 title "mcculloch pitts neuron 1 hidden layer"  with histogram lw 2.0, \
+    "mcculloch_pitts_neuron_2_layers/summary_result_log.txt" using 1 title "mcculloch pitts neuron 2 hidden layers"  with histogram lw 2.0, \
+    "testing_neuron_1_layer/summary_result_log.txt" using 1 title "testing neuron 1 hidden layer"  with histogram lw 2.0, \
+    "mcculloch_pitts_neuron_kohonen_1_layer/summary_result_log.txt" using 1 title "hybrid network mcculloch pitts neuron 1 hidden layer"  with histogram lw 2.0, \
+    "testing_neuron_kohonen_1_layer/summary_result_log.txt" using 1 title "hybrid network testing neuron 1 hidden layer"  with histogram lw 2.0
 
 set ylabel "maixmum error"
 
 set output 'summary_result_all_maximum_error_log.png'
-plot "mcculloch_pitts_neuron_1_layer/summary_result_log.txt" using 2 title "mcculloch pitts neuron 1 layer"  with histogram lw 2.0, \
-        "mcculloch_pitts_neuron_2_layers/summary_result_log.txt" using 2 title "mcculloch pitts neuron 2 layers"  with histogram lw 2.0, \
-        "testing_neuron/summary_result_log.txt" using 2 title "testing neuron"  with histogram lw 2.0
+plot "mcculloch_pitts_neuron_1_layer/summary_result_log.txt" using 2 title "mcculloch pitts neuron 1 hidden layer"  with histogram lw 2.0, \
+        "mcculloch_pitts_neuron_2_layers/summary_result_log.txt" using 2 title "mcculloch pitts neuron 2 hidden layers"  with histogram lw 2.0, \
+        "testing_neuron_1_layer/summary_result_log.txt" using 2 title "testing neuron 1 hidden layer"  with histogram lw 2.0, \
+        "mcculloch_pitts_neuron_kohonen_1_layer/summary_result_log.txt" using 1 title "hybrid network mcculloch pitts neuron 1 hidden layer"  with histogram lw 2.0, \
+        "testing_neuron_kohonen_1_layer/summary_result_log.txt" using 1 title "hybrid network testing neuron 1 hidden layer"  with histogram lw 2.0

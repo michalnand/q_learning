@@ -52,7 +52,7 @@ void CNNLayer::init()
                 w[j][ptr++] = rnd()*nn_init.weight_range*nn_init.init_weight_range;
 
             for (i = 0; i < v_count; i++)
-                w[j][ptr++] = 0.01*rnd()*nn_init.weight_range*nn_init.init_weight_range;
+                w[j][ptr++] = 0.1*rnd()*nn_init.weight_range*nn_init.init_weight_range;
         }
     }
 
@@ -143,7 +143,9 @@ void CNNLayer::process(std::vector<float> input)
             u32 ptr = 0;
             for (i = 0; i < nn_init.inputs_count; i++)
             {
-                sum+= w[j][ptr++]*this->input[i];
+                sum+= w[j][ptr]*this->input[i];
+
+                ptr++;
 
                 for (k = i; k < nn_init.inputs_count; k++)
                     sum+= w[j][ptr++]*this->input[i]*this->input[k];
@@ -209,7 +211,8 @@ void CNNLayer::learn(std::vector<float> error)
 
                 for (k = i; k < nn_init.inputs_count; k++)
                 {
-                    w[j][ptr]+= 0.01*nn_init.learning_constant*error[j]*input[i]*input[k];
+                    w[j][ptr]+= nn_init.learning_constant*error[j]*input[i]*input[k];
+                    this->error[i]+= w[j][ptr]*error[j]*output[j]*(1.0 - output[j])*0.1;
                     ptr++;
                 }
             }
