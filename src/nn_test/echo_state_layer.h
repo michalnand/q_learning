@@ -1,5 +1,5 @@
-#ifndef _KOHONEN_LAYER_H_
-#define _KOHONEN_LAYER_H_
+#ifndef _ECHO_STATE_LAYER_H_
+#define _ECHO_STATE_LAYER_H_
 
 #include "common.h"
 
@@ -25,6 +25,7 @@ class CEchoStateLayer
 
             void init();
             void uninit();
+            void reset(bool random_state);
 
             std::vector<float> get_output();
 

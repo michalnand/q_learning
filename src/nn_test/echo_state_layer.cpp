@@ -30,9 +30,9 @@ void CEchoStateLayer::init()
       w[j] = (float*)malloc(w_i_size*sizeof(float));
       for (i = 0; i < w_i_size; i++)
       {
-          //non zero weights with connection_densisty probability
+          //non zero weights with connection_density probability
           if (abs_(rnd()) < nn_init.connection_densisty)
-            w[j][i] = rnd();
+            w[j][i] = rnd()*nn_init.weight_range;
           else
             w[j][i] = 0.0;
       }
@@ -63,6 +63,23 @@ void CEchoStateLayer::uninit()
   output.clear();
 }
 
+
+void CEchoStateLayer::reset(bool random_state)
+{
+    u32  i;
+
+    if (random_state == true)
+    {
+        for (i = 0; i < nn_init.neurons_count; i++)
+          output[i] = rnd();
+    }
+    else
+    {
+        for (i = 0; i < nn_init.neurons_count; i++)
+          output[i] = 0.0;
+    }
+}
+
 std::vector<float> CEchoStateLayer::get_output()
 {
     return output;
@@ -86,7 +103,7 @@ void CEchoStateLayer::process(std::vector<float> input)
         for (i = 0; i < w_i_size; i++)
             sum+= w[j][i]*this->input[i];
 
-        output[j] = tanh(sum);
+        output[j] = cos(sum);
     }
 }
 
