@@ -8,7 +8,7 @@ CWater::CWater()
 
     printf("loading done\n");
 
-    knn_init.neurons_count = 8;
+    knn_init.neurons_count = 1000;
     knn_init.inputs_count = input_data[0].size();
     knn_init.learning_constant = 1.0/100.0;
     knn_init.output_limit = 1.0;
@@ -130,7 +130,7 @@ void CWater::process(char *file_name)
 
     class CLog *log;
 
-    log = new CLog(file_name, 4);
+    log = new CLog(file_name, 5);
 
     for (j = 0; j < input_data.size(); j++)
     {
@@ -157,6 +157,7 @@ void CWater::process(char *file_name)
         for (i = 0; i < knn_output.size(); i++)
         {
             knn_output[i] = knn_output[i]*k_ + q_;
+            knn_output[i] = pow(1000.0, knn_output[i]);
         }
 
         float sum = 0.0;
@@ -167,11 +168,17 @@ void CWater::process(char *file_name)
         for (i = 0; i < knn_output.size(); i++)
             res+= (knn_output[i]/sum)*output[i];
 
+        float energy = 0.0;
+        float **w = knn->get_weights();
+        for (i = 0; i < knn_init.inputs_count; i++)
+          energy+= abs_(w[winning_neuron_idx][i]);
+        energy/= knn_init.inputs_count;
 
         log->add(0, winning_neuron_idx);
         log->add(1, 500.0*knn->get_output_winning_distance());
         log->add(2, output[winning_neuron_idx]);
         log->add(3, res);
+        log->add(4, 100.0*energy);
     }
 
     log->save();
