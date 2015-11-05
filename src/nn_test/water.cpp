@@ -10,7 +10,7 @@ CWater::CWater()
 
     knn_init.neurons_count = 8;
     knn_init.inputs_count = input_data[0].size();
-    knn_init.learning_constant = 1.0/10.0;
+    knn_init.learning_constant = 1.0/100.0;
     knn_init.output_limit = 1.0;
 
 
@@ -120,21 +120,55 @@ void CWater::learn(u32 iterations)
 
 void CWater::process(char *file_name)
 {
-    u32 j;
+    u32 j, i;
 
     class CLog *log;
 
-    log = new CLog(file_name, 3);
+    log = new CLog(file_name, 4);
 
     for (j = 0; j < input_data.size(); j++)
     {
         knn->process(input_data[j]);
         u32 winning_neuron_idx = knn->get_output_winning_neuron_idx();
 
+        std::vector<float> knn_output = knn->get_output();
+
+
+        float max = -9999999999999999999999.99;
+        float min = -max;
+
+        for (i = 0; i < knn_output.size(); i++)
+        {
+            if (max < knn_output[i])
+                max = knn_output[i];
+            if (min > knn_output[i])
+                min = knn_output[i];
+        }
+
+        double k_ = 1.0/(max - min);
+        double q_ = 1.0 - k_*max;
+
+        for (i = 0; i < knn_output.size(); i++)
+        {
+            knn_output[i] = knn_output[i]*k_ + q_;
+        }
+
+        for (i = 0; i < knn_output.size(); i++)
+            knn_output[i] = pow(10000.0, knn_output[i]);
+
+        float sum = 0.0;
+        for (i = 0; i < knn_output.size(); i++)
+            sum+= knn_output[i];
+
+        float res = 0.0;
+        for (i = 0; i < knn_output.size(); i++)
+            res+= (knn_output[i]/sum)*output[i];
+
 
         log->add(0, winning_neuron_idx);
         log->add(1, 500.0*knn->get_output_winning_distance());
         log->add(2, output[winning_neuron_idx]);
+        log->add(3, res);
     }
 
     log->save();

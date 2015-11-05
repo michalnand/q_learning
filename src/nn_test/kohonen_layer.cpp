@@ -106,9 +106,8 @@ void CKohonenLayer::process(std::vector<float> input)
     }
 
     sum = 1.0 - sum;
-    output[j] = 2.0*(sum - 0.5);
+    output[j] = sum; //2.0*(sum - 0.5);
   }
-
 }
 
 void CKohonenLayer::learn()

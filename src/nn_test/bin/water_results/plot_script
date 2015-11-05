@@ -64,4 +64,5 @@ set ylabel "output"
 set output 'clusterization_result.png'
 plot "clusterization_result.txt" using 1 title "cluster id"  with line lw 2.0, \
     "clusterization_result.txt" using 2 title "distance x500"  with line lw 2.0, \
-    "clusterization_result.txt" using 3 title "water level"  with line lw 2.0
+    "clusterization_result.txt" using 3 title "water level"  with line lw 2.0, \
+    "clusterization_result.txt" using 4 title "output synthetized"  with line lw 2.0
