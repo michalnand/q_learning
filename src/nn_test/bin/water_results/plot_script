@@ -36,25 +36,26 @@ set autoscale
 
 
 set output 'input_data.png'
-splot "input_data.txt" using :(1):1 title "input"  with line, \
-    "input_data.txt" using :(10):10 title "input"  with line, \
-    "input_data.txt" using :(20):20 title "input"  with line, \
-    "input_data.txt" using :(30):30 title "input"  with line, \
-    "input_data.txt" using :(40):40 title "input"  with line, \
-    "input_data.txt" using :(50):50 title "input"  with line
+splot "input_data.txt" using 1:(1):2 title "input"  with line lw 2.0, \
+      "input_data.txt" using 1:(2):20 title "input"  with line lw 2.0, \
+      "input_data.txt" using 1:(3):30 title "input"  with line lw 2.0, \
+      "input_data.txt" using 1:(4):40 title "input"  with line lw 2.0, \
+      "input_data.txt" using 1:(5):50 title "input"  with line lw 2.0, \
+      "input_data.txt" using 1:(6):60 title "input"  with line lw 2.0
+
 
 
 set ylabel "claster id"
 
 set output 'clusters_01.png'
-splot "clusters_01.txt" using :(1):1 title "input"  with line, \
-        "clusters_01.txt" using :(2):2 title "input"  with line, \
-        "clusters_01.txt" using :(3):3 title "input"  with line, \
-        "clusters_01.txt" using :(4):4 title "input"  with line, \
-        "clusters_01.txt" using :(5):5 title "input"  with line, \
-        "clusters_01.txt" using :(6):6 title "input"  with line, \
-        "clusters_01.txt" using :(7):7 title "input"  with line, \
-        "clusters_01.txt" using :(8):8 title "input"  with line
+splot "clusters_01.txt" using 1:(1):2 title "input"  with line lw 2.0, \
+        "clusters_01.txt" using 1:(2):3 title "input"  with line lw 2.0, \
+        "clusters_01.txt" using 1:(3):4 title "input"  with line lw 2.0, \
+        "clusters_01.txt" using 1:(4):5 title "input"  with line lw 2.0, \
+        "clusters_01.txt" using 1:(5):6 title "input"  with line lw 2.0, \
+        "clusters_01.txt" using 1:(6):7 title "input"  with line lw 2.0, \
+        "clusters_01.txt" using 1:(7):8 title "input"  with line lw 2.0, \
+        "clusters_01.txt" using 1:(8):9 title "input"  with line lw 2.0
 
 set key below
 

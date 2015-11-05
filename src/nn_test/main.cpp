@@ -2,7 +2,7 @@
 #include "nn_test.h"
 #include "nn_test_dynamics.h"
 #include "water.h"
- 
+
 int main()
 {
 	srand(time(NULL));
