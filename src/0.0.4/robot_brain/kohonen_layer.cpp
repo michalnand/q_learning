@@ -62,21 +62,6 @@ std::vector<float> CKohonenLayer::get_output()
     return output;
 }
 
-u32 CKohonenLayer::get_output_winning_neuron_idx()
-{
-    return winning_neuron;
-}
-
-float CKohonenLayer::get_output_winning_distance()
-{
-    return min_dist;
-}
-
-float** CKohonenLayer::get_weights()
-{
-    return w;
-}
-
 void CKohonenLayer::process(std::vector<float> input)
 {
   this->input = input;
@@ -117,20 +102,17 @@ void CKohonenLayer::learn()
   for (j = 0; j < nn_init.neurons_count; j++)
   {
     float k = 0.0;
-    float a = 1.0;
 
     if (j != winning_neuron)
     {
         float tmp = 1.0 - ((output[j] + 1.0)/2.0);
-        k = nn_init.learning_constant * 1.0/(100.0 + tmp);
+        k = nn_init.learning_constant * 1.0/(10.0 + tmp);
     }
     else
-    {
         k = nn_init.learning_constant;
-    }
 
     for (i = 0; i < nn_init.inputs_count; i++)
-      w[j][i] = (1.0 - k)*w[j][i] + k*a*input[i];
+      w[j][i] = (1.0 - k)*w[j][i] + k*input[i];
   }
 }
 

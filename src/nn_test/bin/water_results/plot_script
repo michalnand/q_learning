@@ -1,0 +1,67 @@
+set   autoscale                        # scale axes automatically
+unset log                              # remove any log-scaling
+unset label                            # remove any previous labels
+set xtic auto                         	# set xtics automatically
+set ytic auto                         # set ytics automatically
+set ztic auto
+
+set key right top
+
+
+set grid ytics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set grid xtics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set terminal png size 1024,768 enhanced font "Helvetica,20"
+
+
+
+unset key
+unset label
+
+set xlabel "frequency"
+set ylabel "water level"
+set zlabel "amplitude"
+
+set view 60,10
+
+set lmargin 10
+#set key below
+
+set hidden3d
+
+#set dgrid3d 64,64
+set surface
+
+set autoscale
+
+
+
+set output 'input_data.png'
+splot "input_data.txt" using :(1):1 title "input"  with line, \
+    "input_data.txt" using :(10):10 title "input"  with line, \
+    "input_data.txt" using :(20):20 title "input"  with line, \
+    "input_data.txt" using :(30):30 title "input"  with line, \
+    "input_data.txt" using :(40):40 title "input"  with line, \
+    "input_data.txt" using :(50):50 title "input"  with line
+
+
+set ylabel "claster id"
+
+set output 'clusters_01.png'
+splot "clusters_01.txt" using :(1):1 title "input"  with line, \
+        "clusters_01.txt" using :(2):2 title "input"  with line, \
+        "clusters_01.txt" using :(3):3 title "input"  with line, \
+        "clusters_01.txt" using :(4):4 title "input"  with line, \
+        "clusters_01.txt" using :(5):5 title "input"  with line, \
+        "clusters_01.txt" using :(6):6 title "input"  with line, \
+        "clusters_01.txt" using :(7):7 title "input"  with line, \
+        "clusters_01.txt" using :(8):8 title "input"  with line
+
+set key below
+
+set xlabel "input id"
+set ylabel "output"
+
+set output 'clusterization_result.png'
+plot "clusterization_result.txt" using 1 title "cluster id"  with line lw 2.0, \
+    "clusterization_result.txt" using 2 title "distance x500"  with line lw 2.0, \
+    "clusterization_result.txt" using 3 title "water level"  with line lw 2.0

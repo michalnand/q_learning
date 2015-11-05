@@ -1,7 +1,7 @@
 #ifndef _KOHONEN_LAYER_H_
 #define _KOHONEN_LAYER_H_
 
-#include "common.h"
+#include "../common.h"
 
 struct KNNLayerInitStructure
 {
@@ -30,10 +30,6 @@ class CKohonenLayer
             void uninit();
 
             std::vector<float> get_output();
-            u32 get_output_winning_neuron_idx();
-            float get_output_winning_distance();
-            
-            float** get_weights();
 
             void process(std::vector<float> input);
             void learn();
