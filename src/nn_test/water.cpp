@@ -8,7 +8,7 @@ CWater::CWater()
 
     printf("loading done\n");
 
-    knn_init.neurons_count = 1000;
+    knn_init.neurons_count = 8;
     knn_init.inputs_count = input_data[0].size();
     knn_init.learning_constant = 1.0/100.0;
     knn_init.output_limit = 1.0;
