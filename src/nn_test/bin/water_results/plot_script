@@ -17,7 +17,7 @@ set terminal png size 1024,768 enhanced font "Helvetica,20"
 unset key
 unset label
 
-set xlabel "frequency"
+set xlabel "normalised frequency"
 set ylabel "water level"
 set zlabel "amplitude"
 
@@ -45,7 +45,7 @@ splot "input_data.txt" using 1:(1):2 title "input"  with line lw 2.0, \
 
 
 
-set ylabel "claster id"
+set ylabel "cluster id"
 
 set output 'clusters_01.png'
 splot "clusters_01.txt" using 1:(1):2 title "input"  with line lw 2.0, \
@@ -67,4 +67,4 @@ plot "clusterization_result.txt" using 1 title "cluster id"  with line lw 2.0, \
     "clusterization_result.txt" using 2 title "distance x500"  with line lw 2.0, \
     "clusterization_result.txt" using 3 title "water level"  with line lw 2.0, \
     "clusterization_result.txt" using 4 title "output synthetized"  with line lw 2.0, \
-    "clusterization_result.txt" using 5 title "energy x100"  with line lw 2.0
+    "clusterization_result.txt" using 5 title "energy x10"  with line lw 2.0

@@ -9,7 +9,7 @@ CNNTest::CNNTest()
 }
 
 CNNTest::~CNNTest()
-{
+{ 
 
 }
 
@@ -31,8 +31,63 @@ void CNNTest::process()
     char log_file_name[1024];
 
 
+    for (j = 0; j < 4; j++)
+    {
+        struct sNNInitStruct nn_init;
 
-    for (j = 0; j < 6; j++)
+        nn_init.neuron_type = NN_LAYER_NEURON_TYPE_LINEAR;
+
+        switch (j)
+        {
+            case 1:
+                    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_TANH;
+                    nn_init.init_vector.push_back(2 + 1);
+                    nn_init.init_vector.push_back(32);
+                    nn_init.init_vector.push_back(1);
+
+                    break;
+
+            case 2:
+                    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_TANH;
+                    nn_init.init_vector.push_back(2 + 1);
+                    nn_init.init_vector.push_back(32);
+                    nn_init.init_vector.push_back(32);
+                    nn_init.init_vector.push_back(1);
+
+                    break;
+
+            case 3:
+                    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_TANH;
+                    nn_init.init_vector.push_back(2 + 1);
+                    nn_init.init_vector.push_back(32);
+                    nn_init.init_vector.push_back(32);
+                    nn_init.init_vector.push_back(32);
+                    nn_init.init_vector.push_back(1);
+
+                    break;
+
+            default:
+                    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_LINEAR;
+                    nn_init.init_vector.push_back(2 + 1);
+                    nn_init.init_vector.push_back(32);
+                    nn_init.init_vector.push_back(1);
+
+                    break;
+        }
+
+
+        nn_init.weight_range = 4.0;
+        nn_init.init_weight_range = 0.3*nn_init.weight_range;
+        nn_init.learning_constant = 1.0/1000.0;
+        nn_init.output_limit = 4.0;
+        nn_init.order = 5;
+
+        CNN *nn_req;
+        nn_req = new CNN(nn_init);
+        nn_required.push_back(nn_req);
+    }
+
+    for (j = 0; j < 8; j++)
     {
         char *result_path;
         switch (j)
@@ -43,6 +98,8 @@ void CNNTest::process()
             case 3: result_path = result_path_3;  break;
             case 4: result_path = result_path_4;  break;
             case 5: result_path = result_path_5;  break;
+            case 6: result_path = result_path_6;  break;
+            case 7: result_path = result_path_7;  break;
             default : result_path = NULL;
         }
 
@@ -54,7 +111,7 @@ void CNNTest::process()
         experiment_result.error_max = 0.0;
         experiment_result.error_min = 0.0;
 
-        for (i = 0; i < 8; i++)
+        for (i = 0; i < (8 + 4); i++)
         {
             printf("***********************************************************\n");
             printf("processing experiment %u %u : \n", j, i);
@@ -81,7 +138,7 @@ void CNNTest::process()
 void CNNTest::process_test(char *result_path, u32 id, u32 type)
 {
     u32 k;
-    u32 tests_count = 100; //30;
+    u32 tests_count = 100;
 
     char log_file_name_tmp[1024];
     char log_file_name[1024];
@@ -213,6 +270,24 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path, u32 
                     nn_init.init_vector.push_back(required_output.size());
 
                     break;
+
+        case 6:
+                    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_TANH;
+
+                    nn_init.init_vector.push_back(knn_init.neurons_count + 1);
+                    nn_init.init_vector.push_back(hidden_neurons_count);
+                    nn_init.init_vector.push_back(required_output.size());
+
+                    break;
+
+        case 7:
+                    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_INTERSYNAPTICS;
+
+                    nn_init.init_vector.push_back(knn_init.neurons_count + 1);
+                    nn_init.init_vector.push_back(hidden_neurons_count);
+                    nn_init.init_vector.push_back(required_output.size());
+
+                    break;
     }
 
     nn_init.weight_range = 4.0;
@@ -254,19 +329,22 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path, u32 
   		input = get_input(rnd(), rnd());
   		required_output = get_required_output(input, id);
 
-        //knn->process(input);
-        //knn->learn();
+        knn->process(input, true);
+        knn->learn();
 
-        nn_input = input;
-        //nn_input = knn->get_output();
-        //nn_input.push_back(1.0);
+        if ((type&255) <= 5)
+            nn_input = input;
+        else
+        {
+            nn_input = knn->get_output();
+            nn_input.push_back(1.0);
+        }
 
         nn->process(nn_input);
 
   		nn_output = nn->get();
 
-        //if (k > iterations*0.1)
-  		    nn->learn(required_output);
+	    nn->learn(required_output);
   	}
 
     float dt = 1.0/32.0;
@@ -312,11 +390,15 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path, u32 
 		input = get_input(x, y);
 		required_output = get_required_output(input, id);
 
-        knn->process(input);
+        knn->process(input, true);
 
-        nn_input = input;
-        //nn_input = knn->get_output();
-        //nn_input.push_back(1.0);
+        if ((type&255) <= 5)
+            nn_input = input;
+        else
+        {
+            nn_input = knn->get_output();
+            nn_input.push_back(1.0);
+        }
 
 		nn->process(nn_input);
 
@@ -348,7 +430,6 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path, u32 
     			nn_output_log->add(i, nn_output[i]);
 
     		error_log->add(0, error);
-
 
             u32 ptr = 0;
 
@@ -391,8 +472,8 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path, u32 
         delete result_log;
     }
 
-	delete nn;
-  delete knn;
+    delete nn;
+    delete knn;
 
     test_result.error_average = error_average;
     test_result.error_max = error_max;
@@ -452,6 +533,22 @@ std::vector<float> CNNTest::get_required_output(std::vector<float> input, u32 id
         case 6: y = sgn(input[0]*input[1]); break;
         case 7: y = (input[0] + input[1])/2.0; break;
 
+
+        case 8: nn_required[0]->process(input);
+                y = nn_required[0]->get()[0];
+                break;
+
+        case 9: nn_required[1]->process(input);
+                y = nn_required[1]->get()[0];
+                break;
+
+        case 10: nn_required[2]->process(input);
+                y = nn_required[2]->get()[0];
+                break;
+
+        case 11: nn_required[3]->process(input);
+                y = nn_required[3]->get()[0];
+                break;
 
         default : y = 0.0; break;
     }

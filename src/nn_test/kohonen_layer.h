@@ -32,10 +32,10 @@ class CKohonenLayer
             std::vector<float> get_output();
             u32 get_output_winning_neuron_idx();
             float get_output_winning_distance();
-            
+
             float** get_weights();
 
-            void process(std::vector<float> input);
+            void process(std::vector<float> input, bool normalise_output);
             void learn();
 
             void save(char *file_name);

@@ -77,7 +77,7 @@ float** CKohonenLayer::get_weights()
     return w;
 }
 
-void CKohonenLayer::process(std::vector<float> input)
+void CKohonenLayer::process(std::vector<float> input, bool normalise_output)
 {
   this->input = input;
 
@@ -92,11 +92,11 @@ void CKohonenLayer::process(std::vector<float> input)
     for (i = 0; i < nn_init.inputs_count; i++)
       sum+= abs_(w[j][i] - input[i]);
 
-    //normalise into <0, 1> range
+    //normalise sum into <0, 1> range
     sum = sum/nn_init.inputs_count;
 
-    if (sum > 1.0)
-        sum = 1.0;
+    if (sum > nn_init.output_limit)
+        sum = nn_init.output_limit;
 
     //find winning neuron
     if (sum < min_dist)
@@ -105,9 +105,37 @@ void CKohonenLayer::process(std::vector<float> input)
       winning_neuron = j;
     }
 
-    sum = 1.0 - sum;
-    output[j] = sum; //2.0*(sum - 0.5);
+    sum = nn_init.output_limit - sum;
+    output[j] = sum;
   }
+
+  //normalise output into <0..1> range
+  if (normalise_output)
+  {
+      float max = -1000.0;
+      float min = -max;
+
+      for (j = 0; j < nn_init.neurons_count; j++)
+      {
+        if (output[j] > max)
+            max = output[j];
+
+        if (output[j] < min)
+            min = output[j];
+      }
+
+      if (max == min)
+      {
+          max+= max/100000.0;
+      }
+
+      float k = 1.0/(max - min);
+      float q = 1.0 - k*max;
+
+      for (j = 0; j < nn_init.neurons_count; j++)
+        output[j] = k*output[j] + q;
+  }
+
 }
 
 void CKohonenLayer::learn()
@@ -120,7 +148,7 @@ void CKohonenLayer::learn()
 
     if (j != winning_neuron)
     {
-        float tmp = 1.0 - ((output[j] + 1.0)/2.0);
+        float tmp = 1.0 - output[j]; //((output[j] + 1.0)/2.0);
         k = nn_init.learning_constant * 1.0/(100.0 + tmp);
     }
     else

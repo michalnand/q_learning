@@ -18,6 +18,6 @@
 #include "int_def.h"
 #include "log.h"
 #include "math.h"
-
+#include "vector_func.h"
 
 #endif

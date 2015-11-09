@@ -14,6 +14,8 @@ class CNNTest
     private:
         struct sNNTestResult test_result, experiment_result;
 
+        std::vector<class CNN *> nn_required;
+
     public:
         CNNTest();
         ~CNNTest();

@@ -2,6 +2,8 @@
 #include "log.h"
 #include "reader.h"
 
+
+
 CWater::CWater()
 {
     load_data();
@@ -79,6 +81,8 @@ void CWater::load_data()
             input_data[j][i] = k_*input_data[j][i] + q_;
             if (i < 10.0)
               input_data[j][i] = 0.0;
+
+             input_data[j][i]+= 0.0*( (rand()%20000)-10000 ) / 10000.0;
         }
 }
 
@@ -106,14 +110,14 @@ void CWater::learn(u32 iterations)
 {
     u32 j, k;
 
-    float a = 0.99;
+    float a = 0.95;
 
     for (k = 0; k < iterations; k++)
     {
         for (j = 0; j < input_data.size(); j++)
         {
             u32 idx = rand()%input_data.size();
-            knn->process(input_data[idx]);
+            knn->process(input_data[idx], true);
             knn->learn();
 
             u32 winning_neuron_idx = knn->get_output_winning_neuron_idx();
@@ -134,31 +138,10 @@ void CWater::process(char *file_name)
 
     for (j = 0; j < input_data.size(); j++)
     {
-        knn->process(input_data[j]);
+        knn->process(input_data[j], true);
         u32 winning_neuron_idx = knn->get_output_winning_neuron_idx();
 
         std::vector<float> knn_output = knn->get_output();
-
-
-        float max = -9999999999999999999999.99;
-        float min = -max;
-
-        for (i = 0; i < knn_output.size(); i++)
-        {
-            if (max < knn_output[i])
-                max = knn_output[i];
-            if (min > knn_output[i])
-                min = knn_output[i];
-        }
-
-        double k_ = 1.0/(max - min);
-        double q_ = 1.0 - k_*max;
-
-        for (i = 0; i < knn_output.size(); i++)
-        {
-            knn_output[i] = knn_output[i]*k_ + q_;
-            knn_output[i] = pow(1000.0, knn_output[i]);
-        }
 
         float sum = 0.0;
         for (i = 0; i < knn_output.size(); i++)
@@ -168,17 +151,13 @@ void CWater::process(char *file_name)
         for (i = 0; i < knn_output.size(); i++)
             res+= (knn_output[i]/sum)*output[i];
 
-        float energy = 0.0;
-        float **w = knn->get_weights();
-        for (i = 0; i < knn_init.inputs_count; i++)
-          energy+= abs_(w[winning_neuron_idx][i]);
-        energy/= knn_init.inputs_count;
+        float energy = vector_size(input_data[j]);
 
         log->add(0, winning_neuron_idx);
         log->add(1, 500.0*knn->get_output_winning_distance());
         log->add(2, output[winning_neuron_idx]);
         log->add(3, res);
-        log->add(4, 100.0*energy);
+        log->add(4, 10.0*energy);
     }
 
     log->save();
