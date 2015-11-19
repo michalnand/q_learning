@@ -50,7 +50,7 @@ class CEnvironment
 
 
 	private:
-		void respawn(struct sAgent *agent);
+		void respawn(struct sAgent *agent, u32 agent_id);
 		float colision(u32 id);
 		float colision_from_point(u32 id, std::vector<float> point);
 

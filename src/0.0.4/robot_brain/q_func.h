@@ -1,7 +1,7 @@
 #ifndef _Q_FUNC_H_
 #define _Q_FUNC_H_
 
-#include "../common.h"
+#include "../common.h" 
 
 #define Q_FUNC_MAGIC    (u32)0xABCD0001
 

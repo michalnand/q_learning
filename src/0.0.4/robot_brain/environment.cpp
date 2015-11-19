@@ -13,7 +13,7 @@ CEnvironment::CEnvironment(u32 agents_count, class CAgent *collective_agent, boo
  	u32 agent_inputs_count = 2;
  	u32 actions_per_state = 4;
 
- 	state_density = 1.0/8.0;
+ 	state_density = 1.0/10.0;
 
  	u32 id = 0;
  	u32 type = AGENT_TYPE_NULL;
@@ -57,25 +57,26 @@ CEnvironment::CEnvironment(u32 agents_count, class CAgent *collective_agent, boo
  		id++;
  		agent_init.id = id;
 
-        if (visualisation_enabled)
+        if (visualisation_enabled) 
             agent_init.type = AGENT_TYPE_GREEDY;
         else
-
-        agent_init.type = AGENT_TYPE_EXPLORER;
+            agent_init.type = AGENT_TYPE_EXPLORER;
         //agent_init.type = AGENT_TYPE_COMMON;
         //agent_init.type = AGENT_TYPE_GREEDY;
 
- 		class CAgent *agent;
+    s_agents.push_back(agent_init);
 
- 		respawn(&agent_init);
+
+ 		class CAgent *agent;
 
  		agent = new CAgent(agent_init, collective_agent);
 
 
  		agents.push_back(agent);
-
- 		s_agents.push_back(agent_init);
  	}
+
+ for (j = 0; j < agents_count; j++)
+  respawn(&s_agents[j], j);
 
  	for (j = 0; j < agents.size(); j++)
 		agents[j]->merge();
@@ -231,7 +232,7 @@ void CEnvironment::process()
 
 	for (j = 0; j < agents.size(); j++)
 	{
-		float target_min_dist = s_agents[j].state_density*3.0;
+		float target_min_dist = s_agents[j].state_density*4.0;
 
 		float target_dist  = abs_(target_position[0] - s_agents[j].state[0]) +
                              abs_(target_position[1] - s_agents[j].state[1]);
@@ -257,7 +258,7 @@ void CEnvironment::process()
         if ((loops%1000) == 0)
         {
             s_agents[j].reward = 0.0;
-            respawn(&s_agents[j]);
+            respawn(&s_agents[j], j);
         }
 
 		if (target_dist < target_min_dist)
@@ -271,7 +272,7 @@ void CEnvironment::process()
             }
 
 			s_agents[j].reward = 0.0;
-			respawn(&s_agents[j]);
+			respawn(&s_agents[j], j);
 		}
 		else
 		{
@@ -331,7 +332,7 @@ class CAgent* CEnvironment::get_agent(u32 id)
     return agents[id];
 }
 
-void CEnvironment::respawn(struct sAgent *agent)
+void CEnvironment::respawn(struct sAgent *agent, u32 agent_id)
 {
 	u32 i;
 
@@ -345,7 +346,9 @@ void CEnvironment::respawn(struct sAgent *agent)
 
 	agent->score = 0.0;
 
-    agent->reward = 0.0;
+  agent->reward = 0.0;
+
+  agents[agent_id]->reset(agent);
 }
 
 float CEnvironment::colision(u32 id)

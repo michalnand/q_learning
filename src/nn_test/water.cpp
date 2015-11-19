@@ -15,14 +15,10 @@ CWater::CWater()
     knn_init.learning_constant = 1.0/100.0;
     knn_init.output_limit = 1.0;
     knn_init.weight_range = 1.0;
+    knn_init.outputs_count = 1;
 
 
     knn = new CKohonenLayer(knn_init);
-
-    u32 i;
-
-    for (i = 0; i < knn_init.neurons_count; i++)
-        output.push_back(0.0);
 }
 
 CWater::~CWater()
@@ -110,7 +106,9 @@ void CWater::learn(u32 iterations)
 {
     u32 j, k;
 
-    float a = 0.95;
+    std::vector<float> required_output;
+
+    required_output.push_back(0.0);
 
     for (k = 0; k < iterations; k++)
     {
@@ -118,10 +116,10 @@ void CWater::learn(u32 iterations)
         {
             u32 idx = rand()%input_data.size();
             knn->process(input_data[idx], true);
-            knn->learn();
 
-            u32 winning_neuron_idx = knn->get_output_winning_neuron_idx();
-            output[winning_neuron_idx] = (1.0 - a)*output[winning_neuron_idx] + a*idx;
+            required_output[0] = idx;
+
+            knn->learn(&required_output);
         }
 
         printf("learning %6.3f%% done\n", (100.0*k)/iterations);
@@ -149,13 +147,13 @@ void CWater::process(char *file_name)
 
         float res = 0.0;
         for (i = 0; i < knn_output.size(); i++)
-            res+= (knn_output[i]/sum)*output[i];
+            res+= (knn_output[i]/sum)*(*knn->get_nn_output())[i][0];
 
         float energy = vector_size(input_data[j]);
 
         log->add(0, winning_neuron_idx);
         log->add(1, 500.0*knn->get_output_winning_distance());
-        log->add(2, output[winning_neuron_idx]);
+        log->add(2, (*knn->get_nn_output())[winning_neuron_idx][0]);
         log->add(3, res);
         log->add(4, 10.0*energy);
     }

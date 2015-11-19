@@ -4,6 +4,7 @@ CQlearningTest::CQlearningTest()
 {
 	//environment = new CEnvironment(16); //16 robots
 
+	environment_visualisation = NULL;
 	environment = new CEnvironment(1); //1 robots
 
 	class CAgent *agent;
@@ -30,10 +31,13 @@ CQlearningTest::~CQlearningTest()
 
 void CQlearningTest::visualisation_main()
 {
-	while (1)
+	if (environment_visualisation != NULL)
 	{
-		environment_visualisation->process();
-		usleep(1000*10);
+		while (1)
+		{
+			environment_visualisation->process();
+			usleep(1000*10);
+		}
 	}
 }
 
@@ -44,7 +48,7 @@ void visualisation_main_tmp(CQlearningTest *q_learning_test)
 
 void CQlearningTest::run(i32 iterations)
 {
-	// std::thread visualisation_thread(visualisation_main_tmp, this);
+	 std::thread visualisation_thread(visualisation_main_tmp, this);
 
 	i32 n;
 
@@ -63,7 +67,7 @@ void CQlearningTest::run(i32 iterations)
 
 	environment->print(subspace);
 
-//	visualisation_thread.join();
+	visualisation_thread.join();
 
 	printf("test done\n");
 }

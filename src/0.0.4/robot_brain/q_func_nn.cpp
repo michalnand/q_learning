@@ -9,7 +9,7 @@ CQFuncNN::CQFuncNN(u32 state_size, u32 action_size, float state_density,
 
     this->alpha = alpha;
 
-    u32 hidden_neurons_count = 32;
+    u32 hidden_neurons_count = 100;
 
     std::vector<u32> init_vector;
     init_vector.push_back(state_size + action_size + 1);
@@ -21,13 +21,13 @@ CQFuncNN::CQFuncNN(u32 state_size, u32 action_size, float state_density,
     nn_init.init_vector = init_vector;
 
     nn_init.order = 5;
-    //nn_init.neuron_type = NN_LAYER_NEURON_TYPE_TANH;
+    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_TANH;
 
-    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_INTERSYNAPTICS;
+    //nn_init.neuron_type = NN_LAYER_NEURON_TYPE_INTERSYNAPTICS;
 
     nn_init.weight_range = 4.0;
     nn_init.init_weight_range = nn_init.weight_range*0.25;
-    nn_init.learning_constant = 1.0/1000.0;
+    nn_init.learning_constant = 1.0/100.0;
     nn_init.output_limit = 4.0;
 
 

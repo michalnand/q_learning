@@ -30,6 +30,9 @@ class CKohonenLayer
             void uninit();
 
             std::vector<float> get_output();
+            float *get_winning_vector();
+            u32 get_winning_neuron_idx();
+
 
             void process(std::vector<float> input);
             void learn();

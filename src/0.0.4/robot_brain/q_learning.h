@@ -6,8 +6,8 @@
 #include "q_func_nn.h"
 #include "q_func_knn.h"
 
-#define Q_FUNC_NN  1
-//#define Q_FUNC_KNN  1
+//#define Q_FUNC_NN  1
+#define Q_FUNC_KNN  1
 
 struct sQRes
 {
@@ -79,6 +79,9 @@ class CQLearning
 		void merge(CQLearning *q_learning);
 
 		void save(char *q_func);
+
+		void reset(std::vector<float> state);
+
 
 	private:
 		u32 select_action(std::vector<float> state, float k = 2.0, float explore_prob = 0.0);

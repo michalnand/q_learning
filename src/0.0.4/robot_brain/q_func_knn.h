@@ -11,12 +11,13 @@
 class CQFuncKNN
 {
     private:
-        class CNN *nn;
+        struct KNNLayerInitStructure knn_init;
+
         class CKohonenLayer *knn;
 
         float alpha;
 
-        std::vector<float> nn_input;
+        std::vector<float> nn_input, nn_output;
 
     public:
         CQFuncKNN( u32 state_size, u32 action_size,

@@ -72,14 +72,8 @@ void CQLearning::process(std::vector<float> state, float reward, float k, float 
 	q_res.reward = reward;
 	q_res.q_max = get_max_q(q_res.state);
 
-	// float tmp = sin(5.0*q_res_prev.state[0]*q_res_prev.state[1]);
 
-	float tmp =  q_res_prev.reward  + 0.0*gamma*q_res.q_max;
-
-	/*
-	// erase the 6th element
-  	myvector.erase (myvector.begin()+5);
-	*/
+	float tmp = q_res_prev.reward  + gamma*q_res.q_max;
 
 	q_func->learn(q_res_prev.state, q_res_prev.action.action, tmp);
 
@@ -96,6 +90,7 @@ float CQLearning::get_max_q(std::vector<float> state)
 {
 	u32 i;
 	float max_q = -1.0;
+
 	for (i = 0; i < actions->get_actions_per_state(); i++)
 	{
 		float tmp = q_func->get(state, actions->get(0, i).action);
@@ -212,4 +207,17 @@ void CQLearning::merge(CQLearning *q_learning)
 void CQLearning::save(char *file_name)
 {
 	q_func->save(file_name);
+}
+
+void CQLearning::reset(std::vector<float> state)
+{
+		q_res.state = state;
+		q_res.action_id = select_action(q_res.state, 1.0, 0.0);
+		q_res.action = actions->get(0, q_res.action_id);
+
+		q_res.q = q_func->get(q_res.state, q_res.action.action);
+		q_res.reward = 0.0;
+		q_res.q_max = get_max_q(q_res.state);
+
+		q_res_prev = q_res;
 }

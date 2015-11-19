@@ -269,7 +269,7 @@ void CMap::print()
 	for (j = 0; j < map.height; j++)
 	{
 		for (i = 0; i < map.width; i++)
-			printf("%5.1f ", map.fields[j][i].reward);
+			printf("%2.1f ", map.fields[j][i].reward);
 		printf("\n");
 	}
 	printf("\n\n");
@@ -283,10 +283,10 @@ struct sMapField CMap::get_at(u32 x, u32 y)
 
 u32 CMap::set_at(u32 x, u32 y, struct sMapField field)
 {
-	if (x > map.width)
+	if (x >= map.width)
 		return 0;
 
-	if (y > map.height)
+	if (y >= map.height)
 		return 0;
 
 	map.fields[y][x] = field;
@@ -296,34 +296,24 @@ u32 CMap::set_at(u32 x, u32 y, struct sMapField field)
 
 struct sMapField CMap::get_at_normalised(float x, float y)
 {
-	if (x > 1.0)
-		x = 1.0;
-	if (x < -1.0)
-		x = -1.0;
-
-	if (y > 1.0)
-		y = 1.0;
-	if (y < -1.0)
-		y = -1.0;
-
-	x = (x + 1.0)/2.0;
-	y = (y + 1.0)/2.0;
+	x = (x + 1.0)/(2.0*1.0);
+	y = (y + 1.0)/(2.0*1.0);
 
 	if (x < 0.0)
 		x = 0.0;
-	if (x > 0.999)
-		x = 0.999;
-
 	if (y < 0.0)
 		y = 0.0;
-	if (y > 0.999)
-		y = 0.999;
-
-
 
 
 	u32 x_ = (u32)(map.width*x);
 	u32 y_ = (u32)(map.height*y);
+
+	if (x_ >= map.width)
+		x_ = map.width-1;
+
+	if (y_ >= map.height)
+		y_ = map.height-1;
+
 	struct sMapField res = map.fields[y_][x_];
 
 	return res;
