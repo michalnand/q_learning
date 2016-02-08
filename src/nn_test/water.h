@@ -11,6 +11,8 @@ class CWater
         class CKohonenLayer *knn;
         struct KNNLayerInitStructure knn_init;
 
+        std::vector<float> output;
+
     public:
         CWater();
         ~CWater();

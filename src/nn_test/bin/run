@@ -26,8 +26,9 @@ cp null kohonen_layer_testing_neuron_1_layer -r
 cd ..
 
 
-./main.elf > results/result.txt
+./main.elf 
+#> results/result.txt
 
 cd results
-./plot
+#./plot
 cd ..

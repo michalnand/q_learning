@@ -88,9 +88,7 @@ void CNNTest::process()
         nn_required.push_back(nn_req);
     }
 
-
-
-    for (j = 6; j < 9; j++)
+    for (j = 0; j < 9; j++)
     {
         char *result_path;
         switch (j)
@@ -142,7 +140,7 @@ void CNNTest::process()
 void CNNTest::process_test(char *result_path, u32 id, u32 type)
 {
     u32 k;
-    u32 tests_count = 100;
+    u32 tests_count = 16;
 
     char log_file_name_tmp[1024];
     char error_log_file_name[1024];
@@ -309,8 +307,7 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path, u32 
 
                     nn_init.neuron_type = NN_LAYER_NEURON_TYPE_TANH;
 
-                    hidden_neurons_count = 3;
-                    nn_init.init_vector.push_back(knn_init.neurons_count + (knn_init.neurons_count*knn_init.outputs_count) + 1);
+                    nn_init.init_vector.push_back(knn_init.neurons_count + 1);
                     nn_init.init_vector.push_back(hidden_neurons_count);
                     nn_init.init_vector.push_back(required_output.size());
 
@@ -324,8 +321,7 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path, u32 
 
                     nn_init.neuron_type = NN_LAYER_NEURON_TYPE_INTERSYNAPTICS;
 
-                    hidden_neurons_count = 3;
-                    nn_init.init_vector.push_back(knn_init.neurons_count + (knn_init.neurons_count*knn_init.outputs_count) + 1);
+                    nn_init.init_vector.push_back(knn_init.neurons_count + 1);
                     nn_init.init_vector.push_back(hidden_neurons_count);
                     nn_init.init_vector.push_back(required_output.size());
 
@@ -338,7 +334,7 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path, u32 
 
     u32 iterations = 100000;
 
-    u32 k, i, j;
+    u32 k;
 
     if (log_enabled)
     {
@@ -393,12 +389,7 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path, u32 
       if (nn != NULL)
       {
         if (knn != NULL)
-        {
-          for (j = 0; j < knn_init.neurons_count; j++)
-            for (i = 0; i < knn_init.outputs_count; i++)
-              nn_input.push_back((*knn->get_nn_output())[j][i]);
           nn_input.push_back(1.0);
-        }
 
         nn->process(nn_input);
         nn_output = nn->get();
@@ -438,7 +429,6 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path, u32 
 
         nn_input =  knn->get_output();
         nn_output = (*knn->get_nn_output())[knn->get_output_winning_neuron_idx()];
-
       }
       else
         nn_input = input;
@@ -446,12 +436,7 @@ void CNNTest::process_single_test(u32 id, bool log_enabled, char *log_path, u32 
       if (nn != NULL)
       {
         if (knn != NULL)
-        {
-          for (j = 0; j < knn_init.neurons_count; j++)
-            for (i = 0; i < knn_init.outputs_count; i++)
-              nn_input.push_back((*knn->get_nn_output())[j][i]);
           nn_input.push_back(1.0);
-        }
 
         nn->process(nn_input);
         nn_output = nn->get();
@@ -578,7 +563,7 @@ std::vector<float> CNNTest::get_required_output(std::vector<float> input, u32 id
 
 
         case 8: nn_required[0]->process(input);
-                y = nn_required[0]->get()[0];
+                y = 0.25*nn_required[0]->get()[0];
                 break;
 
         case 9: nn_required[1]->process(input);

@@ -7,14 +7,13 @@ int main()
 {
 	srand(time(NULL));
 
-
 	CNNTest *nn_test;
 
 	nn_test = new CNNTest();
 	nn_test->process();
 
 	delete nn_test;
-	
+
 /*
 	CDynamicsTest *nn_test;
 
@@ -37,7 +36,6 @@ int main()
 	water->save_clusters((char*)"water_results/clusters_01.txt");
 
 	delete water;
-
 */
 
 	printf("program done\n");

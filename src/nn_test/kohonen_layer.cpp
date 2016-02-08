@@ -169,12 +169,10 @@ void CKohonenLayer::learn(std::vector<float> *required_output)
     {
         float tmp = 1.0 - output[j];
         k = nn_init.learning_constant * 1.0/(100.0 + tmp);
-        a = 1.0;
     }
     else
     {
         k = nn_init.learning_constant;
-        a = 1.0;
     }
 
     for (i = 0; i < nn_init.inputs_count; i++)
