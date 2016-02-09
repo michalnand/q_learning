@@ -293,7 +293,7 @@ neurons, with single output and three inputs - two for random input from $\langl
 
 \subsection{Neural network conditions}
 Each neural network have some parameters, with difference only in neuron model type
-and hidden layers count \ref{eq:nn_conditions}, \ref{eq:knn_conditions}. In our experiments,
+and hidden layers count \ref{eq:nn_conditions},  and for Kohonen layer \ref{eq:knn_conditions}. In our experiments,
 these topology was testeted :
 feed forward neural network's with 1 or 2 hidden layers, Kohonen network function approximation,
 and finally feed forward neural network's with input preprocessing in Kohonen network.
@@ -309,7 +309,7 @@ neuron\_type &= \{ \nonumber \\
                 &NEURON\_TYPE\_TESTING \} \nonumber \\
 init\_vector &= {see text} \nonumber \\
 weight\_range &= 4.0 \nonumber \\
-initv_weight\_range &= weight\_range/4 \nonumber \\
+init\_weight\_range &= weight\_range/4 \nonumber \\
 \eta &= 1.0/1000.0; \nonumber \\
 y_{max} &= 4.0
 \end{align}
