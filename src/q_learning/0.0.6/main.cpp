@@ -11,7 +11,7 @@ int main()
 	agent_init.id = 0;
 	agent_init.type = 0;
 	agent_init.dt = 1.0/32.0;;
-	agent_init.gamma = 0.98;
+	agent_init.gamma = 0.99; //0.98;
 	agent_init.alpha = 0.9;
 	agent_init.k = 1.0;
 	agent_init.function_type = 0;
@@ -39,7 +39,6 @@ int main()
 	action[1] = -1.0;
 	actions.push_back(action);
 
-	/*
 
 	action[0] = 1.0;
 	action[1] = 1.0;
@@ -56,7 +55,7 @@ int main()
 	action[0] = -1.0;
 	action[1] = -1.0;
 	actions.push_back(action);
-	*/
+
 
 	class CEnvironment *environment = new CEnvironment(agent_init, actions);
 

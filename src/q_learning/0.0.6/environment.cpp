@@ -8,12 +8,14 @@ CEnvironment::CEnvironment(struct sAgentInit agent_init, std::vector<std::vector
 
 
     dt = this->agent_init.dt;
-    u32 fields_count = 0.05/(dt*dt);
+    //u32 fields_count = 0.05/(dt*dt);
+    u32 fields_count = 0.1/(dt*dt);
 
     map = new CMap(dt, fields_count);
 
 
     map->save((char*)"map_log/map.bin");
+  //  map->load((char*)"map_log/map.bin");
     map->save_plot((char*)"map_log/map_plot_log.log");
 
 
