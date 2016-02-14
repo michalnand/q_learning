@@ -9,12 +9,12 @@ class CLog
 {
 	private:
 		FILE *file;
-		char *file_name;
+		char file_name[1024];
 
 		std::vector<std::vector<float>> log_data;
 	public:
 		CLog(char *file_name, u32 axis_count);
-		~CLog(); 
+		~CLog();
 
 		void add(u32 axis, float value);
 		void save();

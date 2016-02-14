@@ -15,9 +15,10 @@
 struct sMapInit
 {
   u32 magic;
-  float x_size, y_size, z_size;
-  float dt;
+  u32 id;
   u32 fields_count;
+  float dt;
+  float x_size, y_size, z_size;
 };
 
 struct sMapField

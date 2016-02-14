@@ -1,9 +1,5 @@
 ./main.elf
 
-cd map_log
-gnuplot map_plot_script
-cd ..
-
-cd q_func_log
-gnuplot q_func_plot_script
+cd results
+./plot
 cd ..

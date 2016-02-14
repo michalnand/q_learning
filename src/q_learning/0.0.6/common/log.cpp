@@ -1,10 +1,11 @@
 #include "log.h"
 
 CLog::CLog(char *file_name, u32 axis_count)
-{	
-	this->file_name = file_name; 
-	file = fopen(file_name, "w");
-	fclose(file);
+{
+	sprintf(this->file_name,"%s", file_name);
+
+	file = fopen(this->file_name, "w");
+	fclose(this->file);
 
 	u32 i;
 
@@ -26,7 +27,13 @@ void CLog::add(u32 axis, float value)
 
 void CLog::save()
 {
-	file = fopen(file_name, "w");
+	file = fopen(this->file_name, "w");
+
+	if (file == NULL)
+	{
+		printf("log saving error : %s\n", this->file_name);
+		return;
+	}
 
 	u32 i, j;
 	for (j = 0; j < log_data[0].size(); j++)
@@ -35,8 +42,8 @@ void CLog::save()
 			fprintf(file, "%f ", log_data[i][j]);
 		fprintf(file, "\n");
 	}
-	
-	fclose(file);	
+
+	fclose(file);
 }
 
 //fit values into interval <0, 1>
@@ -56,7 +63,7 @@ void CLog::normalize(u32 axis)
 			value_max = log_data[axis][i];
 	}
 
-	
+
 	if (value_min != value_max)
 	{
 		float a = 0.0;

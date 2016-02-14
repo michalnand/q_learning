@@ -2,33 +2,19 @@
 
 
 
-CEnvironment::CEnvironment(struct sAgentInit agent_init, std::vector<std::vector<float>> actions)
+CEnvironment::CEnvironment(struct sAgentInit agent_init, std::vector<std::vector<float>> actions, class CMap *map)
 {
     this->agent_init = agent_init;
+    this->dt = this->agent_init.dt;
 
-
-    dt = this->agent_init.dt;
-    //u32 fields_count = 0.05/(dt*dt);
-    u32 fields_count = 0.1/(dt*dt);
-
-    map = new CMap(dt, fields_count);
-
-
-    map->save((char*)"map_log/map.bin");
-  //  map->load((char*)"map_log/map.bin");
-    map->save_plot((char*)"map_log/map_plot_log.log");
-
-
+    this->map = map;
 
     this->agent_init.actions = actions;
-
-
-    agent = new CAgent(this->agent_init);
+    this->agent = new CAgent(this->agent_init);
 }
 
 CEnvironment::~CEnvironment()
 {
-  delete map;
   delete agent;
 }
 
@@ -121,12 +107,13 @@ float CEnvironment::process_one_run(char *path_name, u32 process_best, u32 max_r
   if (log != NULL)
   {
     log->save();
+    delete log;
   }
 
   if (path_name != NULL)
   {
     char file_name[1024];
-    sprintf(file_name,"%s/q_func_best_value_log.log", path_name);
+    sprintf(file_name,"%s/q_learning_result.log", path_name);
     agent->save_best_q_plot(agent_input, file_name);
   }
 
@@ -134,28 +121,56 @@ float CEnvironment::process_one_run(char *path_name, u32 process_best, u32 max_r
   return score;
 }
 
-void CEnvironment::process()
+float CEnvironment::process(u32 learning_iterations, u32 map_id)
 {
-  process_one_run(NULL, 0, 1000000, 0);
+  u32 i, j;
+  u32 iterations;
 
-  u32 i;
-  u32 testing_iterations_count = 1000;
-  float testing_score = 0.0;
+  char result_path[1024];
+  sprintf(result_path,"%s/%s%u/function_type_%u/score_summary.log", S_RESULTS_PATH, S_MAP_PATH, map_id, agent_init.function_type);
+  printf("> summary saved into %s\n", result_path);
 
 
-  for (i = 0; i < testing_iterations_count; i++)
+  class CLog log(result_path, 3);
+
+  for (iterations = 100000; iterations <= learning_iterations; iterations+= 100000)
   {
-    if (i < 100)
-      testing_score+= process_one_run((char*)"q_func_log", 1, 10000, i);
-    else
-      testing_score+= process_one_run(NULL, 1, 10000, i);
+    sprintf(result_path,"%s/%s%u/function_type_%u/iterations_%u", S_RESULTS_PATH, S_MAP_PATH, map_id, agent_init.function_type, iterations);
+    printf("> %s\n", result_path);
+
+    process_one_run(NULL, 0, 100000, 0);
+
+
+    //save robots paths for plotting
+    for (i = 0; i < 100; i++)
+      process_one_run(result_path, 1, 10000, i);
+
+    //process 30times 100 testing runs
+    for (j = 0; j < 30; j++)
+    {
+      float partial_score = 0.0;
+      for (i = 0; i < 100; i++)
+        partial_score+= process_one_run(NULL, 1, 10000, i);
+
+      partial_score = partial_score/100.0;
+
+      log.add(0, iterations);
+      log.add(1, j);
+      log.add(2, partial_score);
+    }
   }
 
-  testing_score/= testing_iterations_count;
+  log.save();
 
-  printf("%f\n", testing_score);
+  //now maximum learning iterations done
+  //process 100 runs to take bests results
+  float score = 0.0;
+  for (i = 0; i < 100; i++)
+    score+= process_one_run(NULL, 1, 10000, -1);
 
+  score = score / 100.0;
 
-  process_one_run((char*)"q_func_log", 1, 1000, -1);
+  printf("done with score %f\n",score);
 
+  return score;
 }

@@ -5,11 +5,12 @@ CMap::CMap(float dt, u32 fields_count)
   u32 i;
 
   map_init.magic = MAP_MAGIC;
+  map_init.id = rand();
+  map_init.fields_count = fields_count;
+  map_init.dt = dt;
   map_init.x_size = 1.0;
   map_init.y_size = 1.0;
   map_init.z_size = 0.0;
-  map_init.dt = dt;
-  map_init.fields_count = fields_count;
 
   struct sMapField field;
   field.id = 0;
@@ -29,7 +30,6 @@ CMap::CMap(float dt, u32 fields_count)
 
   for (i = 0; i < fields_count; i++)
   {
-    field.id++;
     field.pos_x = rnd_();
     field.pos_y = rnd_();
     field.pos_z = 0.0;
@@ -53,18 +53,19 @@ CMap::CMap(float dt, u32 fields_count)
       field.type = MAP_FIELD_POSITIVE_REWARD;
 
     fields.push_back(field);
+    field.id++;
   }
 
-
-  field.id++;
   field.type = MAP_FIELD_TARGET;
   field.pos_x = rnd_();
   field.pos_y = rnd_();
   field.pos_z = 0.0;
-
   field.reward = 1.0;
 
   fields.push_back(field);
+
+
+  map_init.fields_count = fields.size();
 
 }
 
@@ -131,9 +132,9 @@ void CMap::save_plot(char *file_name)
   CLog log(file_name, 9);
 
 
-  for (y = -1.0; y < 1.0; y+= map_init.dt)
+  for (y = -map_init.y_size+map_init.dt; y < map_init.y_size; y+= map_init.dt)
   {
-    for (x = -1.0; x < 1.0; x+= map_init.dt)
+    for (x = -map_init.x_size+map_init.dt; x < map_init.x_size; x+= map_init.dt)
     {
       struct sMapField field;
       field = get(x, y, z);
@@ -164,13 +165,14 @@ i32 CMap::save(char *file_name)
   if (f == NULL)
     return -1;
 
-  fwrite((void*)&map_init, sizeof(struct sMapInit), 1, f);
+  fwrite((void*)(&map_init), sizeof(struct sMapInit), 1, f);
+
 
   for (i = 0; i < map_init.fields_count; i++)
   {
     struct sMapField field;
     field = fields[i];
-    fwrite((void*)&field, sizeof(struct sMapField), 1, f);
+    fwrite((void*)(&field), sizeof(struct sMapField), 1, f);
   }
 
   fclose(f);
@@ -185,21 +187,23 @@ i32 CMap::load(char *file_name)
 
   fields.clear();
   map_init.fields_count = 0;
+  map_init.magic = 0;
 
   f = fopen(file_name, "r");
 
   if (f == NULL)
     return -1;
 
-  fread((void*)&map_init, sizeof(struct sMapInit), 1, f);
+  fread((void*)(&map_init), sizeof(struct sMapInit), 1, f);
 
   if (map_init.magic != MAP_MAGIC)
     return -2;
 
+
   for (i = 0; i < map_init.fields_count; i++)
   {
     struct sMapField field;
-    fread((void*)&field, sizeof(struct sMapField), 1, f);
+    fread((void*)(&field), sizeof(struct sMapField), 1, f);
     fields.push_back(field);
   }
 
@@ -227,7 +231,6 @@ u32 CMap::make_frame(u32 id_start)
 
   for (x = -map_init.x_size; x < map_init.x_size; x+= map_init.dt)
   {
-    field.id++;
     field.pos_x = x;
     field.pos_y = -map_init.y_size;
     field.pos_z = 0.0;
@@ -240,11 +243,11 @@ u32 CMap::make_frame(u32 id_start)
 
     field.type = MAP_FIELD_NEGATIVE_REWARD;
     fields.push_back(field);
+    field.id++;
   }
 
   for (x = -map_init.x_size; x < map_init.x_size; x+= map_init.dt)
   {
-    field.id++;
     field.pos_x = x;
     field.pos_y = map_init.y_size;
     field.pos_z = 0.0;
@@ -257,12 +260,12 @@ u32 CMap::make_frame(u32 id_start)
 
     field.type = MAP_FIELD_NEGATIVE_REWARD;
     fields.push_back(field);
+    field.id++;
   }
 
 
   for (y = -map_init.y_size; y < map_init.y_size; y+= map_init.dt)
   {
-    field.id++;
     field.pos_x = -map_init.x_size;
     field.pos_y = y;
     field.pos_z = 0.0;
@@ -275,11 +278,11 @@ u32 CMap::make_frame(u32 id_start)
 
     field.type = MAP_FIELD_NEGATIVE_REWARD;
     fields.push_back(field);
+    field.id++;
   }
 
   for (y = -map_init.y_size; y < map_init.y_size; y+= map_init.dt)
   {
-    field.id++;
     field.pos_x = map_init.x_size;
     field.pos_y = y;
     field.pos_z = 0.0;
@@ -292,11 +295,8 @@ u32 CMap::make_frame(u32 id_start)
 
     field.type = MAP_FIELD_NEGATIVE_REWARD;
     fields.push_back(field);
+    field.id++;
   }
 
-
-
-
-
-  return field.id+1;
+  return field.id;
 }

@@ -14,10 +14,10 @@ class CEnvironment
     class CAgent *agent;
 
   public:
-    CEnvironment(struct sAgentInit agent_init, std::vector<std::vector<float>> actions);
+    CEnvironment(struct sAgentInit agent_init, std::vector<std::vector<float>> actions, class CMap *map);
     ~CEnvironment();
 
-    void process();
+    float process(u32 learning_iterations, u32 map_id);
 
   private:
     float process_one_run(char *log_file_name, u32 process_best, u32 max_runs, i32 id);

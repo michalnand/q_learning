@@ -1,0 +1,43 @@
+# rm map.bin -f
+rm map_plot.log -f
+rm *.png -f
+
+cd iterations_100000
+./clear
+cd ..
+
+cd iterations_200000
+./clear
+cd ..
+
+cd iterations_300000
+./clear
+cd ..
+
+cd iterations_400000
+./clear
+cd ..
+
+cd iterations_500000
+./clear
+cd ..
+
+cd iterations_600000
+./clear
+cd ..
+
+cd iterations_700000
+./clear
+cd ..
+
+cd iterations_800000
+./clear
+cd ..
+
+cd iterations_900000
+./clear
+cd ..
+
+cd iterations_1000000
+./clear
+cd ..

@@ -1,0 +1,41 @@
+gnuplot plot_script_summary
+
+cd iterations_100000
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_200000
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_300000
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_400000
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_500000
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_600000
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_700000
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_800000
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_900000
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_1000000
+gnuplot q_func_plot_script
+cd ..
