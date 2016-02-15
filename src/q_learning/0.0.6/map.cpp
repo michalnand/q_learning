@@ -132,12 +132,12 @@ void CMap::save_plot(char *file_name)
   CLog log(file_name, 9);
 
 
-  for (y = -map_init.y_size+map_init.dt; y < map_init.y_size; y+= map_init.dt)
+  for (y = -map_init.y_size; y < map_init.y_size; y+= map_init.dt)
   {
-    for (x = -map_init.x_size+map_init.dt; x < map_init.x_size; x+= map_init.dt)
+    for (x = -map_init.x_size; x < map_init.x_size; x+= map_init.dt)
     {
       struct sMapField field;
-      field = get(x, y, z);
+      field = get(x, y, z); 
 
       log.add(0, x);
       log.add(1, y);
