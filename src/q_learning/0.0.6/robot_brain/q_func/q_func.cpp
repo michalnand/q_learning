@@ -65,7 +65,6 @@ void CQFunc::learn(std::vector<float> state, std::vector<float> action, float re
 
     float tmp = alpha*q_values->get_f(q_idx_f) + (1.0 - alpha)*required_value;
 
-    tmp = tanh(tmp);
     q_values->set_f(q_idx_f, tmp);
 }
 

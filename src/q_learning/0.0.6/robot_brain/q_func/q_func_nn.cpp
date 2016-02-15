@@ -27,7 +27,7 @@ CQFuncNN::CQFuncNN(u32 state_size, u32 action_size, float state_density,
     nn_init.neuron_type = neuron_type;
 
     nn_init.weight_range = 4.0;
-    nn_init.init_weight_range = nn_init.weight_range*0.25;
+    nn_init.init_weight_range = 0.3*nn_init.weight_range;
     nn_init.learning_constant = 1.0/1000.0;
     nn_init.output_limit = 4.0;
 

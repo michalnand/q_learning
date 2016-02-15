@@ -18,7 +18,56 @@ CEnvironment::~CEnvironment()
   delete agent;
 }
 
-float CEnvironment::process_one_run(char *path_name, u32 process_best, u32 max_runs, i32 id)
+void CEnvironment::process_learn_run(u32 learning_iterations)
+{
+  u32 i;
+  struct sMapField map_field;
+
+  std::vector<float> agent_input;
+  agent_input.push_back(0.0);
+  agent_input.push_back(0.0);
+
+  float x = rnd_();
+  float y = rnd_();
+
+  for (i = 0; i < learning_iterations; i++)
+  {
+    agent_input[0] = x;
+    agent_input[1] = y;
+
+    map_field = map->get(x, y, 0.0);
+    float reward = map_field.reward;
+
+    agent->process(agent_input, reward, 1);
+
+    struct sAgentRes agent_res;
+    agent_res = agent->get();
+
+    x+= dt*agent_res.action[0];
+    y+= dt*agent_res.action[1];
+
+    if (x > 1.0)
+      x = 1.0;
+    if (x < -1.0)
+      x = -1.0;
+
+    if (y > 1.0)
+      y = 1.0;
+    if (y < -1.0)
+      y = -1.0;
+
+    if (map_field.type == MAP_FIELD_TARGET)
+    {
+      x = rnd_();
+      y = rnd_();
+      agent->reset();
+    }
+  }
+}
+
+//float CEnvironment::process_one_run(char *path_name, u32 process_best, u32 max_runs, i32 id, )
+
+float CEnvironment::process_test_run(u32 iterations, u32 id, char *path_name)
 {
   u32 i;
   struct sMapField map_field;
@@ -38,7 +87,7 @@ float CEnvironment::process_one_run(char *path_name, u32 process_best, u32 max_r
     log = new CLog(file_name, 3);
   }
 
-  for (i = 0; i < max_runs; i++)
+  for (i = 0; i < iterations; i++)
   {
     agent_input[0] = x;
     agent_input[1] = y;
@@ -46,32 +95,16 @@ float CEnvironment::process_one_run(char *path_name, u32 process_best, u32 max_r
     map_field = map->get(x, y, 0.0);
     float reward = map_field.reward;
 
-    u32 learn;
-    if (process_best != 0)
-      learn = 0;
-    else
-      learn = 1;
-
-    agent->process(agent_input, reward, learn);
+    agent->process(agent_input, reward, 0);
 
 
     struct sAgentRes agent_res;
     agent_res = agent->get();
 
+    x+= dt*agent_res.best_action[0];
+    y+= dt*agent_res.best_action[1];
+    score+= reward;
 
-
-    if (process_best != 0)
-    {
-      x+= dt*agent_res.best_action[0];
-      y+= dt*agent_res.best_action[1];
-      score+= agent_res.q_res.best_action_q;
-    }
-    else
-    {
-      x+= dt*agent_res.action[0];
-      y+= dt*agent_res.action[1];
-      score+= agent_res.q_res.selected_action_q;
-    }
 
 
     if (x > 1.0)
@@ -99,9 +132,6 @@ float CEnvironment::process_one_run(char *path_name, u32 process_best, u32 max_r
       y = rnd_();
       agent->reset();
     }
-
-    if ((map_field.type == MAP_FIELD_TARGET) && (process_best != 0))
-      break;
   }
 
   if (log != NULL)
@@ -133,28 +163,31 @@ float CEnvironment::process(u32 learning_iterations, u32 map_id)
 
   class CLog log(result_path, 3);
 
-  for (iterations = 100000; iterations <= learning_iterations; iterations+= 100000)
+  for (iterations = 1; iterations <= 10; iterations++)
   {
     sprintf(result_path,"%s/%s%u/function_type_%u/iterations_%u", S_RESULTS_PATH, S_MAP_PATH, map_id, agent_init.function_type, iterations);
     printf("> %s\n", result_path);
 
-    process_one_run(NULL, 0, 100000, 0);
+    printf("   learning\n");
+    for (j = 0; j < 100; j++)
+      process_learn_run(1000);
 
-
+    printf("   testing\n");
     //save robots paths for plotting
     for (i = 0; i < 100; i++)
-      process_one_run(result_path, 1, 10000, i);
+      process_test_run(1000, i, result_path);
 
     //process 30times 100 testing runs
     for (j = 0; j < 30; j++)
     {
       float partial_score = 0.0;
       for (i = 0; i < 100; i++)
-        partial_score+= process_one_run(NULL, 1, 10000, i);
+        partial_score+= process_test_run(1000, i, NULL);
+
 
       partial_score = partial_score/100.0;
 
-      log.add(0, iterations/1000.0);
+      log.add(0, iterations);
       log.add(1, j);
       log.add(2, partial_score);
     }
@@ -166,7 +199,7 @@ float CEnvironment::process(u32 learning_iterations, u32 map_id)
   //process 100 runs to take bests results
   float score = 0.0;
   for (i = 0; i < 100; i++)
-    score+= process_one_run(NULL, 1, 10000, -1);
+    score+= process_test_run(1000, i, NULL);
 
   score = score / 100.0;
 

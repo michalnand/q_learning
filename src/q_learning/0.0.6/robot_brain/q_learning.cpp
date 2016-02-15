@@ -165,7 +165,7 @@ void CQlearning::process(std::vector<float> state, std::vector<std::vector<float
 
   if (learn != 0)
   {
-    float value = q_init.gamma*q_res_prev.reward + q_init.gamma*q_res.best_action_q;
+    float value = tanh(q_init.gamma*q_res_prev.reward + q_init.gamma*q_res.best_action_q);
     // q_func->learn(q_res_prev.state, q_res_prev.action, value);
 
     switch (q_init.function_type)
@@ -263,7 +263,7 @@ u32 CQlearning::get_max_q_action_id(std::vector<float> state, std::vector<std::v
               tmp = q_func_nn_knn->get(state, actions[j]);
               break;
     }
-    
+
     if (tmp > max_q)
     {
       max_q = tmp;

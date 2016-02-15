@@ -37,6 +37,16 @@ void CKohonenLayer::init()
 
   min_dist = this->input.size()*this->input.size()*1000.0;
   winning_neuron = 0;
+
+
+  for (j = 0; j < nn_init.neurons_count; j++)
+  {
+    std::vector<float> tmp;
+    for (i = 0; i < nn_init.outputs_count; i++)
+      tmp.push_back(0.0);
+
+    nn_output.push_back(tmp);
+  }
 }
 
 void CKohonenLayer::uninit()
@@ -57,12 +67,34 @@ void CKohonenLayer::uninit()
   output.clear();
 }
 
+//return distances output from each neuron - depends on prcess normalise_output value
+//high output[i] value means higher match
 std::vector<float> CKohonenLayer::get_output()
 {
     return output;
 }
 
-void CKohonenLayer::process(std::vector<float> input)
+std::vector<std::vector<float>>* CKohonenLayer::get_nn_output()
+{
+    return &nn_output;
+}
+
+u32 CKohonenLayer::get_output_winning_neuron_idx()
+{
+    return winning_neuron;
+}
+
+float CKohonenLayer::get_output_winning_distance()
+{
+    return min_dist;
+}
+
+float** CKohonenLayer::get_weights()
+{
+    return w;
+}
+
+void CKohonenLayer::process(std::vector<float> input, bool normalise_output)
 {
   this->input = input;
 
@@ -77,11 +109,12 @@ void CKohonenLayer::process(std::vector<float> input)
     for (i = 0; i < nn_init.inputs_count; i++)
       sum+= abs_(w[j][i] - input[i]);
 
-    //normalise into <0, 1> range
+    //normalise sum value
     sum = sum/nn_init.inputs_count;
 
-    if (sum > 1.0)
-        sum = 1.0;
+    //limit output value
+    if (sum > nn_init.output_limit)
+        sum = nn_init.output_limit;
 
     //find winning neuron
     if (sum < min_dist)
@@ -90,29 +123,71 @@ void CKohonenLayer::process(std::vector<float> input)
       winning_neuron = j;
     }
 
-    sum = 1.0 - sum;
-    output[j] = 2.0*(sum - 0.5);
+    //reverse value - higher output = closer match to pattern
+    sum = nn_init.output_limit - sum;
+    output[j] = sum;
+  }
+
+  //normalise output into <0..1> range
+  if (normalise_output)
+  {
+      float max = -1000.0;
+      float min = -max;
+
+      for (j = 0; j < nn_init.neurons_count; j++)
+      {
+        if (output[j] > max)
+            max = output[j];
+
+        if (output[j] < min)
+            min = output[j];
+      }
+
+      if (max == min)
+      {
+          max+= max/100000.0;
+      }
+
+      float k = 1.0/(max - min);
+      float q = 1.0 - k*max;
+
+      for (j = 0; j < nn_init.neurons_count; j++)
+        output[j] = k*output[j] + q;
   }
 
 }
 
-void CKohonenLayer::learn()
+void CKohonenLayer::learn(std::vector<float> *required_output)
 {
   u32 i, j;
   for (j = 0; j < nn_init.neurons_count; j++)
   {
     float k = 0.0;
+    float a = 1.0;
 
     if (j != winning_neuron)
     {
-        float tmp = 1.0 - ((output[j] + 1.0)/2.0);
-        k = nn_init.learning_constant * 1.0/(10.0 + tmp);
+        float tmp = 1.0 - output[j];
+        k = nn_init.learning_constant * 1.0/(100.0 + tmp);
     }
     else
+    {
         k = nn_init.learning_constant;
+    }
 
     for (i = 0; i < nn_init.inputs_count; i++)
-      w[j][i] = (1.0 - k)*w[j][i] + k*input[i];
+      w[j][i] = (1.0 - k)*w[j][i] + k*a*input[i];
+  }
+
+  if (required_output != NULL)
+  {
+    if (nn_output[winning_neuron].size() == required_output->size())
+    {
+      float k  = nn_init.learning_constant;
+      for (i = 0; i < nn_output[winning_neuron].size(); i++)
+        nn_output[winning_neuron][i] =
+          (1.0 - k)*nn_output[winning_neuron][i] + k*(*required_output)[i];
+    }
   }
 }
 
