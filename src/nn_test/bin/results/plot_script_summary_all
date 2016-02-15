@@ -45,5 +45,5 @@ plot "mcculloch_pitts_linear_neuron_1_layer/summary_result_log.txt" using 2 titl
     "testing_neuron_2_layers/summary_result_log.txt" using 2 title "testing neuron 2 hidden layers"  with histogram lw 2.0, \
     "kohonen_layer/summary_result_log.txt" using 2 title "kohonen layer"  with histogram lw 2.0, \
     "kohonen_layer_mcculloch_pitts_tanh_neuron_1_layer/summary_result_log.txt" using 2 title "kohonen layer mcculloch pitts tanh neuron 1 layer"  with histogram lw 2.0, \
-    "kohonen_layer_testing_neuron_1_layer/summary_result_log.txt" using 1 title "kohonen layer testing neuron 2 layer"  with histogram lw 2.0
+    "kohonen_layer_testing_neuron_1_layer/summary_result_log.txt" using 1 title "kohonen layer testing neuron 1 layer"  with histogram lw 2.0
 

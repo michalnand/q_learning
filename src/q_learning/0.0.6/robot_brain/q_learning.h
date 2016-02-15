@@ -3,6 +3,10 @@
 
 #include "../common.h"
 #include "q_func/q_func.h"
+#include "q_func/q_func_nn.h"
+#include "q_func/q_func_knn.h"
+
+
 
 struct sQlearningInit
 {
@@ -37,7 +41,9 @@ class CQlearning
     std::vector<float> actions_score, action_score_normalized;
 
     class CQFunc *q_func;
-
+    class CQFuncNN *q_func_nn_mcp;
+    class CQFuncNN *q_func_nn_tn;
+    class CQFuncKNN *q_func_nn_knn;
 
   public:
     CQlearning(struct sQlearningInit ql_init_struct);

@@ -154,7 +154,7 @@ float CEnvironment::process(u32 learning_iterations, u32 map_id)
 
       partial_score = partial_score/100.0;
 
-      log.add(0, iterations);
+      log.add(0, iterations/1000.0);
       log.add(1, j);
       log.add(2, partial_score);
     }
