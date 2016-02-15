@@ -57,8 +57,8 @@ CMap::CMap(float dt, u32 fields_count)
   }
 
   field.type = MAP_FIELD_TARGET;
-  field.pos_x = rnd_();
-  field.pos_y = rnd_();
+  field.pos_x = rnd_()*0.9;
+  field.pos_y = rnd_()*0.9;
   field.pos_z = 0.0;
   field.reward = 1.0;
 
@@ -131,13 +131,12 @@ void CMap::save_plot(char *file_name)
 
   CLog log(file_name, 9);
 
-
   for (y = -map_init.y_size; y < map_init.y_size; y+= map_init.dt)
   {
     for (x = -map_init.x_size; x < map_init.x_size; x+= map_init.dt)
     {
       struct sMapField field;
-      field = get(x, y, z); 
+      field = get(x, y, z);
 
       log.add(0, x);
       log.add(1, y);

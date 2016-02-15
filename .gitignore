@@ -29,7 +29,7 @@
 *.x86_64
 *.hex
 *.s19
-*.bin
+#*.bin
 
 # Debug files
 *.dSYM/

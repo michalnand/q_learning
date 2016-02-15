@@ -30,6 +30,24 @@ CQlearning::CQlearning(struct sQlearningInit ql_init_struct)
                         q_init.alpha
                       );
 
+  q_func_nn_mcp = new  CQFuncNN(
+                                q_init.state_vector_size, q_init.action_vector_size,
+                                q_init.density, q_init.density,
+                                q_init.alpha, NN_LAYER_NEURON_TYPE_TANH
+                                );
+
+  q_func_nn_tn = new  CQFuncNN(
+                                q_init.state_vector_size, q_init.action_vector_size,
+                                q_init.density, q_init.density,
+                                q_init.alpha, NN_LAYER_NEURON_TYPE_INTERSYNAPTICS
+                              );
+
+  q_func_nn_knn = new CQFuncKNN(
+                              q_init.state_vector_size, q_init.action_vector_size,
+                              q_init.density, q_init.density,
+                              q_init.alpha, NN_LAYER_NEURON_TYPE_INTERSYNAPTICS
+                            );
+
   for (i = 0; i < q_init.actions_count; i++)
   {
     actions_score.push_back(0.0);
@@ -48,6 +66,9 @@ CQlearning::CQlearning(struct sQlearningInit ql_init_struct)
 CQlearning::~CQlearning()
 {
   delete q_func;
+  delete q_func_nn_mcp;
+  delete q_func_nn_tn;
+  delete q_func_nn_knn;
 }
 
 
@@ -61,9 +82,28 @@ void CQlearning::process(std::vector<float> state, std::vector<std::vector<float
 
   u32 j;
 
-  for (j = 0; j < q_init.actions_count; j++)
-    actions_score[j] = q_func->get(state, actions[j]);
+  switch (q_init.function_type)
+  {
+    case 0:
+            for (j = 0; j < q_init.actions_count; j++)
+              actions_score[j] = q_func->get(state, actions[j]);
+            break;
 
+    case 1:
+            for (j = 0; j < q_init.actions_count; j++)
+              actions_score[j] = q_func_nn_mcp->get(state, actions[j]);
+            break;
+
+    case 2:
+            for (j = 0; j < q_init.actions_count; j++)
+              actions_score[j] = q_func_nn_tn->get(state, actions[j]);
+            break;
+
+    case 3:
+            for (j = 0; j < q_init.actions_count; j++)
+              actions_score[j] = q_func_nn_knn->get(state, actions[j]);
+            break;
+  }
 
   //find best action
   q_res.best_action = 0;
@@ -126,7 +166,22 @@ void CQlearning::process(std::vector<float> state, std::vector<std::vector<float
   if (learn != 0)
   {
     float value = q_init.gamma*q_res_prev.reward + q_init.gamma*q_res.best_action_q;
-    q_func->learn(q_res_prev.state, q_res_prev.action, value);
+    // q_func->learn(q_res_prev.state, q_res_prev.action, value);
+
+    switch (q_init.function_type)
+    {
+      case 0: q_func->learn(q_res_prev.state, q_res_prev.action, value);
+              break;
+
+      case 1: q_func_nn_mcp->learn(q_res_prev.state, q_res_prev.action, value);
+              break;
+
+      case 2: q_func_nn_tn->learn(q_res_prev.state, q_res_prev.action, value);
+              break;
+
+      case 3: q_func_nn_knn->learn(q_res_prev.state, q_res_prev.action, value);
+              break;
+    }
   }
 }
 
@@ -155,7 +210,26 @@ float CQlearning::get_max_q(std::vector<float> state, std::vector<std::vector<fl
 
   for (j = 0; j < q_init.actions_count; j++)
   {
-    tmp = q_func->get(state, actions[j]);
+    tmp = 0.0;
+    switch (q_init.function_type)
+    {
+      case 0:
+              tmp = q_func->get(state, actions[j]);
+              break;
+
+      case 1:
+              tmp = q_func_nn_mcp->get(state, actions[j]);
+              break;
+
+      case 2:
+              tmp = q_func_nn_tn->get(state, actions[j]);
+              break;
+
+      case 3:
+              tmp = q_func_nn_knn->get(state, actions[j]);
+              break;
+    }
+
     if (tmp > max_q)
       max_q = tmp;
   }
@@ -170,7 +244,26 @@ u32 CQlearning::get_max_q_action_id(std::vector<float> state, std::vector<std::v
 
   for (j = 0; j < q_init.actions_count; j++)
   {
-    tmp = q_func->get(state, actions[j]);
+    tmp = 0.0;
+    switch (q_init.function_type)
+    {
+      case 0:
+              tmp = q_func->get(state, actions[j]);
+              break;
+
+      case 1:
+              tmp = q_func_nn_mcp->get(state, actions[j]);
+              break;
+
+      case 2:
+              tmp = q_func_nn_tn->get(state, actions[j]);
+              break;
+
+      case 3:
+              tmp = q_func_nn_knn->get(state, actions[j]);
+              break;
+    }
+    
     if (tmp > max_q)
     {
       max_q = tmp;

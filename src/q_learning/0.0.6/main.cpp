@@ -75,7 +75,7 @@ int main()
 	actions.push_back(action);
 
 
-//	create_maps(dt);
+	create_maps(dt);
 
 	u32 res, i;
 
@@ -103,11 +103,11 @@ int main()
 
 	class CLog log((char*)"results/results.log", 3);
 
-	function_type = 0;
-	//	map_id = 1;
+	function_type = 1;
+	map_id = 0;
 
 	//for (function_type = 0; function_type < 4; function_type++)
-	for (map_id = 2; map_id < MAPS_COUNT; map_id++)
+	//for (map_id = 2; map_id < MAPS_COUNT; map_id++)
 
 	{
 		float score;

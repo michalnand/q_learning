@@ -28,7 +28,6 @@ class CQFunc
         i32 load(char *file_name);
 
 
-
         CArray* get_q_values();
         void merge(class CQFunc *q_func);
 };
