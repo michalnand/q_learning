@@ -33,7 +33,7 @@ set autoscale
 
 set zlabel "q value"
 set output 'q_learning_result.png'
-splot 'q_func_best_value.log' using 1:2:3 title "q max value" with pm3d
+splot 'q_learning_result.log' using 1:2:3 title "q max value" with pm3d
 
 set zlabel "action"
 set output 'action_best_value_log.png'

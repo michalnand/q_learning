@@ -1,0 +1,31 @@
+cd results
+
+rm linear_neuron_1_layer -rf
+rm linear_neuron_2_layers -rf
+rm mcculloch_pitts_neuron_1_layer -rf
+rm mcculloch_pitts_neuron_2_layers -rf
+rm testing_neuron_1_layer -rf
+rm testing_neuron_2_layers -rf
+rm null mcculloch_pitts_neuron_kohonen_1_layer -r
+rm null testing_neuron_kohonen_1_layer -r
+
+rm summary_result_all_average_error_log.png -f
+rm summary_result_all_maximum_error_log.png -f
+
+cp null linear_neuron_1_layer -r
+cp null linear_neuron_2_layers -r
+cp null mcculloch_pitts_neuron_1_layer -r
+cp null mcculloch_pitts_neuron_2_layers -r
+cp null testing_neuron_1_layer -r
+cp null testing_neuron_2_layers -r
+cp null mcculloch_pitts_neuron_kohonen_1_layer -r
+cp null testing_neuron_kohonen_1_layer -r
+
+cd ..
+
+
+./main.elf > results/result.txt
+
+cd results
+./plot
+cd ..

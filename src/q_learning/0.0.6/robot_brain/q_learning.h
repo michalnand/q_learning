@@ -6,8 +6,6 @@
 #include "q_func/q_func_nn.h"
 #include "q_func/q_func_knn.h"
 
-
-
 struct sQlearningInit
 {
   u32 state_vector_size;
@@ -21,41 +19,43 @@ struct sQlearningInit
   float density;
 };
 
-
 struct sQlearningRes
 {
-float reward;
-  std::vector<float> state, action, action_best;
-  u32 selected_action, best_action;
-  float best_action_q, selected_action_q;
+  float               reward;
+  std::vector<float>  state;
 
-  std::vector<float> action_score_normalized;
+  std::vector<float>  action,     action_best;
+  u32                 action_id,  action_best_id;
+  float               q_value,    q_value_best;
 };
+
 
 class CQlearning
 {
   private:
     struct sQlearningInit q_init;
-    struct sQlearningRes q_res, q_res_prev;
+    struct sQlearningRes q_res;
 
-    std::vector<float> actions_score, action_score_normalized;
+    u32 q_res_array_ptr;
+    std::vector<struct sQlearningRes> q_res_array;
 
-    class CQFunc *q_func;
-    class CQFuncNN *q_func_nn_mcp;
-    class CQFuncNN *q_func_nn_tn;
+    std::vector<float> actions_score;
+
+    class CQFunc    *q_func;
+    class CQFuncNN  *q_func_nn_mcp;
+    class CQFuncNN  *q_func_nn_tn;
     class CQFuncKNN *q_func_nn_knn;
 
   public:
     CQlearning(struct sQlearningInit ql_init_struct);
     ~CQlearning();
 
-    void process(std::vector<float> state, std::vector<std::vector<float>> actions, float reward, u32 learn);
+    float get_highest_q(std::vector<float> state, std::vector<std::vector<float>> actions);
+
+    void process(std::vector<float> state, std::vector<std::vector<float>> actions, float reward = 0.0, u32 learn = 0);
     void reset();
 
     struct sQlearningRes get();
-
-    float get_max_q(std::vector<float> state, std::vector<std::vector<float>> actions);
-    u32 get_max_q_action_id(std::vector<float> state, std::vector<std::vector<float>> actions);
 };
 
 

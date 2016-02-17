@@ -1,0 +1,57 @@
+gnuplot plot_script_summary_all
+
+
+cd mcculloch_pitts_linear_neuron_1_layer
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..
+
+cd mcculloch_pitts_linear_neuron_2_layers
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..
+
+cd mcculloch_pitts_tanh_neuron_1_layer
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..
+
+cd mcculloch_pitts_tanh_neuron_2_layers
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..
+
+cd testing_neuron_1_layer
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..
+
+cd testing_neuron_2_layers
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..
+
+cd kohonen_layer
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..
+
+cd kohonen_layer_mcculloch_pitts_tanh_neuron_1_layer
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..
+
+cd kohonen_layer_testing_neuron_1_layer
+cp ../plot_script .
+cp ../plot_script_summary .
+./plot
+cd ..
+

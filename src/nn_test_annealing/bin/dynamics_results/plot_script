@@ -1,0 +1,28 @@
+set   autoscale                        # scale axes automatically
+unset log                              # remove any log-scaling
+unset label                            # remove any previous labels
+set xtic auto                         	# set xtics automatically
+set ytic auto                         # set ytics automatically
+set ztic auto
+
+set key right top
+
+
+set grid ytics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set grid xtics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set terminal png size 1024,768 enhanced font "Helvetica,20"
+
+
+
+set key
+set label
+
+set xlabel "sample"
+set ylabel "value"
+
+
+set output 'experiment_result.png'
+plot "nn_dynamics_log.txt" using 1 title "input"  with line lw 2.0, \
+        "nn_dynamics_log.txt" using 2 title "required output"  with line lw 2.0, \
+        "nn_dynamics_log.txt" using 3 title "output"  with line lw 2.0, \
+        "nn_dynamics_log.txt" using 4 title "error"  with line lw 2.0

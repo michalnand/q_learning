@@ -5,7 +5,6 @@
 #include "neural_network/nn.h"
 #include "neural_network/kohonen_layer.h"
 
-
 class CQFuncNN
 {
     private:
@@ -27,7 +26,6 @@ class CQFuncNN
         i32 save(char *file_name);
         i32 load(char *file_name);
         void merge(class CQFuncNN *q_func);
-
 };
 
 #endif

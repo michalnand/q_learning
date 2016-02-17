@@ -29,10 +29,10 @@ int main()
 	agent_init.id = 0;
 	agent_init.type = 0;
 	agent_init.dt = dt;
-	// agent_init.gamma = 0.99; //0.98;
-	// agent_init.alpha = 0.9;
-	agent_init.gamma = 0.8; //0.98;
+	agent_init.gamma = 0.9; //0.98;
 	agent_init.alpha = 0.7;
+	//agent_init.gamma = 0.8; //0.98;
+	//agent_init.alpha = 0.7;
 	agent_init.k = 1.0;
 	agent_init.function_type = 0;
 	agent_init.inputs_count = 2;
@@ -59,7 +59,7 @@ int main()
 	action[1] = -1.0;
 	actions.push_back(action);
 
-
+/*
 	action[0] = 1.0;
 	action[1] = 1.0;
 	actions.push_back(action);
@@ -75,7 +75,7 @@ int main()
 	action[0] = -1.0;
 	action[1] = -1.0;
 	actions.push_back(action);
-
+*/
 
 	// create_maps(dt);
 
@@ -109,8 +109,8 @@ int main()
 	map_id = 0;
 
 	// for (map_id = 0; map_id < MAPS_COUNT; map_id++)
-	for (function_type = 0; function_type < 4; function_type++)
 
+	//for (function_type = 0; function_type < 4; function_type++)
 
 	{
 		float score;

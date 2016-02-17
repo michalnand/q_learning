@@ -25,8 +25,7 @@ CAgent::CAgent(struct sAgentInit ag_init_struct)
 
   q_learning = new CQlearning(q_learning_init);
 
-  agent_res.q_res = q_learning->get();
-  agent_res.action =  agent_init.actions[agent_res.q_res.selected_action];
+  q_res = q_learning->get();
 }
 
 CAgent::~CAgent()
@@ -37,10 +36,7 @@ CAgent::~CAgent()
 void CAgent::process(std::vector<float> input, float reward, u32 learn)
 {
   q_learning->process(input, agent_init.actions, reward, learn);
-
-  agent_res.q_res = q_learning->get();
-  agent_res.action =  agent_res.q_res.action; //agent_init.actions[agent_res.q_res.selected_action];
-  agent_res.best_action =  agent_res.q_res.action_best; //agent_init.actions[agent_res.q_res.best_action];
+  q_res = q_learning->get();
 }
 
 
@@ -49,9 +45,9 @@ void CAgent::reset()
   q_learning->reset();
 }
 
-struct sAgentRes CAgent::get()
+struct sQlearningRes CAgent::get()
 {
-  return agent_res;
+  return q_res;
 }
 
 void CAgent::save_best_q_plot(std::vector<float> subspace, char *file_name)
@@ -66,13 +62,14 @@ void CAgent::save_best_q_plot(std::vector<float> subspace, char *file_name)
       subspace[0] = x;
       subspace[1] = y;
 
-      float q = q_learning->get_max_q(subspace, agent_init.actions);
-      u32 action_id = q_learning->get_max_q_action_id(subspace, agent_init.actions);
+      struct sQlearningRes q_res;
+      q_learning->process(subspace, agent_init.actions, 0.0, 0);
+      q_res = q_learning->get();
 
       log.add(0, subspace[0]);
       log.add(1, subspace[1]);
-      log.add(2, q);
-      log.add(3, action_id);
+      log.add(2, q_res.q_value_best);
+      log.add(3, q_res.action_best_id);
     }
   }
 

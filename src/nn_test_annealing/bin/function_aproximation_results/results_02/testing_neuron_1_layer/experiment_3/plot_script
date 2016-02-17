@@ -1,0 +1,55 @@
+set   autoscale                        # scale axes automatically
+unset log                              # remove any log-scaling
+unset label                            # remove any previous labels
+set xtic auto                         	# set xtics automatically
+set ytic auto                         # set ytics automatically
+set ztic auto
+
+set key right top
+
+
+set grid ytics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set grid xtics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set terminal png size 1024,768 enhanced font "Helvetica,20"
+
+
+
+set key
+set label
+
+set xlabel "x[0]"
+set ylabel "x[1]"
+set zlabel "value"
+
+
+set view 60,110
+
+set lmargin 5
+set key below
+
+set hidden3d
+
+set dgrid3d 64,64
+set surface
+
+set autoscale
+
+# set pm3d at b
+
+set output 'result_log_required_output.png'
+splot "result_log.txt" using 1:2:4 title "required output"  with pm3d
+
+set output 'result_log_output.png'
+splot "result_log.txt" using 1:2:5 title "output"  with pm3d
+
+set output 'result_log_error.png'
+splot "result_log.txt" using 1:2:6 title "error"  with pm3d
+
+
+set xlabel "trial"
+set ylabel "value"
+
+set output 'experiment_result.png'
+plot "experiment_result_log.txt" using 1 title "average error"  with line lw 2.0, \
+    "experiment_result_log.txt" using 2 title "maximal error"  with line lw 2.0, \
+    "experiment_result_log.txt" using 3 title "minimal error"  with line lw 2.0

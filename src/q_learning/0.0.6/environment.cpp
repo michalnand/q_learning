@@ -40,11 +40,11 @@ void CEnvironment::process_learn_run(u32 learning_iterations)
 
     agent->process(agent_input, reward, 1);
 
-    struct sAgentRes agent_res;
-    agent_res = agent->get();
+    struct sQlearningRes q_res;
+    q_res = agent->get();
 
-    x+= dt*agent_res.action[0];
-    y+= dt*agent_res.action[1];
+    x+= dt*q_res.action[0];
+    y+= dt*q_res.action[1];
 
     if (x > 1.0)
       x = 1.0;
@@ -87,6 +87,9 @@ float CEnvironment::process_test_run(u32 iterations, u32 id, char *path_name)
     log = new CLog(file_name, 3);
   }
 
+  float loops = 0.0;
+  float loops_tmp = 0.0;
+
   for (i = 0; i < iterations; i++)
   {
     agent_input[0] = x;
@@ -98,13 +101,12 @@ float CEnvironment::process_test_run(u32 iterations, u32 id, char *path_name)
     agent->process(agent_input, reward, 0);
 
 
-    struct sAgentRes agent_res;
-    agent_res = agent->get();
+    struct sQlearningRes q_res;
+    q_res = agent->get();
 
-    x+= dt*agent_res.best_action[0];
-    y+= dt*agent_res.best_action[1];
+    x+= dt*q_res.action_best[0];
+    y+= dt*q_res.action_best[1];
     score+= reward;
-
 
 
     if (x > 1.0)
@@ -126,12 +128,18 @@ float CEnvironment::process_test_run(u32 iterations, u32 id, char *path_name)
       log->add(2, 0);
     }
 
+
     if (map_field.type == MAP_FIELD_TARGET)
     {
       x = rnd_();
       y = rnd_();
       agent->reset();
+
+      loops+= loops_tmp;
+      loops_tmp = 0.0;
     }
+
+    loops_tmp+= 1.0;
   }
 
   if (log != NULL)
@@ -148,7 +156,7 @@ float CEnvironment::process_test_run(u32 iterations, u32 id, char *path_name)
   }
 
 
-  return score;
+  return score/(loops + 0.01);
 }
 
 float CEnvironment::process(u32 learning_iterations, u32 map_id)
@@ -181,11 +189,12 @@ float CEnvironment::process(u32 learning_iterations, u32 map_id)
     for (j = 0; j < 30; j++)
     {
       float partial_score = 0.0;
-      for (i = 0; i < 100; i++)
+      u32 tmp = 10;
+      for (i = 0; i < tmp; i++)
         partial_score+= process_test_run(1000, i, NULL);
 
 
-      partial_score = partial_score/100.0;
+      partial_score = partial_score/tmp;
 
       log.add(0, iterations);
       log.add(1, j);
