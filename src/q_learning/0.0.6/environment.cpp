@@ -60,7 +60,8 @@ void CEnvironment::process_learn_run(u32 learning_iterations)
     {
       x = rnd_();
       y = rnd_();
-      agent->reset();
+
+      agent->process(agent_input, reward, 1, 1);
     }
   }
 }
@@ -133,7 +134,6 @@ float CEnvironment::process_test_run(u32 iterations, u32 id, char *path_name)
     {
       x = rnd_();
       y = rnd_();
-      agent->reset();
 
       loops+= loops_tmp;
       loops_tmp = 0.0;
@@ -177,8 +177,10 @@ float CEnvironment::process(u32 learning_iterations, u32 map_id)
     printf("> %s\n", result_path);
 
     printf("   learning\n");
-    for (j = 0; j < 100; j++)
-      process_learn_run(1000);
+    process_learn_run(100000);
+
+    agent->save();
+
 
     printf("   testing\n");
     //save robots paths for plotting

@@ -34,10 +34,22 @@ set surface
 
 set autoscale
 
+set xrange [:] reverse
+
+set xlabel "s[1]"
+set ylabel "s[0]"
+set zlabel "reward"
+
 set zlabel "reward value"
 set output 'reward_value.png'
 splot 'map_plot.log' using 1:2:5 title "reward value" with pm3d
 
+
+set xrange [:] noreverse
+
+set xlabel "s[0]"
+set ylabel "s[1]"
+set zlabel "reward"
 
 set pm3d map
 set palette rgbformulae 22,13,-31
@@ -49,7 +61,3 @@ splot 'map_plot.log' using 1:2:4 title "field type" with pm3d
 set zlabel "reward value"
 set output 'reward_value_surface.png'
 splot 'map_plot.log' using 1:2:5 title "reward value" with pm3d
-
-set zlabel "field color value"
-set output 'field_color_surface.png'
-splot 'map_plot.log' using 1:2:6 title "field color" with pm3d

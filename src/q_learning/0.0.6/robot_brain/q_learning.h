@@ -52,10 +52,13 @@ class CQlearning
 
     float get_highest_q(std::vector<float> state, std::vector<std::vector<float>> actions);
 
-    void process(std::vector<float> state, std::vector<std::vector<float>> actions, float reward = 0.0, u32 learn = 0);
+    void process(std::vector<float> state, std::vector<std::vector<float>> actions, float reward = 0.0, u32 learn = 0, u32 force_learn = 0);
     void reset();
 
     struct sQlearningRes get();
+
+    void save();
+
 };
 
 

@@ -21,6 +21,9 @@ class CQFunc
                 float alpha = 0.9);
         ~CQFunc();
 
+        void learn_start();
+        void learn_finish();
+
         float get(std::vector<float> state, std::vector<float> action);
         void learn(std::vector<float> state, std::vector<float> action, float required_value);
 

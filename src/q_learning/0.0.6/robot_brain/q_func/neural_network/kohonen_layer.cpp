@@ -29,6 +29,7 @@ void CKohonenLayer::init()
       w[j][i] = rnd()*nn_init.weight_range;
   }
 
+
   for (i = 0; i < nn_init.inputs_count; i++)
     input.push_back(0.0);
 
@@ -37,7 +38,6 @@ void CKohonenLayer::init()
 
   min_dist = this->input.size()*this->input.size()*1000.0;
   winning_neuron = 0;
-
 
   for (j = 0; j < nn_init.neurons_count; j++)
   {
@@ -107,14 +107,14 @@ void CKohonenLayer::process(std::vector<float> input, bool normalise_output)
   {
     float sum = 0.0;
     for (i = 0; i < nn_init.inputs_count; i++)
-      sum+= abs_(w[j][i] - input[i]);
+      sum+= 0.5*abs_(w[j][i] - input[i]);
 
-    //normalise sum value
+    //normalise distance value
     sum = sum/nn_init.inputs_count;
 
     //limit output value
-    if (sum > nn_init.output_limit)
-        sum = nn_init.output_limit;
+    if (sum > 1.0)
+        sum = 1.0;
 
     //find winning neuron
     if (sum < min_dist)
@@ -123,8 +123,10 @@ void CKohonenLayer::process(std::vector<float> input, bool normalise_output)
       winning_neuron = j;
     }
 
+    float a = 1000000000.0;
     //reverse value - higher output = closer match to pattern
-    sum = nn_init.output_limit - sum;
+    sum = pow(a, 1.0 - sum)/a;
+  //  sum = 1.0 - sum;
     output[j] = sum;
   }
 
@@ -169,6 +171,7 @@ void CKohonenLayer::learn(std::vector<float> *required_output)
     {
         float tmp = 1.0 - output[j];
         k = nn_init.learning_constant * 1.0/(100.0 + tmp);
+        a = -1.0;
     }
     else
     {
@@ -193,7 +196,39 @@ void CKohonenLayer::learn(std::vector<float> *required_output)
 
 void CKohonenLayer::save(char *file_name)
 {
+  FILE *f;
+  f = fopen(file_name,"w");
 
+  u32 i, j;
+  for (j = 0; j < nn_init.neurons_count; j++)
+  {
+    for (i = 0; i < nn_init.inputs_count; i++)
+      fprintf(f, "%f ", w[j][i]);
+    fprintf(f,"\n");
+  }
+
+  fclose(f);
+
+
+  CLog log((char*)"test.txt", 4);
+
+  float x, y, dt = 1.0/100.0;
+  for (y = -1.0; y <= 1.0; y+= dt)
+    for (x = -1.0; x <= 1.0; x+= dt)
+    {
+      std::vector<float> input;
+      input.push_back(x);
+      input.push_back(y);
+
+      process(input, false);
+
+      log.add(0, x);
+      log.add(1, y);
+      log.add(2, winning_neuron);
+      log.add(3, output[winning_neuron]);
+    }
+
+  log.save();
 }
 
 void CKohonenLayer::load(char *file_name)
@@ -203,5 +238,5 @@ void CKohonenLayer::load(char *file_name)
 
 float CKohonenLayer::rnd()
 {
-    return ((rand()%2000000) - 1000000)/1000000.0;
+    return ((rand()%20000000) - 10000000)/10000000.0;
 }

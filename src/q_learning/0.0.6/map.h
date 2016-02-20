@@ -39,7 +39,7 @@ class CMap
     std::vector<struct sMapField> fields;
 
   public:
-    CMap(float dt, u32 fields_count);
+    CMap(float dt, u32 fields_count, bool make_frame_ = false);
     ~CMap();
 
     struct sMapField get(float pos_x, float pos_y, float pos_z);

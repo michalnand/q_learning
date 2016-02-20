@@ -1,6 +1,6 @@
 #include "map.h"
 
-CMap::CMap(float dt, u32 fields_count)
+CMap::CMap(float dt, u32 fields_count, bool make_frame_)
 {
   u32 i;
 
@@ -14,7 +14,9 @@ CMap::CMap(float dt, u32 fields_count)
 
   struct sMapField field;
   field.id = 0;
-  field.id = make_frame(field.id);
+
+  if (make_frame_)
+    field.id = make_frame(field.id);
 
   field.type = MAP_FIELD_COMMON;
   field.reward = 0.0;

@@ -1,4 +1,4 @@
-gnuplot plot_script_summary
+gnuplot summary_plot_script
 
 cd iterations_100000
 gnuplot q_func_plot_script

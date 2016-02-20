@@ -42,12 +42,11 @@ void CNN::init()
         nn_layer_init.learning_constant = nn_init.learning_constant;
         nn_layer_init.output_limit = nn_init.output_limit;
 
-        // printf("L %u %u\n", nn_layer_init.inputs_count, nn_layer_init.neurons_count);
-
-
         class CNNLayer *nn_layer;
         nn_layer = new CNNLayer(nn_layer_init);
         layers.push_back(nn_layer);
+
+        nn_layer = new CNNLayer(nn_layer_init);
     }
 }
 
@@ -61,12 +60,15 @@ void CNN::uninit()
         layers[j] = NULL;
     }
 
+
     layers.clear();
 
     output.clear();
     error.clear();
     input.clear();
 }
+
+
 
 void CNN::process(std::vector<float> input)
 {

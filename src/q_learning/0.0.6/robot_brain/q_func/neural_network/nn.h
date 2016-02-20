@@ -27,7 +27,7 @@ class CNN
         void init();
         void uninit();
 
-
+        void process_testing(std::vector<float> input);
         void process(std::vector<float> input);
         void learn(std::vector<float> required_output);
 

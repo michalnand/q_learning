@@ -29,12 +29,13 @@ class CAgent
     CAgent(struct sAgentInit ag_init_struct);
     ~CAgent();
 
-    void process(std::vector<float> input, float reward, u32 learn);
+    void process(std::vector<float> input, float reward, u32 learn, u32 force_learn = 0);
 
     void reset();
     struct sQlearningRes get();
 
     void save_best_q_plot(std::vector<float> subspace, char *file_name);
+    void save();
 };
 
 

@@ -26,6 +26,17 @@ CQFunc::~CQFunc()
 }
 
 
+void CQFunc::learn_start()
+{
+
+}
+
+void CQFunc::learn_finish()
+{
+
+}
+
+
 float CQFunc::get(std::vector<float> state, std::vector<float> action)
 {
     u32 i;

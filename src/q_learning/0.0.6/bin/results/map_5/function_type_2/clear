@@ -1,42 +1,42 @@
 rm *.log -f
 rm *.png -f
 
-cd iterations_100000
+cd iterations_1
 ./clear
 cd ..
 
-cd iterations_200000
+cd iterations_2
 ./clear
 cd ..
 
-cd iterations_300000
+cd iterations_3
 ./clear
 cd ..
 
-cd iterations_400000
+cd iterations_4
 ./clear
 cd ..
 
-cd iterations_500000
+cd iterations_5
 ./clear
 cd ..
 
-cd iterations_600000
+cd iterations_6
 ./clear
 cd ..
 
-cd iterations_700000
+cd iterations_7
 ./clear
 cd ..
 
-cd iterations_800000
+cd iterations_8
 ./clear
 cd ..
 
-cd iterations_900000
+cd iterations_9
 ./clear
 cd ..
 
-cd iterations_1000000
+cd iterations_10
 ./clear
 cd ..

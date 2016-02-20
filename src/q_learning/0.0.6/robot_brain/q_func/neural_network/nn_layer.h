@@ -7,6 +7,8 @@
 #define NN_LAYER_NEURON_TYPE_TANH                   (u32)1
 #define NN_LAYER_NEURON_TYPE_INTERSYNAPTICS         (u32)2
 
+#define NN_LAYER_NEURON_TYPE_RECTIFIER               (u32)3
+
 struct NNLayerInitStructure
 {
     u32 neurons_count, inputs_count, order, neuron_type;
@@ -18,6 +20,7 @@ struct NNLayerInitStructure
 class CNNLayer
 {
     private:
+        u32 synapses_count;
         struct NNLayerInitStructure nn_init;
         float **w;
 
@@ -40,6 +43,10 @@ class CNNLayer
         void load(char *file_name);
 
         float rnd();
+
+        float **get_w();
+        void set_w(float **w_set);
+        void noise_w(float level);
 };
 
 #endif

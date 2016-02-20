@@ -37,28 +37,27 @@ CQlearning::CQlearning(struct sQlearningInit ql_init_struct)
                         q_init.alpha
                       );
 
-/*
+
   q_func_nn_mcp = new  CQFuncNN(
                                 q_init.state_vector_size, q_init.action_vector_size,
                                 q_init.density, q_init.density,
-                                q_init.alpha, NN_LAYER_NEURON_TYPE_TANH
+                                q_init.alpha, NN_LAYER_NEURON_TYPE_TANH,
+                                q_init.actions_count
                                 );
 
   q_func_nn_tn = new  CQFuncNN(
                                 q_init.state_vector_size, q_init.action_vector_size,
                                 q_init.density, q_init.density,
-                                q_init.alpha, NN_LAYER_NEURON_TYPE_INTERSYNAPTICS
+                                q_init.alpha, NN_LAYER_NEURON_TYPE_INTERSYNAPTICS,
+                                q_init.actions_count
                               );
-                              printf("HERE 3\n");
 
   q_func_nn_knn = new CQFuncKNN(
                               q_init.state_vector_size, q_init.action_vector_size,
                               q_init.density, q_init.density,
-                              q_init.alpha, NN_LAYER_NEURON_TYPE_INTERSYNAPTICS
+                              q_init.alpha, NN_LAYER_NEURON_TYPE_TANH, //NN_LAYER_NEURON_TYPE_INTERSYNAPTICS,
+                              q_init.actions_count
                             );
-
-                            printf("HERE 5\n");
-  */
 
   for (i = 0; i < q_init.actions_count; i++)
     actions_score.push_back(0.0);
@@ -102,7 +101,8 @@ float CQlearning::get_highest_q(std::vector<float> state, std::vector<std::vecto
   return q_res;
 }
 
-void CQlearning::process(std::vector<float> state, std::vector<std::vector<float>> actions, float reward, u32 learn)
+void CQlearning::process(std::vector<float> state, std::vector<std::vector<float>> actions, float reward,
+                        u32 learn, u32 force_learn)
 {
   q_res.state = state;
   q_res.reward = reward;
@@ -118,12 +118,12 @@ void CQlearning::process(std::vector<float> state, std::vector<std::vector<float
 
     case 1:
             for (j = 0; j < q_init.actions_count; j++)
-              actions_score[j] = q_func_nn_mcp->get(q_res.state, actions[j]);
+              actions_score[j] = q_func_nn_mcp->get(q_res.state, actions[j], j);
             break;
 
     case 2:
             for (j = 0; j < q_init.actions_count; j++)
-              actions_score[j] = q_func_nn_tn->get(q_res.state, actions[j]);
+              actions_score[j] = q_func_nn_tn->get(q_res.state, actions[j], j);
             break;
 
     case 3:
@@ -147,62 +147,51 @@ void CQlearning::process(std::vector<float> state, std::vector<std::vector<float
   q_res.action_best = actions[q_res.action_best_id];
   q_res.q_value_best = actions_score[q_res.action_best_id];
 
-  if (learn != 0)
+  if ((learn != 0) || (force_learn != 0))
   {
-    q_res_array[q_res_array_ptr] = q_res;
-
     if (q_res_array_ptr != 0)
       q_res_array_ptr--;
 
+    q_res_array[q_res_array_ptr] = q_res;
+  }
 
-    float value = q_res.reward;
-    switch (q_init.function_type)
+  if ( ((q_res_array_ptr == 0) && (learn != 0)) || (force_learn != 0) )
+  {
+  //  for (j = 0; j < 10; j++)
+
+    for (i = q_res_array_ptr; i < q_res_array.size(); i++)
     {
-      case 0: q_func->learn(q_res.state, q_res.action, value);
-              break;
-
-      case 1: q_func_nn_mcp->learn(q_res.state, q_res.action, value);
-              break;
-
-      case 2: q_func_nn_tn->learn(q_res.state, q_res.action, value);
-              break;
-
-      case 3: q_func_nn_knn->learn(q_res.state, q_res.action, value);
-              break;
-    }
-
-    /*
-    if (q_res_array_ptr == 0)
-    {
-      q_res_array_ptr = q_res_array.size() - 1;
-
-      for (i = 0; i < q_res_array.size(); i++)
-      {
         float value = q_res_array[i].reward;
 
-        if (i < (q_res_array.size()-1))
-           value+= q_init.gamma*get_highest_q(q_res_array[i+1].state, actions);
+        if (i != 0)
+           value+= q_init.gamma*get_highest_q(q_res_array[i-1].state, actions);
 
-        q_res_array[i].q_value_best = tanh(value);
+        if (value > 1.0)
+          value = 1.0;
+
+        if (value < -1.0)
+          value = -1.0;
+
+        q_res_array[i].q_value_best = value;
 
         switch (q_init.function_type)
         {
-          case 0: q_func->learn(q_res_array[i].state, q_res_array[i].action, q_res_array[i].q_value_best);
-                  break;
+            case 0: q_func->learn(q_res_array[i].state, q_res_array[i].action, q_res_array[i].q_value_best);
+                    break;
 
-          case 1: q_func_nn_mcp->learn(q_res_array[i].state, q_res_array[i].action, q_res_array[i].q_value_best);
-                  break;
+            case 1: q_func_nn_mcp->learn(q_res_array[i].state, q_res_array[i].action, q_res_array[i].q_value_best, q_res_array[i].action_best_id);
+                    break;
 
-          case 2: q_func_nn_tn->learn(q_res_array[i].state, q_res_array[i].action, q_res_array[i].q_value_best);
-                  break;
+            case 2: q_func_nn_tn->learn(q_res_array[i].state, q_res_array[i].action, q_res_array[i].q_value_best, q_res_array[i].action_best_id);
+                    break;
 
-          case 3: q_func_nn_knn->learn(q_res_array[i].state, q_res_array[i].action, q_res_array[i].q_value_best);
-                  break;
+            case 3: q_func_nn_knn->learn(q_res_array[i].state, q_res_array[i].action, q_res_array[i].q_value_best);
+                    break;
         }
-      }
     }
-    */
 
+
+    q_res_array_ptr = q_res_array.size() - 1;
   }
 }
 
@@ -223,4 +212,10 @@ void CQlearning::reset()
 struct sQlearningRes CQlearning::get()
 {
   return q_res;
+}
+
+void CQlearning::save()
+{
+  if (q_func_nn_knn != NULL)
+    q_func_nn_knn->save(NULL);
 }

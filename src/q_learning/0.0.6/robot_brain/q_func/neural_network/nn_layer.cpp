@@ -19,11 +19,14 @@ void CNNLayer::init()
 
     u32 i, j;
 
+    synapses_count = 0;
+
     w = (float**)malloc(nn_init.neurons_count*sizeof(float*));
 
     if (
             (nn_init.neuron_type == NN_LAYER_NEURON_TYPE_LINEAR) ||
-            (nn_init.neuron_type == NN_LAYER_NEURON_TYPE_TANH)
+            (nn_init.neuron_type == NN_LAYER_NEURON_TYPE_TANH) ||
+            (nn_init.neuron_type ==  NN_LAYER_NEURON_TYPE_RECTIFIER)
         )
     {
         for (j = 0; j < nn_init.neurons_count; j++)
@@ -32,6 +35,8 @@ void CNNLayer::init()
 
             for (i = 0; i < nn_init.inputs_count; i++)
                 w[j][i] = rnd()*nn_init.weight_range*nn_init.init_weight_range;
+
+            synapses_count = nn_init.inputs_count;
         }
     }
 
@@ -53,6 +58,8 @@ void CNNLayer::init()
 
             for (i = 0; i < v_count; i++)
                 w[j][ptr++] = 0.1*rnd()*nn_init.weight_range*nn_init.init_weight_range;
+
+            synapses_count = tmp;
         }
     }
 
@@ -121,6 +128,22 @@ void CNNLayer::process(std::vector<float> input)
         }
     }
 
+    if (nn_init.neuron_type == NN_LAYER_NEURON_TYPE_RECTIFIER)
+    {
+        for (j = 0; j < nn_init.neurons_count; j++)
+        {
+            float sum = 0.0;
+
+            for (i = 0; i < nn_init.inputs_count; i++)
+                sum+= w[j][i]*this->input[i];
+
+            if (sum < 0.0)
+              output[j] = 0.0;
+            else
+              output[j] = sum;
+        }
+    }
+
     if (nn_init.neuron_type == NN_LAYER_NEURON_TYPE_TANH)
     {
         for (j = 0; j < nn_init.neurons_count; j++)
@@ -172,6 +195,19 @@ void CNNLayer::learn(std::vector<float> error)
         this->error[j] = 0.0;
 
     if (nn_init.neuron_type == NN_LAYER_NEURON_TYPE_LINEAR)
+    {
+        for (j = 0; j < nn_init.neurons_count; j++)
+        {
+            for (i = 0; i < nn_init.inputs_count; i++)
+            {
+                w[j][i]+= nn_init.learning_constant*error[j]*input[i];
+                this->error[i]+= w[j][i]*error[j];
+            }
+        }
+    }
+
+
+    if (nn_init.neuron_type == NN_LAYER_NEURON_TYPE_RECTIFIER)
     {
         for (j = 0; j < nn_init.neurons_count; j++)
         {
@@ -276,4 +312,25 @@ void CNNLayer::load(char *file_name)
 float CNNLayer::rnd()
 {
 	return ((rand()%2000000) - 1000000)/1000000.0;
+}
+
+float** CNNLayer::get_w()
+{
+  return w;
+}
+
+void CNNLayer::set_w(float **w_set)
+{
+  u32 i, j;
+  for (j = 0; j < nn_init.neurons_count; j++)
+      for (i = 0; i < synapses_count; i++)
+        w[j][i] = w_set[j][i];
+}
+
+void CNNLayer::noise_w(float level)
+{
+  u32 i, j;
+  for (j = 0; j < nn_init.neurons_count; j++)
+      for (i = 0; i < synapses_count; i++)
+        w[j][i] = (1.0 - level)*w[j][i] + level*nn_init.weight_range;
 }

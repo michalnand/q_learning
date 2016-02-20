@@ -33,16 +33,15 @@ CAgent::~CAgent()
   delete q_learning;
 }
 
-void CAgent::process(std::vector<float> input, float reward, u32 learn)
+void CAgent::process(std::vector<float> input, float reward, u32 learn, u32 force_learn)
 {
-  q_learning->process(input, agent_init.actions, reward, learn);
+  q_learning->process(input, agent_init.actions, reward, learn, force_learn);
   q_res = q_learning->get();
 }
 
 
 void CAgent::reset()
 {
-  q_learning->reset();
 }
 
 struct sQlearningRes CAgent::get()
@@ -74,4 +73,9 @@ void CAgent::save_best_q_plot(std::vector<float> subspace, char *file_name)
   }
 
   log.save();
+}
+
+void CAgent::save()
+{
+  q_learning->save();
 }
