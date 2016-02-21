@@ -31,8 +31,8 @@ set dgrid3d 64,64
 set surface
 set autoscale
 
-set xlabel "s[0]"
-set ylabel "s[1]"
+set xlabel "s[1]"
+set ylabel "s[0]"
 set zlabel "Q max"
 
 set xrange [:] reverse

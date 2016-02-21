@@ -16,12 +16,12 @@ class CKohonenLayer
             struct KNNLayerInitStructure nn_init;
             float **w;
 
-            std::vector<float> input, output;
+            std::vector<float> input, distances_output;
 
             float min_dist;
             u32 winning_neuron;
 
-            std::vector<std::vector<float>> nn_output;
+            std::vector<std::vector<float>> learned_output;
 
 
     public:
@@ -31,16 +31,20 @@ class CKohonenLayer
             void init();
             void uninit();
 
-            std::vector<float> get_output();
-            std::vector<std::vector<float>>* get_nn_output();
 
-            u32 get_output_winning_neuron_idx();
-            float get_output_winning_distance();
+            std::vector<float> get_distances_output();
+            std::vector<float> get_learned_output();
+            std::vector<std::vector<float>> get_learned_output_all();
+
+            u32 get_winning_neuron_idx();
+            float get_winning_distance();
 
             float** get_weights();
 
-            void process(std::vector<float> input, bool normalise_output = false);
+            void process(std::vector<float> input);
             void learn(std::vector<float> *required_output  = NULL);
+            void learn_single_output(float required_value, u32 idx);
+
 
             void save(char *file_name);
             void load(char *file_name);

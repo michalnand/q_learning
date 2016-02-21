@@ -31,13 +31,27 @@ set dgrid3d 64,64
 set surface
 set autoscale
 
+set xlabel "s[1]"
+set ylabel "s[0]"
+set zlabel "Q max"
+
+set xrange [:] reverse
+
 set zlabel "q value"
 set output 'q_learning_result.png'
-splot 'q_learning_result.log' using 1:2:3 title "q max value" with pm3d
+splot 'q_learning_result.log' using 2:1:3 title "q max value" with pm3d
 
 set zlabel "action"
 set output 'action_best_value_log.png'
-splot 'q_learning_result.log' using 1:2:4 title "best action id" with pm3d
+splot 'q_learning_result.log' using 2:1:4 title "best action id" with pm3d
+
+
+
+set xlabel "s[0]"
+set ylabel "s[1]"
+set zlabel "Q max"
+
+set xrange [:] noreverse
 
 set pm3d map
 set palette rgbformulae 22,13,-31
@@ -53,6 +67,7 @@ splot 'q_learning_result.log' using 1:2:4 title "best action id" with pm3d
 
 
 unset key
+set lmargin 10
 set zlabel "path"
 set output 'agents_path_surface.png'
 plot \

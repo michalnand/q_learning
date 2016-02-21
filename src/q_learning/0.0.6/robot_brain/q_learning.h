@@ -15,6 +15,8 @@ struct sQlearningInit
 
   u32 function_type;
 
+  std::vector<std::vector<float>> actions;
+
   float gamma, alpha, k;
   float density;
 };

@@ -1,6 +1,48 @@
 #include "common.h"
 #include "environment.h"
 
+
+void knn_test()
+{
+	struct KNNLayerInitStructure knn_init;
+
+	class CKohonenLayer *knn;
+	knn_init.inputs_count = 2;
+	knn_init.neurons_count = 4*4;
+	knn_init.weight_range = 1.0;
+	knn_init.learning_constant = 0.8;
+	knn_init.output_limit = 1.0;
+	knn_init.outputs_count = 2;
+
+	knn = new CKohonenLayer(knn_init);
+
+	u32 i;
+	for (i = 0; i < 100000; i++)
+	{
+		std::vector<float> input;
+
+		input.push_back(rnd_());
+		input.push_back(rnd_());
+
+		float f0 = 0.0;
+		float f1 = 0.0;
+
+		if (sgn(input[0]) == sgn(input[1]))
+			f0 = 1.0;
+		else
+			f0 = -1.0;
+
+		f1 = cos(input[0]*input[1]*10.0);
+
+		knn->process(input);
+		knn->learn(NULL);
+		knn->learn_single_output(f0, 0);
+		knn->learn_single_output(f1, 1);
+	}
+
+	knn->save((char*)"weights.txt");
+}
+
 void create_maps(float dt)
 {
 	u32 i;
@@ -23,6 +65,7 @@ void create_maps(float dt)
 int main()
 {
 	srand(time(NULL));
+
 
 	float dt = 1.0/32.0;
 	struct sAgentInit agent_init;
@@ -103,11 +146,11 @@ int main()
 	class CLog log((char*)"results/results.log", 3);
 
 	function_type = 3;
-	map_id = 0;
+	map_id = 1;
 
 	// for (map_id = 0; map_id < MAPS_COUNT; map_id++)
 
-	//for (function_type = 0; function_type < 4; function_type++)
+	// for (function_type = 0; function_type < 4; function_type++)
 
 	{
 		float score;

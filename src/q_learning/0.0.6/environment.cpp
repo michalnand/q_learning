@@ -177,14 +177,13 @@ float CEnvironment::process(u32 learning_iterations, u32 map_id)
     printf("> %s\n", result_path);
 
     printf("   learning\n");
-    process_learn_run(100000);
+    process_learn_run(50000);
 
     agent->save();
 
-
     printf("   testing\n");
     //save robots paths for plotting
-    for (i = 0; i < 100; i++)
+    for (i = 0; i < 50; i++)
       process_test_run(1000, i, result_path);
 
     //process 30times 100 testing runs

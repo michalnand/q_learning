@@ -56,7 +56,7 @@ CQlearning::CQlearning(struct sQlearningInit ql_init_struct)
                               q_init.state_vector_size, q_init.action_vector_size,
                               q_init.density, q_init.density,
                               q_init.alpha, NN_LAYER_NEURON_TYPE_TANH, //NN_LAYER_NEURON_TYPE_INTERSYNAPTICS,
-                              q_init.actions_count
+                              q_init.actions
                             );
 
   for (i = 0; i < q_init.actions_count; i++)
@@ -90,10 +90,19 @@ CQlearning::~CQlearning()
 float CQlearning::get_highest_q(std::vector<float> state, std::vector<std::vector<float>> actions)
 {
   u32 j;
+
   float q_res = -1000000000.0;
   for (j = 0; j < q_init.actions_count; j++)
   {
-    float q_tmp =  q_func->get(state, actions[j]);
+    float q_tmp =  0.0;
+
+    switch (q_init.function_type)
+    {
+      case 0: q_tmp = q_func->get(state, actions[j]); break;
+      case 1: q_tmp = q_func_nn_mcp->get(state, actions[j], j); break;
+      case 2: q_tmp = q_func_nn_tn->get(state, actions[j], j); break;
+      case 3: q_tmp = q_func_nn_knn->get(state, actions[j]); break;
+    }
     if (q_tmp > q_res)
       q_res = q_tmp;
   }
@@ -109,6 +118,7 @@ void CQlearning::process(std::vector<float> state, std::vector<std::vector<float
 
   u32 i, j;
 
+  for (j = 0; j < actions.size(); j++)
   switch (q_init.function_type)
   {
     case 0:
@@ -189,7 +199,6 @@ void CQlearning::process(std::vector<float> state, std::vector<std::vector<float
                     break;
         }
     }
-
 
     q_res_array_ptr = q_res_array.size() - 1;
   }

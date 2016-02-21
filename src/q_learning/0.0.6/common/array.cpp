@@ -16,6 +16,9 @@ CArray::CArray(std::vector<u32> init_vector)
 
   for (i = 0; i < init_vector.size(); i++)
     index_.push_back(0.0);
+
+  for (i = 0; i < init_vector.size(); i++)
+    residuum.push_back(0.0);
 }
 
 CArray::~CArray()
@@ -38,6 +41,8 @@ float CArray::get_f(std::vector<float> index)
   u32 i;
   for (i = 0; i < index_.size(); i++)
   {
+    residuum[i] = 0.0;
+
     if (index[i] > 0.99999)
       index[i] = 0.99999;
 
@@ -45,6 +50,9 @@ float CArray::get_f(std::vector<float> index)
       index[i] = 0.0;
 
     u32 tmp = floor(index[i]*init_vector[i]);
+
+    residuum[i] = (floor(index[i]*init_vector[i]) - index[i]*init_vector[i]); ///init_vector[i];
+
     index_[i] = tmp;
   }
 
@@ -108,4 +116,9 @@ std::vector<u32> CArray::get_dim()
 u32 CArray::get_size()
 {
   return size;
+}
+
+std::vector<float> CArray::get_residuum()
+{
+  return residuum;
 }

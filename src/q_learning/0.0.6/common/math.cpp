@@ -15,18 +15,18 @@ float saturate(float value, float min, float max)
 
     return value;
 }
- 
+
 float rand_()
 {
-    i32 tmp = (rand()%1000000); 
-    
+    i32 tmp = (rand()%1000000);
+
     return tmp/1000000.0;
 }
 
 float rnd_()
 {
-    i32 tmp = (rand()%2000000) - 1000000; 
-    
+    i32 tmp = (rand()%2000000) - 1000000;
+
     return tmp/1000000.0;
 }
 
@@ -35,7 +35,7 @@ float tan_(float x, float y)
     float pi = 3.141592654;
 
     float x_ = x;
-    float y_ = y; 
+    float y_ = y;
 
     if (x_ < 0.0)
         x_ = -x_;
@@ -54,14 +54,14 @@ float tan_(float x, float y)
 
     if ((x > 0.0) && (y < 0.0))
         res+= pi;
-    
+
     if ((x < 0.0) && (y < 0.0))
         res+= 2*pi;
-    
+
     if ((x > 0.0) && (y < 0.0))
         res-= pi/4.0;
- 
- 
+
+
     return res;
 }
 
@@ -114,7 +114,7 @@ float atan_(float x, float y)
         {
             if (x == 0.0)
                 x = 0.00001;
-        angle = -PI/2.0 + atan(y/x);  
+        angle = -PI/2.0 + atan(y/x);
         }
     }
     else
@@ -144,7 +144,7 @@ float min(float a, float b)
 		return a;
 	return b;
 }
- 
+
 float max(float a, float b)
 {
 	if (a > b)
@@ -188,11 +188,8 @@ float sgn(float a)
 {
     if (a > 0.0)
         return 1.0;
-
-    if (a < 0.0)
+      else
         return -1.0;
-
-    return 0.0;
 }
 
 float angle_modulo(float angle)
@@ -206,7 +203,7 @@ float angle_modulo(float angle)
     if (angle < 0.0)
         angle = 2.0*PI + angle;
 
-        
+
 
     return angle;
 }
@@ -230,7 +227,7 @@ float point_from_line_distance(float px, float py, float x0, float y0, float x1,
     if (res < 0.0)
         res = -res;
 
-    res/= sqrt(dx*dx + dy*dy); 
+    res/= sqrt(dx*dx + dy*dy);
 
     return res;
 }
@@ -239,9 +236,9 @@ float point_from_line_distance(float px, float py, float x0, float y0, float x1,
 void line_intersection( float *xr, float *yr,
                         float x1, float y1, float x2, float y2,
                         float x3, float y3, float x4, float y4 )
-{ 
+{
     float tmp;
- 
+
 
     tmp = (x1 - x2)*(y3 - y4) - (y1 - y2)*(x3 - x4);
 
@@ -302,7 +299,7 @@ float vect_distance(float *va, float *vb, u32 size)
 {
     u32 i;
     float sum = 0.0;
-    
+
     for (i = 0; i < size; i++)
         sum+= (va[i] - vb[i])*(va[i] - vb[i]);
 
@@ -332,7 +329,7 @@ void vector_normalise(std::vector<float> *vector)
         (*vector)[i]/= tmp;
 }
 
-//                          -1.0, 1.0, 0.0, 256, 
+//                          -1.0, 1.0, 0.0, 256,
 float map_to_interval(float min_a, float max_a, float min_b, float max_b, float value)
 {
     float k = (max_b - min_b)/(max_a - min_a);
@@ -360,7 +357,7 @@ void normalise_mat(std::vector<std::vector<float>> *mat)
     if (max_v != min_v)
         for (j = 0; j < mat->size(); j++)
             for (i = 0; i < (*mat)[j].size(); i++)
-            { 
+            {
                 // this->q[j][i]/= max_v;
                 (*mat)[j][i] = map_to_interval(min_v, max_v, -1.0, 1.0, (*mat)[j][i]);
             }
@@ -377,11 +374,11 @@ void normalise_mat(std::vector<std::vector<float>> *mat)
             max_v = max(abs_((*mat)[j][i]), max_v);
         }
 
-    
+
     if (max_v != 0.0)
         for (j = 0; j < mat->size(); j++)
             for (i = 0; i < (*mat)[j].size(); i++)
-            { 
+            {
                 (*mat)[j][i]/= max_v;
             }
 }

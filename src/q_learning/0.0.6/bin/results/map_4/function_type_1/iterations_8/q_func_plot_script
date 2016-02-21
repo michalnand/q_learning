@@ -120,5 +120,4 @@ plot \
 'agent_path_46.log' using 1:2 with points lw 2, \
 'agent_path_47.log' using 1:2 with points lw 2, \
 'agent_path_48.log' using 1:2 with points lw 2, \
-'agent_path_49.log' using 1:2 with points lw 2, \
-'agent_path_50.log' using 1:2 with points lw 2, \
+'agent_path_49.log' using 1:2 with points lw 2

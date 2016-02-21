@@ -10,7 +10,7 @@ CQFuncNN::CQFuncNN(u32 state_size, u32 action_size, float state_density,
 
     this->alpha = alpha;
 
-    u32 hidden_neurons_count = 32;
+    u32 hidden_neurons_count = 8;
 
     std::vector<u32> init_vector;
     init_vector.push_back(state_size + 0*action_size + 1);

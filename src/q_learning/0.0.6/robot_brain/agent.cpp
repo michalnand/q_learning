@@ -15,6 +15,8 @@ CAgent::CAgent(struct sAgentInit ag_init_struct)
   q_learning_init.k = agent_init.k;
   q_learning_init.density = agent_init.dt;
 
+  q_learning_init.actions = agent_init.actions;
+
   #ifdef DEBUG_MODE
   printf("NEW agent : \n");
   printf(" inputs count %u \n", agent_init.inputs_count);
