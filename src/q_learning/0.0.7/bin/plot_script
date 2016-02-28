@@ -1,0 +1,75 @@
+set   autoscale                        # scale axes automatically
+unset log                              # remove any log-scaling
+unset label                            # remove any previous labels
+set xtic auto                         	# set xtics automatically
+set ytic auto                         # set ytics automatically
+set ztic auto
+
+set key right top
+
+
+set grid ytics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set grid xtics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set terminal png size 1024,768 enhanced font "Helvetica,20"
+
+
+
+set key
+set label
+
+set xlabel "w[0]"
+set ylabel "w[1]"
+
+set output 'weights.png'
+plot "weights.txt" using 1:2 title "weights"  with points lw 2.0
+
+
+
+set xtic auto
+set ytic auto
+set ztic auto
+
+set lmargin 5
+set key below
+
+set hidden3d
+set dgrid3d 64,64
+set surface
+set autoscale
+
+
+set xlabel "x[0]"
+set ylabel "x[1]"
+set zlabel "minimal distance"
+
+set pm3d map
+set palette rgbformulae 22,13,-31
+
+set output 'test.png'
+splot "test.txt" using 1:2:4 title "distances" with pm3d
+
+
+
+
+
+set xlabel "x[0]"
+set ylabel "x[1]"
+set zlabel "value"
+
+set pm3d map
+set palette rgbformulae 22,13,-31
+
+set output 'output_01.png'
+splot "test.txt" using 1:2:5 title "output_01" with pm3d
+
+
+set xlabel "x[0]"
+set ylabel "x[1]"
+set zlabel "value"
+
+set pm3d map
+set palette rgbformulae 22,13,-31
+
+set output 'output_02.png'
+splot "test.txt" using 1:2:6 title "output_02" with pm3d
+

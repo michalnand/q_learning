@@ -1,0 +1,17 @@
+gnuplot map_plot_script
+
+cd function_type_0
+./plot
+cd ..
+
+cd function_type_1
+./plot
+cd ..
+
+cd function_type_2
+./plot
+cd ..
+
+cd function_type_3
+./plot
+cd ..

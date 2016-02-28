@@ -1,0 +1,18 @@
+rm *.log -f
+rm *.png -f
+
+cd function_type_0
+./clear
+cd ..
+
+cd function_type_1
+./clear
+cd ..
+
+cd function_type_2
+./clear
+cd ..
+
+cd function_type_3
+./clear
+cd ..
