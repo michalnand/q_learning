@@ -38,7 +38,12 @@ void CNN::init()
         nn_layer_init.neuron_type = nn_init.neuron_type;
 
         nn_layer_init.weight_range = nn_init.weight_range;
-        nn_layer_init.init_weight_range = nn_init.init_weight_range;
+
+        if (j != (nn_init.init_vector.size()-2))
+          nn_layer_init.init_weight_range = nn_init.init_weight_range;
+        else
+          nn_layer_init.init_weight_range = 0.0;
+          
         nn_layer_init.learning_constant = nn_init.learning_constant;
         nn_layer_init.output_limit = nn_init.output_limit;
 
