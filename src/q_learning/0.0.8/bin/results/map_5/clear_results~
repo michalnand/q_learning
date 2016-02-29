@@ -1,3 +1,0 @@
-rm map.bin -f
-rm map_plot.log -f
-rm *png -f
