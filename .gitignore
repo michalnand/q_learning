@@ -35,5 +35,5 @@
 *.dSYM/
 
 #log files
-*.log
-*.png
+#*.log
+#*.png
