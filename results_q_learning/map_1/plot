@@ -1,4 +1,5 @@
 gnuplot map_plot_script
+gnuplot trials_average_results_plot_script
 
 cd function_type_0
 ./plot

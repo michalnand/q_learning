@@ -1,6 +1,6 @@
 #include "basis_functions.h"
 
-CBasisFunctions::CBasisFunctions(u32 count, u32 dimension, float a_range, float b_range, float w_range)
+CBasisFunctions::CBasisFunctions(u32 count, u32 dimension, float a_range, float b_range, float w_range, bool multiply_network_type)
 {
   this->functions_count = count;
   this->dimension = dimension;
@@ -8,6 +8,8 @@ CBasisFunctions::CBasisFunctions(u32 count, u32 dimension, float a_range, float 
   this->a_range = a_range;
   this->b_range = b_range;
   this->w_range = w_range;
+
+  this->multiply_network_type = multiply_network_type;
 
   u32 j, i;
 
@@ -37,6 +39,14 @@ CBasisFunctions::CBasisFunctions(u32 count, u32 dimension, float a_range, float 
     distance[j] = 0.0;
   }
 
+
+  v = NULL;
+
+  if (this->multiply_network_type == true)
+  {
+    printf("\n\nMULTIPLY\n\n");
+  }
+
   for (i = 0; i < this->dimension; i++)
     input.push_back(0.0);
 
@@ -49,6 +59,12 @@ CBasisFunctions::~CBasisFunctions()
   for (j = 0; j < this->functions_count; j++)
   {
     free(a[j]);
+  }
+
+  if (v != NULL)
+  {
+    free(v);
+    v = NULL;
   }
 
   free(a);

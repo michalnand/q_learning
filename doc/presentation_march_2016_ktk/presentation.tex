@@ -27,7 +27,7 @@ stringstyle=\color{orange}}
 
 %-------------------------------------------------------------------------------------
 \title{\bf Aproximácia funkcie ohodnotení v algoritmoch Q-learning}
-\author{Michal CHOVANEC \\Fakulta riadenia a informatiky}
+\author{Ing. Michal CHOVANEC \\Fakulta riadenia a informatiky}
 
 \date[EURP]{\it Marec 2016}
 \begin{document}
@@ -47,7 +47,7 @@ stringstyle=\color{orange}}
     \end{itemize}
   \item Q-learning algoritmus
   \item Možnosti aproximácie
-  \item výsledky
+  \item Výsledky experimentov
 \end{itemize}
 
 \end{frame}
@@ -98,7 +98,7 @@ Racionálny agent :
 
   \begin{itemize}
   \item Schopný vnímať prostredie
-  \item Robiť rozhodutia
+  \item Robiť rozhodnutia
   \item Pre každú možnú postupnosť vstupov vyberá akciu maximalizujúcu očakavaný výkon
   \end{itemize}
 
@@ -153,7 +153,7 @@ Racionálny agent :
 
   \begin{figure}[!htb]
   \centering
-  \includegraphics[scale=.25]{../diagrams/adaptive_system.eps}
+  \includegraphics[scale=.22]{../diagrams/adaptive_system.eps}
   \label{fig:adaptive_system}
   \end{figure}
 
@@ -169,7 +169,7 @@ Racionálny agent :
 
   \begin{figure}[!htb]
   \centering
-  \includegraphics[scale=.25]{../diagrams/learning_system.eps}
+  \includegraphics[scale=.22]{../diagrams/learning_system.eps}
   \label{fig:learning_system}
   \end{figure}
 
@@ -184,6 +184,7 @@ Racionálny agent :
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Adaptívne a učiace sa systémy}
 \begin{minipage}{.5\textwidth}
+
   {\bf Adaptívny systém} \\
   PID regulátor
 
@@ -198,6 +199,7 @@ Racionálny agent :
 
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
+
   {\bf Učiaci sa systém} \\
   Iterative learning controll
 
@@ -211,14 +213,13 @@ Racionálny agent :
   \end{figure}
 
 \end{minipage}
-
 \end{frame}
 
 
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Q-learning algoritmus}
 
-Daná je monožina stavov a akcií
+Daná je množina stavov a akcií
 
 \begin{align}
         s \in \mathbb{S} \nonumber\\
@@ -246,6 +247,19 @@ y = \prod_{i=1}Q_i(s_i, a_i)
 
 
 
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Q-learning algoritmus - agent začlenený do prostredia}
+
+\begin{figure}[!htb]
+\includegraphics[scale=.3]{../diagrams/q_learning_agent.eps}
+\end{figure}
+
+\end{frame}
+
+
+
+
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Q-learning algoritmus}
 
@@ -260,6 +274,7 @@ $R(s,a)$ je odmeňovacia funkcia, \\
 $Q'(s',a')$ je odmeňovacia funkcia z ktorej sa agent dostal zo stavu "$s'$" \ vykonaním "$a$" \ do
 stavu "$s$", \\
 $\gamma$ je odmeňovacia konštanta a platí $\gamma \in (0, 1)$.
+
 \end{frame}
 
 
@@ -267,7 +282,6 @@ $\gamma$ je odmeňovacia konštanta a platí $\gamma \in (0, 1)$.
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Q-learning algoritmus}
 
-TODO
 \begin{figure}[!htb]
 \includegraphics[scale=.5]{../diagrams/q_learning_table_01.eps}
 \end{figure}
@@ -373,7 +387,7 @@ Pre korektné vyplnenie hodnôt v $s_{n-1}$ sa vyžaduje korektá hodnota v $s_{
 \begin{frame}{\bf Q-learning algoritmus - aproximácia}
 
 Učenie doprednej siete nie je homogénne! \\
-- v priebehu učenia $Q(s,a)$ chaoticky osciluje okolo požadovanje hodnoty \\
+- v priebehu učenia $Q(s,a)$ chaoticky osciluje okolo požadovanej hodnoty \\
 - ani po 10-tkach milónoch iterácií sa hodnota neustáli na požadovanej hodnote
 
 
@@ -386,10 +400,70 @@ Učenie doprednej siete nie je homogénne! \\
 Je možné zostaviť neurónovú sieť ktorá sa dá učiť lokálne?
 
 \begin{figure}[!htb]
-\includegraphics[scale=.4]{../pictures/gaussian.png}
+\includegraphics[scale=.35]{../pictures/gaussian.png}
 \end{figure}
 
 \end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Q-learning algoritmus - aproximácia}
+
+Rozklad na bázické funkcie
+
+\begin{align}
+    f_j^a(\boldmath{X}) &= \sum\limits_{i=1}^{N_s}{ b_{1ji}(x_i - a_{1ji})^1 + b_{2ji}(x_i - a_{2ji})^2 + ...  }  \\
+    f_j^a(\boldmath{X}) &= \sum\limits_{i=1}^{N_s}{max(0, b_{ji}(x_i - a_{ji}))}  \\
+    f_j^b(\boldmath{X}) &= cos(\sum\limits_{i=1}^{N_s}{b_{ji}(x_i - a_{ji}) })  \\
+    f_j^c(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}\mid x_i - a_{ji} \mid} }  \\
+    f_j^d(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}(x_i - a_{ji})^2} }
+\end{align}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Q-learning algoritmus - aproximácia}
+
+Ohliadnúc na charakter učiaceho algoritmu
+
+\begin{equation} \label{eu_eqn}
+Q(s,a) = R(s,a) + \gamma \max_{a' \in \mathbb{A}} Q'(s', a') \nonumber
+\end{equation}
+
+
+
+\begin{minipage}{.5\textwidth}
+  boli zvolené bázické funkcie
+
+  \begin{align}
+      f_j^c(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}\mid x_i - a_{ji} \mid}} \nonumber \\
+      f_j^d(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}(x_i - a_{ji})^2} } \nonumber
+  \end{align}
+
+kde
+
+  \begin{align}
+      \mid x \mid = \lim_{\epsilon \to 0} \sqrt[2]{x^2 + \epsilon}  \nonumber
+  \end{align}
+
+
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+
+  \begin{figure}[!htb]
+  %\centering
+  \includegraphics[scale=.2]{../pictures/gaussian_1D.png}
+  \end{figure}
+
+\end{minipage}
+
+
+
+
+
+\end{frame}
+
 
 
 %-------------------------------------------------------------------------------------
@@ -440,7 +514,7 @@ Stavenie parametrov :
 \begin{frame}{\bf Q-learning algoritmus - aproximácia}
 
 Paramatre $a_{ji}$ - pokrytie stavového priestoru do oblastí podľa veľkosti $R(s, a)$
-Využije sa princíp Kohnenovej siete - najbližšie vzory $a_j$ sa posunú podľa vstupných
+Využije sa princíp Kohonenovej siete - najbližšie vzory $a_j$ sa posunú podľa vstupných
 vektorov tak aby vrchol Gaussovej krivky ležal v ťazisku.
 \\
 \begin{itemize}
@@ -484,7 +558,7 @@ Paramatre $w_{j}$ - váhové parametre
 
 \begin{itemize}
 \item stanoví sa chyba $e(n) = y_r(n) - y(n)$
-\item pre každé $w_{j}$ : $w_j(n+1)= w_j(n) -\eta_3 e(n)b_j(n)$
+\item pre každé $w_{j}$ : $w_j(n+1)= w_j(n) -\eta_3 e(n)y_j(n)$
 \item skontroluje sa $w_j \in (-a, a)$
 \end{itemize}
 
@@ -495,7 +569,237 @@ $a$ je maximálny rozsah váh \\
 
 
 %-------------------------------------------------------------------------------------
+\begin{frame}{\bf Výsledky experimentov - schéma priebehu experimentov}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.22]{../diagrams/experiment_map_q_learning.eps}
+\end{figure}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Výsledky experimentov - bloková schéma}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{../diagrams/q_learning_hybrid.eps}
+\end{figure}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Výsledky experimentov - podmienky}
+
+\begin{itemize}
+\item 50000 iterácií učenia
+\item Q-learning
+\begin{equation} \label{eu_eqn}
+Q(s,a) = \alpha(Q'(s,a)) + (1 - \alpha)(R(s,a) + \gamma \max_{a' \in \mathbb{A}} Q'(s', a')) \nonumber
+\end{equation}
+
+\item $R(s, a) =$ náhodná mapa s 1 cieľovým stavom
+\item hodnoty $R(s, a) \in \langle -1, 1 \rangle$
+\item $\gamma = 0.98$ a $\alpha = 0.7$
+
+\item hustota referenčného riešenia = 1/32  (4096 stavov)
+\item počet akcií v každom stave = 8
+\item hustota riedkej tabuľky = 1/8  (1:16 pomer)
+\item počet bázických funkcií = 64
+\item rozsah parametrov
+    \begin{itemize}
+      \item a\_range = 1.0
+      \item b\_range = 200.0
+      \item w\_range = 10.0
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Výsledky experimentov - funkcia R(s), mapa 1}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{../../results_q_learning/map_1/reward_value_surface.png}
+\end{figure}
+
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Výsledky experimentov - mapa najlepších akcií}
+
+\begin{minipage}{.5\textwidth}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_1/iterations_10/action_best_value_log_surface.png}
+\caption{sparse table}
+\end{figure}
+
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_2/iterations_10/action_best_value_log_surface.png}
+\caption{linear combination Gauss}
+\end{figure}
+
+
+\end{minipage}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Výsledky experimentov - mapa najlepších akcií}
+
+\begin{minipage}{.5\textwidth}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_3/iterations_10/action_best_value_log_surface.png}
+\caption{sparse table + linear combination Gauss}
+\end{figure}
+
+
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_4/iterations_10/action_best_value_log_surface.png}
+\caption{sparse table + linear combination + multiplication Gauss}
+\end{figure}
+
+
+\end{minipage}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Výsledky experimentov - chybové funkcie}
+
+\begin{minipage}{.5\textwidth}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_1/q_learning_error.png}
+\caption{sparse table}
+\end{figure}
+
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_2/q_learning_error.png}
+\caption{linear combination Gauss}
+\end{figure}
+
+
+\end{minipage}
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Výsledky experimentov - chybové funkcie}
+
+\begin{minipage}{.5\textwidth}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_3/q_learning_error.png}
+\caption{sparse table + linear combination Gauss}
+\end{figure}
+
+
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_4/q_learning_error.png}
+\caption{sparse table + linear combination + multiplication Gauss}
+\end{figure}
+
+
+\end{minipage}
+\end{frame}
+
+
+
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Výsledky experimentov - max Q(s, a)}
+
+\begin{minipage}{.5\textwidth}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_0/iterations_10/q_learning_result.png}
+\caption{reference table}
+\end{figure}
+
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_3/iterations_10/q_learning_result.png}
+\caption{sparse table + linear combination Gauss}
+\end{figure}
+
+
+\end{minipage}
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Výsledky experimentov - trials progress}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.36]{../../results_q_learning/map_1/trials_average_results_progress.png}
+\end{figure}
+
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Výsledky experimentov - trials average}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.36]{../../results_q_learning/map_1/trials_average_results.png}
+\end{figure}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
 \begin{frame}{\bf Ďakujem za pozornosť}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.15]{../pictures/me.jpg}
+\end{figure}
 
 \centerline{michal.chovanec@yandex.ru}
 

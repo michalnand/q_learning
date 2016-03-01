@@ -184,9 +184,9 @@ float CEnvironment::process(u32 map_id)
   //now maximum learning iterations done
   //process 100 runs to take bests results
   float score = 0.0;
-  for (i = 0; i < 1000; i++)
+  for (i = 0; i < 100; i++)
     score+= process_test_run(256, i, NULL);
-  score = score / 1000.0;
+  score = score / 100.0;
   printf("done with score %f\n", score);
 
   return score;

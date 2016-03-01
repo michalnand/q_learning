@@ -28,8 +28,16 @@ CQFuncBFNN::CQFuncBFNN(u32 state_size, u32 action_size, float state_density,
     float b_range = 200.0;
     float w_range = 10.0;
 
-    for (i = 0; i < actions.size(); i++)
-      bf_nn.push_back( new CBasisFunctions(bf_nn_count, bf_nn_dimension, a_range, b_range, w_range));
+    if (network_type == BFNN_LINEAR_MULT)
+    {
+      for (i = 0; i < actions.size(); i++)
+          bf_nn.push_back( new CBasisFunctions(bf_nn_count, bf_nn_dimension, a_range, b_range, w_range, true));
+    }
+    else
+    {
+      for (i = 0; i < actions.size(); i++)
+          bf_nn.push_back( new CBasisFunctions(bf_nn_count, bf_nn_dimension, a_range, b_range, w_range, false));      
+    }
 
 
     u32 hidden_neurons_count = 4;
@@ -37,28 +45,6 @@ CQFuncBFNN::CQFuncBFNN(u32 state_size, u32 action_size, float state_density,
     init_vector.push_back(bf_nn_count + 1);
     init_vector.push_back(hidden_neurons_count);
     init_vector.push_back(1);
-
-    struct sNNInitStruct nn_init;
-
-    nn_init.init_vector = init_vector;
-
-    nn_init.order = 5;
-
-    nn_init.neuron_type = NN_LAYER_NEURON_TYPE_TANH;
-    switch (network_type)
-    {
-      case BFNN_TANH:           nn_init.neuron_type = NN_LAYER_NEURON_TYPE_TANH;
-      case BFNN_INTERSYNAPTICS: nn_init.neuron_type = NN_LAYER_NEURON_TYPE_INTERSYNAPTICS;
-    }
-
-    nn_init.weight_range = 4.0;
-    nn_init.init_weight_range = 0.001; //0.3*nn_init.weight_range;
-    nn_init.learning_constant = 1.0/100.0;
-    nn_init.output_limit = 4.0;
-
-    for (i = 0; i < actions.size(); i++)
-        nn.push_back( new CNN(nn_init) );
-
 }
 
 CQFuncBFNN::~CQFuncBFNN()
@@ -69,9 +55,6 @@ CQFuncBFNN::~CQFuncBFNN()
 
     for (i = 0; i < bf_nn.size(); i++)
       delete bf_nn[i];
-
-    for (i = 0; i < actions.size(); i++)
-      delete nn[i];
 }
 
 void CQFuncBFNN::learn_start()
@@ -111,7 +94,6 @@ float CQFuncBFNN::get(std::vector<float> state, std::vector<float> action)
     u32 i;
     u32 ptr = 0;
     u32 action_idx = get_action_idx(action);
-    float res = 0.0;
 
     for (i = 0; i < state.size(); i++)
     {
@@ -121,29 +103,14 @@ float CQFuncBFNN::get(std::vector<float> state, std::vector<float> action)
 
     float q_aprox = q_tables[action_idx]->get_f(q_idx_f);
 
-
     bf_nn[action_idx]->process_linear_combination(state);
     float bf_res = bf_nn[action_idx]->get_linear_combination();
 
-    std::vector<float> nn_input = bf_nn[action_idx]->get();
-    nn_input.push_back(1.0);
+    float k = 1.0;
+    if (network_type == BFNN_PURE)
+      k = 0.0;
 
-    switch (network_type)
-    {
-      case BFNN_TANH:           nn[action_idx]->process(nn_input);
-                                res = nn[action_idx]->get()[0];
-                                break;
-
-      case BFNN_INTERSYNAPTICS: nn[action_idx]->process(nn_input);
-                                res = nn[action_idx]->get()[0];
-                                break;
-
-      default:
-                                res = bf_res;
-                                break;
-    }
-
-    return res + 0*q_aprox;
+    return bf_res + k*q_aprox;
 }
 
 void CQFuncBFNN::learn(std::vector<float> state, std::vector<float> action, float required_value)
@@ -165,33 +132,14 @@ void CQFuncBFNN::learn(std::vector<float> state, std::vector<float> action, floa
     float q_aprox = q_tables[action_idx]->get_f(q_idx_f);
     bf_nn[action_idx]->process_linear_combination(state);
 
-    std::vector<float> nn_input = bf_nn[action_idx]->get();
-    nn_input.push_back(1.0);
 
+    float k = 1.0;
+    if (network_type == BFNN_PURE)
+      k = 0.0;
 
+    float required_value_ = required_value - k*q_aprox;
 
-    std::vector<float> required_value_;
-
-    required_value_.push_back(required_value - 0*q_aprox);
-
-    switch (network_type)
-    {
-      case BFNN_TANH:
-                                bf_nn[action_idx]->learn_linear_combination(required_value_[0], 0.01, true);
-                                nn[action_idx]->process(nn_input);
-                                nn[action_idx]->learn(required_value_);
-                                break;
-
-      case BFNN_INTERSYNAPTICS:
-                                bf_nn[action_idx]->learn_linear_combination(required_value_[0], 0.01, true);
-                                nn[action_idx]->process(nn_input);
-                                nn[action_idx]->learn(required_value_);
-                                break;
-
-      default:
-                                bf_nn[action_idx]->learn_linear_combination(required_value_[0], 0.01, true);
-                                break;
-    }
+    bf_nn[action_idx]->learn_linear_combination(required_value_, 0.01, true);
 }
 
 i32 CQFuncBFNN::save(char *file_name)

@@ -33,9 +33,9 @@ CQlearning::CQlearning(struct sQlearningInit ql_init_struct)
 
   q_func = NULL;
   q_func_sparse = NULL;
+  q_func_nn_bfnn_linear_pure = NULL;
   q_func_nn_bfnn_linear = NULL;
-  q_func_nn_bfnn_tanh = NULL;
-  q_func_nn_bfnn_intersynaptic = NULL;
+  q_func_nn_bfnn_linear_mult = NULL;
 
   q_func = new  CQFunc(
                         q_init.state_vector_size, q_init.action_vector_size,
@@ -49,6 +49,13 @@ CQlearning::CQlearning(struct sQlearningInit ql_init_struct)
                         q_init.alpha
                       );
 
+  q_func_nn_bfnn_linear_pure = new CQFuncBFNN(
+                        q_init.state_vector_size, q_init.action_vector_size,
+                        q_init.density, q_init.density,
+                        q_init.alpha, BFNN_PURE,
+                        q_init.actions
+                        );
+
   q_func_nn_bfnn_linear = new CQFuncBFNN(
                               q_init.state_vector_size, q_init.action_vector_size,
                               q_init.density, q_init.density,
@@ -56,19 +63,12 @@ CQlearning::CQlearning(struct sQlearningInit ql_init_struct)
                               q_init.actions
                             );
 
-  q_func_nn_bfnn_tanh = new CQFuncBFNN(
-                                q_init.state_vector_size, q_init.action_vector_size,
-                                q_init.density, q_init.density,
-                                q_init.alpha, BFNN_TANH,
-                                q_init.actions
-                              );
-
-  q_func_nn_bfnn_intersynaptic = new CQFuncBFNN(
-                                q_init.state_vector_size, q_init.action_vector_size,
-                                q_init.density, q_init.density,
-                                q_init.alpha, BFNN_INTERSYNAPTICS,
-                                q_init.actions
-                              );
+  q_func_nn_bfnn_linear_mult = new CQFuncBFNN(
+                              q_init.state_vector_size, q_init.action_vector_size,
+                              q_init.density, q_init.density,
+                              q_init.alpha, BFNN_LINEAR_MULT,
+                              q_init.actions
+                            );
 
 
   #ifdef DEBUG_MODE
@@ -88,14 +88,14 @@ CQlearning::~CQlearning()
   if (q_func_sparse != NULL)
     delete q_func_sparse;
 
+  if (q_func_nn_bfnn_linear_pure != NULL)
+    delete q_func_nn_bfnn_linear_pure;
+
   if (q_func_nn_bfnn_linear != NULL)
     delete q_func_nn_bfnn_linear;
 
-  if (q_func_nn_bfnn_tanh != NULL)
-    delete q_func_nn_bfnn_tanh;
-
-  if (q_func_nn_bfnn_intersynaptic != NULL)
-    delete q_func_nn_bfnn_intersynaptic;
+  if (q_func_nn_bfnn_linear_mult != NULL)
+    delete q_func_nn_bfnn_linear_mult;
 }
 
 float CQlearning::get_highest_q(std::vector<float> state, std::vector<std::vector<float>> actions)
@@ -111,9 +111,9 @@ float CQlearning::get_highest_q(std::vector<float> state, std::vector<std::vecto
     {
       case 0: q_tmp = q_func->get(state, actions[j]); break;
       case 1: q_tmp = q_func_sparse->get(state, actions[j]); break;
-      case 2: q_tmp = q_func_nn_bfnn_linear->get(state, actions[j]); break;
-      case 3: q_tmp = q_func_nn_bfnn_tanh->get(state, actions[j]); break;
-      case 4: q_tmp = q_func_nn_bfnn_intersynaptic->get(state, actions[j]); break;
+      case 2: q_tmp = q_func_nn_bfnn_linear_pure->get(state, actions[j]); break;
+      case 3: q_tmp = q_func_nn_bfnn_linear->get(state, actions[j]); break;
+      case 4: q_tmp = q_func_nn_bfnn_linear_mult->get(state, actions[j]); break;
     }
 
     if (q_tmp > q_res)
@@ -146,17 +146,17 @@ void CQlearning::process(std::vector<float> state, std::vector<std::vector<float
 
     case 2:
             for (j = 0; j < q_init.actions_count; j++)
-              q_res.q_values[j] = q_func_nn_bfnn_linear->get(q_res.state, actions[j]);
+              q_res.q_values[j] = q_func_nn_bfnn_linear_pure->get(q_res.state, actions[j]);
             break;
 
     case 3:
             for (j = 0; j < q_init.actions_count; j++)
-              q_res.q_values[j] = q_func_nn_bfnn_tanh->get(q_res.state, actions[j]);
+              q_res.q_values[j] = q_func_nn_bfnn_linear->get(q_res.state, actions[j]);
             break;
 
     case 4:
             for (j = 0; j < q_init.actions_count; j++)
-              q_res.q_values[j] = q_func_nn_bfnn_intersynaptic->get(q_res.state, actions[j]);
+              q_res.q_values[j] = q_func_nn_bfnn_linear_mult->get(q_res.state, actions[j]);
             break;
   }
 
@@ -211,13 +211,13 @@ void CQlearning::process(std::vector<float> state, std::vector<std::vector<float
             case 1: q_func_sparse->learn(q_res_array[i].state, q_res_array[i].action, q_res_array[i].q_value_best);
                     break;
 
-            case 2: q_func_nn_bfnn_linear->learn(q_res_array[i].state, q_res_array[i].action, q_res_array[i].q_value_best);
+            case 2: q_func_nn_bfnn_linear_pure->learn(q_res_array[i].state, q_res_array[i].action, q_res_array[i].q_value_best);
                     break;
 
-            case 3: q_func_nn_bfnn_tanh->learn(q_res_array[i].state, q_res_array[i].action, q_res_array[i].q_value_best);
+            case 3: q_func_nn_bfnn_linear->learn(q_res_array[i].state, q_res_array[i].action, q_res_array[i].q_value_best);
                     break;
 
-            case 4: q_func_nn_bfnn_intersynaptic->learn(q_res_array[i].state, q_res_array[i].action, q_res_array[i].q_value_best);
+            case 4: q_func_nn_bfnn_linear_mult->learn(q_res_array[i].state, q_res_array[i].action, q_res_array[i].q_value_best);
                     break;
         }
     }

@@ -9,9 +9,10 @@
 #define Q_FUNC_BFNN_MAGIC    (u32)0xABCD0002
 
 
-#define BFNN_LINEAR           0
-#define BFNN_TANH             1
-#define BFNN_INTERSYNAPTICS   2
+#define BFNN_PURE             0
+#define BFNN_LINEAR           1
+#define BFNN_LINEAR_MULT      2
+
 
 
 class CQFuncBFNN
@@ -21,7 +22,6 @@ class CQFuncBFNN
 
         std::vector<class CArray*> q_tables;
         std::vector<class CBasisFunctions*> bf_nn;
-        std::vector<class CNN*> nn;
 
         float alpha;
 

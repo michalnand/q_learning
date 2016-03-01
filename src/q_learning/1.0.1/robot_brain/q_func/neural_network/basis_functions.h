@@ -4,20 +4,24 @@
 #include "../../../common.h"
 
 
+
+
 class CBasisFunctions
 {
   private:
       u32 functions_count, dimension;
       float a_range, b_range, w_range;
       float **a, *b;
-
-      float *w, *distance;
+ 
+      float *w, *distance, *v;
 
       std::vector<float> output, input;
       float linear_combination;
 
+      bool multiply_network_type;
+
   public:
-      CBasisFunctions(u32 count, u32 dimension, float a_range = 1.0, float b_range = 100.0, float w_range = 1.0);
+      CBasisFunctions(u32 count, u32 dimension, float a_range = 1.0, float b_range = 100.0, float w_range = 1.0, bool multiply_network_type = false);
       ~CBasisFunctions();
 
       void process(std::vector<float> input);

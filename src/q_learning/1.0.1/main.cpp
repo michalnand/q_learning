@@ -56,6 +56,65 @@ float compare_results(u32 map_id, u32 function_type)
 	return error;
 }
 
+
+
+void compare_all_results(u32 map_id)
+{
+	char function_1_file_name[1024];
+	char function_2_file_name[1024];
+	char function_3_file_name[1024];
+	char function_4_file_name[1024];
+
+	char trials_average_results_file_name[1024];
+
+	sprintf(function_1_file_name,"%s/map_%u/function_type_1/summary_error_results.log", S_RESULTS_PATH, map_id);
+	sprintf(function_2_file_name,"%s/map_%u/function_type_2/summary_error_results.log", S_RESULTS_PATH, map_id);
+	sprintf(function_3_file_name,"%s/map_%u/function_type_3/summary_error_results.log", S_RESULTS_PATH, map_id);
+	sprintf(function_4_file_name,"%s/map_%u/function_type_4/summary_error_results.log", S_RESULTS_PATH, map_id);
+
+	sprintf(trials_average_results_file_name,"%s/map_%u/trials_average_results.log", S_RESULTS_PATH, map_id);
+
+
+	std::vector<CLogRead *> functions;
+
+	functions.push_back(new CLogRead(function_1_file_name));
+	functions.push_back(new CLogRead(function_2_file_name));
+	functions.push_back(new CLogRead(function_3_file_name));
+	functions.push_back(new CLogRead(function_4_file_name));
+
+	CLog 		 trials_average_results(trials_average_results_file_name, 4);
+
+	u32 i, j;
+	for (j = 0; j < functions.size(); j++)
+	{
+		float error_min = 1000000000.0;
+		float error_max = -error_min;
+		float error_average = 0.0;
+
+		for (i = 0; i < functions[j]->get_lines_count(); i++)
+		{
+			float error = functions[j]->get_item(i, 1);
+
+			error_average+= error;
+
+			if (error > error_max)
+				error_max = error;
+
+			if (error < error_min)
+				error_min = error;
+		}
+
+		error_average/= functions[j]->get_lines_count();
+
+		trials_average_results.add(0, j);
+		trials_average_results.add(1, error_average);
+		trials_average_results.add(2, error_min);
+		trials_average_results.add(3, error_max);
+	}
+
+	trials_average_results.save();
+}
+
 int main()
 {
 	srand(time(NULL));
@@ -136,18 +195,17 @@ int main()
 	}
 
 
-
 	u32 map_id, function_type;
 	printf("\n processing experiment : \n");
 
 	float error = 0.0;
 	map_id = 1;
 	i = 0;
-	function_type = 1;
-
+	function_type = 4;
+/*
 //	 for (map_id = 0; map_id < MAPS_COUNT; map_id++)
 
- 	//for (function_type = 0; function_type < 3; function_type++)
+ 	//for (function_type = 0; function_type < 5; function_type++)
 	{
 		char file_name[1024];
 		sprintf(file_name,"%s/map_%u/function_type_%u/summary_error_results.log",S_RESULTS_PATH, map_id, function_type);
@@ -172,6 +230,9 @@ int main()
 			log.save();
 		}
 	}
+	*/
+
+	compare_all_results(1);
 
 
 	printf("program done\n");
