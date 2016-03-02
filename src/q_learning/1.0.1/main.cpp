@@ -202,10 +202,10 @@ int main()
 	map_id = 1;
 	i = 0;
 	function_type = 4;
-/*
+
 //	 for (map_id = 0; map_id < MAPS_COUNT; map_id++)
 
- 	//for (function_type = 0; function_type < 5; function_type++)
+ //	for (function_type = 2; function_type <= 3; function_type++)
 	{
 		char file_name[1024];
 		sprintf(file_name,"%s/map_%u/function_type_%u/summary_error_results.log",S_RESULTS_PATH, map_id, function_type);
@@ -230,7 +230,7 @@ int main()
 			log.save();
 		}
 	}
-	*/
+
 
 	compare_all_results(1);
 

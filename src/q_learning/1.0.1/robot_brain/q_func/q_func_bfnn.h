@@ -8,10 +8,8 @@
 
 #define Q_FUNC_BFNN_MAGIC    (u32)0xABCD0002
 
-
-#define BFNN_PURE             0
-#define BFNN_LINEAR           1
-#define BFNN_LINEAR_MULT      2
+#define BFNN_TOPOLOGY_TYPE_PURE             ((u32)1)
+#define BFNN_TOPOLOGY_TYPE_HYBRID           ((u32)2)
 
 
 
@@ -27,12 +25,13 @@ class CQFuncBFNN
 
         std::vector<float> q_idx_f;
 
-        u32 network_type;
+        u32 topology_type;
+        u32 function_type;
 
     public:
         CQFuncBFNN( u32 state_size, u32 action_size,
                 float density, float action_density,
-                float alpha, u32 network_type,
+                float alpha, u32 topology_type,  u32 function_type,
                 std::vector<std::vector<float>> actions);
         ~CQFuncBFNN();
 

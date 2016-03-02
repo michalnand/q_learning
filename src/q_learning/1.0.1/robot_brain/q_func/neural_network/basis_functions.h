@@ -3,8 +3,8 @@
 
 #include "../../../common.h"
 
-
-
+#define BASIS_FUNCTION_TYPE_GAUSS        (u32)(1)
+#define BASIS_FUNCTION_TYPE_KOHONEN      (u32)(2)
 
 class CBasisFunctions
 {
@@ -12,16 +12,17 @@ class CBasisFunctions
       u32 functions_count, dimension;
       float a_range, b_range, w_range;
       float **a, *b;
- 
-      float *w, *distance, *v;
+
+      u32 v_size;
+      float *w, *distance;
 
       std::vector<float> output, input;
       float linear_combination;
 
-      bool multiply_network_type;
+      u32 function_type;
 
   public:
-      CBasisFunctions(u32 count, u32 dimension, float a_range = 1.0, float b_range = 100.0, float w_range = 1.0, bool multiply_network_type = false);
+      CBasisFunctions(u32 count, u32 dimension, float a_range = 1.0, float b_range = 100.0, float w_range = 1.0, u32 function_type = BASIS_FUNCTION_TYPE_GAUSS);
       ~CBasisFunctions();
 
       void process(std::vector<float> input);

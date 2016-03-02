@@ -41,8 +41,9 @@ class CQlearning
     std::vector<struct sQlearningRes> q_res_array;
 
     class CQFunc      *q_func, *q_func_sparse;
-    class CQFuncBFNN  *q_func_nn_bfnn_linear_pure, *q_func_nn_bfnn_linear, *q_func_nn_bfnn_linear_mult;
-
+    class CQFuncBFNN  *q_func_nn_bfnn_pure_linear_gauss,
+                      *q_func_nn_bfnn_hybrid_linear_gauss,
+                      *q_func_nn_bfnn_hybrid_linear_kohonen;
   public:
     CQlearning(struct sQlearningInit ql_init_struct);
     ~CQlearning();

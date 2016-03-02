@@ -12,3 +12,11 @@ cd ..
 cd function_type_2
 ./plot
 cd ..
+
+cd function_type_3
+./plot
+cd ..
+
+cd function_type_4
+./plot
+cd ..

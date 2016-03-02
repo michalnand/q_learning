@@ -412,11 +412,10 @@ Je možné zostaviť neurónovú sieť ktorá sa dá učiť lokálne?
 Rozklad na bázické funkcie
 
 \begin{align}
-    f_j^a(\boldmath{X}) &= \sum\limits_{i=1}^{N_s}{ b_{1ji}(x_i - a_{1ji})^1 + b_{2ji}(x_i - a_{2ji})^2 + ...  }  \\
-    f_j^a(\boldmath{X}) &= \sum\limits_{i=1}^{N_s}{max(0, b_{ji}(x_i - a_{ji}))}  \\
-    f_j^b(\boldmath{X}) &= cos(\sum\limits_{i=1}^{N_s}{b_{ji}(x_i - a_{ji}) })  \\
-    f_j^c(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}\mid x_i - a_{ji} \mid} }  \\
-    f_j^d(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}(x_i - a_{ji})^2} }
+    f_j^a(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}(x_i - a_{ji})^2} } \\
+    f_j^b(\boldmath{X}) &= b_{j}\frac{1}{1 + \sum\limits_{i=1}^{N_s}{(x_i - a_{ji})^2}} \nonumber \\
+    f_j^c(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}\mid x_i - a_{ji} \mid} } \nonumber  \\
+    f_j^d(\boldmath{X}) &= \sum\limits_{i=1}^{N_s}{ b_{1ji}(x_i - a_{1ji})^1 + b_{2ji}(x_i - a_{2ji})^2 + ...  } \nonumber
 \end{align}
 
 \end{frame}
@@ -437,22 +436,20 @@ Q(s,a) = R(s,a) + \gamma \max_{a' \in \mathbb{A}} Q'(s', a') \nonumber
   boli zvolené bázické funkcie
 
   \begin{align}
-      f_j^c(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}\mid x_i - a_{ji} \mid}} \nonumber \\
-      f_j^d(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}(x_i - a_{ji})^2} } \nonumber
+    f_j^a(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}(x_i - a_{ji})^2} } \nonumber \\
+    f_j^b(\boldmath{X}) &= b_{j}\frac{1}{1 + \sum\limits_{i=1}^{N_s}{(x_i - a_{ji})^2}} \nonumber
   \end{align}
 
-kde
-
-  \begin{align}
-      \mid x \mid = \lim_{\epsilon \to 0} \sqrt[2]{x^2 + \epsilon}  \nonumber
-  \end{align}
-
+%kde
+%  \begin{align}
+%      \mid x \mid = \lim_{\epsilon \to 0} \sqrt[2]{x^2 + \epsilon}  \nonumber
+%  \end{align}
 
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
 
   \begin{figure}[!htb]
-  %\centering
+  \centering
   \includegraphics[scale=.2]{../pictures/gaussian_1D.png}
   \end{figure}
 
@@ -469,24 +466,20 @@ kde
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Q-learning algoritmus - aproximácia}
 
-Rozklad na bázické funkcie
+Pre symetrické prechody medzi stavmi možno zjednodušiť na
 
 \begin{align}
-    f_j(\boldmath{X}) = e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}(x_i - a_{ji})^2} }
+    f_j^a(\boldmath{X}) &= e^{ -b_j\sum\limits_{i=1}^{N_s}{(x_i - a_{ji})^2} } \nonumber \\
+    f_j^b(\boldmath{X}) &= b_{j}\frac{1}{1 + \sum\limits_{i=1}^{N_s}{(x_i - a_{ji})^2}} \nonumber
 \end{align}
 
-pre symetrické prechody medzi stavmi možno zjednodušiť na
+A ich lineárna kombinácia
 
 \begin{align}
-    f_j(\boldmath{X}) = e^{ -b_j\sum\limits_{i=1}^{N_s}{(x_i - a_{ji})^2} }
+    y(\boldmath{X})&= \sum\limits_{j=1}^{N}w_jf_j(\boldmath{X}) \nonumber
 \end{align}
 
-A ich kombinácia
-
-\begin{align}
-    y(\boldmath{X})&= \sum\limits_{j=1}^{N}w_jf_j(\boldmath{X}) \nonumber \\
-                  &+ \sum\limits_{j=1}^{N}{\sum\limits_{i=1}^{j}v_{ji}f_j(\boldmath{X})f_i(\boldmath{X})}
-\end{align}
+% &+ \sum\limits_{j=1}^{N}{\sum\limits_{i=1}^{j}v_{ji}f_j(\boldmath{X})f_i(\boldmath{X})}
 
 
 \end{frame}
@@ -674,7 +667,7 @@ Q(s,a) = \alpha(Q'(s,a)) + (1 - \alpha)(R(s,a) + \gamma \max_{a' \in \mathbb{A}}
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_4/iterations_10/action_best_value_log_surface.png}
-\caption{sparse table + linear combination + multiplication Gauss}
+\caption{sparse table + linear combination Kohonen function}
 \end{figure}
 
 
@@ -733,7 +726,7 @@ Q(s,a) = \alpha(Q'(s,a)) + (1 - \alpha)(R(s,a) + \gamma \max_{a' \in \mathbb{A}}
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_4/q_learning_error.png}
-\caption{sparse table + linear combination + multiplication Gauss}
+\caption{sparse table + linear combination Kohonen function}
 \end{figure}
 
 

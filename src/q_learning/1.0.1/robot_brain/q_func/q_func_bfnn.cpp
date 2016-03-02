@@ -3,11 +3,17 @@
 
 
 CQFuncBFNN::CQFuncBFNN(u32 state_size, u32 action_size, float state_density,
-              float action_density, float alpha, u32 network_type, std::vector<std::vector<float>> actions)
+              float action_density, float alpha, u32 topology_type,  u32 function_type, std::vector<std::vector<float>> actions)
 {
     this->alpha = alpha;
     this->actions = actions;
-    this->network_type = network_type;
+    this->topology_type = topology_type;
+    this->function_type = function_type;
+
+    #ifdef DEBUG_MODE
+    printf("  Q BFNN topology %u function %u\n", this->topology_type, this->function_type);
+    #endif
+
 
     u32 i;
     std::vector<u32> init_vector;
@@ -28,17 +34,8 @@ CQFuncBFNN::CQFuncBFNN(u32 state_size, u32 action_size, float state_density,
     float b_range = 200.0;
     float w_range = 10.0;
 
-    if (network_type == BFNN_LINEAR_MULT)
-    {
-      for (i = 0; i < actions.size(); i++)
-          bf_nn.push_back( new CBasisFunctions(bf_nn_count, bf_nn_dimension, a_range, b_range, w_range, true));
-    }
-    else
-    {
-      for (i = 0; i < actions.size(); i++)
-          bf_nn.push_back( new CBasisFunctions(bf_nn_count, bf_nn_dimension, a_range, b_range, w_range, false));      
-    }
-
+    for (i = 0; i < actions.size(); i++)
+        bf_nn.push_back( new CBasisFunctions(bf_nn_count, bf_nn_dimension, a_range, b_range, w_range, this->function_type));
 
     u32 hidden_neurons_count = 4;
     init_vector.clear();
@@ -107,8 +104,9 @@ float CQFuncBFNN::get(std::vector<float> state, std::vector<float> action)
     float bf_res = bf_nn[action_idx]->get_linear_combination();
 
     float k = 1.0;
-    if (network_type == BFNN_PURE)
+    if (topology_type == BFNN_TOPOLOGY_TYPE_PURE)
       k = 0.0;
+
 
     return bf_res + k*q_aprox;
 }
@@ -134,7 +132,7 @@ void CQFuncBFNN::learn(std::vector<float> state, std::vector<float> action, floa
 
 
     float k = 1.0;
-    if (network_type == BFNN_PURE)
+    if (topology_type == BFNN_TOPOLOGY_TYPE_PURE)
       k = 0.0;
 
     float required_value_ = required_value - k*q_aprox;
