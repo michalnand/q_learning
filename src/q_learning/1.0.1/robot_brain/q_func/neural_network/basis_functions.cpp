@@ -28,14 +28,17 @@ CBasisFunctions::CBasisFunctions(u32 count, u32 dimension, float a_range, float 
     for (i = 0; i < this->dimension; i++)
       a[j][i] = this->a_range*rnd_();  //in range -a_range..a_range
 
-    float k = 0.0;
+
     if (function_type == BASIS_FUNCTION_TYPE_GAUSS)
     {
-      k = 0.95;
+      float k = 0.90;
       b[j] = this->b_range*(k + (1.0 - k)*abs_(rnd_()));
     }
     else
-      b[j] = abs_(0.1*rnd_());
+    {
+      float k = 0.50;
+      b[j] = this->b_range*(k + (1.0 - k)*abs_(rnd_()));
+    }
   }
 
   for (j = 0; j < this->functions_count; j++)
@@ -93,10 +96,10 @@ void CBasisFunctions::process(std::vector<float> input)
   {
     float sum = 0.0;
     for (i = 0; i < this->dimension; i++)
-      sum+= abs_(this->input[i] - a[j][i]);
+      sum+= (this->input[i] - a[j][i])*(this->input[i] - a[j][i]);
 
     distance[j] = sum;
-    output[j] = b[j]*1.0/(1.0 + sum);
+    output[j] = 1.0/(1.0 + b[j]*sum);
   }
 }
 
@@ -139,6 +142,7 @@ void CBasisFunctions::learn_linear_combination(float required_value, float learn
       if (distance[j] < distance[dist_min_idx])
           dist_min_idx = j;
 
+    //float lc = learning_rate*(0.1 + 90.0*abs_(required_value));
     float lc = learning_rate*(0.1 + 90.0*abs_(required_value));
     for (i = 0; i < this->dimension; i++)
       a[dist_min_idx][i] = (1.0 - lc)*a[dist_min_idx][i] + lc*input[i];
@@ -169,13 +173,13 @@ void CBasisFunctions::learn_linear_combination(float required_value, float learn
 
     for (j = 0; j < this->functions_count; j++)
     {
-      b[j]+= 0.01*error*w[j];
+      b[j]+= 0.1*error*w[j];
 
       if (b[j] < 0.0)
         b[j] = 0.0;
 
-      if (b[j] > 1.0)
-        b[j] = 1.0;
+      if (b[j] > 100.0)
+        b[j] = 100.0;
     }
   }
 

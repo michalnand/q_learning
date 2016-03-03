@@ -413,7 +413,7 @@ Rozklad na bázické funkcie
 
 \begin{align}
     f_j^a(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}(x_i - a_{ji})^2} } \\
-    f_j^b(\boldmath{X}) &= b_{j}\frac{1}{1 + \sum\limits_{i=1}^{N_s}{(x_i - a_{ji})^2}} \nonumber \\
+    f_j^b(\boldmath{X}) &= \frac{1}{1 + \sum\limits_{i=1}^{N_s}{b_{ji}(x_i - a_{ji})^2}} \nonumber \\
     f_j^c(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}\mid x_i - a_{ji} \mid} } \nonumber  \\
     f_j^d(\boldmath{X}) &= \sum\limits_{i=1}^{N_s}{ b_{1ji}(x_i - a_{1ji})^1 + b_{2ji}(x_i - a_{2ji})^2 + ...  } \nonumber
 \end{align}
@@ -437,8 +437,8 @@ Q(s,a) = R(s,a) + \gamma \max_{a' \in \mathbb{A}} Q'(s', a') \nonumber
 
   \begin{align}
     f_j^a(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}(x_i - a_{ji})^2} } \nonumber \\
-    f_j^b(\boldmath{X}) &= b_{j}\frac{1}{1 + \sum\limits_{i=1}^{N_s}{(x_i - a_{ji})^2}} \nonumber
-  \end{align}
+    f_j^b(\boldmath{X}) &= \frac{1}{1 + b_{j} \sum\limits_{i=1}^{N_s}{(x_i - a_{ji})^2}} \nonumber
+\end{align}
 
 %kde
 %  \begin{align}
@@ -562,7 +562,17 @@ $a$ je maximálny rozsah váh \\
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Výsledky experimentov - schéma priebehu experimentov}
+\begin{frame}{\bf Návrh experimentov - bloková schéma}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{../diagrams/q_learning_hybrid.eps}
+\end{figure}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Návrh experimentov - schéma priebehu experimentov}
 
 \begin{figure}[!htb]
 \centering
@@ -572,19 +582,11 @@ $a$ je maximálny rozsah váh \\
 \end{frame}
 
 
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Výsledky experimentov - bloková schéma}
 
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.4]{../diagrams/q_learning_hybrid.eps}
-\end{figure}
-
-\end{frame}
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Výsledky experimentov - podmienky}
+\begin{frame}{\bf Návrh experimentov - podmienky}
 
 \begin{itemize}
 \item 50000 iterácií učenia
@@ -667,7 +669,7 @@ Q(s,a) = \alpha(Q'(s,a)) + (1 - \alpha)(R(s,a) + \gamma \max_{a' \in \mathbb{A}}
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_4/iterations_10/action_best_value_log_surface.png}
-\caption{sparse table + linear combination Kohonen function}
+\caption{linear combination Kohonen function}
 \end{figure}
 
 
@@ -726,7 +728,7 @@ Q(s,a) = \alpha(Q'(s,a)) + (1 - \alpha)(R(s,a) + \gamma \max_{a' \in \mathbb{A}}
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_4/q_learning_error.png}
-\caption{sparse table + linear combination Kohonen function}
+\caption{linear combination Kohonen function}
 \end{figure}
 
 

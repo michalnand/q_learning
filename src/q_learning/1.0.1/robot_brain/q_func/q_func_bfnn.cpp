@@ -32,7 +32,7 @@ CQFuncBFNN::CQFuncBFNN(u32 state_size, u32 action_size, float state_density,
     u32 bf_nn_dimension =  state_size;
     float a_range = 1.0;
     float b_range = 200.0;
-    float w_range = 10.0;
+    float w_range = 4.0;
 
     for (i = 0; i < actions.size(); i++)
         bf_nn.push_back( new CBasisFunctions(bf_nn_count, bf_nn_dimension, a_range, b_range, w_range, this->function_type));
