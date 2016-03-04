@@ -253,28 +253,24 @@ Racionálny agent :
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Q-learning algoritmus}
 
-Daná je množina stavov a akcií
+Daná je množina stavov $\mathbb{S}$ a akcií $\mathbb{A}$, kde
+ $\mathbb{S} \in \mathbb{R}^{n_s}$ a $\mathbb{A} \in \mathbb{R}^{n_a}$, kde
+$n_s$ a  $n_a$ sú rozmery stavového vektora a vektora akcií. Je známa podmnožina východiskových
+stavov $\mathbb{S}_0$.
 
-\begin{align}
-        s \in \mathbb{S} \nonumber\\
-        a \in \mathbb{A} \nonumber
-\end{align}
-
-kde $\mathbb{S} \in \mathbb{R}^{N_s}$ a $\mathbb{A} \in \mathbb{R}^{N_a}$, kde
-$N_s$ a  $N_a$ sú rozmery stavového vektoru a vektoru akcií.
-
-Predpoklad : v prostedí existuje funkcia
+Existuje prechodová funkcia
 \begin{align}
         s(n+1) = \lambda(s(n), a(n))
 \end{align}
-
-prechodová funkcia zo stavu $s(n)$ použitím akcie $a(n)$ - táto funkcia je ale agentovi neznáma.
-
-Cieľom je nájsť takú postupnosť akcií $a \in \mathbb{A}$ pre ktorú bude maximálne
+zo stavu $s(n)$ použitím akcie $a(n)$ - táto funkcia je ale agentovi neznáma.
+Cieľom je nájsť takú postupnosť akcií $a(i) \in \mathbb{A}$ z východiskového stavu $s(0) \in \mathbb{S}_0$ pre ktorú bude maximálne
 
 \begin{equation} \label{eu_eqn}
-y = \prod_{i=1}Q_i(s_i, a_i)
+y({s(0)}) = \prod_{i=0}^{t}Q(s(i), a(i)) ,
 \end{equation}
+
+kde $s(t)$ je cieľový stav a $Q(s(i), a(i))$ je funkcia ohodnotení akcie $a(i)$ v stave
+$s(i)$.
 
 
 
@@ -284,7 +280,7 @@ y = \prod_{i=1}Q_i(s_i, a_i)
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - agent začlenený do prostredia}
+\begin{frame}{\bf Agent začlenený do prostredia}
 
 \begin{figure}[!htb]
 \includegraphics[scale=.3]{../diagrams/q_learning_agent.eps}
@@ -296,26 +292,39 @@ y = \prod_{i=1}Q_i(s_i, a_i)
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus}
+\begin{frame}{\bf Odmeňovacia funkcia}
 
 Daná je funkcia ohodnotení
 
-\begin{equation} \label{eu_eqn}
-Q(s,a) = R(s,a) + \gamma \max_{a' \in \mathbb{A}} Q'(s', a')
+\begin{equation}
+Q(s(n),a(n)) = R(s(n),a(n)) + \gamma \max_{a(n-1) \in \mathbb{A}} Q(s(n-1), a(n-1)) \nonumber
 \end{equation}
 
 kde \\
-$R(s,a)$ je odmeňovacia funkcia, \\
-$Q'(s',a')$ je odmeňovacia funkcia z ktorej sa agent dostal zo stavu "$s'$" \ vykonaním "$a$" \ do
-stavu "$s$", \\
-$\gamma$ je odmeňovacia konštanta a platí $\gamma \in (0, 1)$.
+
+\begin{itemize}
+ \item $R(s(n),a(n))$ je odmeňovacia funkcia s hodnotami v $\langle -1, 1 \rangle$, \\
+ \item $Q(s(n-1),a(n-1))$ je odmeňovacia funkcia v stave $s(n-1)$ pre akciu $a(n-1)$, \\
+ \item $\gamma$ je odmeňovacia konštanta a platí $\gamma \in (0, 1)$.
+\end{itemize}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Odmeňovacia funkcia}
+
+\begin{figure}[!htb]
+\includegraphics[scale=.4]{../diagrams/q_learning_detail.eps}
+\end{figure}
+
 
 \end{frame}
 
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus}
+\begin{frame}{\bf Ilustračný príklad - inicializácia}
 
 \begin{figure}[!htb]
 \includegraphics[scale=.5]{../diagrams/q_learning_table_01.eps}
@@ -324,7 +333,7 @@ $\gamma$ je odmeňovacia konštanta a platí $\gamma \in (0, 1)$.
 \end{frame}
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus}
+\begin{frame}{\bf Ilustračný príklad - prechod do ďalšieho stavu}
 
 \begin{figure}[!htb]
 \includegraphics[scale=.5]{../diagrams/q_learning_table_02.eps}
@@ -333,7 +342,7 @@ $\gamma$ je odmeňovacia konštanta a platí $\gamma \in (0, 1)$.
 \end{frame}
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus}
+\begin{frame}{\bf Ilustračný príklad - prechod do ďalšieho stavu}
 
 \begin{figure}[!htb]
 \includegraphics[scale=.5]{../diagrams/q_learning_table_03.eps}
@@ -342,7 +351,7 @@ $\gamma$ je odmeňovacia konštanta a platí $\gamma \in (0, 1)$.
 \end{frame}
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus}
+\begin{frame}{\bf Ilustračný príklad - prechod do cieľového stavu}
 
 \begin{figure}[!htb]
 \includegraphics[scale=.5]{../diagrams/q_learning_table_04.eps}
@@ -351,7 +360,7 @@ $\gamma$ je odmeňovacia konštanta a platí $\gamma \in (0, 1)$.
 \end{frame}
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus}
+\begin{frame}{\bf Ilustračný príklad - ďalšie prechody}
 
 \begin{figure}[!htb]
 \includegraphics[scale=.5]{../diagrams/q_learning_table_05.eps}
@@ -360,7 +369,7 @@ $\gamma$ je odmeňovacia konštanta a platí $\gamma \in (0, 1)$.
 \end{frame}
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus}
+\begin{frame}{\bf Ilustračný príklad - konečný stav algoritmu}
 
 \begin{figure}[!htb]
 \includegraphics[scale=.5]{../diagrams/q_learning_table_06.eps}
@@ -370,36 +379,37 @@ $\gamma$ je odmeňovacia konštanta a platí $\gamma \in (0, 1)$.
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus}
+\begin{frame}{\bf Implementačné problémy}
 
-Problémy tabuľkovej interpretácie $Q(s, a)$
+Problémy tabuľkovej interpretácie $Q(s(n), a(n))$ :
 
 \begin{itemize}
-\item pre veľké ${N_s}\  alebo  {N_a}$\ narastajú pamäťové nároky
-\item o nevyplnených $Q(s, a)$ nevieme povedať nič
-\item pre rozsiahle stavové priestory ťažko nevypočítateľné
-\item ako aproximovať $Q(s, a)$?
+\item pre veľké ${n_s}$  alebo  ${n_a}$ narastajú pamäťové nároky,
+\item o nevyplnených $Q(s(n), a(n))$ nevieme povedať nič,
+\item pre rozsiahle stavové priestory ťažko vypočítateľné,
+\item ako aproximovať $Q(s(n), a(n))$?
 \end{itemize}
 
 \end{frame}
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - aproximácia}
+\begin{frame}{\bf Aproximácia neurónovou sieťou}
 
-Neurónová sieť?
 Utopická predstava :
 
 \begin{figure}[!htb]
 \includegraphics[scale=.5]{../diagrams/q_learning_nn.eps}
 \end{figure}
 
-prečo nedáva správne výsledky?
+Prečo nedáva správne výsledky?
 \end{frame}
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - aproximácia}
+\begin{frame}{\bf Hypotéza}
+
+Na základe experimetov
 
 \begin{figure}[!htb]
 \includegraphics[scale=.5]{../diagrams/q_chain_problem.eps}
@@ -407,32 +417,30 @@ prečo nedáva správne výsledky?
 
 Pre korektné vyplnenie hodnôt v $s_{n-1}$ sa vyžaduje korektá hodnota v $s_{n}$
 
-\begin{align}
-    Q(s_{0},a_{0}) &= R(s_{0},a_{0}) + \gamma \max_{a_{1}' \in \mathbb{A}} Q'(s_{1}, a'_{1}) \nonumber\\
-    Q(s_{1},a_{1}) &= R(s_{1},a_{1}) + \gamma \max_{a_{2}' \in \mathbb{A}} Q'(s_{2}, a'_{2}) \nonumber\\
-    Q(s_{2},a_{2}) &= R(s_{2},a_{2}) + \gamma \max_{a_{3}' \in \mathbb{A}} Q'(s_{3}, a'_{3}) \nonumber\\
+\begin{align*}
+    Q(s(1),a(1)) &= R(s(1),a(1)) + \gamma \max_{a(0) \in \mathbb{A}} Q(s(0), a(0)) \\
+    Q(s(2),a(2)) &= R(s(2),a(2)) + \gamma \max_{a(1) \in \mathbb{A}} Q(s(1), a(1)) \\
     & \dots
-\end{align}
+\end{align*}
 
 \end{frame}
 
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - aproximácia}
+\begin{frame}{\bf Učenie doprednej siete}
 
-Učenie doprednej siete nie je homogénne! \\
-- v priebehu učenia $Q(s,a)$ chaoticky osciluje okolo požadovanej hodnoty \\
-- ani po 10-tkach milónoch iterácií sa hodnota neustáli na požadovanej hodnote
-
+\begin{itemize}
+ \item Nie je homogénne! \\
+ \item V priebehu učenia $Q(s(n),a(n))$ chaoticky osciluje okolo požadovanej hodnoty. \\
+ \item Ani po 10-mil. iteráciach sa hodnota neustáli na požadovanej hodnote.
+\end{itemize}
 
 \end{frame}
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - aproximácia}
-
-Je možné zostaviť neurónovú sieť ktorá sa dá učiť lokálne?
+\begin{frame}{\bf Je možné zostaviť neurónovú sieť, ktorá sa dá naučiť lokálne?}
 
 \begin{figure}[!htb]
 \includegraphics[scale=.35]{../pictures/gaussian.png}
@@ -442,38 +450,39 @@ Je možné zostaviť neurónovú sieť ktorá sa dá učiť lokálne?
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - aproximácia}
+\begin{frame}{\bf Rozklad $Q(s(n), a(n))$ na bázické funkcie}
 
-Rozklad na bázické funkcie
 
-\begin{align}
-    f_j^a(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}(x_i - a_{ji})^2} } \\
-    f_j^b(\boldmath{X}) &= \frac{1}{1 + \sum\limits_{i=1}^{N_s}{b_{ji}(x_i - a_{ji})^2}} \nonumber \\
-    f_j^c(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}\mid x_i - a_{ji} \mid} } \nonumber  \\
-    f_j^d(\boldmath{X}) &= \sum\limits_{i=1}^{N_s}{ b_{1ji}(x_i - a_{1ji})^1 + b_{2ji}(x_i - a_{2ji})^2 + ...  } \nonumber
-\end{align}
+\begin{align*}
+    f_j^1(\boldmath{s(n), a(n)}) &= e^{ -\sum\limits_{i=1}^{n_s}{\beta_{aji}(n)(s_i(n) - \alpha_{aji}(n))^2} } \nonumber \\
+    \\
+    f_j^2(\boldmath{s(n), a(n)}) &= \frac{1}{1 + \sum\limits_{i=1}^{n_s}{\beta_{aji}(n)(s_i(n) - \alpha_{aji}(n))^2}} \nonumber \\
+    \\
+    f_j^3(\boldmath{s(n), a(n)}) &= e^{ -\sum\limits_{i=1}^{n_s}{\beta_{aji}(n)\mid s_i(n) - \alpha_{aji}(n) \mid} } \nonumber  \\
+    \\
+    f_j^4(\boldmath{s(n), a(n)}) &= \sum\limits_{k=1}^{m} \sum\limits_{i=1}^{n_s}{ \beta_{aji}(n)(s_i(n) - \alpha_{aji}(n))^k } \nonumber
+\end{align*}
 
 \end{frame}
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - aproximácia}
+\begin{frame}{\bf Voľba bázických funkcií}
 
-Ohliadnúc na charakter učiaceho algoritmu
+Vzhľadom na charakter učiaceho algoritmu
 
 \begin{equation} \label{eu_eqn}
-Q(s,a) = R(s,a) + \gamma \max_{a' \in \mathbb{A}} Q'(s', a') \nonumber
+Q(s(n),a(n)) = R(s(n),a(n)) + \gamma \max_{a(n-1) \in \mathbb{A}} Q(s(n-1), a(n-1)) \nonumber
 \end{equation}
 
 
 
 \begin{minipage}{.5\textwidth}
-  boli zvolené bázické funkcie
-
-  \begin{align}
-    f_j^a(\boldmath{X}) &= e^{ \sum\limits_{i=1}^{N_s}{-b_{ji}(x_i - a_{ji})^2} } \nonumber \\
-    f_j^b(\boldmath{X}) &= \frac{1}{1 + b_{j} \sum\limits_{i=1}^{N_s}{(x_i - a_{ji})^2}} \nonumber
-\end{align}
+  boli zvolené bázické funkcie (parameter $n$ pre prehľadnosť vynechaný)
+  \begin{align*}
+  f_j^1(\boldmath{s, a}) &= e^{ -\sum\limits_{i=1}^{n_s}{\beta_{aji}(s_i - \alpha_{aji})^2} } \\
+  f_j^2(\boldmath{s, a}) &= \frac{1}{1 + \sum\limits_{i=1}^{n_s}{\beta_{aji}(s_i - \alpha_{aji})^2}} \\
+  \end{align*}
 
 %kde
 %  \begin{align}
@@ -503,77 +512,67 @@ Q(s,a) = R(s,a) + \gamma \max_{a' \in \mathbb{A}} Q'(s', a') \nonumber
 
 Pre symetrické prechody medzi stavmi možno zjednodušiť na
 
+\begin{align*}
+f_j^1(\boldmath{s, a}) &= e^{ -\beta_{aj} \sum\limits_{i=1}^{n_s}{(s_i - \alpha_{aji})^2} }  \\
+f_j^2(\boldmath{s, a}) &= \frac{1}{1 + {\beta_{aj} \sum\limits_{i=1}^{n_s}(s_i - \alpha_{aji})^2}}  \\
+\end{align*}
+
+a ich lineárna kombinácia
+
 \begin{align}
-    f_j^a(\boldmath{X}) &= e^{ -b_j\sum\limits_{i=1}^{N_s}{(x_i - a_{ji})^2} } \nonumber \\
-    f_j^b(\boldmath{X}) &= b_{j}\frac{1}{1 + \sum\limits_{i=1}^{N_s}{(x_i - a_{ji})^2}} \nonumber
+    Q^x(s, a)&= \sum\limits_{j=1}^{l}w_{j a}f^x_{j}(s, a) \nonumber
 \end{align}
 
-A ich lineárna kombinácia
+kde $l$ je počet bázických funkcií a $x$ je voľba typu bázickej funkcie.
 
-\begin{align}
-    y(\boldmath{X})&= \sum\limits_{j=1}^{N}w_jf_j(\boldmath{X}) \nonumber
-\end{align}
-
-% &+ \sum\limits_{j=1}^{N}{\sum\limits_{i=1}^{j}v_{ji}f_j(\boldmath{X})f_i(\boldmath{X})}
 
 
 \end{frame}
 
 
-
-
-
-
-
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - aproximácia}
-
-Stavenie parametrov :
+\begin{frame}{\bf Voľba parametrov}
 
 \begin{itemize}
-\item bázicke funkcie musia rovnomerne pokryť stavový priestor
-\item parameter $a_{ji}$ reprezentuje posunutie Gaussovej krivky - bod s najväčou funkčnou hodnotou.
-\item parameter $b_{j}$ reprezentuje strmosť krivky
+\item bázicke funkcie musia rovnomerne pokryť stavový priestor,
+\item parameter $\alpha_{ji}(n)$ reprezentuje posunutie bázickej funkcie - bod s~ najväčou funkčnou hodnotou,
+\item parameter $\beta_{j}(n)$ reprezentuje strmosť bázickej funkcie.
 \end{itemize}
 
 \end{frame}
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - aproximácia}
+\begin{frame}{\bf Určenie parametrov $a_{jia}(n)$}
 
-Paramatre $a_{ji}$ - pokrytie stavového priestoru do oblastí podľa veľkosti $R(s, a)$
-Využije sa princíp Kohonenovej siete - najbližšie vzory $a_j$ sa posunú podľa vstupných
+Paramatre $\alpha_{jia}(n)$ - pokrytie stavového priestoru do oblastí podľa veľkosti $R(s(n), a(n))$.
+Využije sa princíp Kohonenovej siete - najbližšie vzory $\alpha_{jia}(n)$ sa posunú podľa vstupných
 vektorov tak aby vrchol Gaussovej krivky ležal v ťazisku.
-\\
+
 \begin{itemize}
-\item na začiatku sa zvolia $a_{ji}$ náhodne
-\item spočítajú sa vzdialenosti od predloženého vstupu $d_j = \mid X - a_{j} \mid$
-\item nájde sa také $k$ kde pre $\forall{j} : d_k \leq d_j$
-\item spočíta sa krok učenia $\eta' = \eta_1 \mid y_r \mid$
-\item upravia sa parametre $a_{ki} = (1 - \eta')a_{ki} + \eta' x_{i}$
+  \item na začiatku sa zvolia $\alpha_{jia}(n)$ náhodne
+  \item spočítajú sa vzdialenosti od predloženého vstupu $d_{ja}(n) = \mid s(n) - \alpha_{ja}(n) \mid$
+  \item nájde sa také $ka$ kde pre $\forall{j} : d_{ka}(n) \leq d_{ja}(n)$
+  \item spočíta sa krok učenia $\eta'_a(n) = \eta_1 \mid Q_r(s(n), a(n)) \mid$
+  \item upravia sa parametre $\alpha_{aki}(n+1) = (1 - \eta')\alpha_{aki}(n) + \eta' s_{i}(n)$
 \end{itemize}
-
 kde \\
-$X$ je vstupný vektor \\
-$y_r$ je požadovaný výstup \\
-$\eta_1$ je konštanta učenia \\
-
+$Q_r(s(n), a(n))$ je požadovaný výstup \\
+$\eta_1$ je konštanta učenia
 \end{frame}
 
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Q-learning algoritmus - aproximácia}
 
-Paramatre $b_{j}$ - určuje strmosť krivky
+Paramatre $b_{ja}(n)$ - určuje strmosť krivky
 
 \begin{itemize}
-\item stanoví sa chyba $e(n) = y_r(n) - y(n)$
-\item pre každú bázickú funkciu  $b_j(n+1)= b_j(n) + \eta_2 e(n)w_j(n)$
-\item skontroluje sa $b_j \in (0, \infty)$
+\item stanoví sa chyba $e(n) = Q_r(s(n), a(n)) - Q(s(n), a(n))$
+\item pre každú bázickú funkciu  $b_{ja}(n+1)= b_{ja}(n) + \eta_2 e(n)w_{ja}(n)$
+\item skontroluje sa $b_{ja}(n) \in (0, \infty)$
 \end{itemize}
 
 kde \\
-$y_r$ je požadovaný výstup \\
-$y$ je výstup\\
+$Q_r(s(n), a(n))$ je požadovaný výstup \\
 $\eta_2$ je konštanta učenia \\
 
 \end{frame}
@@ -585,14 +584,14 @@ $\eta_2$ je konštanta učenia \\
 Paramatre $w_{j}$ - váhové parametre
 
 \begin{itemize}
-\item stanoví sa chyba $e(n) = y_r(n) - y(n)$
-\item pre každé $w_{j}$ : $w_j(n+1)= w_j(n) + \eta_3 e(n)y_j(n)$
-\item skontroluje sa $w_j \in (-a, a)$
+\item stanoví sa chyba $e(n) = Q_r(s(n), a(n)) - Q(s(n), a(n))$
+\item pre každé $w_{ja}$ : $w_{ja}(n+1)= w_{ja}(n) + \eta_3 e(n)y_j(n)$
+\item skontroluje sa $w_{ja}(n) \in (-r, r)$
 \end{itemize}
 
 kde \\
 $\eta_3$ je konštanta učenia \\
-$a$ je maximálny rozsah váh \\
+$r$ je maximálny rozsah váh \\
 \end{frame}
 
 
@@ -625,24 +624,25 @@ $a$ je maximálny rozsah váh \\
 
 \begin{itemize}
 \item 50000 iterácií učenia
-\item Q-learning
-\begin{equation} \label{eu_eqn}
-Q(s,a) = \alpha(Q'(s,a)) + (1 - \alpha)(R(s,a) + \gamma \max_{a' \in \mathbb{A}} Q'(s', a')) \nonumber
-\end{equation}
+\item rozmer $s$ je $n_s = 2$, rozmer $a$ je $n_a = 2$
+\item predpis funkcie ohodnotení
+\begin{align}
+&Q(s(n),a(n)) = \nonumber \\
+&\alpha Q(s(n-1),a(n-1)) \nonumber \\
+&(1- \alpha)(R(s(n),a(n)) + \gamma \max_{a(n-1) \in \mathbb{A}} Q(s(n-1), a(n-1)) \nonumber
+\end{align}
 
-\item $R(s, a) =$ náhodná mapa s 1 cieľovým stavom
-\item hodnoty $R(s, a) \in \langle -1, 1 \rangle$
+\item $R(s(n), a(n)) \in \langle -1, 1 \rangle$ náhodná mapa s 1 cieľovým stavom
 \item $\gamma = 0.98$ a $\alpha = 0.7$
-
 \item hustota referenčného riešenia = 1/32  (4096 stavov)
 \item počet akcií v každom stave = 8
 \item hustota riedkej tabuľky = 1/8  (1:16 pomer)
-\item počet bázických funkcií = 64
+\item počet bázických funkcií $l = 64$
 \item rozsah parametrov
     \begin{itemize}
-      \item a\_range = 1.0
-      \item b\_range = 200.0
-      \item w\_range = 4.0
+      \item $\alpha_{ja}(n) \in \langle -1, 1 \rangle$
+      \item $\beta_{ja}(n) \in \langle 0, 200 \rangle$
+      \item $w_{ja}(n) \in \langle -4, 4 \rangle$
     \end{itemize}
 \end{itemize}
 
@@ -652,28 +652,29 @@ Q(s,a) = \alpha(Q'(s,a)) + (1 - \alpha)(R(s,a) + \gamma \max_{a' \in \mathbb{A}}
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Návrh experimentov - podmienky}
 
+$Q_{rt}(s(n),a(n))$ referenčná funkcia Q (funkcia 0), kde $t \in \langle 0, 19 \rangle $ je číslo trialu  \\
+$Q_{jt}(s(n),a(n))$ testované funkcie Q a $j \in \langle 1, 5 \rangle $. \\
 
-$Q_{rt}(s,a)$ referenčná funkcia Q (funkcia 0), $t \in \langle 0, 19 \rangle $  \\
-$Q_{jt}(s,a)$ testované funkcie Q, $j \in \langle 1, 5 \rangle $ \\
-
-celková chyba behu trialu $t$  \\
+Celková chyba behu trialu $t$ je \\
 \begin{equation}
 e_{jt} = \sum\limits_{s, a}{(Q_{rt}(s,a) - Q_{jt}(s,a))^2}  \nonumber
 \end{equation}
 
 priemerná, minimálna, maximálna chyba a smerodatná odchylka \\
 \begin{align}
-\bar{a_j} &= \frac{1}{T}\sum\limits_{t}{e_{jt}}  \nonumber \\
-{e_{min}}_j &= \min_{t}{e_{jt}}  \nonumber \\
-{e_{max}}_j &= \max_{t}{e_{jt}}  \nonumber \\
-{\sigma_j}^2 &= \frac{1}{T}\sum\limits_{t}{(\bar{a_j} - e_{jt})^2}  \nonumber
+\bar{a_j} &= \frac{1}{20}\sum\limits_{t}{e_{jt}}  \nonumber \\
+{e^{min}_j} &= \min_{t}{e_{jt}}  \nonumber \\
+{e^{max}_j} &= \max_{t}{e_{jt}}  \nonumber \\
+{\sigma_j}^2 &= \frac{1}{20}\sum\limits_{t}{(\bar{a_j} - e_{jt})^2}  \nonumber
 \end{align}
 
 \end{frame}
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Výsledky experimentov - funkcia R(s), mapa 1}
+\begin{frame}{\bf Funkcia R(s, a), mapa 1}
+pre každý stav je zvolená rovnaka množina akcií. \\
+Ďalej platí $s = (s[0], s[1])$.
 
 \begin{figure}[!htb]
 \centering
@@ -685,13 +686,15 @@ priemerná, minimálna, maximálna chyba a smerodatná odchylka \\
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Výsledky experimentov - mapa najlepších akcií}
+\begin{frame}{\bf Mapa najlepších akcií}
+
+Funkcia voľby najlepšej z 8 akcií v stave  $s = (s[0], s[1])$.
 
 \begin{minipage}{.5\textwidth}
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_1/iterations_10/action_best_value_log_surface.png}
+\includegraphics[scale=.21]{../../results_q_learning/map_1/function_type_1/iterations_10/action_best_value_log_surface.png}
 \caption{sparse table}
 \end{figure}
 
@@ -700,7 +703,7 @@ priemerná, minimálna, maximálna chyba a smerodatná odchylka \\
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_2/iterations_10/action_best_value_log_surface.png}
+\includegraphics[scale=.21]{../../results_q_learning/map_1/function_type_2/iterations_10/action_best_value_log_surface.png}
 \caption{linear combination Gauss}
 \end{figure}
 
@@ -710,13 +713,14 @@ priemerná, minimálna, maximálna chyba a smerodatná odchylka \\
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Výsledky experimentov - mapa najlepších akcií}
+\begin{frame}{\bf Mapa najlepších akcií}
+
+Funkcia voľby najlepšej z 8 akcií v stave  $s = (s[0], s[1])$.
 
 \begin{minipage}{.5\textwidth}
 
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_3/iterations_10/action_best_value_log_surface.png}
+\begin{figure}
+\includegraphics[scale=.21]{../../results_q_learning/map_1/function_type_3/iterations_10/action_best_value_log_surface.png}
 \caption{sparse table + linear combination Gauss}
 \end{figure}
 
@@ -724,9 +728,8 @@ priemerná, minimálna, maximálna chyba a smerodatná odchylka \\
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
 
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_4/iterations_10/action_best_value_log_surface.png}
+\begin{figure}
+\includegraphics[scale=.21]{../../results_q_learning/map_1/function_type_4/iterations_10/action_best_value_log_surface.png}
 \caption{linear combination Kohonen function}
 \end{figure}
 
@@ -744,7 +747,11 @@ priemerná, minimálna, maximálna chyba a smerodatná odchylka \\
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Výsledky experimentov - chybové funkcie}
+\begin{frame}{\bf Chybové funkcie}
+
+\begin{equation}
+e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
+\end{equation}
 
 \begin{minipage}{.5\textwidth}
 
@@ -769,7 +776,11 @@ priemerná, minimálna, maximálna chyba a smerodatná odchylka \\
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Výsledky experimentov - chybové funkcie}
+\begin{frame}{\bf Chybové funkcie}
+
+\begin{equation}
+e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
+\end{equation}
 
 \begin{minipage}{.5\textwidth}
 
@@ -798,7 +809,7 @@ priemerná, minimálna, maximálna chyba a smerodatná odchylka \\
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Výsledky experimentov - max Q(s, a)}
+\begin{frame}{\bf max Q(s, a)}
 
 \begin{minipage}{.5\textwidth}
 
