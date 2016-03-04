@@ -86,7 +86,7 @@ void compare_all_results(u32 map_id)
 	functions.push_back(new CLogRead(function_4_file_name));
 	functions.push_back(new CLogRead(function_5_file_name));
 
-	CLog 		 trials_average_results(trials_average_results_file_name, 4);
+	CLog 		 trials_average_results(trials_average_results_file_name, 5);
 
 	u32 i, j;
 	for (j = 0; j < functions.size(); j++)
@@ -94,6 +94,7 @@ void compare_all_results(u32 map_id)
 		float error_min = 1000000000.0;
 		float error_max = -error_min;
 		float error_average = 0.0;
+		float sigma = 0.0;
 
 		for (i = 0; i < functions[j]->get_lines_count(); i++)
 		{
@@ -110,10 +111,19 @@ void compare_all_results(u32 map_id)
 
 		error_average/= functions[j]->get_lines_count();
 
+		for (i = 0; i < functions[j]->get_lines_count(); i++)
+		{
+			float error = functions[j]->get_item(i, 1);
+			sigma+= (error - error_average)*(error - error_average);
+		}
+
+		sigma = sqrt(sigma/functions[j]->get_lines_count());
+
 		trials_average_results.add(0, j);
 		trials_average_results.add(1, error_average);
 		trials_average_results.add(2, error_min);
 		trials_average_results.add(3, error_max);
+		trials_average_results.add(4, sigma);
 	}
 
 	trials_average_results.save();
@@ -203,12 +213,12 @@ int main()
 	printf("\n processing experiment : \n");
 
 	float error = 0.0;
-	map_id = 1;
+	map_id = 2;
 	i = 0;
 	function_type = 3;
 
-//	 for (map_id = 0; map_id < MAPS_COUNT; map_id++)
-   for (function_type = 3; function_type <= 5; function_type++)
+	for (map_id = 2; map_id < MAPS_COUNT; map_id++)
+  for (function_type = 0; function_type <= 5; function_type++)
 	{
 		char file_name[1024];
 		sprintf(file_name,"%s/map_%u/function_type_%u/summary_error_results.log",S_RESULTS_PATH, map_id, function_type);
@@ -232,9 +242,9 @@ int main()
 
 			log.save();
 		}
-	}
 
-	compare_all_results(1);
+		compare_all_results(map_id);
+	}
 
 
 	printf("program done\n");

@@ -53,6 +53,40 @@ stringstyle=\color{orange}}
 \end{frame}
 
 
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Využite q-learning algoritmu}
+
+\begin{minipage}{.5\textwidth}
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.2]{../pictures/chess.jpg}
+  \end{figure}
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=0.2]{../pictures/robot_man.jpg}
+  \end{figure}
+
+  \end{minipage}%
+\begin{minipage}{.5\textwidth}
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.08]{../pictures/pacman.jpg}
+  \end{figure}
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.25]{../pictures/assembly_line.jpg}
+  \end{figure}
+
+
+\end{minipage}
+
+
+\end{frame}
+
 
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Agentové systémy}
@@ -126,8 +160,7 @@ Racionálny agent :
 
   \begin{itemize}
   \item reaktívne správanie
-  \item dôraz na čas
-  \item nemá pamäť - bez očakávaní
+  \item malá pamäť - bez očakávaní
   \item rychlá dynamika
   \end{itemize}
 
@@ -137,8 +170,7 @@ Racionálny agent :
 
   \begin{itemize}
   \item konštruktívne správanie
-  \item dôraz na priestor
-  \item má pamäť - očakávania
+  \item veľká pamäť - očakávania
   \item pomalá dynamika
   \end{itemize}
 
@@ -183,14 +215,12 @@ Racionálny agent :
 
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Adaptívne a učiace sa systémy}
+
 \begin{minipage}{.5\textwidth}
+
 
   {\bf Adaptívny systém} \\
   PID regulátor
-
-  \begin{equation} \label{eu_eqn}
-  C(z) = \frac{b_{0} + b_{1}z^{-1} + b_{2}z^{-2}}{1 - z^{-1}} \nonumber
-  \end{equation}
 
   \begin{figure}[!htb]
   %\centering
@@ -203,16 +233,20 @@ Racionálny agent :
   {\bf Učiaci sa systém} \\
   Iterative learning controll
 
-  \begin{equation} \label{eu_eqn}
-  C(w) = \frac{\gamma}{1 - w^{-1}} \nonumber
-  \end{equation}
 
   \begin{figure}[!htb]
   %\centering
   \includegraphics[scale=.15]{../pid_ilc/ilc_result_plant_error.png}
   \end{figure}
 
+
 \end{minipage}
+
+\begin{align} \label{eu_eqn}
+  u(n) &= u(n-1) + b_0(n)e(n) + b_1(n)e(n-1) + b_2(n)e(n-2) \nonumber \\
+  u_{k}(n) &= u_{k-1}(n) + \gamma e_{k-1}(n) + \Gamma (e_{k-1}(n) - e_{k-2}(n)) \nonumber
+\end{align}
+
 \end{frame}
 
 
@@ -226,7 +260,8 @@ Daná je množina stavov a akcií
         a \in \mathbb{A} \nonumber
 \end{align}
 
-kde $\mathbb{S} \in \mathbb{R}^{N_s}$ a $\mathbb{A} \in \mathbb{R}^{N_a}$ .
+kde $\mathbb{S} \in \mathbb{R}^{N_s}$ a $\mathbb{A} \in \mathbb{R}^{N_a}$, kde
+$N_s$ a  $N_a$ sú rozmery stavového vektoru a vektoru akcií.
 
 Predpoklad : v prostedí existuje funkcia
 \begin{align}
@@ -341,8 +376,8 @@ Problémy tabuľkovej interpretácie $Q(s, a)$
 
 \begin{itemize}
 \item pre veľké ${N_s}\  alebo  {N_a}$\ narastajú pamäťové nároky
-\item o nevyplnených $Q(s, a)$ vieme povedať nič
-\item pre rozsiahle stavové priestory nevypočítateľné
+\item o nevyplnených $Q(s, a)$ nevieme povedať nič
+\item pre rozsiahle stavové priestory ťažko nevypočítateľné
 \item ako aproximovať $Q(s, a)$?
 \end{itemize}
 
@@ -513,7 +548,7 @@ vektorov tak aby vrchol Gaussovej krivky ležal v ťazisku.
 \begin{itemize}
 \item na začiatku sa zvolia $a_{ji}$ náhodne
 \item spočítajú sa vzdialenosti od predloženého vstupu $d_j = \mid X - a_{j} \mid$
-\item nájde sa také $k$ kde  $\forall{j} : d_k \leq d_j$
+\item nájde sa také $k$ kde pre $\forall{j} : d_k \leq d_j$
 \item spočíta sa krok učenia $\eta' = \eta_1 \mid y_r \mid$
 \item upravia sa parametre $a_{ki} = (1 - \eta')a_{ki} + \eta' x_{i}$
 \end{itemize}
@@ -521,7 +556,7 @@ vektorov tak aby vrchol Gaussovej krivky ležal v ťazisku.
 kde \\
 $X$ je vstupný vektor \\
 $y_r$ je požadovaný výstup \\
-$\eta_1$ je krok učenia \\
+$\eta_1$ je konštanta učenia \\
 
 \end{frame}
 
@@ -532,14 +567,14 @@ Paramatre $b_{j}$ - určuje strmosť krivky
 
 \begin{itemize}
 \item stanoví sa chyba $e(n) = y_r(n) - y(n)$
-\item pre každú bázickú funkciu  $b_j(n+1)= b_j(n) -\eta_2 e(n)w_j(n)$
-\item skontroluje sa $b_j \in (0, -\infty)$
+\item pre každú bázickú funkciu  $b_j(n+1)= b_j(n) + \eta_2 e(n)w_j(n)$
+\item skontroluje sa $b_j \in (0, \infty)$
 \end{itemize}
 
 kde \\
 $y_r$ je požadovaný výstup \\
 $y$ je výstup\\
-$\eta_2$ je krok učenia \\
+$\eta_2$ je konštanta učenia \\
 
 \end{frame}
 
@@ -551,12 +586,12 @@ Paramatre $w_{j}$ - váhové parametre
 
 \begin{itemize}
 \item stanoví sa chyba $e(n) = y_r(n) - y(n)$
-\item pre každé $w_{j}$ : $w_j(n+1)= w_j(n) -\eta_3 e(n)y_j(n)$
+\item pre každé $w_{j}$ : $w_j(n+1)= w_j(n) + \eta_3 e(n)y_j(n)$
 \item skontroluje sa $w_j \in (-a, a)$
 \end{itemize}
 
 kde \\
-$\eta_3$ je krok učenia \\
+$\eta_3$ je konštanta učenia \\
 $a$ je maximálny rozsah váh \\
 \end{frame}
 
@@ -607,9 +642,32 @@ Q(s,a) = \alpha(Q'(s,a)) + (1 - \alpha)(R(s,a) + \gamma \max_{a' \in \mathbb{A}}
     \begin{itemize}
       \item a\_range = 1.0
       \item b\_range = 200.0
-      \item w\_range = 10.0
+      \item w\_range = 4.0
     \end{itemize}
 \end{itemize}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Návrh experimentov - podmienky}
+
+
+$Q_{rt}(s,a)$ referenčná funkcia Q (funkcia 0), $t \in \langle 0, 19 \rangle $  \\
+$Q_{jt}(s,a)$ testované funkcie Q, $j \in \langle 1, 5 \rangle $ \\
+
+celková chyba behu trialu $t$  \\
+\begin{equation}
+e_{jt} = \sum\limits_{s, a}{(Q_{rt}(s,a) - Q_{jt}(s,a))^2}  \nonumber
+\end{equation}
+
+priemerná, minimálna, maximálna chyba a smerodatná odchylka \\
+\begin{align}
+\bar{a_j} &= \frac{1}{T}\sum\limits_{t}{e_{jt}}  \nonumber \\
+{e_{min}}_j &= \min_{t}{e_{jt}}  \nonumber \\
+{e_{max}}_j &= \max_{t}{e_{jt}}  \nonumber \\
+{\sigma_j}^2 &= \frac{1}{T}\sum\limits_{t}{(\bar{a_j} - e_{jt})^2}  \nonumber
+\end{align}
 
 \end{frame}
 

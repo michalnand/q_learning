@@ -12,6 +12,8 @@ cd map_2
 ./plot
 cd ..
 
+exit
+
 cd map_3
 ./plot
 cd ..

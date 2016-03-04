@@ -173,7 +173,7 @@ void CBasisFunctions::learn_linear_combination(float required_value, float learn
 
     for (j = 0; j < this->functions_count; j++)
     {
-      b[j]+= 0.1*error*w[j];
+      b[j]+= 0.01*error*w[j];
 
       if (b[j] < 0.0)
         b[j] = 0.0;
