@@ -1,0 +1,63 @@
+set   autoscale                        # scale axes automatically
+unset log                              # remove any log-scaling
+unset label                            # remove any previous labels
+set xtic auto                         	# set xtics automatically
+set ytic auto                         # set ytics automatically
+
+
+
+set grid ytics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set grid xtics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set terminal png size 1024,768 enhanced font "Helvetica,20"
+
+
+set label
+
+set xlabel "s[0]"
+set ylabel "s[1]"
+set zlabel "reward"
+
+set view 60,110
+
+set xtic auto
+set ytic auto
+set ztic auto
+
+set lmargin 5
+set key below
+
+
+set hidden3d
+
+set dgrid3d 64,64
+set surface
+
+set autoscale
+
+set xrange [:] reverse
+
+set xlabel "s[1]"
+set ylabel "s[0]"
+set zlabel "reward"
+
+set zlabel "reward value"
+set output 'reward_value.png'
+splot 'map_plot.log' using 1:2:5 title "reward value" with pm3d
+
+
+set xrange [:] noreverse
+
+set xlabel "s[0]"
+set ylabel "s[1]"
+set zlabel "reward"
+
+set pm3d map
+set palette rgbformulae 22,13,-31
+
+set zlabel "field type value"
+set output 'field_type_value_surface.png'
+splot 'map_plot.log' using 1:2:4 title "field type" with pm3d
+
+set zlabel "reward value"
+set output 'reward_value_surface.png'
+splot 'map_plot.log' using 1:2:5 title "reward value" with pm3d

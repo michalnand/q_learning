@@ -542,7 +542,7 @@ kde $l$ je počet bázických funkcií a $x$ je voľba typu bázickej funkcie.
 \end{frame}
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Určenie parametrov $a_{jia}(n)$}
+\begin{frame}{\bf Určenie parametrov $\alpha_{jia}(n)$}
 
 Paramatre $\alpha_{jia}(n)$ - pokrytie stavového priestoru do oblastí podľa veľkosti $R(s(n), a(n))$.
 Využije sa princíp Kohonenovej siete - najbližšie vzory $\alpha_{jia}(n)$ sa posunú podľa vstupných
@@ -561,14 +561,14 @@ $\eta_1$ je konštanta učenia
 \end{frame}
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - aproximácia}
+\begin{frame}{\bf Určenie parametrov $\beta_{ja}(n)$}
 
 Paramatre $b_{ja}(n)$ - určuje strmosť krivky
 
 \begin{itemize}
 \item stanoví sa chyba $e(n) = Q_r(s(n), a(n)) - Q(s(n), a(n))$
-\item pre každú bázickú funkciu  $b_{ja}(n+1)= b_{ja}(n) + \eta_2 e(n)w_{ja}(n)$
-\item skontroluje sa $b_{ja}(n) \in (0, \infty)$
+\item pre každú bázickú funkciu  $\beta_{ja}(n+1)= \beta_{ja}(n) + \eta_2 e(n)w_{ja}(n)$
+\item skontroluje sa $\beta_{ja}(n) \in (0, \infty)$
 \end{itemize}
 
 kde \\
@@ -579,7 +579,7 @@ $\eta_2$ je konštanta učenia \\
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - aproximácia}
+\begin{frame}{\bf Určenie parametrov $w_{ja}(n)$}
 
 Paramatre $w_{j}$ - váhové parametre
 
@@ -596,7 +596,7 @@ $r$ je maximálny rozsah váh \\
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Návrh experimentov - bloková schéma}
+\begin{frame}{\bf Bloková schéma syntézy testovaného riešenia}
 
 \begin{figure}[!htb]
 \centering
@@ -606,7 +606,7 @@ $r$ je maximálny rozsah váh \\
 \end{frame}
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Návrh experimentov - schéma priebehu experimentov}
+\begin{frame}{\bf Schéma priebehu experimentov}
 
 \begin{figure}[!htb]
 \centering
@@ -672,7 +672,7 @@ priemerná, minimálna, maximálna chyba a smerodatná odchylka \\
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Funkcia R(s, a), mapa 1}
+\begin{frame}{\bf Funkcia R(s, a), mapa 1 - Výsledky experimentov}
 pre každý stav je zvolená rovnaka množina akcií. \\
 Ďalej platí $s = (s[0], s[1])$.
 
@@ -686,7 +686,7 @@ pre každý stav je zvolená rovnaka množina akcií. \\
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Mapa najlepších akcií}
+\begin{frame}{\bf Mapa najlepších akcií - Výsledky experimentov}
 
 Funkcia voľby najlepšej z 8 akcií v stave  $s = (s[0], s[1])$.
 
@@ -713,7 +713,7 @@ Funkcia voľby najlepšej z 8 akcií v stave  $s = (s[0], s[1])$.
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Mapa najlepších akcií}
+\begin{frame}{\bf Mapa najlepších akcií - Výsledky experimentov}
 
 Funkcia voľby najlepšej z 8 akcií v stave  $s = (s[0], s[1])$.
 
@@ -747,7 +747,7 @@ Funkcia voľby najlepšej z 8 akcií v stave  $s = (s[0], s[1])$.
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Chybové funkcie}
+\begin{frame}{\bf Chybové funkcie - Výsledky experimentov}
 
 \begin{equation}
 e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
@@ -776,7 +776,7 @@ e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Chybové funkcie}
+\begin{frame}{\bf Chybové funkcie - Výsledky experimentov}
 
 \begin{equation}
 e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
@@ -809,7 +809,7 @@ e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf max Q(s, a)}
+\begin{frame}{\bf max Q(s, a) - Výsledky experimentov}
 
 \begin{minipage}{.5\textwidth}
 
@@ -835,7 +835,7 @@ e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Výsledky experimentov - trials progress}
+\begin{frame}{\bf Priebeh trialov - Výsledky experimentov}
 
 \begin{figure}[!htb]
 \centering
@@ -856,6 +856,36 @@ e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
 
 \end{frame}
 
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Mapa 0 - Výsledky experimentov}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.36]{../../results_q_learning/map_0/trials_average_results.png}
+\end{figure}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Mapa 2 - Výsledky experimentov}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.36]{../../results_q_learning/map_2/trials_average_results.png}
+\end{figure}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Mapa 3 - Výsledky experimentov}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.36]{../../results_q_learning/map_3/trials_average_results.png}
+\end{figure}
+
+\end{frame}
 
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Ďakujem za pozornosť}

@@ -1,0 +1,42 @@
+gnuplot summary_plot_script
+gnuplot error_plot_script
+
+cd iterations_1
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_2
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_3
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_4
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_5
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_6
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_7
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_8
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_9
+gnuplot q_func_plot_script
+cd ..
+
+cd iterations_10
+gnuplot q_func_plot_script
+cd ..
