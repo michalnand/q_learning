@@ -1,0 +1,8 @@
+\select@language {english}
+\select@language {slovak}
+\select@language {english}
+\select@language {slovak}
+\contentsline {chapter}{\numberline {1}S\IeC {\'u}\IeC {\v c}asn\IeC {\'y} stav problematiky}{3}{chapter.1}
+\contentsline {chapter}{\numberline {2}Q-larning algoritmus}{7}{chapter.2}
+\contentsline {section}{\numberline {2.1}Defin\IeC {\'\i }cia algoritmu}{7}{section.2.1}
+\contentsline {chapter}{Literat\IeC {\'u}ra}{11}{chapter*.2}
