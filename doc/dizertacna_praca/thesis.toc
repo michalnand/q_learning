@@ -3,6 +3,19 @@
 \select@language {english}
 \select@language {slovak}
 \contentsline {chapter}{\numberline {1}S\IeC {\'u}\IeC {\v c}asn\IeC {\'y} stav problematiky}{3}{chapter.1}
-\contentsline {chapter}{\numberline {2}Q-larning algoritmus}{7}{chapter.2}
-\contentsline {section}{\numberline {2.1}Defin\IeC {\'\i }cia algoritmu}{7}{section.2.1}
-\contentsline {chapter}{Literat\IeC {\'u}ra}{11}{chapter*.2}
+\contentsline {chapter}{\numberline {2}Q-larning algoritmus}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}Defin\IeC {\'\i }cia algoritmu}{4}{section.2.1}
+\contentsline {section}{\numberline {2.2}V\IeC {\'y}ber akcie}{8}{section.2.2}
+\contentsline {section}{\numberline {2.3}Probl\IeC {\'e}my v\IeC {\'y}po\IeC {\v c}tu $Q(s, a)$}{9}{section.2.3}
+\contentsline {section}{\numberline {2.4}Tabu\IeC {\v l}ka}{10}{section.2.4}
+\contentsline {section}{\numberline {2.5}Dopredn\IeC {\'a} neur\IeC {\'o}nov\IeC {\'a} sie\IeC {\v t}}{10}{section.2.5}
+\contentsline {section}{\numberline {2.6}Kohonenov\IeC {\'a} neur\IeC {\'o}nov\IeC {\'a} sie\IeC {\v t}}{13}{section.2.6}
+\contentsline {section}{\numberline {2.7}Neur\IeC {\'o}nov\IeC {\'a} sie\IeC {\v t} b\IeC {\'a}zickych funkci\IeC {\'\i }}{14}{section.2.7}
+\contentsline {subsection}{\numberline {2.7.1}Ur\IeC {\v c}enie parametrov $\alpha $}{16}{subsection.2.7.1}
+\contentsline {subsection}{\numberline {2.7.2}Ur\IeC {\v c}enie parametrov $\beta $}{17}{subsection.2.7.2}
+\contentsline {subsection}{\numberline {2.7.3}Ur\IeC {\v c}enie v\IeC {\'a}hov\IeC {\'y}ch parametrov $w$}{18}{subsection.2.7.3}
+\contentsline {chapter}{\numberline {3}Experiment\IeC {\'a}lna \IeC {\v c}as\IeC {\v t}}{20}{chapter.3}
+\contentsline {section}{\numberline {3.1}Ciele pr\IeC {\'a}ce}{20}{section.3.1}
+\contentsline {section}{\numberline {3.2}N\IeC {\'a}vrh experimentu}{21}{section.3.2}
+\contentsline {section}{\numberline {3.3}V\IeC {\'y}sledky experimentu}{24}{section.3.3}
+\contentsline {chapter}{Literat\IeC {\'u}ra}{31}{chapter*.2}

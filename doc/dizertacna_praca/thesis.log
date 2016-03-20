@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.1)  17 MAR 2016 10:00
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.1)  20 MAR 2016 17:28
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -592,9 +592,18 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip57
 )
+\c@theorem=\count121
 \verbcorr=\skip58
 
-(./thesis.aux (./title.aux) (./kap2.aux) (./q_learning.aux) (./lit.aux))
+(./thesis.aux (./title.aux) (./kap2.aux) (./q_learning.aux
+
+LaTeX Warning: Label `eq:knn_y_update' multiply defined.
+
+) (./experiment.aux
+
+LaTeX Warning: Label `eq:q_learning' multiply defined.
+
+) (./lit.aux))
 \openout1 = `thesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
@@ -614,22 +623,21 @@ LaTeX Font Info:    ... okay on input line 36.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 36.
 LaTeX Font Info:    ... okay on input line 36.
 LaTeX Font Info:    Try loading font information for T1+ptm on input line 36.
-
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count121
+\scratchcounter=\count122
 \scratchdimen=\dimen128
 \scratchbox=\box31
-\nofMPsegments=\count122
-\nofMParguments=\count123
+\nofMPsegments=\count123
+\nofMParguments=\count124
 \everyMPshowfont=\toks25
-\MPscratchCnt=\count124
+\MPscratchCnt=\count125
 \MPscratchDim=\dimen129
-\MPnumerator=\count125
-\makeMPintoPDFobject=\count126
+\MPnumerator=\count126
+\makeMPintoPDFobject=\count127
 \everyMPtoPDFconversion=\toks26
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -646,7 +654,7 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count127
+\c@lstlisting=\count128
 \AtBeginShipoutBox=\box32
 Package hyperref Info: Link coloring OFF on input line 36.
 
@@ -656,7 +664,7 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count128
+\c@section@level=\count129
 )
 LaTeX Info: Redefining \ref on input line 36.
 LaTeX Info: Redefining \pageref on input line 36.
@@ -737,49 +745,18 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
 
  (./kap2.tex
 Kapitola 1.
-<domino.jpg, id=37, 173.14688pt x 128.73094pt>
-File: domino.jpg Graphic file (type jpg)
- <use domino.jpg>
-Package pdftex.def Info: domino.jpg used on input line 16.
-(pdftex.def)             Requested size: 250.26692pt x 186.07362pt.
-File: domino.jpg Graphic file (type jpg)
-
-<use domino.jpg>
-Package pdftex.def Info: domino.jpg used on input line 32.
-(pdftex.def)             Requested size: 143.0081pt x 106.3261pt.
-File: domino.jpg Graphic file (type jpg)
- <use domino.jpg>
-Package pdftex.def Info: domino.jpg used on input line 42.
-(pdftex.def)             Requested size: 143.0081pt x 106.3261pt.
- [3
+) [3
 
 
 
- <./domino.jpg>]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 61.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-) [4]
-<obrazok.jpg, id=58, 155.83218pt x 139.27031pt>
-File: obrazok.jpg Graphic file (type jpg)
- <use obrazok.jpg>
-Package pdftex.def Info: obrazok.jpg used on input line 163.
-(pdftex.def)             Requested size: 178.75946pt x 159.76433pt.
- [5]
-File: domino.jpg Graphic file (type jpg)
-
-<use domino.jpg>
-Package pdftex.def Info: domino.jpg used on input line 178.
-(pdftex.def)             Requested size: 223.45274pt x 166.13625pt.
-) [6 <./obrazok.jpg>]
+]
 \openout2 = `q_learning.aux'.
 
  (./q_learning.tex
 Kapitola 2.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 10.
-[7
+[4
 
 
 
@@ -802,7 +779,7 @@ il-eps-converted-to.pdf ../diagrams/q_learning_detail.eps>
 (epstopdf)             \includegraphics on input line 50.
 Package epstopdf Info: Output file is already uptodate.
 
-<../diagrams/q_learning_detail-eps-converted-to.pdf, id=87, 676.5275pt x 174.65
+<../diagrams/q_learning_detail-eps-converted-to.pdf, id=77, 676.5275pt x 174.65
 25pt>
 File: ../diagrams/q_learning_detail-eps-converted-to.pdf Graphic file (type pdf
 )
@@ -819,16 +796,16 @@ ted-to.pdf>
 (epstopdf)                    size: 8001 bytes
 (epstopdf)             Command: <epstopdf --outfile=../diagrams/q_learning_tabl
 e_01-eps-converted-to.pdf ../diagrams/q_learning_table_01.eps>
-(epstopdf)             \includegraphics on input line 75.
+(epstopdf)             \includegraphics on input line 78.
 Package epstopdf Info: Output file is already uptodate.
 
-<../diagrams/q_learning_table_01-eps-converted-to.pdf, id=89, 347.2975pt x 206.
+<../diagrams/q_learning_table_01-eps-converted-to.pdf, id=79, 347.2975pt x 206.
 7725pt>
 File: ../diagrams/q_learning_table_01-eps-converted-to.pdf Graphic file (type p
 df)
  <use ../diagrams/q_learning_table_01-eps-converted-to.pdf>
 Package pdftex.def Info: ../diagrams/q_learning_table_01-eps-converted-to.pdf u
-sed on input line 75.
+sed on input line 78.
 (pdftex.def)             Requested size: 208.3801pt x 124.06445pt.
 Package epstopdf Info: Source file: <../diagrams/q_learning_table_02.eps>
 (epstopdf)                    date: 2016-03-04 13:40:05
@@ -839,16 +816,16 @@ ted-to.pdf>
 (epstopdf)                    size: 8104 bytes
 (epstopdf)             Command: <epstopdf --outfile=../diagrams/q_learning_tabl
 e_02-eps-converted-to.pdf ../diagrams/q_learning_table_02.eps>
-(epstopdf)             \includegraphics on input line 88.
+(epstopdf)             \includegraphics on input line 91.
 Package epstopdf Info: Output file is already uptodate.
 
-<../diagrams/q_learning_table_02-eps-converted-to.pdf, id=92, 347.2975pt x 211.
+<../diagrams/q_learning_table_02-eps-converted-to.pdf, id=82, 347.2975pt x 211.
 79124pt>
 File: ../diagrams/q_learning_table_02-eps-converted-to.pdf Graphic file (type p
 df)
  <use ../diagrams/q_learning_table_02-eps-converted-to.pdf>
 Package pdftex.def Info: ../diagrams/q_learning_table_02-eps-converted-to.pdf u
-sed on input line 88.
+sed on input line 91.
 (pdftex.def)             Requested size: 208.3801pt x 127.07571pt.
 Package epstopdf Info: Source file: <../diagrams/q_learning_table_03.eps>
 (epstopdf)                    date: 2016-03-04 13:40:35
@@ -859,17 +836,20 @@ ted-to.pdf>
 (epstopdf)                    size: 8187 bytes
 (epstopdf)             Command: <epstopdf --outfile=../diagrams/q_learning_tabl
 e_03-eps-converted-to.pdf ../diagrams/q_learning_table_03.eps>
-(epstopdf)             \includegraphics on input line 95.
+(epstopdf)             \includegraphics on input line 98.
 Package epstopdf Info: Output file is already uptodate.
 
-<../diagrams/q_learning_table_03-eps-converted-to.pdf, id=93, 347.2975pt x 211.
+<../diagrams/q_learning_table_03-eps-converted-to.pdf, id=83, 347.2975pt x 211.
 79124pt>
 File: ../diagrams/q_learning_table_03-eps-converted-to.pdf Graphic file (type p
 df)
  <use ../diagrams/q_learning_table_03-eps-converted-to.pdf>
 Package pdftex.def Info: ../diagrams/q_learning_table_03-eps-converted-to.pdf u
-sed on input line 95.
+sed on input line 98.
 (pdftex.def)             Requested size: 208.3801pt x 127.07571pt.
+ [5 <../diagrams/q_learning_detail-eps-converted-to.pdf>] [6 <../diagrams/q_lea
+rning_table_01-eps-converted-to.pdf> <../diagrams/q_learning_table_02-eps-conve
+rted-to.pdf> <../diagrams/q_learning_table_03-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <../diagrams/q_learning_table_04.eps>
 (epstopdf)                    date: 2016-03-07 23:05:32
 (epstopdf)                    size: 23198 bytes
@@ -879,16 +859,16 @@ ted-to.pdf>
 (epstopdf)                    size: 12119 bytes
 (epstopdf)             Command: <epstopdf --outfile=../diagrams/q_learning_tabl
 e_04-eps-converted-to.pdf ../diagrams/q_learning_table_04.eps>
-(epstopdf)             \includegraphics on input line 102.
+(epstopdf)             \includegraphics on input line 116.
 Package epstopdf Info: Output file is already uptodate.
 
-<../diagrams/q_learning_table_04-eps-converted-to.pdf, id=94, 425.59pt x 232.87
-pt>
+<../diagrams/q_learning_table_04-eps-converted-to.pdf, id=113, 425.59pt x 232.8
+7pt>
 File: ../diagrams/q_learning_table_04-eps-converted-to.pdf Graphic file (type p
 df)
  <use ../diagrams/q_learning_table_04-eps-converted-to.pdf>
 Package pdftex.def Info: ../diagrams/q_learning_table_04-eps-converted-to.pdf u
-sed on input line 102.
+sed on input line 116.
 (pdftex.def)             Requested size: 255.35596pt x 139.72307pt.
 Package epstopdf Info: Source file: <../diagrams/q_learning_table_05.eps>
 (epstopdf)                    date: 2016-03-07 23:03:09
@@ -899,17 +879,25 @@ ted-to.pdf>
 (epstopdf)                    size: 13255 bytes
 (epstopdf)             Command: <epstopdf --outfile=../diagrams/q_learning_tabl
 e_05-eps-converted-to.pdf ../diagrams/q_learning_table_05.eps>
-(epstopdf)             \includegraphics on input line 109.
+(epstopdf)             \includegraphics on input line 129.
 Package epstopdf Info: Output file is already uptodate.
 
-<../diagrams/q_learning_table_05-eps-converted-to.pdf, id=95, 369.38pt x 232.87
-pt>
+<../diagrams/q_learning_table_05-eps-converted-to.pdf, id=116, 369.38pt x 232.8
+7pt>
 File: ../diagrams/q_learning_table_05-eps-converted-to.pdf Graphic file (type p
 df)
  <use ../diagrams/q_learning_table_05-eps-converted-to.pdf>
 Package pdftex.def Info: ../diagrams/q_learning_table_05-eps-converted-to.pdf u
-sed on input line 109.
+sed on input line 129.
 (pdftex.def)             Requested size: 221.6297pt x 139.72307pt.
+
+Overfull \hbox (28.49348pt too wide) in paragraph at lines 134--136
+[]\T1/ptm/m/n/12 Po prej-dení ce-lého grafu, kedy agent vy-ko-nal v²etky moºné 
+ak-cie do-siahne fun-kcia $\OML/ztmcm/m/it/12 Q\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/
+it/12 s\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 n\OT1/ztmcm/m/n/12 )\OML/ztmcm/m/i
+t/12 ; a\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 n\OT1/ztmcm/m/n/12 ))$
+ []
+
 Package epstopdf Info: Source file: <../diagrams/q_learning_table_06.eps>
 (epstopdf)                    date: 2016-03-07 23:09:23
 (epstopdf)                    size: 45189 bytes
@@ -919,26 +907,337 @@ ted-to.pdf>
 (epstopdf)                    size: 22230 bytes
 (epstopdf)             Command: <epstopdf --outfile=../diagrams/q_learning_tabl
 e_06-eps-converted-to.pdf ../diagrams/q_learning_table_06.eps>
-(epstopdf)             \includegraphics on input line 116.
+(epstopdf)             \includegraphics on input line 147.
 Package epstopdf Info: Output file is already uptodate.
 
-<../diagrams/q_learning_table_06-eps-converted-to.pdf, id=96, 369.38pt x 274.02
-374pt>
+<../diagrams/q_learning_table_06-eps-converted-to.pdf, id=118, 369.38pt x 274.0
+2374pt>
 File: ../diagrams/q_learning_table_06-eps-converted-to.pdf Graphic file (type p
 df)
  <use ../diagrams/q_learning_table_06-eps-converted-to.pdf>
 Package pdftex.def Info: ../diagrams/q_learning_table_06-eps-converted-to.pdf u
-sed on input line 116.
+sed on input line 147.
 (pdftex.def)             Requested size: 221.6297pt x 164.41551pt.
-) [8 <../diagrams/q_learning_detail-eps-converted-to.pdf>] [9 <../diagrams/q_le
-arning_table_01-eps-converted-to.pdf> <../diagrams/q_learning_table_02-eps-conv
-erted-to.pdf> <../diagrams/q_learning_table_03-eps-converted-to.pdf>] [10 <../d
-iagrams/q_learning_table_04-eps-converted-to.pdf> <../diagrams/q_learning_table
-_05-eps-converted-to.pdf> <../diagrams/q_learning_table_06-eps-converted-to.pdf
->]
+ [7 <../diagrams/q_learning_table_04-eps-converted-to.pdf> <../diagrams/q_learn
+ing_table_05-eps-converted-to.pdf>]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17.28> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 178.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 178.
+ [8 <../diagrams/q_learning_table_06-eps-converted-to.pdf>]
+Overfull \hbox (3.15962pt too wide) in paragraph at lines 196--198
+[]\T1/ptm/m/n/12 Pre úlohy kde do sys-tému vstu-puje mnoho ne-zá-vis-lých vstu-
+pov sa stáva im-plen-tá-cia Q(s(n),
+ []
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 245--250
+
+ []
+
+
+Overfull \hbox (35.96259pt too wide) in paragraph at lines 251--255
+[]\T1/ptm/m/n/12 Pre dis-krétny po-£et sta-vov a ak-cií je moºné de-fi-no-va´ t
+a-bu©-kovú in-ter-pre-tá-ciu ako $\OML/ztmcm/m/it/12 Q[]\OT1/ztmcm/m/n/12 (\OML
+/ztmcm/m/it/12 I[]\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 n\OT1/ztmcm/m/n/12 )\OM
+L/ztmcm/m/it/12 ; I[]\OT1/ztmcm/m/n/12 (\OML/ztmcm/m/it/12 n\OT1/ztmcm/m/n/12 )
+)$\T1/ptm/m/n/12 .
+ []
+
+[10] [11] <../pictures/nn_functions.png, id=164, 770.88pt x 578.16pt>
+File: ../pictures/nn_functions.png Graphic file (type png)
+
+<use ../pictures/nn_functions.png>
+Package pdftex.def Info: ../pictures/nn_functions.png used on input line 326.
+(pdftex.def)             Requested size: 308.34654pt x 231.2599pt.
+ [12 <../pictures/nn_functions.png>] [13]
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 426.
+
+<../pictures/knn_learing_result.png, id=187, 770.88pt x 578.16pt>
+File: ../pictures/knn_learing_result.png Graphic file (type png)
+
+<use ../pictures/knn_learing_result.png>
+Package pdftex.def Info: ../pictures/knn_learing_result.png used on input line 
+428.
+(pdftex.def)             Requested size: 308.34654pt x 231.2599pt.
+
+
+Package mathptmx Warning: There are no bold math fonts on input line 436.
+
+[14] [15 <../pictures/knn_learing_result.png>]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 488.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 488.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 488.
+ [16]
+Underfull \hbox (badness 10000) in paragraph at lines 524--527
+
+ []
+
+[17]
+Underfull \hbox (badness 10000) in paragraph at lines 541--544
+
+ []
+
+[18])
+Underfull \hbox (badness 10000) in paragraph at lines 567--76
+
+ []
+
+[19]
+\openout2 = `experiment.aux'.
+
+ (./experiment.tex
+Kapitola 3.
+[20
+
+
+
+] [21]
+Package epstopdf Info: Source file: <../diagrams/experiment_map_q_learning.eps>
+
+(epstopdf)                    date: 2016-03-03 08:15:20
+(epstopdf)                    size: 242876 bytes
+(epstopdf)             Output file: <../diagrams/experiment_map_q_learning-eps-
+converted-to.pdf>
+(epstopdf)                    date: 2016-03-03 08:15:24
+(epstopdf)                    size: 103023 bytes
+(epstopdf)             Command: <epstopdf --outfile=../diagrams/experiment_map_
+q_learning-eps-converted-to.pdf ../diagrams/experiment_map_q_learning.eps>
+(epstopdf)             \includegraphics on input line 88.
+Package epstopdf Info: Output file is already uptodate.
+
+<../diagrams/experiment_map_q_learning-eps-converted-to.pdf, id=244, 1460.45625
+pt x 819.06pt>
+File: ../diagrams/experiment_map_q_learning-eps-converted-to.pdf Graphic file (
+type pdf)
+
+<use ../diagrams/experiment_map_q_learning-eps-converted-to.pdf>
+Package pdftex.def Info: ../diagrams/experiment_map_q_learning-eps-converted-to
+.pdf used on input line 88.
+(pdftex.def)             Requested size: 438.14026pt x 245.7199pt.
+ [22 <../diagrams/experiment_map_q_learning-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 123--125
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--127
+
+ []
+
+[23]
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+
+ []
+
+
+<../../results_q_learning/map_1/reward_value_surface.png, id=264, 770.88pt x 57
+8.16pt>
+File: ../../results_q_learning/map_1/reward_value_surface.png Graphic file (typ
+e png)
+ <use ../../results_q_learning/map_1/reward_value_surface.png>
+Package pdftex.def Info: ../../results_q_learning/map_1/reward_value_surface.pn
+g used on input line 145.
+(pdftex.def)             Requested size: 308.34654pt x 231.2599pt.
+
+<../../results_q_learning/map_1/function_type_1/iterations_10/action_best_value
+_log_surface.png, id=265, 770.88pt x 578.16pt>
+File: ../../results_q_learning/map_1/function_type_1/iterations_10/action_best_
+value_log_surface.png Graphic file (type png)
+
+<use ../../results_q_learning/map_1/function_type_1/iterations_10/action_best_v
+alue_log_surface.png>
+Package pdftex.def Info: ../../results_q_learning/map_1/function_type_1/iterati
+ons_10/action_best_value_log_surface.png used on input line 153.
+(pdftex.def)             Requested size: 539.61234pt x 404.70924pt.
+
+Overfull \hbox (92.70683pt too wide) in paragraph at lines 153--154
+ [][] 
+ []
+
+
+<../../results_q_learning/map_1/function_type_2/iterations_10/action_best_value
+_log_surface.png, id=266, 770.88pt x 578.16pt>
+File: ../../results_q_learning/map_1/function_type_2/iterations_10/action_best_
+value_log_surface.png Graphic file (type png)
+
+<use ../../results_q_learning/map_1/function_type_2/iterations_10/action_best_v
+alue_log_surface.png>
+Package pdftex.def Info: ../../results_q_learning/map_1/function_type_2/iterati
+ons_10/action_best_value_log_surface.png used on input line 159.
+(pdftex.def)             Requested size: 539.61234pt x 404.70924pt.
+
+Overfull \hbox (92.70683pt too wide) in paragraph at lines 159--160
+ [][] 
+ []
+
+
+<../../results_q_learning/map_1/function_type_3/iterations_10/action_best_value
+_log_surface.png, id=267, 770.88pt x 578.16pt>
+File: ../../results_q_learning/map_1/function_type_3/iterations_10/action_best_
+value_log_surface.png Graphic file (type png)
+
+<use ../../results_q_learning/map_1/function_type_3/iterations_10/action_best_v
+alue_log_surface.png>
+Package pdftex.def Info: ../../results_q_learning/map_1/function_type_3/iterati
+ons_10/action_best_value_log_surface.png used on input line 167.
+(pdftex.def)             Requested size: 161.88957pt x 121.41718pt.
+
+<../../results_q_learning/map_1/function_type_4/iterations_10/action_best_value
+_log_surface.png, id=268, 770.88pt x 578.16pt>
+File: ../../results_q_learning/map_1/function_type_4/iterations_10/action_best_
+value_log_surface.png Graphic file (type png)
+
+<use ../../results_q_learning/map_1/function_type_4/iterations_10/action_best_v
+alue_log_surface.png>
+Package pdftex.def Info: ../../results_q_learning/map_1/function_type_4/iterati
+ons_10/action_best_value_log_surface.png used on input line 173.
+(pdftex.def)             Requested size: 161.88957pt x 121.41718pt.
+
+<../../results_q_learning/map_1/function_type_1/q_learning_error.png, id=269, 7
+70.88pt x 578.16pt>
+File: ../../results_q_learning/map_1/function_type_1/q_learning_error.png Graph
+ic file (type png)
+
+<use ../../results_q_learning/map_1/function_type_1/q_learning_error.png>
+Package pdftex.def Info: ../../results_q_learning/map_1/function_type_1/q_learn
+ing_error.png used on input line 187.
+(pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
+
+<../../results_q_learning/map_1/function_type_2/q_learning_error.png, id=270, 7
+70.88pt x 578.16pt>
+File: ../../results_q_learning/map_1/function_type_2/q_learning_error.png Graph
+ic file (type png)
+
+<use ../../results_q_learning/map_1/function_type_2/q_learning_error.png>
+Package pdftex.def Info: ../../results_q_learning/map_1/function_type_2/q_learn
+ing_error.png used on input line 194.
+(pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
+
+[24 <../../results_q_learning/map_1/reward_value_surface.png>]
+<../../results_q_learning/map_1/function_type_3/q_learning_error.png, id=279, 7
+70.88pt x 578.16pt>
+File: ../../results_q_learning/map_1/function_type_3/q_learning_error.png Graph
+ic file (type png)
+
+<use ../../results_q_learning/map_1/function_type_3/q_learning_error.png>
+Package pdftex.def Info: ../../results_q_learning/map_1/function_type_3/q_learn
+ing_error.png used on input line 208.
+(pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
+
+<../../results_q_learning/map_1/function_type_4/q_learning_error.png, id=280, 7
+70.88pt x 578.16pt>
+File: ../../results_q_learning/map_1/function_type_4/q_learning_error.png Graph
+ic file (type png)
+
+<use ../../results_q_learning/map_1/function_type_4/q_learning_error.png>
+Package pdftex.def Info: ../../results_q_learning/map_1/function_type_4/q_learn
+ing_error.png used on input line 216.
+(pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
+
+<../../results_q_learning/map_1/function_type_0/iterations_10/q_learning_result
+.png, id=281, 770.88pt x 578.16pt>
+File: ../../results_q_learning/map_1/function_type_0/iterations_10/q_learning_r
+esult.png Graphic file (type png)
+
+<use ../../results_q_learning/map_1/function_type_0/iterations_10/q_learning_re
+sult.png>
+Package pdftex.def Info: ../../results_q_learning/map_1/function_type_0/iterati
+ons_10/q_learning_result.png used on input line 230.
+(pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
+
+<../../results_q_learning/map_1/function_type_3/iterations_10/q_learning_result
+.png, id=282, 770.88pt x 578.16pt>
+File: ../../results_q_learning/map_1/function_type_3/iterations_10/q_learning_r
+esult.png Graphic file (type png)
+
+<use ../../results_q_learning/map_1/function_type_3/iterations_10/q_learning_re
+sult.png>
+Package pdftex.def Info: ../../results_q_learning/map_1/function_type_3/iterati
+ons_10/q_learning_result.png used on input line 237.
+(pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
+
+<../../results_q_learning/map_1/trials_average_results_progress.png, id=283, 77
+0.88pt x 578.16pt>
+File: ../../results_q_learning/map_1/trials_average_results_progress.png Graphi
+c file (type png)
+
+<use ../../results_q_learning/map_1/trials_average_results_progress.png>
+Package pdftex.def Info: ../../results_q_learning/map_1/trials_average_results_
+progress.png used on input line 248.
+(pdftex.def)             Requested size: 277.51659pt x 208.13744pt.
+
+<../../results_q_learning/map_1/trials_average_results.png, id=284, 770.88pt x 
+578.16pt>
+File: ../../results_q_learning/map_1/trials_average_results.png Graphic file (t
+ype png)
+ <use ../../results_q_learning/map_1/trials_average_results.png>
+Package pdftex.def Info: ../../results_q_learning/map_1/trials_average_results.
+png used on input line 258.
+(pdftex.def)             Requested size: 277.51659pt x 208.13744pt.
+
+<../../results_q_learning/map_0/trials_average_results.png, id=285, 770.88pt x 
+578.16pt>
+File: ../../results_q_learning/map_0/trials_average_results.png Graphic file (t
+ype png)
+ <use ../../results_q_learning/map_0/trials_average_results.png>
+Package pdftex.def Info: ../../results_q_learning/map_0/trials_average_results.
+png used on input line 267.
+(pdftex.def)             Requested size: 277.51659pt x 208.13744pt.
+
+<../../results_q_learning/map_2/trials_average_results.png, id=286, 770.88pt x 
+578.16pt>
+File: ../../results_q_learning/map_2/trials_average_results.png Graphic file (t
+ype png)
+ <use ../../results_q_learning/map_2/trials_average_results.png>
+Package pdftex.def Info: ../../results_q_learning/map_2/trials_average_results.
+png used on input line 275.
+(pdftex.def)             Requested size: 277.51659pt x 208.13744pt.
+
+<../../results_q_learning/map_3/trials_average_results.png, id=287, 770.88pt x 
+578.16pt>
+File: ../../results_q_learning/map_3/trials_average_results.png Graphic file (t
+ype png)
+ <use ../../results_q_learning/map_3/trials_average_results.png>
+Package pdftex.def Info: ../../results_q_learning/map_3/trials_average_results.
+png used on input line 283.
+(pdftex.def)             Requested size: 277.51659pt x 208.13744pt.
+)
+[25pdfTeX warning (ext4): destination with the same identifier (name{equation.3
+.3.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.77 \include{experiment}
+                          <../../results_q_learning/map_1/function_type_1/itera
+tions_10/action_best_value_log_surface.png>] [26 <../../results_q_learning/map_
+1/function_type_2/iterations_10/action_best_value_log_surface.png> <../../resul
+ts_q_learning/map_1/function_type_3/iterations_10/action_best_value_log_surface
+.png>] [27 <../../results_q_learning/map_1/function_type_4/iterations_10/action
+_best_value_log_surface.png> <../../results_q_learning/map_1/function_type_1/q_
+learning_error.png> <../../results_q_learning/map_1/function_type_2/q_learning_
+error.png> <../../results_q_learning/map_1/function_type_3/q_learning_error.png
+>] [28 <../../results_q_learning/map_1/function_type_4/q_learning_error.png> <.
+./../results_q_learning/map_1/function_type_0/iterations_10/q_learning_result.p
+ng> <../../results_q_learning/map_1/function_type_3/iterations_10/q_learning_re
+sult.png>] [29 <../../results_q_learning/map_1/trials_average_results_progress.
+png> <../../results_q_learning/map_1/trials_average_results.png> <../../results
+_q_learning/map_0/trials_average_results.png>] [30 <../../results_q_learning/ma
+p_2/trials_average_results.png> <../../results_q_learning/map_3/trials_average_
+results.png>]
 \openout2 = `lit.aux'.
 
  (./lit.tex
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 27.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
 Underfull \hbox (badness 10000) in paragraph at lines 26--30
 []\T1/ptm/m/n/12 World of mat-he-ma-tics, A Wolf-ram Web Re-source, []$\T1/cmtt
 /m/n/12 http : / / mathworld .
@@ -950,26 +1249,31 @@ Underfull \hbox (badness 10000) in paragraph at lines 26--30
 i-onal kno-wledge en-gine, []$\T1/cmtt/m/n/12 http :
  []
 
-) [11
+) [31
 
 
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 84.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 84.
- (./thesis.aux (./title.aux) (./kap2.aux) (./q_learning.aux) (./lit.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 84.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 84.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 84.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 85.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 85.
+ (./thesis.aux (./title.aux) (./kap2.aux) (./q_learning.aux)
+(./experiment.aux) (./lit.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 85.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 85.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 85.
  ) 
 Here is how much of TeX's memory you used:
- 11995 strings out of 493304
- 164724 string characters out of 6139872
- 245032 words of memory out of 5000000
- 15205 multiletter control sequences out of 15000+600000
- 65055 words of font info for 86 fonts, out of 8000000 for 9000
+ 12250 strings out of 493304
+ 173099 string characters out of 6139872
+ 244024 words of memory out of 5000000
+ 15334 multiletter control sequences out of 15000+600000
+ 87911 words of font info for 142 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 29i,11n,43p,354b,374s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,17n,43p,259b,465s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texliv
 e/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
@@ -978,13 +1282,13 @@ amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symb
 ols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/time
-s/utmri8a.pfb>
-Output written on thesis.pdf (14 pages, 219180 bytes).
+exmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
+/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on thesis.pdf (34 pages, 764025 bytes).
 PDF statistics:
- 190 PDF objects out of 1000 (max. 8388607)
- 153 compressed objects within 2 object streams
- 39 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 417 PDF objects out of 1000 (max. 8388607)
+ 322 compressed objects within 4 object streams
+ 121 named destinations out of 1000 (max. 500000)
+ 131 words of extra memory for PDF output out of 10000 (max. 10000000)
 
