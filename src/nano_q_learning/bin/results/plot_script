@@ -1,0 +1,82 @@
+set   autoscale                        # scale axes automatically
+unset log                              # remove any log-scaling
+unset label                            # remove any previous labels
+set xtic auto                         	# set xtics automatically
+set ytic auto                         # set ytics automatically
+
+set key right top
+
+set grid ytics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set grid xtics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set terminal png size 1024,768 enhanced font "Helvetica,20"
+
+
+
+
+
+
+set key
+set xlabel "position x"
+set ylabel "position y"
+
+set output 'robot_path.png'
+
+set key
+
+
+plot  "result.log" using 1:2 title "target" with line lw 8.0, \
+      "result.log" using 3:4 title "robot 1" with line lw 2.0, \
+      "result.log" using 5:6 title "robot 2" with line lw 2.0, \
+      "result.log" using 7:8 title "robot 3" with line lw 2.0, \
+      "result.log" using 9:10 title "robot 4" with line lw 2.0, \
+      "result.log" using 11:12 title "robot 5" with line lw 2.0, \
+      "result.log" using 13:14 title "robot 6" with line lw 2.0, \
+      "result.log" using 15:16 title "robot 7" with line lw 2.0, \
+      "result.log" using 17:18 title "robot 8" with line lw 2.0, \
+
+      set key
+
+set output 'robot_reward.png'
+
+set xlabel "iteration"
+set ylabel "target distance"
+
+plot "score.log" using 1 title "robot 1" with line lw 2.0, \
+    "score.log" using 2 title "robot 2" with line lw 2.0, \
+    "score.log" using 3 title "robot 3" with line lw 2.0, \
+    "score.log" using 4 title "robot 4" with line lw 2.0, \
+    "score.log" using 5 title "robot 5" with line lw 2.0, \
+    "score.log" using 6 title "robot 6" with line lw 2.0, \
+    "score.log" using 7 title "robot 7" with line lw 2.0, \
+    "score.log" using 8 title "robot 8" with line lw 2.0
+
+
+
+
+
+
+set hidden3d
+set dgrid3d 64,64
+set surface
+set autoscale
+
+set ylabel "gamma"
+set xlabel "noise"
+set zlabel "value"
+
+
+set output 'summary_result_average_error.png'
+splot 'summary_result.log' using 2:1:3 title "error value" with pm3d
+
+set output 'summary_result_sigma_error.png'
+splot 'summary_result.log' using 2:1:4 title "standart deviation" with pm3d
+
+
+set pm3d map
+set palette rgbformulae 22,13,-31
+
+set output 'summary_result_average_error_map.png'
+splot 'summary_result.log' using 2:1:3 title "error value" with pm3d
+
+set output 'summary_result_sigma_error_map.png'
+splot 'summary_result.log' using 2:1:4 title "standart deviation" with pm3d
