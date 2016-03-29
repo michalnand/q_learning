@@ -139,7 +139,7 @@ funkcia $Q(s(n), a(n))$ konečný, ustálený stav Obr. \ref{img:q_learning_6}, 
 \label{eq:q_learning_finish}
 \end{equation}
 
-hodnoty Q-funkcie sa teda pri pevne danom $R(s(a), a(n))$ už nemenia.
+hodnoty Q-funkcie sa teda pri pevne danom $R(s(n), a(n))$ už nemenia.
 
 
 \begin{figure}[!htb]
@@ -190,8 +190,8 @@ C = {d_s}^{n_s} {d_a}^{n_a}
 \label{eq:q_size}
 \end{equation}
 
-Samotný počet hodnôt ktoré treba spočítať teda exponenciálne narastná z rastom
-počtu prvkov stvového a vektora akcií.
+Samotný počet hodnôt ktoré treba spočítať teda exponenciálne narastná s rastom
+počtu prvkov stavového a vektora akcií.
 
 Pre úlohy kde do systému vstupuje mnoho nezávislých vstupov sa stáva implentácia Q(s(n), a(n))
 problémom najmä z dôvodov :
@@ -235,7 +235,13 @@ Tie najbežnejšie sú
 
 \section{Tabuľka}
 
-Dané sú celočíselné indexy
+Priamočíarým prístupm je ukladať hodnoty $Q(s(n), a(n))$ do tabuľky. Pre
+diskrétnu a konečnú množinu akcií možno tabuľku rozdeliť na viac častí,
+čím sa urýchli vyhľadávanie. Počet stavov v reálnych aplikáciach však môže byť
+vysoký (vo všeobecnosti tvoria stavy spojitú množinu).
+
+Stav agenta aj vykonaná akcia sú obvykle vektory normované do $\langle -1, 1 \rangle$,
+pre implementáciu tabuľky je nutné ich prepočítať na celočíselné indexy
 
 \begin{align}
   I_s(n) = \lceil \sum\limits_{i=1}^{n_s} {\left( d_s\frac{s_i(n) + 1}{2} \right)^i \rceil}  \\
@@ -256,8 +262,39 @@ pretože spĺňa postuláty \ref{post:01} aj \ref{post:02}.
 \section{Dopredná neurónová sieť}
 
 Pre aproximáciu funkcie ohdnotení je možné použiť dobrednú neurónovú sieť ako
-univerzálny aproximátor.
+univerzálny aproximátor. Podľa Kolmogorovho teorému je možné neurónovú sieť
+takto použiť \cite{bib:kolomongorov_01}, \cite{bib:kolomongorov_02} a \cite{bib:kolomongorov_03}.
+Samotný teorém však nerieši problém učenia takejto siete. Na učenie siete
+existuje niekoľko algoritmov, medzi najčastejšie patria
+\cite{bib:backpropagation_00}, \cite{bib:backpropagation_01}, \cite{bib:backpropagation_02} :
 
+\begin{enumerate}
+ \item Backpropagation
+ \item Genetické algoritmy
+ \item Simulované žíhanie
+\end{enumerate}
+
+Najpoužívanejší Backpropagation má množstvo problémov, najmä postupný pokles gradientu
+v hlbokých neurónových sieťach. Kedy sú vnorené vrstvy prakticky neučené. Ďalší závažný problém
+je uviaznutie v lokálnom minime, čo sa autory snažia vyriešiť zavedným zotrvačnosti
+do zmeny váh siete. Istým nádejným východiskom sa zdá byť simulované žíhanie \cite{bib:annealing_01}.
+Pre problém Q-learning algoritmu je však potrebný prístup ktorý postupne zlepšuje riešenie,
+a to je jedine niektorá z gradientových metód.
+
+Samotná dopredná sieť je tvorená niekoľkými prepojenými vrstvami neurónov \ref{img:ffnn}.
+Pre popis vrstvy je však vhodné použiť maticový zápis, nakoľko prenos neurónu má
+obvykle vo vrstve rovnakú aktivačnú funkciu.
+
+\begin{figure}[!htb]
+\center
+\includegraphics[scale=.6]{../diagrams/neural_layers.eps}
+\caption{Dopredná neuronová siet}
+\label{img:ffnn}
+\end{figure}
+
+Správanie sa jednej vrstvy je možné popísať ako funkciu vstupného vektora,
+ktorej výstupom je tiež vektor (počty prvkov týchto vektorov však môžu byť rôzne,
+vždy však konečné).
 Je daný vstupný vektor
 
 \begin{align}
@@ -319,7 +356,7 @@ y_4(x) &= \left\{
 \label{eq:nn_transfer_function}
 \end{align}
 
-Ich priebehy sú znázornené na obrázku Obr. \ref{img:nn_functions}.
+Ich priebehy sú znázornené na obrázku \ref{img:nn_functions}.
 
 \begin{figure}[!htb]
 \center
@@ -332,18 +369,6 @@ Zoradením niekoľkých vrstiev za sebou, tak že výstup predošlej je vstupom 
 vrstvy je možné získať doprednú neurónovu sieť. Takáto sieť je vhodná na riešenie klasifikačných
 aj aproximačných problémov.
 
-Najväčším nedostatkom je mechanizmus učenia.
-
-Existuje niekoľko spôsobov ako túto sieť učiť, najčastejšie sú
-
-\begin{itemize}
-\item gradientová metóda minimalizácie chyby
-\item simulované žíhanie
-\end{itemize}
-
-Gradientová metóda nemá zaručené dosiahnutie globálneho minima pre všeobecné prípady,
-simulované žíhanie je časovo náročné pre veľký počet váhových parametrov.
-
 Dopredná sieť je známa nelokálnosťou učenia : pri trénovaní na podmnožinu množiny
 požadovaných výstupov sa mení hodnota aj mimo túto podnmožinu. Sieť teda veľmi
 problematicky spĺňa postutlát \ref{post:02}. Dobre však spĺňa postulát \ref{post:01},
@@ -352,9 +377,31 @@ presnosť aproximácie.
 
 \section{Kohonenová neurónová sieť}
 
-Pre aproximáciu môže byť použitá Kohonenová neurónová sieť. Každému neurónu
-tejto siete je priradená jedna hodnota.
+Kohonenova neurónová sieť je inšpirovaná rovinnými štruktúrami v mozgovej kôre,
+kde výrazne dominujú prepojenia v rámci vrstvy a prepojení medzi vrstvami je
+podstatne menej \ref{img:cortical_column}. Napriek týmto rovinatým štruktúram,
+mozog bežne spracúva mnohodimenzionálne problémy - vstupm sú podnety s miliónov
+receptorov.
 
+\begin{figure}[]
+\center
+\includegraphics[scale=.4]{../pictures/cortical_column.jpg}
+\caption{Neokortexový stĺpec}
+\label{img:cortical_column}
+\end{figure}
+
+Pôvodný návrh Kohonenovej siete neriešil aproximáciu funkcie, ale klasifikáciu
+vstupov do zhlukov. Pričom podobné vstupy patria do rovnakého zhluku. Počet zhlukov
+je voliteľný a je rovný počtu použitých neurónov. Takáto sieť sa vie učiť bez
+definovania chyby, t.j. nie je potrebné stanoviť do ktorého zhluku dáta patria. Samotné
+zhluky sa utvárajú postupne, tak ako sú do siete predkladané dáta.
+
+Každému zhluku je však možné priradiť požadovanú výstupnú hodnotu. Sieť tak môže
+pracovať podobne ako tabuľka - vstupné dáta priradí do najbližšieho zhluku a výstupom
+je hodnota prisluchújalúca k tomuto zhluku. V tomto prípda už treba stanoviť chybu,
+ako rozdiel požadovanej hodnoty a skutočnej hodnoty výstupu siete.
+Algoritmus má niekoľko krokov :
+\\
 Najpr sa spočítajú vzdialenosti od vstupného vektora
 
 \begin{align}
@@ -362,7 +409,11 @@ d_j(n) = \sum\limits_{i=1}^{N}{(I_i(n) - w_{ji}(n))^2}
 \label{eq:knn_distance}
 \end{align}
 
-kde $w(n) \in \mathbb{R}$ je matica váh, na začiatku sa volí náhodná.
+kde $w(n) \in \mathbb{R}$ je matica váh, na začiatku sa volí náhodná, tak
+aby rovnomerne pokrila stavový priestor vstupných veličín (Obvykle sa používa rovnomerné
+rozdelenie. Štatistickou analýzou vstupných dát je ale možné určiť iné, vhodnejšie
+a urýchliť tak konvergenciu hodnôt váh).
+
 Víťazný neurón $v$ je definovaný ako
 
 \begin{align}
@@ -370,13 +421,16 @@ v : \forall j : d_v(n) \leq d_j(n)
 \label{eq:knn_winning}
 \end{align}
 
+je to neurón ktorý má najmenšiu vzdialenosť od predloženého vstupu.
+
 A pre každý neurón existuje priradená výstupná hodnota $y_j(n) \in \mathbb{R}$, výstupom
-siete je hodnota priradená výťaznému neurónu $y_{nn}(n) = y_v(n)$
+siete je teda hodnota priradená výťaznému neurónu $y_{nn}(n) = y_v(n)$.
+
 
 Učenie siete prebieha v dvoch krokoch
 
-1) zmena váh $w(n)$ - zmenia sa váhy výťazného neurónu, pretože najlepšie
-zopovedajú požadovaným váham
+{1) \bf zmena váh $w(n)$ } zmenia sa váhy výťazného neurónu, pretože najlepšie
+zodpovedajú požadovaným váham tak že sa priblížia hodnote vstupného vektora
 
 \begin{align}
 w_{ji}(n+1) = (1-\eta_1(j))w_{ji}(n) + \eta_1 I_i(n)
@@ -410,11 +464,11 @@ kde $k \in (0, \infty )$. Krok učenia $\eta_1(j, n)$ je teda premenný a zále�
 aj od predloženého vzoru podľa $n$.
 
 Po dostatočnom počte iterácií sa hodnoty váh ustália na hodnotách tak aby rozdelili
-množinu vstupných vektorov na lokálne oblasti. Tento stav je znázornený na Obr. \ref{img:knn_learning_result}.
+množinu vstupných vektorov na lokálne oblasti. Tento stav je znázornený na \ref{img:knn_learning_result}.
 Vstupný proces generoval 8 zhlukov dát ktoré sieť klasifikovala použitím 16 neurónov.
 Každému neurónu je možne priradiť požadovanú hodnotu výstupu.
 
-2) upraví sa výstupná hodnota $y_v(n)$
+{2) \bf upraví sa výstupná hodnota $y_v(n)$}
 
 \begin{align}
 y_v(n+1) = y_v(n) + \eta_2 e(n)
@@ -422,6 +476,14 @@ y_v(n+1) = y_v(n) + \eta_2 e(n)
 \end{align}
 
 kde $e(n)$ je chyba podľa \ref{eq:nn_error}.
+Takáto Kohonenová sieť má veľmi dobré predpoklady na aprixmáciu funkcie,
+ktorá nadobúda málo hodnôt, predkladaním vzorov z blízkosti
+jedného zhluku (dáta majú malú vzdialenosť v zmysle \ref{eq:knn_distance} )
+sa dá očakávať zmena parametrov len jedného neurónu. Sieť teda dobre spĺňa predpoklady
+\ref{post:01},  \ref{post:02}. Počet neurónov však musí narásť do nekonečna.
+
+Je vhodné poznamenať, že výstupná hodnota nemusí byť len číselná hodnota, ale aj funkcia, ktorej vstupom je opäť
+$I_i(n)$. Výber výťazného neurónu tak funguje ako výber vhodnej funkcie - prepínač.
 
 \begin{figure}[]
 \center
@@ -430,8 +492,40 @@ kde $e(n)$ je chyba podľa \ref{eq:nn_error}.
 \label{img:knn_learning_result}
 \end{figure}
 
+.
 
 \section{Neurónová sieť bázickych funkcií}
+
+Samotný prenos neurónu nemusí byť obmedzený len na množinu funkcií z \ref{eq:nn_transfer_function}.
+Vhodnú funkciu je možné zmenou parametrov upraviť do tvaru, aby na zvolený
+vstup $I_0(n)$ dosahovala požadovanú hodnotu a postupným zväčšovaním
+vzdialenosti $\mid I_0(n) - I_i(n) \mid$ klesala jej hodnota k nule.
+
+Najjednoduhším príkladom takýchto funkcií  je
+
+
+\begin{equation}
+f_j(X(n)) =
+\left\{
+	\begin{array}{ll}
+		k_j  & ak \ X(n) = X_0 \\
+		0 & inak
+	\end{array}
+\right.
+\label{eq:bfnn_simple}
+\end{equation}
+
+kde $k_j$ je hodnota požadovaná v bode $X_0$. Výstupom siete potom je
+
+\begin{align}
+y(X) = \sum\limits_{j=1} f_j(X(n))
+\label{eq:bfnn_simple_res}
+\end{align}
+
+Z charakteru Q-learning algoritmu majú hodnoty $Q(s(n),a(n))$ charakter aj
+postupne klesajúcich hodnôt. Je teda potrebné vybrať iné funkcie.
+
+Nasledujú preto definície funkcií s ktorými boli urobené experimenty.
 
 Dané sú bázické funkcie $f_j^x(\boldmath{s(n), a(n)})$, kde $x$ je typ bázickej funkcie.
 Požadovaná hodnota $Q^x(s(n), a(n))$ je potom lineárnou kombináciou týchto funkcií typu $x$.
@@ -512,7 +606,7 @@ krivky naozaj ležalo nad bodom $[s(n),a(n)]$.
 
 Parameter $\beta$ určuje strmosť krivky. Ak boli k dizpozicií naraz všetky
 požadované výstupy, bolo by možné spočítat tento parameter z rozptylu.
-Požadované hodnoty však prichádzajú postupne, strmosť krivky sa preto upravuje preibežne,
+Požadované hodnoty však prichádzajú postupne, strmosť krivky sa preto upravuje priebežne,
 podľa toho či požadovaná hodnota leží nad, alebo pod krivkou.
 
 \begin{itemize}
@@ -542,26 +636,31 @@ kde \\
 $\eta_3$ je konštanta učenia \\
 $r$ je maximálny rozsah váh \\
 
+\subsection{Hybridný variant}
 
+Ak by funkcia $R(s(n), a(n))$ mala len jednu kladnú hodnotu a ostatné by boli
+nulové, aproximáciu $Q(s(n), a(n))$ by veľmi dobre popísala Gaussova krivka \ref{eq:basis_functions}.
+Ak by funkcia $R(s(n), a(n))$ mala len záporné hodnoty a ostatné by boli
+nulové, funkcia $Q(s(n), a(n))$ by s ohliadnutím na \ref{eq:q_learning} by
+si boli rovné. Vo funkcí $Q(s(n), a(n))$ by sa tak objavilo niekoľko záporných
+hodnôt, ostro ohraničených.
 
-\newpage
+Vyjdúc z týchto úvah, je možné skombinovať výhody oboch : Gaussova krivka
+ktorá dokáže pokryť nenulovými hodnotami celý definyčný obor a funkcie \ref{eq:bfnn_simple}.
 
-\begin{equation}
-H_j(s(n)) =
+Je teda možné skombinovať funkciu \ref{eq:bfnn_simple} s niektorou z \ref{eq:basis_functions},
+čo vedie na vzťahy
+
+\begin{align}
+H_j(s(n)) &=
 \left\{
 	\begin{array}{ll}
 		r_j  & if \ s(n) = \alpha_j \\
 		0 & inak
 	\end{array}
-\right.
-\end{equation}
-
-\begin{align}
-  f_j(s(n)) = H_j(s(n)) + w_j e^{ -\sum\limits_{i=1}^{n_s}{\beta_{ji}(s_i(n) - \alpha_{ji})^2} }
-\end{align}
-
-\begin{align}
-  Q(s(n)) = \sum\limits_{j=1}^{J} f_j(s(n))
+\right. \\
+  f_j(\boldmath{s(n), a(n)}) &= H_j(s(n)) + w_j e^{ -\beta_{aj} \sum\limits_{i=1}^{n_s}{(s_i(n) - \alpha_{aji})^2 }} \\
+  Q(s(n), a(n)) &= \sum\limits_{j=1}^{J} f_j(s(n), a(n))
 \end{align}
 
 kde \\

@@ -1,7 +1,7 @@
 \chapter{Experimentálna časť}
 
 
-\section {Ciele práce}
+\section {Ciele epxerimentu}
 
 V oblasti Q-learning algoritmoch je možné pozorovať dva hlavné smery výskumu
 
@@ -31,7 +31,7 @@ V niekoľkých bodoch je možné postup určiť ako
 \end{itemize}
 
 Funkcie $R(s(n), a(n))$ budu vybrané tak aby boli riedke a plne sa využil Q-learing -
-okamžité ohodnotenie je známe len v malom počte prípadov.
+okamžité odmeny sú známe len v malom počte prípadov.
 Postupne sa obmenia pre rôzne počty nenulových prvkov.
 
 Presné riešenie, aby bolo možné spočítať bude mať niekoľko tisíc diskrétnych stavov.
@@ -150,27 +150,27 @@ priemerná, minimálna, maximálna chyba a smerodatná odchylka \\
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.7]{../../results_q_learning/map_1/function_type_1/iterations_10/action_best_value_log_surface.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_1/iterations_10/action_best_value_log_surface.png}
 \caption{fig:sparse table}
 \end{figure}
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.7]{../../results_q_learning/map_1/function_type_2/iterations_10/action_best_value_log_surface.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_2/iterations_10/action_best_value_log_surface.png}
 \caption{fig:linear combination Gauss}
 \end{figure}
 
 
 
 
-\begin{figure}
-\includegraphics[scale=.21]{../../results_q_learning/map_1/function_type_3/iterations_10/action_best_value_log_surface.png}
+\begin{figure}[!htb]
+\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_3/iterations_10/action_best_value_log_surface.png}
 \caption{sparse table + linear combination Gauss}
 \end{figure}
 
 
-\begin{figure}
-\includegraphics[scale=.21]{../../results_q_learning/map_1/function_type_4/iterations_10/action_best_value_log_surface.png}
+\begin{figure}[!htb]
+\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_4/iterations_10/action_best_value_log_surface.png}
 \caption{linear combination Kohonen function}
 \end{figure}
 
@@ -184,14 +184,14 @@ e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_1/q_learning_error.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_1/q_learning_error.png}
 \caption{sparse table}
 \end{figure}
 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_2/q_learning_error.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_2/q_learning_error.png}
 \caption{linear combination Gauss}
 \end{figure}
 
@@ -205,7 +205,7 @@ e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_3/q_learning_error.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_3/q_learning_error.png}
 \caption{sparse table + linear combination Gauss}
 \end{figure}
 
@@ -213,7 +213,7 @@ e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_4/q_learning_error.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_4/q_learning_error.png}
 \caption{linear combination Kohonen function}
 \end{figure}
 
@@ -227,14 +227,14 @@ max Q(s, a) - Výsledky experimentov
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_0/iterations_10/q_learning_result.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_0/iterations_10/q_learning_result.png}
 \caption{reference table}
 \end{figure}
 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_3/iterations_10/q_learning_result.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_3/iterations_10/q_learning_result.png}
 \caption{sparse table + linear combination Gauss}
 \end{figure}
 
@@ -245,7 +245,7 @@ Priebeh trialov - Výsledky experimentov
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.36]{../../results_q_learning/map_1/trials_average_results_progress.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_1/trials_average_results_progress.png}
 \end{figure}
 
 
@@ -255,7 +255,7 @@ Mapa 1 - Výsledky experimentov
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.36]{../../results_q_learning/map_1/trials_average_results.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_1/trials_average_results.png}
 \end{figure}
 
 
@@ -264,7 +264,7 @@ Mapa 0 - Výsledky experimentov
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.36]{../../results_q_learning/map_0/trials_average_results.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_0/trials_average_results.png}
 \end{figure}
 
 
@@ -272,7 +272,7 @@ Mapa 2 - Výsledky experimentov
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.36]{../../results_q_learning/map_2/trials_average_results.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_2/trials_average_results.png}
 \end{figure}
 
 
@@ -280,5 +280,5 @@ Mapa 3 - Výsledky experimentov
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.36]{../../results_q_learning/map_3/trials_average_results.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_3/trials_average_results.png}
 \end{figure}

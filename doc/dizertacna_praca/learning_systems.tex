@@ -215,7 +215,7 @@ Ohodnotenie niektorých ciest
   \item $\Lambda(\{S_0, S_1, S_1, S_1, S_1, S_1, ...\}) = 10$ <-----
   \item $\Lambda(\{S_0, S_1, S_1, S_1, S_1, S_1, ..., S3\}) = 11$ <-----
 \end{enumerate}
- 
+
 Cyklovanie v $S_1$ teda prinesie celkovú odmenu 10, ale pri prechode do $S_3$ je celková
 odmena 11.
 
@@ -293,7 +293,7 @@ vyberať.
 
 \subsection{Výsledky experimentu}
 
-Overnie prebehlo s 32 virtuálnymi robotmi. Cieľom bolo naháňať pohyblivý cieľ,
+Overenie prebehlo s 32 virtuálnymi robotmi. Cieľom bolo naháňať pohyblivý cieľ,
 ktorý sa pohyboval po kružnici. Počiatočné polohy robotov boli náhodné.
 Celý experiment prebiehal v dvojrozmernom priestore obmedzenom na rozsah
 polohy $\langle -1, 1 \rangle$. Metrika vzdialenosti bola Euklidovská.
@@ -313,7 +313,7 @@ od parametrov $\gamma$ a $p$ je na obrázku \ref{img:nano_q_summary}.
 \label{img:nano_q_summary}
 \end{figure}
 
-Dráhy robotov pre jednotlivé parametre :
+Dráhy robotov pre niektoré zvolené parametre sú uvedené v tabuľke \ref{tab:nano_q}
 
 \begin{center}
   \begin{tabular}{ | c | c || c | c |}
@@ -326,7 +326,9 @@ Dráhy robotov pre jednotlivé parametre :
     $0.9$ & $0.4$ & \ref{img:nano_q_result_04_3_path} & \ref{img:nano_q_result_04_3_error} \\
     $0.98$ & $0.4$ & \ref{img:nano_q_result_04_4_path} & \ref{img:nano_q_result_04_4_error} \\
     \hline
-  \end{tabular}
+    \end{tabular}
+    \captionof{table}{Vybrané parametre experimentu a odkaz na grafické znázornenie výsledku}
+    \label{tab:nano_q}
 \end{center}
 
 \begin{figure}[!htb]
@@ -441,8 +443,7 @@ je zrejmi z obrázkov :
 \ref{img:nano_q_result_04_4_path}
 \ref{img:nano_q_result_04_4_error}.
 
-Algoritmus bol pomenovaný nanoQ a je pod licenciou GNU GPL dostupný na \\
-https://github.com/michalnand/q\_learning/tree/master/src/nano\_q\_learning .
+Algoritmus bol pomenovaný nanoQ a je pod licenciou GNU GPL dostupný na \cite{bib:nano_q_link}.
 Je napísaný v jazyku C len s využitím pevnej rádovej čiarky. To umožňuje jeho implementáciu
 aj do menej výkonných mikrokontrolérov, s jadrami napr. Cortex M0 alebo MSP430. Učenie
 prebieha v reálnom čase a nevyžaduje veľký výpočtový výkon. Podobne, aj pamäťové nároky rastú

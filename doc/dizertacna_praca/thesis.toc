@@ -13,14 +13,15 @@
 \contentsline {section}{\numberline {2.2}V\IeC {\'y}ber akcie}{24}{section.2.2}
 \contentsline {section}{\numberline {2.3}Probl\IeC {\'e}my v\IeC {\'y}po\IeC {\v c}tu $Q(s, a)$}{25}{section.2.3}
 \contentsline {section}{\numberline {2.4}Tabu\IeC {\v l}ka}{26}{section.2.4}
-\contentsline {section}{\numberline {2.5}Dopredn\IeC {\'a} neur\IeC {\'o}nov\IeC {\'a} sie\IeC {\v t}}{26}{section.2.5}
+\contentsline {section}{\numberline {2.5}Dopredn\IeC {\'a} neur\IeC {\'o}nov\IeC {\'a} sie\IeC {\v t}}{27}{section.2.5}
 \contentsline {section}{\numberline {2.6}Kohonenov\IeC {\'a} neur\IeC {\'o}nov\IeC {\'a} sie\IeC {\v t}}{29}{section.2.6}
-\contentsline {section}{\numberline {2.7}Neur\IeC {\'o}nov\IeC {\'a} sie\IeC {\v t} b\IeC {\'a}zickych funkci\IeC {\'\i }}{30}{section.2.7}
-\contentsline {subsection}{\numberline {2.7.1}Ur\IeC {\v c}enie parametrov $\alpha $}{32}{subsection.2.7.1}
-\contentsline {subsection}{\numberline {2.7.2}Ur\IeC {\v c}enie parametrov $\beta $}{33}{subsection.2.7.2}
-\contentsline {subsection}{\numberline {2.7.3}Ur\IeC {\v c}enie v\IeC {\'a}hov\IeC {\'y}ch parametrov $w$}{34}{subsection.2.7.3}
-\contentsline {chapter}{\numberline {3}Experiment\IeC {\'a}lna \IeC {\v c}as\IeC {\v t}}{36}{chapter.3}
-\contentsline {section}{\numberline {3.1}Ciele pr\IeC {\'a}ce}{36}{section.3.1}
-\contentsline {section}{\numberline {3.2}N\IeC {\'a}vrh experimentu}{37}{section.3.2}
-\contentsline {section}{\numberline {3.3}V\IeC {\'y}sledky experimentu}{40}{section.3.3}
-\contentsline {chapter}{Literat\IeC {\'u}ra}{47}{chapter*.2}
+\contentsline {section}{\numberline {2.7}Neur\IeC {\'o}nov\IeC {\'a} sie\IeC {\v t} b\IeC {\'a}zickych funkci\IeC {\'\i }}{32}{section.2.7}
+\contentsline {subsection}{\numberline {2.7.1}Ur\IeC {\v c}enie parametrov $\alpha $}{34}{subsection.2.7.1}
+\contentsline {subsection}{\numberline {2.7.2}Ur\IeC {\v c}enie parametrov $\beta $}{35}{subsection.2.7.2}
+\contentsline {subsection}{\numberline {2.7.3}Ur\IeC {\v c}enie v\IeC {\'a}hov\IeC {\'y}ch parametrov $w$}{36}{subsection.2.7.3}
+\contentsline {subsection}{\numberline {2.7.4}Hybridn\IeC {\'y} variant}{36}{subsection.2.7.4}
+\contentsline {chapter}{\numberline {3}Experiment\IeC {\'a}lna \IeC {\v c}as\IeC {\v t}}{38}{chapter.3}
+\contentsline {section}{\numberline {3.1}Ciele epxerimentu}{38}{section.3.1}
+\contentsline {section}{\numberline {3.2}N\IeC {\'a}vrh experimentu}{39}{section.3.2}
+\contentsline {section}{\numberline {3.3}V\IeC {\'y}sledky experimentu}{42}{section.3.3}
+\contentsline {chapter}{Literat\IeC {\'u}ra}{51}{chapter*.49}
