@@ -1,0 +1,71 @@
+#ifndef _COLORS_H_
+#define _COLORS_H_
+
+#include "int_def.h"
+
+
+#define COLOR_EMPTY_R		(u32)0
+#define COLOR_EMPTY_G		(u32)0
+#define COLOR_EMPTY_B		(u32)0
+
+
+#define COLOR_WALL_R		(u32)150
+#define COLOR_WALL_G		(u32)150
+#define COLOR_WALL_B		(u32)150 
+
+#define COLOR_RED_ROBOT_R	(u32)255
+#define COLOR_RED_ROBOT_G	(u32)0
+#define COLOR_RED_ROBOT_B	(u32)0
+
+#define COLOR_RED_TARGET_R	(u32)255
+#define COLOR_RED_TARGET_G	(u32)70
+#define COLOR_RED_TARGET_B	(u32)0
+
+#define COLOR_RED_PATH_R	(u32)255
+#define COLOR_RED_PATH_G	(u32)0
+#define COLOR_RED_PATH_B	(u32)70
+
+
+#define COLOR_GREEN_ROBOT_R		(u32)0
+#define COLOR_GREEN_ROBOT_G		(u32)255
+#define COLOR_GREEN_ROBOT_B		(u32)0
+
+#define COLOR_GREEN_TARGET_R	(u32)70
+#define COLOR_GREEN_TARGET_G	(u32)255
+#define COLOR_GREEN_TARGET_B	(u32)0
+
+#define COLOR_GREEN_PATH_R		(u32)0
+#define COLOR_GREEN_PATH_G		(u32)255
+#define COLOR_GREEN_PATH_B		(u32)70
+
+#define COLOR_BLUE_ROBOT_R		(u32)0
+#define COLOR_BLUE_ROBOT_G		(u32)0
+#define COLOR_BLUE_ROBOT_B		(u32)255
+
+#define COLOR_BLUE_TARGET_R		(u32)70
+#define COLOR_BLUE_TARGET_G		(u32)0
+#define COLOR_BLUE_TARGET_B		(u32)255
+
+#define COLOR_BLUE_PATH_R		(u32)0
+#define COLOR_BLUE_PATH_G		(u32)70
+#define COLOR_BLUE_PATH_B		(u32)255
+
+
+#define COLOR_PATH_R			(u32)255
+#define COLOR_PATH_G			(u32)255
+#define COLOR_PATH_B			(u32)255
+
+#define COLOR_TARGET_R			(u32)255
+#define COLOR_TARGET_G			(u32)255
+#define COLOR_TARGET_B			(u32)0
+
+#define COLOR_SOURCE_R			(u32)66
+#define COLOR_SOURCE_G			(u32)226
+#define COLOR_SOURCE_B			(u32)232
+
+#define COLOR_DESTINATION_R		(u32)255
+#define COLOR_DESTINATION_G		(u32)30
+#define COLOR_DESTINATION_B		(u32)202
+
+
+#endif

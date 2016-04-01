@@ -1,0 +1,48 @@
+set   autoscale                        # scale axes automatically
+unset log                              # remove any log-scaling
+unset label                            # remove any previous labels
+set xtic auto                         	# set xtics automatically
+set ytic auto                         # set ytics automatically
+
+
+
+set grid ytics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set grid xtics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set terminal png size 1024,768 enhanced font "Helvetica,20"
+
+
+set label
+set key left
+#set key left bottom
+
+set xlabel "function type"
+set ylabel "error value"
+
+
+set style fill solid border rgb "black"
+set autoscale
+
+set xtics ("ST" 0, "Gauss" 1, "Gauss + ST" 2, "KNN" 3, "KNN + ST" 4)
+set xtics rotate
+
+set output 'trials_average_results.png'
+plot "trials_average_results.log" using 2 title "average error"  with histogram lw 2.0, \
+    "trials_average_results.log" using 3 title "minimal error"  with histogram lw 2.0, \
+    "trials_average_results.log" using 4 title "maximal error"  with histogram lw 2.0, \
+    "trials_average_results.log" using 5 title "standard deviation"  with histogram lw 2.0
+
+set xtic auto
+set xrange [:]
+set key inside
+set key right
+set xlabel "trial"
+set ylabel "error value"
+set xtics norotate
+
+
+set output 'trials_average_results_progress.png'
+plot "function_type_1/summary_error_results.log" using 1:2 title "function 1 : trials results"  with line lw 2.0, \
+    "function_type_2/summary_error_results.log" using 1:2 title "function 2 : trials results"  with line lw 2.0, \
+    "function_type_3/summary_error_results.log" using 1:2 title "function 3 : trials results"  with line lw 2.0, \
+    "function_type_4/summary_error_results.log" using 1:2 title "function 4 : trials results"  with line lw 2.0, \
+    "function_type_5/summary_error_results.log" using 1:2 title "function 5 : trials results"  with line lw 2.0
