@@ -4,10 +4,18 @@ Q-learning algoritmus je definovaný pre časovo diskrétne systémy.
 Agent ktorý prechádza stavový priestor vykonaním niektorej z vopred daných
 akcií získava za tieto prechody odmeny. Cieľom algoritmu je ohodnotiť všetky akcie
 v jednotlivých stavoch, tak aby bol dosiahnutý ustálený stav a v každom stave
-bolo možno vybrať akciu prinášajúcu najväčšiu odmenu, v globálnom zmysle.
+bolo možno vybrať akciu prinášajúcu najväčšiu odmenu, v zmysle
+s \ref{eq:q_quality}.
 
 
 \section{Definícia algoritmu}
+
+Autoro Q-learning algoritmu je Christopher  J.C.H. Watkins, v roku 1992 publikoval
+článok kde tento algoritmus predstavil \cite{bib:q_learning_watkins} a niekoľko ďalších,
+jednoduchých vysvetlení tohto algoritmu je možné nájsť v \cite{bib:q_tutorial_01} alebo
+\cite{bib:q_tutorial_02}. Dôkazy o konvergencií k otimálnemu riešeniu (v zmysle
+s \ref{eq:q_quality}) sú k dispozícií \cite{bib:q_proof_01}, \cite{bib:q_proof_02},
+\cite{bib:q_proof_03}, \cite{bib:q_proof_04}.
 
 Daná je množina stavov $\mathbb{S}$ a akcií $\mathbb{A}$, kde
  $\mathbb{S} \in \mathbb{R}^{n_s}$ a $\mathbb{A} \in \mathbb{R}^{n_a}$, kde
@@ -51,6 +59,23 @@ mohol získať dostaním sa do stavu $s(n-1)$, situáciu ilustruje obrázok \ref
 \caption{Ilustrácia funkcie ohodnotení, pre $\gamma = 0.9$}
 \label{img:q_learning}
 \end{figure}
+
+Je potrebné poznamenať, ža práve časť $\max_{a(n-1) \in \mathbb{A}} Q_{n-1}(s(n-1), a(n-1)$
+zabezpečuje nezávislosť konvergencie k optimu bez ohľadu voľby stratégie výberu akcie -
+postačuje, aby každá akcia, v každom stave mala nenulovú pravdepodobnosť vykonania.
+Určitým variantom, je algoritmus SARSA \cite{bib:sarsa}
+
+\begin{align}
+Q_{n}(s(n),a(n)) &= \nonumber \\
+ (1-&\alpha)Q_{n-1}(s(n),a(n)) + \nonumber  \\
+&\alpha(R(s(n),a(n)) + \gamma Q_{n-1}(s(n-1), a(n-1)))
+\label{eq:sarsa}
+\end{align}
+
+kde $\alpha \in (0, 1)$, hodnota $Q_{n}(s(n),a(n))$ sa  teda ustáli na strednej hodnote,
+a závisí na stratégie výberu akcií. Q-learning teda vychádza z toho, čo najlepšie sa mohlo stať
+a SARSA z toho čo sa naozaj stalo.
+
 
 Nasledujúce obrázky ilustrujú beh algoritmu pre systém so 6 stavmi pre $\gamma = 0.8$.
 Na začiatku nie sú známe ani samotné prechody medzi stavmi (Obr. $\ref{img:q_learning_1}$), bol definovaný
@@ -552,6 +577,7 @@ Niektoré tvary bázických funkcií
     f_j^1(\boldmath{s(n), a(n)}) &= e^{ -\sum\limits_{i=1}^{n_s}{\beta_{aji}(n)(s_i(n) - \alpha_{aji}(n))^2} }  \\
     f_j^2(\boldmath{s(n), a(n)}) &= \frac{1}{1 + \sum\limits_{i=1}^{n_s}{\beta_{aji}(n)(s_i(n) - \alpha_{aji}(n))^2}}  \\
     f_j^3(\boldmath{s(n), a(n)}) &= e^{ -\sum\limits_{i=1}^{n_s}{\beta_{aji}(n)\mid s_i(n) - \alpha_{aji}(n) \mid} }
+    \label{eq:basis_functions_01}
 \end{align}
 
 kde \\

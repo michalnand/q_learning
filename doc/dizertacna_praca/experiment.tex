@@ -1,17 +1,17 @@
 \chapter{Experimentálna časť}
 
 
-\section {Ciele epxerimentu}
+\section {Ciele experimentu}
 
 V oblasti Q-learning algoritmoch je možné pozorovať dva hlavné smery výskumu
 
 \begin{itemize}
-\item aproximácia funkcie ohodnotení
-\item spôsob výberu akcie
+\item aproximácia funkcie ohodnotení \cite{bib:aproximation_01} \cite{bib:aproximation_02} \cite{bib:aproximation_03} \cite{bib:aproximation_04}
+\item spôsob výberu akcie \cite{bib:strategy_01} \cite{bib:strategy_02} \cite{bib:strategy_03}
 \end{itemize}
 
-Obe majú široké pole diskusií v snahe vyriešit niekoľko hlavných problém Q-learning
-algoritmu a to najmä
+Obe majú široké pole diskusií v snahe vyriešit niekoľko hlavných problémov Q-learning
+algoritmu a to najmä :
 
 \begin{itemize}
 \item veľký počet prechodov medzi stavmi
@@ -19,7 +19,143 @@ algoritmu a to najmä
 \end{itemize}
 
 Cieľom práce je na danej množine odmeňovacích funkcií $R(s(n), a(n))$ overiť
-možnosti aproximácie $Q(s(n), a(n))$.
+možnosti aproximácie $Q(s(n), a(n))$. Prvým intuitivným spôsobom bola snaha aproximovať
+predmentnú funkciu doprednými neurónovými sieťami. Principiálne tomu nič nebráni,
+problém je ale nedokonalý algoritmus učenia, a to, že sa vplyvom rekurentnej povahy
+Q-learning algoritmu pokúša neurónová sieť zároveň predikovať správnu hodnotu
+a zároveň učiť na požadovanú hodnotu.
+
+\begin{figure}[!htb]
+\center
+\includegraphics[scale=.4]{../diagrams/q_chain_problem.eps}
+\caption{Ilustrácia postupného nabaľovania chyby}
+\label{img:snowball_problem}
+\end{figure}
+
+Postupne sa tak v sieti nabaľuje chyba. Tento problém ilustruje \ref{img:snowball_problem}.
+Je daná postupnosť stavov a každom okrem východzieho a cieľového sú dve akcie.
+Odmena $R(s,a)$ je všade nulová, len po dosiahnutí cieľového stavu je rovná kladnej hodnote.
+
+Pre korektné vyplnenie hodnôt v $s_{n-1}$ sa vyžaduje korektá hodnota v $s_{n}$
+
+\begin{align*}
+    Q(s(1),a(1)) &= R(s(1),a(1)) + \gamma \max_{a(0) \in \mathbb{A}} Q(s(0), a(0)) \\
+    Q(s(2),a(2)) &= R(s(2),a(2)) + \gamma \max_{a(1) \in \mathbb{A}} Q(s(1), a(1)) \\
+    & \dots
+\end{align*}
+
+V prípade dobrednej siete učenej algoritmon Backpropagation, zmena hodnoty v jendom bode $Q(s(n),a(n))$ spôsobí
+zmenu vo všetkých ostatných hodotách a nikde nie je zaručené, že k správnej hodnote -
+v určitom štádiu učenia sa tak môže zdať, že hodnoty koretkne kovergujú, a inom
+sa môžu vzďaľovať. Práve preto sa pre klasické úlohy rozpoznávania predkladajú sieti vzory
+v náhodonom poradí a v mnohých opakovaniach. Vzory a požadované výstupy sú však nezávislé.
+
+\subsection{Divergencia riešenia}
+
+Tento efekt divergencie bol pozovaný nie len vyžšie uvedenými autormi, ale aj experimentálne
+overený v tejto práci. Usporiadanie experimentu je na obrázku \ref{img:1D_experiment_schem}.
+Robot má dve akcie, pohyb o pevne zvolený krkok vľavo alebo vpravo. Úlohou je dostať sa
+do cieľa, ktorý môže byť umiestnený kdekoľvek. Pre jednoduchosť bol vybraný 2 rozmerný stavový priestor
+z rozsahu $s \in \langle -1, 1 \rangle$. Stav systému charakterizovaný vektorom $s$ je
+poloha robota voči počiatku a poloha cieľa voči počiatku, takýto systém je aj dobre graficky znázorniteľný.
+
+\begin{figure}[!htb]
+\center
+\includegraphics[scale=.3]{../diagrams/1D_robot_diagram.eps}
+\caption{Schéma experimentu pre doprednú neurónovú sieť}
+\label{img:1D_experiment_schem}
+\end{figure}
+
+Z ostatných parametrov ktoré boli použité pre beh experimentu :
+
+\begin{itemize}
+\item počet iterácií = 10000000
+\item delenie stavoého priestoru = 1/8.0
+\item $\gamma = 0.7$
+\item neurónová sieť :
+  \begin{itemize}
+  \item počet skrytých vrstiev = 2
+  \item počet neurónov v skrytých vrstvách = 10
+  \item rozsha váh = 4.0
+  \item krok učenia $\eta = 0.001$
+  \end{itemize}
+\end{itemize}
+
+Najskôr bolo určené riešenie použitím tabuľky (ktoré bolo pre malý počet stavov možné spočítať).
+Najdôležitejší výstup je výber korektnej akcie, kde $+1$ znamená jeden smer a $-1$ smer opačný.
+Veľmi ľahko sa dá očakávať ostré rozdelnie stavového priestoru po diagonále :
+ak je robot naľavo od cieľa musí sa pohybovať doprava a naopak. Výsledok je na obrázku
+\ref{img:divergence_table_action}. Pre úplnosť, obrázok \ref{img:divergence_table_q_map}
+znázorňuje hodnoty $\max_{a(n-1) \in \mathbb{A}} Q(s, a)$. Opäť sa dá ľahko očakávať
+že pre najmenšiu vzdialenosť bude táto hodnota najväčšia - hodnoty na diagonále.
+
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{../../results_q_learning/experiment_divergence/table/q_action.png}
+\caption{Najlepšia akcia pre riešenie s tabuľkou}
+\label{img:divergence_table_action}
+\end{figure}
+
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{../../results_q_learning/experiment_divergence/table/q_map.png}
+\caption{Hodnoty $\max_{a(n-1) \in \mathbb{A}} Q(s, a)$ pre riešenie s tabuľkou}
+\label{img:divergence_table_q_map}
+\end{figure}
+
+Jedno z najlepších riešení dosiahnuté doprednou neurónovou sieťou učenou
+Backpropagation algoritmom je na obrázkoch \ref{img:divergence_table_action} a
+\ref{img:divergence_table_q_map}.
+
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{../../results_q_learning/experiment_divergence/testing_neuron/q_action.png}
+\caption{Najlepšia akcia pre riešenie s neurónovou sieťou}
+\label{img:divergence_table_action}
+\end{figure}
+
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{../../results_q_learning/experiment_divergence/testing_neuron/q_map.png}
+\caption{Hodnoty $\max_{a(n-1) \in \mathbb{A}} Q(s, a)$ pre riešenie s neurónovou sieťou}
+\label{img:divergence_table_q_map}
+\end{figure}
+
+Napriek jednoduchej úlohe, nie je možné povedať že sieť úspešne aproximuje tento problém.
+Porovním výstupov najlepších akcií je možné vidieť určitý náznak podobnosti, ktorý je
+však vzhľadom na irelevantnosť úlohy bezpredmentný a dosahuje priveľkú chybu, najmä
+ak sa robot už blížil k cieľu.
+
+\section {Riešenie aproximácie}
+
+Uvedení autory najčastejšie používajú tzv. príznaky (features) na aproximovanie $Q(s(n), a(n))$
+\begin{align}
+Q(s(n), a(n)) = \sum\limits_{j=1} w_j g_j(s(n), a(n))
+\label{eq:features_func}
+\end{align}
+
+kde $g_j(s(n), a(n))$ sú funkcie príznakov, ktorých je konečný počet a
+$w_j$ predstavuje váhy ich lineárnej kombinácie.
+
+Príznaky sú zvolené pevne a závisia od typu úlohy. Práve to predstavuje najväčší
+nedostatok. Cieľom navrhovaného experimentu je využiť príznaky ktorých parametre
+sa menia. Vzniká tak akýsi hybrid medzi neurónovou sieťou a lineárnou kombináciou
+pevne zvolených príznakov.
+
+Z ohľadom na minimalizovanie vplyvu zmeny parametrov j-teho príznaku alebo váhy $w_j$
+na ostatné príznaky a váhy, je potrebné, aby ich bolo možné nastavovať nezávislé -
+aby vhodná séria príznakov pokryla svoju podmonožinu stavového priestoru. Toto
+je možné dosiahnuť ortogonalitou príznakou, stráca sa však možnosť generovať funkciu
+ako je lineárna kombinácia týchto ortogonálnych funkcií. Vhodným kompromisom sú
+preto funkcie uvedené v \ref{eq:basis_functions_01}.
+
+
+\section {Návrh experimentu}
+
 V niekoľkých bodoch je možné postup určiť ako
 
 \begin{itemize}
@@ -48,7 +184,6 @@ Kedže voľba niektorých počiatočných parametrov aproximačných metód je n
 je nevyhnutné spočítať niekoľko nezávislých behov a overť tak rozptyl, minimálnu, maximálnu
 a priemernu chybu.
 
-\section {Návrh experimentu}
 
 Aby sa dalo kvalitatívne ohodnotiť použité riešenie, je nutné urobiť veľký počet experimentov.
 Aby bolo možné ľahko graficky znázorniť výsledok, bude stavový priestor dvojrozmerný a platí
@@ -61,7 +196,7 @@ prostredie umožní zmenu stavu vykonaním akcie $a(n) \in \mathbb{A}$, a to pod
 
 \begin{equation}
 s(n+1) = s(n) + a(n){dt}
-\label{eq:q_learning}
+\label{eq:q_learning_next_state}
 \end{equation}
 
 Jednotlivé funkcie $R^k(s(n), a(n))$ predstavujú mapy odmien v ktorých sa agent pohybuje. Pre zjednodušenie
@@ -281,4 +416,22 @@ Mapa 3 - Výsledky experimentov
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=.4]{../../results_q_learning/map_3/trials_average_results.png}
+\end{figure}
+
+
+\section {Ukážkový experiment}
+
+\begin{figure}[!htb]
+\center
+\includegraphics[scale=.3]{../diagrams/motoko_robot_block.eps}
+\caption{Bloková schéma riadiaceho systému robota}
+\label{img:motoko_block}
+\end{figure}
+
+
+\begin{figure}[!htb]
+\center
+\includegraphics[scale=.08]{../pictures/motoko_aftermath_front.jpg}
+\caption{Fotografia robota}
+\label{img:motoko_photo}
 \end{figure}
