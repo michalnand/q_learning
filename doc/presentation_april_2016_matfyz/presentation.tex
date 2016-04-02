@@ -504,6 +504,29 @@ kde $l$ je počet bázických funkcií a $x$ je voľba typu bázickej funkcie.
 \end{frame}
 
 
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Q-learning algoritmus - aproximácia}
+
+Tabuľka pre vybrané hodnoty - umožní zachytit skokovú zmenu \\
+Gaussova krivka - dokáže pokryť nenulovými hodnotami celý definyčný obor \\
+
+\begin{align}
+P_i(s(n), a(n)) &=
+\left\{
+	\begin{array}{ll}
+		r_{ai}  & if \ s(n) = \alpha^1_i \\
+		0 & inak
+	\end{array}
+\right. \\
+  H_j(s(n), a(n)) &= w_{aj} e^{ -\beta_{aj} \sum\limits_{i=1}^{n_s}{(s_i(n) - \alpha^2_{aji})^2 }} \\
+  Q(s(n), a(n)) &= \sum\limits_{i=1}^{I} P_i(s(n),a(n)) + \sum\limits_{j=1}^{J} H_j(s(n), a(n))
+  \label{eq:peak_hill}
+\end{align}
+
+
+\end{frame}
+
+
 
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Bloková schéma syntézy testovaného riešenia}
