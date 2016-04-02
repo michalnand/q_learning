@@ -4,6 +4,6 @@
 #define S_RESULTS_PATH		"results"
 #define S_MAP_PATH        "map_"
 
-#define MAPS_COUNT        8
+#define MAPS_COUNT        4
 
 #endif

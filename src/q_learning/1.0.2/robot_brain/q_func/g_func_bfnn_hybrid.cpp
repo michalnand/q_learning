@@ -3,13 +3,13 @@
 
 CQFuncBFNNHybrid::CQFuncBFNNHybrid(u32 state_size, std::vector<std::vector<float>> actions)
 {
-    u32 i; 
+    u32 i;
 
     this->actions = actions;
     this->learning_rate = 0.01;
 
     u32 count_peek = 64;
-    u32 count_hill = 8;
+    u32 count_hill = 1;
     u32 dimension = state_size;
 
     for (i = 0; i < actions.size(); i++)

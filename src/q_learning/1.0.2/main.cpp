@@ -217,13 +217,14 @@ int main()
 	printf("\n processing experiment : \n");
 
 	float error = 0.0;
-	map_id = 1;
+	map_id = 3;
 	i = 0;
 	function_type = 6;
 
-	for (map_id = 0; map_id < MAPS_COUNT; map_id++)
+	//for (map_id = 0; map_id < MAPS_COUNT; map_id++)
   //for (function_type = 0; function_type <= 5; function_type++)
 	{
+
 		char file_name[1024];
 		sprintf(file_name,"%s/map_%u/function_type_%u/summary_error_results.log", S_RESULTS_PATH, map_id, function_type);
 		class CLog log(file_name, 2);

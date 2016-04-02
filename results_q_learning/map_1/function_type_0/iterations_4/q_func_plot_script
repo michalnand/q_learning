@@ -66,6 +66,39 @@ set output 'action_best_value_log_surface.png'
 splot 'q_learning_result.log' using 1:2:4 title "best action id" with pm3d
 
 
+
+set zlabel "q value for action 0"
+set output 'q_value_for_action_0.png'
+splot 'q_learning_result.log' using 1:2:5 title "q value" with pm3d
+
+set zlabel "q value for action 1"
+set output 'q_value_for_action_1.png'
+splot 'q_learning_result.log' using 1:2:6 title "q value" with pm3d
+
+set zlabel "q value for action 2"
+set output 'q_value_for_action_2.png'
+splot 'q_learning_result.log' using 1:2:7 title "q value" with pm3d
+
+set zlabel "q value for action 3"
+set output 'q_value_for_action_3.png'
+splot 'q_learning_result.log' using 1:2:8 title "q value" with pm3d
+
+set zlabel "q value for action 4"
+set output 'q_value_for_action_4.png'
+splot 'q_learning_result.log' using 1:2:9 title "q value" with pm3d
+
+set zlabel "q value for action 5"
+set output 'q_value_for_action_5.png'
+splot 'q_learning_result.log' using 1:2:10 title "q value" with pm3d
+
+set zlabel "q value for action 6"
+set output 'q_value_for_action_6.png'
+splot 'q_learning_result.log' using 1:2:11 title "q value" with pm3d
+
+set zlabel "q value for action 7"
+set output 'q_value_for_action_7.png'
+splot 'q_learning_result.log' using 1:2:12 title "q value" with pm3d
+
 unset key
 set lmargin 10
 set zlabel "path"

@@ -24,3 +24,7 @@ cd ..
 cd function_type_5
 ./plot
 cd ..
+
+cd function_type_6
+./plot
+cd ..

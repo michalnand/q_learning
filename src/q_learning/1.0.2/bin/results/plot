@@ -12,25 +12,6 @@ cd map_2
 ./plot
 cd ..
 
-
 cd map_3
-./plot
-cd ..
-
-exit
-
-cd map_4
-./plot
-cd ..
-
-cd map_5
-./plot
-cd ..
-
-cd map_6
-./plot
-cd ..
-
-cd map_7
 ./plot
 cd ..

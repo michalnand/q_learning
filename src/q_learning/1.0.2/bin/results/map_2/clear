@@ -24,3 +24,7 @@ cd ..
 cd function_type_5
 ./clear
 cd ..
+
+cd function_type_6
+./clear
+cd ..

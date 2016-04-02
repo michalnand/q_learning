@@ -28,5 +28,5 @@
 \contentsline {section}{\numberline {3.2}Rie\IeC {\v s}enie aproxim\IeC {\'a}cie}{44}{section.3.2}
 \contentsline {section}{\numberline {3.3}N\IeC {\'a}vrh experimentu}{47}{section.3.3}
 \contentsline {section}{\numberline {3.4}V\IeC {\'y}sledky experimentu}{50}{section.3.4}
-\contentsline {section}{\numberline {3.5}Uk\IeC {\'a}\IeC {\v z}kov\IeC {\'y} experiment}{51}{section.3.5}
+\contentsline {section}{\numberline {3.5}Uk\IeC {\'a}\IeC {\v z}kov\IeC {\'y} experiment}{52}{section.3.5}
 \contentsline {chapter}{Literat\IeC {\'u}ra}{60}{chapter*.62}

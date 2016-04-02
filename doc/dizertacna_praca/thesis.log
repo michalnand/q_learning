@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.1)  1 APR 2016 15:04
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.1)  2 APR 2016 15:23
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1505,26 +1505,26 @@ ivergence/testing_neuron/q_action.png> <../../results_q_learning/experiment_div
 ergence/testing_neuron/q_map.png>] [47]
 Package epstopdf Info: Source file: <../diagrams/experiment_map_q_learning.eps>
 
-(epstopdf)                    date: 2016-03-03 08:15:20
-(epstopdf)                    size: 242876 bytes
+(epstopdf)                    date: 2016-04-02 15:22:59
+(epstopdf)                    size: 261973 bytes
 (epstopdf)             Output file: <../diagrams/experiment_map_q_learning-eps-
 converted-to.pdf>
-(epstopdf)                    date: 2016-03-03 08:15:24
-(epstopdf)                    size: 103023 bytes
+(epstopdf)                    date: 2016-04-02 15:23:21
+(epstopdf)                    size: 111192 bytes
 (epstopdf)             Command: <epstopdf --outfile=../diagrams/experiment_map_
 q_learning-eps-converted-to.pdf ../diagrams/experiment_map_q_learning.eps>
 (epstopdf)             \includegraphics on input line 223.
 Package epstopdf Info: Output file is already uptodate.
 
-<../diagrams/experiment_map_q_learning-eps-converted-to.pdf, id=650, 1460.45625
-pt x 819.06pt>
+<../diagrams/experiment_map_q_learning-eps-converted-to.pdf, id=650, 1465.475pt
+ x 937.5025pt>
 File: ../diagrams/experiment_map_q_learning-eps-converted-to.pdf Graphic file (
 type pdf)
 
 <use ../diagrams/experiment_map_q_learning-eps-converted-to.pdf>
 Package pdftex.def Info: ../diagrams/experiment_map_q_learning-eps-converted-to
 .pdf used on input line 223.
-(pdftex.def)             Requested size: 438.14026pt x 245.7199pt.
+(pdftex.def)             Requested size: 439.64589pt x 281.25291pt.
  [48] [49 <../diagrams/experiment_map_q_learning-eps-converted-to.pdf>]
 Underfull \hbox (badness 10000) in paragraph at lines 258--260
 
@@ -1693,7 +1693,14 @@ Package pdftex.def Info: ../../results_q_learning/map_2/trials_average_results.
 png used on input line 410.
 (pdftex.def)             Requested size: 308.34654pt x 231.2599pt.
 
-<../../results_q_learning/map_3/trials_average_results.png, id=684, 770.88pt x 
+[50pdfTeX warning (ext4): destination with the same identifier (name{equation.3
+.4.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.411 \end{figure}
+                  ]
+<../../results_q_learning/map_3/trials_average_results.png, id=690, 770.88pt x 
 578.16pt>
 File: ../../results_q_learning/map_3/trials_average_results.png Graphic file (t
 ype png)
@@ -1701,14 +1708,6 @@ ype png)
 Package pdftex.def Info: ../../results_q_learning/map_3/trials_average_results.
 png used on input line 418.
 (pdftex.def)             Requested size: 308.34654pt x 231.2599pt.
-
-[50pdfTeX warning (ext4): destination with the same identifier (name{equation.3
-.4.3}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.419 \end{figure}
-                  ]
 Package epstopdf Info: Source file: <../diagrams/motoko_robot_block.eps>
 (epstopdf)                    date: 2016-04-01 13:44:01
 (epstopdf)                    size: 93171 bytes
@@ -1729,32 +1728,32 @@ f)
 Package pdftex.def Info: ../diagrams/motoko_robot_block-eps-converted-to.pdf us
 ed on input line 426.
 (pdftex.def)             Requested size: 346.89868pt x 161.40424pt.
-
-<../pictures/motoko_aftermath_front.jpg, id=692, 4288.02pt x 2858.68pt>
+ [51 <../../results_q_learning/map_1/reward_value_surface.png> <../../results_q
+_learning/map_1/function_type_1/iterations_10/action_best_value_log_surface.png
+>]
+<../pictures/motoko_aftermath_front.jpg, id=701, 4288.02pt x 2858.68pt>
 File: ../pictures/motoko_aftermath_front.jpg Graphic file (type jpg)
 
 <use ../pictures/motoko_aftermath_front.jpg>
 Package pdftex.def Info: ../pictures/motoko_aftermath_front.jpg used on input l
 ine 434.
 (pdftex.def)             Requested size: 343.04861pt x 228.69907pt.
-) [51 <../../results_q_learning/map_1/reward_value_surface.png> <../../results_
-q_learning/map_1/function_type_1/iterations_10/action_best_value_log_surface.pn
-g>] [52 <../../results_q_learning/map_1/function_type_2/iterations_10/action_be
-st_value_log_surface.png> <../../results_q_learning/map_1/function_type_3/itera
-tions_10/action_best_value_log_surface.png>] [53 <../../results_q_learning/map_
-1/function_type_4/iterations_10/action_best_value_log_surface.png> <../../resul
-ts_q_learning/map_1/function_type_1/q_learning_error.png>] [54 <../../results_q
-_learning/map_1/function_type_2/q_learning_error.png> <../../results_q_learning
-/map_1/function_type_3/q_learning_error.png>] [55 <../../results_q_learning/map
-_1/function_type_4/q_learning_error.png> <../../results_q_learning/map_1/functi
-on_type_0/iterations_10/q_learning_result.png>] [56 <../../results_q_learning/m
-ap_1/function_type_3/iterations_10/q_learning_result.png> <../../results_q_lear
-ning/map_1/trials_average_results_progress.png>] [57 <../../results_q_learning/
-map_1/trials_average_results.png> <../../results_q_learning/map_0/trials_averag
-e_results.png>] [58 <../../results_q_learning/map_2/trials_average_results.png>
- <../../results_q_learning/map_3/trials_average_results.png>] [59 <../diagrams/
-motoko_robot_block-eps-converted-to.pdf> <../pictures/motoko_aftermath_front.jp
-g>]
+) [52 <../../results_q_learning/map_1/function_type_2/iterations_10/action_best
+_value_log_surface.png> <../../results_q_learning/map_1/function_type_3/iterati
+ons_10/action_best_value_log_surface.png>] [53 <../../results_q_learning/map_1/
+function_type_4/iterations_10/action_best_value_log_surface.png> <../../results
+_q_learning/map_1/function_type_1/q_learning_error.png>] [54 <../../results_q_l
+earning/map_1/function_type_2/q_learning_error.png> <../../results_q_learning/m
+ap_1/function_type_3/q_learning_error.png>] [55 <../../results_q_learning/map_1
+/function_type_4/q_learning_error.png> <../../results_q_learning/map_1/function
+_type_0/iterations_10/q_learning_result.png>] [56 <../../results_q_learning/map
+_1/function_type_3/iterations_10/q_learning_result.png> <../../results_q_learni
+ng/map_1/trials_average_results_progress.png>] [57 <../../results_q_learning/ma
+p_1/trials_average_results.png> <../../results_q_learning/map_0/trials_average_
+results.png>] [58 <../../results_q_learning/map_2/trials_average_results.png> <
+../../results_q_learning/map_3/trials_average_results.png>] [59 <../diagrams/mo
+toko_robot_block-eps-converted-to.pdf> <../pictures/motoko_aftermath_front.jpg>
+]
 \openout2 = `lit.aux'.
 
  (./lit.tex
@@ -1848,7 +1847,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 85.
 Here is how much of TeX's memory you used:
  13659 strings out of 493304
  204540 string characters out of 6139872
- 269943 words of memory out of 5000000
+ 268943 words of memory out of 5000000
  16550 multiletter control sequences out of 15000+600000
  87911 words of font info for 142 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -1864,7 +1863,7 @@ ols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1200.pfb></usr
 exmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
 /utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (66 pages, 3529487 bytes).
+Output written on thesis.pdf (66 pages, 3540326 bytes).
 PDF statistics:
  938 PDF objects out of 1000 (max. 8388607)
  755 compressed objects within 8 object streams

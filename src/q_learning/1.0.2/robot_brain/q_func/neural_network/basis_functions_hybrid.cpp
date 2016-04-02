@@ -31,8 +31,8 @@ CBasisFunctionsHybrid::CBasisFunctionsHybrid(u32 count_peek, u32 count_hill, u32
   for (j = 0; j < this->count_hill; j++)
   {
     float k = 0.90;
-    //hill_shape[j] = 5.0;
-    hill_shape[j] = 20 + 50.0*abs_(rnd_());
+    hill_shape[j] = 5; //200.0;
+    //hill_shape[j] = 20 + 50.0*abs_(rnd_());
     //hill_shape[j] = 100.0*(k + (1.0 - k)*abs_(rnd_()));
 
     hill_centre[j] = (float*)malloc(this->dimension*sizeof(float));
@@ -114,8 +114,8 @@ void CBasisFunctionsHybrid::process(std::vector<float> input)
 
     float tmp = exp(-hill_shape[j]*dist);
     hill_output[j] = tmp;
-    res+= hill_value[j]*tmp;
 
+    res+= hill_value[j]*tmp;
 
     if (dist < hill_min_dist_value)
     {
@@ -144,7 +144,8 @@ void CBasisFunctionsHybrid::learn(float required_value, float learning_rate)
     float lc = 0.1*tanh(10.0*required_value*required_value);
 
     for (i = 0; i < this->dimension; i++)
-      peak_centre[peak_min_dist_idx][i] = (1.0 - lc)*peak_centre[peak_min_dist_idx][i] + lc*input[i];
+      peak_centre[peak_min_dist_idx][i] = (1.0 - lc)*peak_centre[peak_min_dist_idx][i] +
+                                                 lc*input[i];
 
 
     if (peak_min_dist_value < peak_min_dist)
@@ -158,17 +159,18 @@ void CBasisFunctionsHybrid::learn(float required_value, float learning_rate)
     }
   }
 
-  if (this->count_hill > 0)
+  if ((this->count_hill > 0) && (required_value > 0.0))
   {
     float lc_hill = learning_rate;
-    float lc = 0.1*tanh(10.0*required_value*required_value);
+    float lc = 0.2*tanh(10.0*required_value*required_value);
 
     for (i = 0; i < this->dimension; i++)
-      hill_centre[hill_min_dist_idx][i] = (1.0 - lc)*hill_centre[hill_min_dist_idx][i] + lc*input[i];
+      hill_centre[hill_min_dist_idx][i] = (1.0 - lc)*hill_centre[hill_min_dist_idx][i] +
+                                                 lc*input[i];
 
-    if (hill_min_dist_value < 0.1) //peak_min_dist_value)
+    if (hill_min_dist_value < peak_min_dist)
     {
-      hill_value[hill_min_dist_idx]+= lc_hill*error;
+      hill_value[hill_min_dist_idx]+= 2.0*lc_hill*error;
 
       if (hill_value[hill_min_dist_idx] > 1.0)
         hill_value[hill_min_dist_idx] = 1.0;
@@ -176,10 +178,10 @@ void CBasisFunctionsHybrid::learn(float required_value, float learning_rate)
         hill_value[hill_min_dist_idx] = -1.0;
     }
 
-
     for (j = 0; j < this->count_hill; j++)
     {
-      hill_shape[j]+= lc_hill*100.0*error*hill_value[j]*hill_output[j];
+      float error = required_value - hill_output[j];
+      hill_shape[j]+= -lc_hill*error;
 
       if (hill_shape[j] > 100.0)
         hill_shape[j] = 100.0;
