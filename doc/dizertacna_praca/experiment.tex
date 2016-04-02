@@ -151,7 +151,7 @@ na ostatné príznaky a váhy, je potrebné, aby ich bolo možné nastavovať ne
 aby vhodná séria príznakov pokryla svoju podmonožinu stavového priestoru. Toto
 je možné dosiahnuť ortogonalitou príznakou, stráca sa však možnosť generovať funkciu
 ako je lineárna kombinácia týchto ortogonálnych funkcií. Vhodným kompromisom sú
-preto funkcie uvedené v \ref{eq:basis_functions_01}.
+preto funkcie uvedené v \ref{eq:basis_functions_01}, alebo funkcia \ref{eq:peak_hill}.
 
 
 \section {Návrh experimentu}
@@ -203,7 +203,7 @@ Jednotlivé funkcie $R^k(s(n), a(n))$ predstavujú mapy odmien v ktorých sa age
 bude platiť, že nezáleží ktorou akciou sa agent dostal do daného stavu - funkcia bude
 mať teda tvar $R^k(s(n))$ a predstavuje teda odmenu za to, že sa agent dostal na nejaké miesto.
 
-Ako metódy aprximácie je zvolených 5 rôznych funkcií.
+Ako metódy aprximácie je zvolených 6 rôznych funkcií.
 
 \begin{enumerate}
 \item riedka tabuľka
@@ -211,12 +211,14 @@ Ako metódy aprximácie je zvolených 5 rôznych funkcií.
 \item Gaussova krivka $f_j^1(\boldmath{s(n), a(n)})$ kombinovaná s riedkou tabuľkou
 \item Modifikácia Kohonenovej neurónovej siete $f_j^2(\boldmath{s(n), a(n)})$
 \item Modifikácia Kohonenovej neurónovej siete $f_j^2(\boldmath{s(n), a(n)})$ s riedkou tabuľkou
+\item Guassova krivka a adaptívna tabuľka \ref{eq:peak_hill}
 \end{enumerate}
 
 Pre každú z nich prebehne 20 trialov aby bolo možné urobiť štatistické vyhodnotenie.
 V každom trialy prebehne 10*50000 učiacich interácií aby bolo možné v 10 tich krokoch sledovať
 priebeh učenia. Na konci prebehne 50 behov agentov z náhodných východzich stavov aby bolo
-možné sledovať ich cestu stavovým priestorom.
+možné sledovať ich cestu stavovým priestorom. Spolu teda prebehne 560 nezávislých experimentov
+a celkovo 280mil. behu algortimu.
 
 \begin{figure}[!htb]
 \center

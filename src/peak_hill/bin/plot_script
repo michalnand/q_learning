@@ -1,0 +1,27 @@
+set   autoscale                        # scale axes automatically
+unset log                              # remove any log-scaling
+unset label                            # remove any previous labels
+set xtic auto                         	# set xtics automatically
+set ytic auto                         # set ytics automatically
+
+set key right top
+
+set grid ytics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set grid xtics lt 0.1 lw 0.1 lc rgb "#bbbbbb"
+set terminal png size 1024,768 enhanced font "Helvetica,20"
+
+
+
+set hidden3d
+set dgrid3d 64,64
+set surface
+set autoscale
+
+set xlabel "x0"
+set ylabel "x1"
+set zlabel "f(x0, x1)"
+
+set ztic auto
+
+set output 'peak_hill_function.png'
+splot 'peak_hill_function.log' using 1:2:3 title "output value" with pm3d

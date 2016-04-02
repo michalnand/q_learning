@@ -682,24 +682,43 @@ hodnôt, ostro ohraničených.
 
 Vyjdúc z týchto úvah, je možné skombinovať výhody oboch : Gaussova krivka
 ktorá dokáže pokryť nenulovými hodnotami celý definyčný obor a funkcie \ref{eq:bfnn_simple}.
+Funkcia \ref{eq:bfnn_simple} predstavuje vlastne tabuľku, ktorá nadobúda
+nenulové hodnoty vo vybraných bodoch - tvorí tak adaptívnu tabuľku.
 
 Je teda možné skombinovať funkciu \ref{eq:bfnn_simple} s niektorou z \ref{eq:basis_functions},
 čo vedie na vzťahy
 
 \begin{align}
-H_j(s(n)) &=
+P_i(s(n), a(n)) &=
 \left\{
 	\begin{array}{ll}
-		r_j  & if \ s(n) = \alpha_j \\
+		r_{ai}  & if \ s(n) = \alpha^1_i \\
 		0 & inak
 	\end{array}
 \right. \\
-  f_j(\boldmath{s(n), a(n)}) &= H_j(s(n)) + w_j e^{ -\beta_{aj} \sum\limits_{i=1}^{n_s}{(s_i(n) - \alpha_{aji})^2 }} \\
-  Q(s(n), a(n)) &= \sum\limits_{j=1}^{J} f_j(s(n), a(n))
+  H_j(s(n), a(n)) &= w_{aj} e^{ -\beta_{aj} \sum\limits_{i=1}^{n_s}{(s_i(n) - \alpha^2_{aji})^2 }} \\
+  Q(s(n), a(n)) &= \sum\limits_{i=1}^{I} P_i(s(n),a(n)) + \sum\limits_{j=1}^{J} H_j(s(n), a(n))
+  \label{eq:peak_hill}
 \end{align}
 
 kde \\
-$\alpha_j$ je stav pre ktorý sa počíta funkcia \\
-$r_j$ je hodnota okamžitej odmeny $R(s(n))$ v tomto stave \\
-$\beta_j$ je strmosť, a platí $\beta > 0$ \\
-$w_j$ je váha \\
+$\alpha^1_j$ sú oblasti kde $H_j(s(n))$ nadobúda nenulové hodnoty \\
+$\alpha^2_j$ sú oblasti pre ktoré $f_j(\boldmath{s(n), a(n)})$ nadobúda maximum \\
+$r_{ai}$ je hodnota okamžitej odmeny $R(s(n))$ v tomto stave \\
+$w_{aj}$ je váha a zobovedá veľkosti maxima resp. minima pre fukciu \\
+$\beta_{aj}$ je strmosť, a platí $\beta > 0$ \\
+$I$ a $J$ sú počty bázických funkcií \\
+
+Označenia $P$ a $H$ vznikli z tvaru funkcií : peak a hill. Funkcia bude na ďalších
+grafoch označená ako Gauss + AT : kombinácia Gaussovej krivky a adaptívnej tabuľky.
+Mechanizmus učenia zostáva rovnaký ako pre bázické funkcie v predošlej časti. Ukážka
+priebehu funkcie pre dve premenné je na obrázku \ref{img:peak_hill_funcion}.
+Počet funkcií $P_i(s(n), a(n))$ bol zvolený 30 a počet funkcií $P_i(s(n), a(n))$ 20.
+Pre názornosť boli parametre $r_{ai}$ boli zvolené záporné a parametre $\beta_{aj}$ kladné.
+
+\begin{figure}[]
+\center
+\includegraphics[scale=.5]{../pictures/peak_hill_function.png}
+\caption{Znázornenie predmetnej funkcie}
+\label{img:peak_hill_funcion}
+\end{figure}

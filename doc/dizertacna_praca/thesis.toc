@@ -22,11 +22,11 @@
 \contentsline {subsection}{\numberline {2.7.2}Ur\IeC {\v c}enie parametrov $\beta $}{40}{subsection.2.7.2}
 \contentsline {subsection}{\numberline {2.7.3}Ur\IeC {\v c}enie v\IeC {\'a}hov\IeC {\'y}ch parametrov $w$}{40}{subsection.2.7.3}
 \contentsline {subsection}{\numberline {2.7.4}Hybridn\IeC {\'y} variant}{41}{subsection.2.7.4}
-\contentsline {chapter}{\numberline {3}Experiment\IeC {\'a}lna \IeC {\v c}as\IeC {\v t}}{42}{chapter.3}
-\contentsline {section}{\numberline {3.1}Ciele experimentu}{42}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Divergencia rie\IeC {\v s}enia}{43}{subsection.3.1.1}
-\contentsline {section}{\numberline {3.2}Rie\IeC {\v s}enie aproxim\IeC {\'a}cie}{44}{section.3.2}
-\contentsline {section}{\numberline {3.3}N\IeC {\'a}vrh experimentu}{47}{section.3.3}
-\contentsline {section}{\numberline {3.4}V\IeC {\'y}sledky experimentu}{50}{section.3.4}
-\contentsline {section}{\numberline {3.5}Uk\IeC {\'a}\IeC {\v z}kov\IeC {\'y} experiment}{52}{section.3.5}
-\contentsline {chapter}{Literat\IeC {\'u}ra}{60}{chapter*.62}
+\contentsline {chapter}{\numberline {3}Experiment\IeC {\'a}lna \IeC {\v c}as\IeC {\v t}}{43}{chapter.3}
+\contentsline {section}{\numberline {3.1}Ciele experimentu}{43}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Divergencia rie\IeC {\v s}enia}{44}{subsection.3.1.1}
+\contentsline {section}{\numberline {3.2}Rie\IeC {\v s}enie aproxim\IeC {\'a}cie}{45}{section.3.2}
+\contentsline {section}{\numberline {3.3}N\IeC {\'a}vrh experimentu}{48}{section.3.3}
+\contentsline {section}{\numberline {3.4}V\IeC {\'y}sledky experimentu}{51}{section.3.4}
+\contentsline {section}{\numberline {3.5}Uk\IeC {\'a}\IeC {\v z}kov\IeC {\'y} experiment}{53}{section.3.5}
+\contentsline {chapter}{Literat\IeC {\'u}ra}{61}{chapter*.63}
