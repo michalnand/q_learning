@@ -286,40 +286,8 @@ Lepšie konečné riešenie
 
 \end{frame}
 
-
-
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Q-learning algoritmus}
-
-Daná je množina stavov $\mathbb{S}$ a akcií $\mathbb{A}$, kde
- $\mathbb{S} \in \mathbb{R}^{n_s}$ a $\mathbb{A} \in \mathbb{R}^{n_a}$, kde
-$n_s$ a  $n_a$ sú rozmery stavového vektora a vektora akcií. Je známa podmnožina východiskových
-stavov $\mathbb{S}_0$.
-
-Existuje prechodová funkcia
-\begin{align}
-        s(n+1) = \lambda(s(n), a(n))
-\end{align}
-zo stavu $s(n)$ použitím akcie $a(n)$ - táto funkcia je ale agentovi neznáma.
-
-
-%Cieľom je nájsť takú postupnosť akcií $a(i) \in \mathbb{A}$ z východiskového stavu $s(0) \in \mathbb{S}_0$ pre ktorú bude maximálne
-
-%\begin{equation} \label{eu_eqn}
-%y({s(0)}) = \prod_{i=0}^{t}Q(s(i), a(i)) ,
-%\end{equation}
-
-%kde $s(t)$ je cieľový stav a $Q(s(i), a(i))$ je funkcia ohodnotení akcie $a(i)$ v stave
-%$s(i)$.
-
-
-
-\end{frame}
-
-
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Odmeňovacia funkcia}
 
 Daná je funkcia ohodnotení
 
@@ -422,67 +390,9 @@ Pre korektné vyplnenie hodnôt v $s_{n-1}$ sa vyžaduje korektá hodnota v $s_{
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Rozklad $Q(s(n), a(n))$ na bázické funkcie}
-
-
-\begin{align*}
-    f_j^1(\boldmath{s(n), a(n)}) &= e^{ -\sum\limits_{i=1}^{n_s}{\beta_{aji}(n)(s_i(n) - \alpha_{aji}(n))^2} } \nonumber \\
-    \\
-    f_j^2(\boldmath{s(n), a(n)}) &= \frac{1}{1 + \sum\limits_{i=1}^{n_s}{\beta_{aji}(n)(s_i(n) - \alpha_{aji}(n))^2}} \nonumber \\
-    \\
-    f_j^3(\boldmath{s(n), a(n)}) &= e^{ -\sum\limits_{i=1}^{n_s}{\beta_{aji}(n)\mid s_i(n) - \alpha_{aji}(n) \mid} } \nonumber  \\
-    \\
-    f_j^4(\boldmath{s(n), a(n)}) &= \sum\limits_{k=1}^{m} \sum\limits_{i=1}^{n_s}{ \beta_{aji}(n)(s_i(n) - \alpha_{aji}(n))^k } \nonumber
-\end{align*}
-
-\end{frame}
-
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Voľba bázických funkcií}
-
-Vzhľadom na charakter učiaceho algoritmu
-
-\begin{equation} \label{eu_eqn}
-Q(s(n),a(n)) = R(s(n),a(n)) + \gamma \max_{a(n-1) \in \mathbb{A}} Q(s(n-1), a(n-1)) \nonumber
-\end{equation}
-
-
-
-\begin{minipage}{.5\textwidth}
-  boli zvolené bázické funkcie (parameter $n$ pre prehľadnosť vynechaný)
-  \begin{align*}
-  f_j^1(\boldmath{s, a}) &= e^{ -\sum\limits_{i=1}^{n_s}{\beta_{aji}(s_i - \alpha_{aji})^2} } \\
-  f_j^2(\boldmath{s, a}) &= \frac{1}{1 + \sum\limits_{i=1}^{n_s}{\beta_{aji}(s_i - \alpha_{aji})^2}} \\
-  \end{align*}
-
-%kde
-%  \begin{align}
-%      \mid x \mid = \lim_{\epsilon \to 0} \sqrt[2]{x^2 + \epsilon}  \nonumber
-%  \end{align}
-
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
-
-  \begin{figure}[!htb]
-  \centering
-  \includegraphics[scale=.2]{../pictures/gaussian_1D.png}
-  \end{figure}
-
-\end{minipage}
-
-
-
-
-
-\end{frame}
-
-
-
-%-------------------------------------------------------------------------------------
 \begin{frame}{\bf Q-learning algoritmus - aproximácia}
 
-Pre symetrické prechody medzi stavmi možno zjednodušiť na
+Bázické funkcie
 
 \begin{align*}
 f_j^1(\boldmath{s, a}) &= e^{ -\beta_{aj} \sum\limits_{i=1}^{n_s}{(s_i - \alpha_{aji})^2} }  \\
@@ -496,8 +406,6 @@ a ich lineárna kombinácia
 \end{align}
 
 kde $l$ je počet bázických funkcií a $x$ je voľba typu bázickej funkcie.
-
-
 
 \end{frame}
 
@@ -521,6 +429,19 @@ P_i(s(n), a(n)) &=
   \label{eq:peak_hill}
 \end{align}
 
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Q-learning algoritmus - aproximácia}
+
+\begin{figure}[]
+\center
+\includegraphics[scale=.35]{../pictures/peak_hill_function.png}
+\caption{Znázornenie predmetnej funkcie}
+\label{img:peak_hill_funcion}
+\end{figure}
 
 \end{frame}
 
@@ -580,26 +501,6 @@ P_i(s(n), a(n)) &=
 \end{frame}
 
 
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Návrh experimentov - podmienky}
-
-$Q_{rt}(s(n),a(n))$ referenčná funkcia Q (funkcia 0), kde $t \in \langle 0, 19 \rangle $ je číslo trialu  \\
-$Q_{jt}(s(n),a(n))$ testované funkcie Q a $j \in \langle 1, 5 \rangle $. \\
-
-Celková chyba behu trialu $t$ je \\
-\begin{equation}
-e_{jt} = \sum\limits_{s, a}{(Q_{rt}(s,a) - Q_{jt}(s,a))^2}  \nonumber
-\end{equation}
-
-priemerná, minimálna, maximálna chyba a smerodatná odchylka \\
-\begin{align}
-\bar{a_j} &= \frac{1}{20}\sum\limits_{t}{e_{jt}}  \nonumber \\
-{e^{min}_j} &= \min_{t}{e_{jt}}  \nonumber \\
-{e^{max}_j} &= \max_{t}{e_{jt}}  \nonumber \\
-{\sigma_j}^2 &= \frac{1}{20}\sum\limits_{t}{(\bar{a_j} - e_{jt})^2}  \nonumber
-\end{align}
-
-\end{frame}
 
 
 %-------------------------------------------------------------------------------------
@@ -609,72 +510,41 @@ pre každý stav je zvolená rovnaka množina akcií. \\
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.4]{../../results_q_learning/map_1/reward_value_surface.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_2/reward_value_surface.png}
 \end{figure}
 
 \end{frame}
 
 
 
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Mapa najlepších akcií - Výsledky experimentov}
-
-Funkcia voľby najlepšej z 8 akcií v stave  $s = (s[0], s[1])$.
-
-\begin{minipage}{.5\textwidth}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.21]{../../results_q_learning/map_1/function_type_1/iterations_10/action_best_value_log_surface.png}
-\caption{sparse table}
-\end{figure}
-
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.21]{../../results_q_learning/map_1/function_type_2/iterations_10/action_best_value_log_surface.png}
-\caption{linear combination Gauss}
-\end{figure}
 
 
-\end{minipage}
-\end{frame}
 
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Mapa najlepších akcií - Výsledky experimentov}
-
-Funkcia voľby najlepšej z 8 akcií v stave  $s = (s[0], s[1])$.
+\begin{frame}{\bf Porovnanie s ostatnými}
 
 \begin{minipage}{.5\textwidth}
 
-\begin{figure}
-\includegraphics[scale=.21]{../../results_q_learning/map_1/function_type_3/iterations_10/action_best_value_log_surface.png}
-\caption{sparse table + linear combination Gauss}
-\end{figure}
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_2/iterations_10/agents_path_surface.png}
+  \caption{Dráha robotov, funkcia 2 - Gauss}
+  \label{img:knn_path}
+  \end{figure}
 
 
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
 
-\begin{figure}
-\includegraphics[scale=.21]{../../results_q_learning/map_1/function_type_4/iterations_10/action_best_value_log_surface.png}
-\caption{linear combination Kohonen function}
-\end{figure}
-
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_6/iterations_10/agents_path_surface.png}
+  \caption{Dráha robotov, funkcia 6 - Peak and Hill}
+  \label{img:peak_and_hill_path}
+  \end{figure}
 
 \end{minipage}
+
 \end{frame}
-
-
-
-
-
-
-
-
 
 
 %-------------------------------------------------------------------------------------
@@ -766,18 +636,6 @@ e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Priebeh trialov - Výsledky experimentov}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.36]{../../results_q_learning/map_1/trials_average_results_progress.png}
-\end{figure}
-
-\end{frame}
-
-
-
-%-------------------------------------------------------------------------------------
 \begin{frame}{\bf Mapa 0 - Výsledky experimentov}
 
 \begin{figure}[!htb]
@@ -786,6 +644,24 @@ e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
 \end{figure}
 
 \end{frame}
+
+
+\begin{frame}{\bf Porovnanie s ostatnými}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{../../results_q_learning/map_2/trials_average_results.png}
+\end{figure}
+
+\end{frame}
+
+
+
+
+
+
+
+
 
 
 %-------------------------------------------------------------------------------------
