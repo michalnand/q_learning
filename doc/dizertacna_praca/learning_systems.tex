@@ -1,10 +1,8 @@
-\chapter{Učiace sa systémy na báze odmeňovania}
+\chapter{Teoretické východiská učiacich sa systémov na báze odmeňovania}
 
 V tejto kapitole budú stručne predstavené učiace sa systémy založené na odmeňovaní.
-Je nevyhnutné, aspoň okrajovo spomenúť adaptívne systémy riadenia, aby bolo možné
-pochopiť význam a rozdiel oproti predmetným systémom. Kapitola si kladie za cieľ
-ukázať princípy, matematické detaily budú rozobraté v ďalšej kapitole.
- 
+Kapitola si kladie za cieľ ukázať princípy, matematické detaily budú
+rozobraté v ďalšej kapitole.
 
 \section{Úvod}
 
@@ -23,13 +21,13 @@ V súčastnosti sú známe tri základné princípy
 \item odmeňovanie alebo trestanie vykonaných rozhodnutí
 \end{enumerate}
 
-{\bf Prvý princíp} zahŕňa adaptívne dynamické systémy učené metódou najmenších
+{\bf Prvý princíp} zahŕňa systémy učené na princípe predkladania :
+vstup, požadovaný výstup. Učené sú napríklad metódou najmenších
 štvorcov \cite{bib:adaptive_01} \cite{bib:adaptive_02} \cite{bib:adaptive_03},
-gradientové metódy učenia neurónových sieti \cite{bib:gradient_01} \cite{bib:gradient_02}
-\cite{bib:gradient_03} \cite{bib:backpropagation_00} \cite{bib:gradient_04}, alebo
+alebo často používané gradientové metódy učenia neurónových sieti \cite{bib:gradient_01} \cite{bib:gradient_02}
+\cite{bib:gradient_03} \cite{bib:backpropagation_00} \cite{bib:gradient_04}, prípadne
 iterative learning controll regulátory \cite{bib:ilc_01} \cite{bib:ilc_02}.
-Sú to typické systémy učenia s učiteľom. Typické pre ne sú dvojice vstup a požadovaný
-výstup.
+Sú to typické systémy učenia s učiteľom.
 
 {\bf Druhý princíp} je typický zástupca učenia bez učiteľa. Vstupy do systému
 sú triedené podľa príznakov. Pobobné vstupy sú zatriedené do rovnakej skupiny.
@@ -138,68 +136,15 @@ Položením kameňa na Goban nie okamžite známe ako to ovplyvní priebeh hry.
 Je bežné, že sa to prejaví až po mnohých krokoch.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\section{Adaptívny systém}
-
-V teorií riadenia sa narába s pojmami spätná väzba, žiadaná hodnota,
-chybová veličina, riadená sústava, regulátor a model. Obrázok \ref{img:adaptive_controll_system} zobrazuje
-prepojenie základných blokov typického adaptívneho systému.
-
-
-\begin{figure}[!htb]
-\center
-\includegraphics[scale=.6]{../diagrams/adaptive_system.eps}
-\caption{Adaptívny riadiaci systém}
-\label{img:adaptive_controll_system}
-\end{figure}
-
-Pre ďalšie účely sa bude hovoriť o systémoch pracujúcich v diskrétnom čase $n$ s
-krokom $1$. Vstupom je žiadaná hodnota $r(n)$, výstupom je $y(n)$. Z toho nevyhnutne
-vyplýva definícia chybovej veličiny ako $e(n) = r(n) - y(n)$.
-Kvalitu regulátora je možné definovať rôznymi spôsobmi, najbežnejší je
-
-\begin{equation}
-K = \sum\limits_{n=1}^{\infty}{e(n)^2}
-\label{eq:controller_quality}
-\end{equation}
-
-Cieľom je minimalizovať $K$. Je možné definovať aj ďalšie kritéria,
-ako doba ustálenia a veľkosť najväčšieho prekmitu.
-
-Regulátor $C(n)$ je blok, tvorený obvykle diferenčnou rovnicou s volenými
-parametrami do ktorého vstupuje chyba.
-Veličina $u(n)$ je výstup regulátora a nazýva sa akčná veličina, predstavuje
-vstup do riadenej sústavy $C(n)$. Akčná veličina ďalej vstupuje do modelu systému
-ktorého parametre sa menia podľa chyby modelu $e_m(n) = y(n) - y_m(n)$, kde $y_m(n)$
-je výstup modelu. Cieľom je minimalzovať $L(c) = \sum\limits_{n=1}^{c}{{e_m}(n)^2}$.
-Po dosiahnutí minima sa parametre modelu rovnajú parametrom riadenej sústavy,
-a je tak možné urobiť syntézu regulátora.
-
-
 \section{Princípy učenia s odmneňovaním}
 
-Pre všetky $n$ musí existovať požadovaná hodnota $r(n)$ a k nej prislúchajúca
-chyba $e(n)$. Čo v prípade systémov kedy nie je pre všetky $n$ definované správanie?
+V systémoch založených na predkladnaní dvojíc vstup - požadovaný výstup
+je možné stanoviť chybu a tú vhodnými metódami minimalizovať.
+V prípade systému s odmeňovaním sa požaduje od výstupu postupnosť
+akcií, ktoré maximalizujú celkovú odmenu.
 Príkladom môže byť rozhodovanie robota, ktorý má splniť ciel pozostávajúci z
 niekoľkých elementárnych úkonov, ale postupnosť týchto elementárnych úkonov nie je známa -
-nie je teda definované $r(n)$ pre kazdé $n$.
+nie je teda definovaná požadovaná hodnota výstupu.
 
 Riešením tohto problému je zavedenie systému odmeňovania agenta (robota) \ref{img:reinforcement_learning}.
 
@@ -304,7 +249,7 @@ V tomto systéme je ohodnotenie $\Lambda(S_a, S_b)$ naozaj triviálne
 
 \begin{enumerate}
   \item $\Lambda(\{S_0, S_1\}) = 1$
-  \item $\Lambda(\{S_0, S_1\}) = 0.3$
+  \item $\Lambda(\{S_0, S_2\}) = 0.3$
 \end{enumerate}
 
 Najlepšia cesta je potom $\{S_0, S_1\}$.
