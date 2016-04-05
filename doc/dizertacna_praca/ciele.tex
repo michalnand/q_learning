@@ -57,7 +57,7 @@ problému. Tieto príznaky tvoria súbor funkcií $f_{i}(s(n),a(n))$. Hodnota $Q
 je daná lineárnou kombináciou týchto príznakov. Hľadá sa teda vektor váh
 $w$ pre ktorý  $Q_b(s(n), a(n), w) = \sum\limits_{i=0}^{I}w_i f_{i}(s(n),a(n))$
 má minimálnu veľkosť chyby $e$, definovaná ako
-$e(w) = \sum\limits_{s,a} ((Q(s(n), a(n))- Q_b(s(n), a(n), w))^2$
+$e(w) = \sum\limits_{s,a} (Q(s(n), a(n))- Q_b(s(n), a(n), w))^2$
 Problematická zostáva voľba príznakových funkcií - ich tvar aj počet.
 
 Tretí spôsob spočíva v použití doprednej neurónovej siete ako univerzálny aproximátor funkcie.
@@ -77,7 +77,7 @@ učiť na súčastný stav, bez toho aby sa hodnoty z minulých stavov zmenili.
 Bázické funkcie sú dané vopred, avšak ich parametre sa menia v priebehu učenia,
 podobne ako vektor váh lineárnej kombinácie $w$. Nech sú ich parametre označené
 ako $v$. Cieľom je nájsť také $w$ a $v$ pre ktoré chyba
-$e(v, w) = \sum\limits_{s,a} ((Q(s(n), a(n))- Q_b(s(n), a(n), v, w))^2$
+$e(v, w) = \sum\limits_{s,a}(Q(s(n), a(n))- Q_b(s(n), a(n), v, w))^2$
 je minimálna. Kde $Q_b(s(n), a(n), v, w) = \sum\limits_{i=0}^{I}w_i f_{i}(s(n),a(n), v_i)$.
 
 {\bf Cieľom práce} je overiť možnosti aproximácie funkcie $Q(s(n), a(n))$

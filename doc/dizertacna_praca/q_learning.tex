@@ -10,7 +10,7 @@ s \ref{eq:q_quality}.
 
 \section{Definícia algoritmu}
 
-Autoro Q-learning algoritmu je Christopher  J.C.H. Watkins, v roku 1992 publikoval
+Autorom Q-learning algoritmu je Christopher J.C.H. Watkins, v roku 1992 publikoval
 článok kde tento algoritmus predstavil \cite{bib:q_learning_watkins} a niekoľko ďalších,
 jednoduchých vysvetlení tohto algoritmu je možné nájsť v \cite{bib:q_tutorial_01} alebo
 \cite{bib:q_tutorial_02}. Dôkazy o konvergencií k otimálnemu riešeniu (v zmysle
@@ -26,7 +26,8 @@ Existuje prechodová funkcia
         s(n+1) = \lambda(s(n), a(n))
 \end{align}
 
-zo stavu $s(n) \in \mathbb{S}$ použitím akcie $a(n) \in \mathbb{A}$, táto funkcia je ale algoritmu neznáma.
+zo stavu $s(n) \in \mathbb{S}$ použitím akcie $a(n) \in \mathbb{A}$, táto funkcia je ale algoritmu neznáma,
+v reálnom prostredí je jej výsledok obvykle stochastický.
 
 Ďalej je daná odmeňovacia funkcia $R(s(n),a(n))$, ktorá vyjadruje okamžité ohodnotenie konania
 agenta v $s(n)$ a $a(n)$. V reálnych aplikáciach táto funkcia nadobúda takmer v každom
