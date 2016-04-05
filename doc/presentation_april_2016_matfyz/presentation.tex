@@ -112,6 +112,22 @@ Lepšie konečné riešenie
 
 
 %-------------------------------------------------------------------------------------
+\begin{frame}{\bf Markovov rozhodovací proces}
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.3]{../diagrams/markovov_process.eps}
+  \end{figure}
+
+  \begin{equation*}
+  \Lambda(\pi)  = \sum\limits_{n=0}^{\infty}\gamma^n R_{\pi(n)}(s(n), s(n-1))
+  \label{eq:q_quality}
+  \end{equation*}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
 \begin{frame}{\bf Voľba stratégie, 2 stavy}
 
   Odmeny sú známe v každom prechode
@@ -187,34 +203,6 @@ Lepšie konečné riešenie
     \item $Q(S0, S1, S1, S1, S1, S1, ...) = 10$ <-----
     \item $Q(S0, S1, S1, S1, S1, S1, ..., S3) = 10.8$ <-----
   \end{itemize}
-
-\end{frame}
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Reinforcement learing}
-
-\begin{minipage}{.5\textwidth}
-Čo potrebuje agent?
-\begin{itemize}
-  \item Určiť stav
-  \item Vybrať známu akciu
-  \item Dostať odmenu (aj nulovú)
-  \item Pamätať si
-\end{itemize}
-
-  \end{minipage}%
-\begin{minipage}{.5\textwidth}
-  Čo nepotrebuje agent?
-
-  \begin{itemize}
-    \item Dané správanie
-    \item Vedieť kam sa vykonaním akcie dostane
-    \item Mať model prostredia
-    \item Nenulovú odmenu v každom prechode
-  \end{itemize}
-
-\end{minipage}
-
 
 \end{frame}
 
@@ -298,21 +286,13 @@ stavov $\mathbb{S}_0$.
 
 Existuje prechodová funkcia
 \begin{align}
-        s(n+1) = \lambda(s(n), a(n))
+        s(n) = \lambda(s(n-1), a(n-1))
 \end{align}
-zo stavu $s(n)$ použitím akcie $a(n)$ - táto funkcia je ale agentovi neznáma.
-
-
-%Cieľom je nájsť takú postupnosť akcií $a(i) \in \mathbb{A}$ z východiskového stavu $s(0) \in \mathbb{S}_0$ pre ktorú bude maximálne
-
-%\begin{equation} \label{eu_eqn}
-%y({s(0)}) = \prod_{i=0}^{t}Q(s(i), a(i)) ,
-%\end{equation}
-
-%kde $s(t)$ je cieľový stav a $Q(s(i), a(i))$ je funkcia ohodnotení akcie $a(i)$ v stave
-%$s(i)$.
-
-
+zo stavu $s(n)$ použitím akcie $a(n)$ - táto funkcia je ale agentovi neznáma
+a odmeňovacia funkcia
+\begin{align}
+        R(s(n),a(n))
+\end{align}
 
 \end{frame}
 
@@ -324,13 +304,15 @@ zo stavu $s(n)$ použitím akcie $a(n)$ - táto funkcia je ale agentovi neznáma
 Daná je funkcia ohodnotení
 
 \begin{equation}
-Q(s(n),a(n)) = R(s(n),a(n)) + \gamma \max_{a(n-1) \in \mathbb{A}} Q(s(n-1), a(n-1)) \nonumber
+Q(s(n),a(n)) = R(s(n),a(n)) + \gamma \max_{a(n-1) \in \mathbb{A}} Q(s(n-1), a(n-1))
+\label{eq:q_learning}
 \end{equation}
+
 
 kde \\
 
 \begin{itemize}
- \item $R(s(n),a(n))$ je odmeňovacia funkcia s hodnotami v $\langle -1, 1 \rangle$, \\
+ \item $R(s(n),a(n))$ je odmeňovacia funkcia s hodnotami \\
  \item $Q(s(n-1),a(n-1))$ je odmeňovacia funkcia v stave $s(n-1)$ pre akciu $a(n-1)$, \\
  \item $\gamma$ je odmeňovacia konštanta a platí $\gamma \in (0, 1)$.
 \end{itemize}
