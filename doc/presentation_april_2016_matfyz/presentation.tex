@@ -185,7 +185,7 @@ Lepšie konečné riešenie
     \item $Q(S0, S1, S1, S1) = 1 + 0.9*(1 + 0.9*1) = 2.71 $
     \item $Q(S0, S1, S1, S1, S1) = 1 + 0.9*(1 + 0.9*(1 + 0.9*1)) = 3.439$
     \item $Q(S0, S1, S1, S1, S1, S1, ...) = 10$ <-----
-    \item $Q(S0, S1, S1, S1, S1, S1, ..., S3) = 11$ <-----
+    \item $Q(S0, S1, S1, S1, S1, S1, ..., S3) = 10.8$ <-----
   \end{itemize}
 
 \end{frame}
@@ -480,7 +480,7 @@ Q(s(n),a(n)) = R(s(n),a(n)) + \gamma \max_{a(n-1) \in \mathbb{A}} Q(s(n-1), a(n-
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - aproximácia}
+\begin{frame}{\bf Aproximácia}
 
 Pre symetrické prechody medzi stavmi možno zjednodušiť na
 
@@ -503,7 +503,7 @@ kde $l$ je počet bázických funkcií a $x$ je voľba typu bázickej funkcie.
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - aproximácia}
+\begin{frame}{\bf Aproximácia - nová bázická funkcia}
 
 Tabuľka pre vybrané hodnoty - umožní zachytit skokovú zmenu \\
 Gaussova krivka - dokáže pokryť nenulovými hodnotami celý definyčný obor \\
@@ -521,6 +521,18 @@ P_i(s(n), a(n)) &=
   \label{eq:peak_hill}
 \end{align}
 
+
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Aproximácia - nová bázická funkcia}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{../pictures/peak_hill_function.png}
+\end{figure}
 
 \end{frame}
 
@@ -817,6 +829,37 @@ e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
 \end{figure}
 
 \end{frame}
+
+
+
+
+\begin{frame}{\bf Porovnanie s ostatnými}
+
+\begin{minipage}{.5\textwidth}
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_2/iterations_10/agents_path_surface.png}
+  \caption{Dráha robotov, funkcia 2 - Gauss}
+  \label{img:knn_path}
+  \end{figure}
+
+
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_6/iterations_10/agents_path_surface.png}
+  \caption{Dráha robotov, funkcia 6 - Peak and Hill}
+  \label{img:peak_and_hill_path}
+  \end{figure}
+
+\end{minipage}
+
+\end{frame}
+
+
 
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Ďakujem za pozornosť}
