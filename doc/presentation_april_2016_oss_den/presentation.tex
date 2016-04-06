@@ -14,6 +14,8 @@
 
 \usepackage{tabularx}
 
+\usepackage{movie15}
+
 
 \usepackage{listings}
 \lstloadlanguages{Ruby}
@@ -112,179 +114,189 @@ Lepšie konečné riešenie
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Voľba stratégie, 2 stavy}
-
-  Odmeny sú známe v každom prechode
+\begin{frame}{\bf Markovov rozhodovací proces}
 
   \begin{figure}[!htb]
   \centering
-  \includegraphics[scale=.6]{../diagrams/rf_two_states.eps}
+  \includegraphics[scale=.4]{../diagrams/markovov_process.eps}
   \end{figure}
 
-  Ohodnotenie ciest :
-  \begin{itemize}
-    \item $Q(S0, S1) = 1$
-    \item $Q(S0, S1) = 0.3$
-  \end{itemize}
-
-  Najlepšia cesta : $S0, S1$
 \end{frame}
 
 
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Voľba stratégie, viac stavov}
 
-  \begin{figure}[!htb]
-  \centering
-  \includegraphics[scale=.6]{../diagrams/rf_more_states.eps}
-  \end{figure}
-
-  Ohodnotenie ciest :
-  \begin{itemize}
-    \item $Q(S0, S1, S3) = 1+(-10) = -9$
-    \item $Q(S0, S1, S4) = 1+3 = 4$
-    \item $Q(S0, S2, S4) = 0.3 +()-1) =-0.7$
-    \item $Q(S0, S1, S3, S2, S4) = 1 +(-10) +100 + (-1) = 90$
-    \item ...
-  \end{itemize}
-
-\end{frame}
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Voľba stratégie, viac stavov}
+\begin{frame}{\bf Experiment s jedným stavom - nanoQ learning}
+  Plánovanie pohybu robota - aký krok má robot vybrať?
+  Dostupné akcie : vľavo, vpravo, vpred, (vzad)
 
-  \begin{figure}[!htb]
-  \centering
-  \includegraphics[scale=.6]{../diagrams/rf_cycle_states.eps}
-  \end{figure}
+  \begin{minipage}{.5\textwidth}
 
-  Ohodnotenie ciest :
+    \begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=.3]{../pictures/kilobot.jpg}
+    \end{figure}
+
+
+    \end{minipage}%
+  \begin{minipage}{.5\textwidth}
+
+    \begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=.1]{../pictures/apds9930.jpg}
+    \end{figure}
+
+  \end{minipage}
+
+  Robot s jednoduchým senzorom
   \begin{itemize}
-    \item $Q(S0, S2, S3) = 0.4+2 = 2.4$
-    \item $Q(S0, S1, S3) = 1+1 = 2$
-    \item $Q(S0, S1, S1, S1) = 1+1+1 = 3$
-    \item $Q(S0, S1, S1, S1, S1) = 1+1+1+1 = 4$
-    \item $Q(S0, S1, S1, S1, S1, S1, ...) = 1+1+1+1+1+...+1 = \infty$ !!!!
+  \item smer nie je známy
+  \item známa je len vzdialenosť
+  \item šum
   \end{itemize}
 
 \end{frame}
 
 
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Zabúdanie   $Q' = R + 0.9Q$}
 
-  \begin{figure}[!htb]
-  \centering
-  \includegraphics[scale=.5]{../diagrams/rf_cycle_states.eps}
-  \end{figure}
 
-  Ohodnotenie ciest :
-  \begin{itemize}
-    \item $Q(S0, S2, S3) = 2 + 0.9*0.4 = 2.36$
-    \item $Q(S0, S1, S3) = 1 + 0.9*1 = 1.9$
-    \item $Q(S0, S1, S1, S1) = 1 + 0.9*(1 + 0.9*1) = 2.71 $
-    \item $Q(S0, S1, S1, S1, S1) = 1 + 0.9*(1 + 0.9*(1 + 0.9*1)) = 3.439$
-    \item $Q(S0, S1, S1, S1, S1, S1, ...) = 10$ <-----
-    \item $Q(S0, S1, S1, S1, S1, S1, ..., S3) = 11$ <-----
-  \end{itemize}
-
-\end{frame}
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Reinforcement learing}
+\begin{frame}{\bf Experiment s jedným stavom - nanoQ learning}
 
-\begin{minipage}{.5\textwidth}
-Čo potrebuje agent?
-\begin{itemize}
-  \item Určiť stav
-  \item Vybrať známu akciu
-  \item Dostať odmenu (aj nulovú)
-  \item Pamätať si
-\end{itemize}
+
+  \begin{minipage}{.5\textwidth}
+
+    \begin{itemize}
+      \item Najjednoduhší prípad Q-learning algoritmu
+      \item Reward zadaný dvoma hodnotami :
+              \begin{itemize}
+                \item situácia sa zlepšuje $+1$
+                \item situácia sa zhoršuje $-1$
+              \end{itemize}
+      \item Voliteľná prevdepodobnosť $p \in \langle 0, 4 \rangle$ náhodnej zmeny rewardu - šum
+    \end{itemize}
+
 
   \end{minipage}%
-\begin{minipage}{.5\textwidth}
-  Čo nepotrebuje agent?
+  \begin{minipage}{.5\textwidth}
 
-  \begin{itemize}
-    \item Dané správanie
-    \item Vedieť kam sa vykonaním akcie dostane
-    \item Mať model prostredia
-    \item Nenulovú odmenu v každom prechode
-  \end{itemize}
+    \begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=.5]{../diagrams/single_state.eps}
+    \end{figure}
 
-\end{minipage}
+  \end{minipage}
 
+  \begin{equation}
+  Q_n(A(n)) = R(n) + \gamma  \max_{a'(n-1) \in \mathbb{A}} Q_{n-1}(a'(n-1))
+  \label{eq:nano_q_func}
+  \end{equation}
 
-\end{frame}
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Reinforcement learing}
-
-Čo ak odmeny NIE sú známe v každom prechode ?
-
-\begin{itemize}
-  \item šachy, go, pacman
-  \item chôdza, pohyb mechanického ramena
-\end{itemize}
 
 \end{frame}
 
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Ilustračný príklad - inicializácia}
+\begin{frame}{\bf Výber akcie}
+
+\begin{equation}
+a(n) =
+\left\{
+	\begin{array}{ll}
+		a(n-1)  & ak \ Q_{n-1}(a(n-1)) > 0 \\
+    random() & inak
+	\end{array}
+\right.
+\label{eq:q_nano_action_selection}
+\end{equation}
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.5]{../diagrams/single_state.eps}
+  \end{figure}
+\end{frame}
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Výsledky}
+
+
+  \begin{minipage}{.5\textwidth}
+
+    \begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=.2]{../../results_q_learning/nano_q_learning/result_00/robot_path.png}
+    \caption{Dráha robotov pre $\gamma = 0.7 p = 0.0$}
+    \label{img:nano_q_result_00_path}
+    \end{figure}
+
+
+  \end{minipage}%
+  \begin{minipage}{.5\textwidth}
+
+    \begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=.2]{../../results_q_learning/nano_q_learning/result_04_02/robot_path.png}
+    \caption{Dráha robotov pre $\gamma = 0.7 p = 0.4$}
+    \label{img:nano_q_result_04_2_path}
+    \end{figure}
+
+  \end{minipage}
+
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Výsledky}
+
+
+  \begin{minipage}{.5\textwidth}
+
+    \begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=.2]{../../results_q_learning/nano_q_learning/result_04_03/robot_path.png}
+    \caption{Dráha robotov pre $\gamma = 0.9 p = 0.4$}
+    \label{img:nano_q_result_04_3_path}
+    \end{figure}
+
+
+  \end{minipage}%
+  \begin{minipage}{.5\textwidth}
+
+    \begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=.2]{../../results_q_learning/nano_q_learning/result_04_04/robot_path.png}
+    \caption{Dráha robotov pre $\gamma = 0.98 p = 0.4$}
+    \label{img:nano_q_result_04_4_path}
+    \end{figure}
+
+  \end{minipage}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Výsledky - zhrnutie}
+Komplexné vyšetrenie závislosti $\gamma$ a $p$. Znázornenie funkcie vzdialenosti od pohyblivého cieľa po 25000 krokoch robota, priemer z 32 robotov
 
 \begin{figure}[!htb]
-\includegraphics[scale=.5]{../diagrams/q_learning_table_01.eps}
+\centering
+\includegraphics[scale=.35]{../../results_q_learning/nano_q_learning/summary_result_average_error_map.png}
+\caption{Priemerná chyba 32 robotov po 25000 iteráciach}
+\label{img:nano_q_summary}
 \end{figure}
 
 \end{frame}
 
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Ilustračný príklad - prechod do ďalšieho stavu}
 
-\begin{figure}[!htb]
-\includegraphics[scale=.5]{../diagrams/q_learning_table_02.eps}
-\end{figure}
 
-\end{frame}
 
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Ilustračný príklad - prechod do ďalšieho stavu}
 
-\begin{figure}[!htb]
-\includegraphics[scale=.5]{../diagrams/q_learning_table_03.eps}
-\end{figure}
 
-\end{frame}
 
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Ilustračný príklad - prechod do cieľového stavu}
-
-\begin{figure}[!htb]
-\includegraphics[scale=.5]{../diagrams/q_learning_table_04.eps}
-\end{figure}
-
-\end{frame}
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Ilustračný príklad - ďalšie prechody}
-
-\begin{figure}[!htb]
-\includegraphics[scale=.5]{../diagrams/q_learning_table_05.eps}
-\end{figure}
-
-\end{frame}
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Ilustračný príklad - konečný stav algoritmu :)}
-
-\begin{figure}[!htb]
-\includegraphics[scale=.5]{../diagrams/q_learning_table_06.eps}
-\end{figure}
-
-\end{frame}
 
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Q-learning algoritmus}
@@ -313,8 +325,19 @@ kde \\
 \includegraphics[scale=.4]{../diagrams/q_learning_detail.eps}
 \end{figure}
 
+\end{frame}
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf Rozsiahly stavový priestor - ukážka požadovaného tvaru funkcie}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.39]{../../results_q_learning/map_1/function_type_0/iterations_10/q_learning_result.png}
+\caption{reference table}
+\end{figure}
 
 \end{frame}
+
 
 
 
@@ -330,91 +353,32 @@ Problémy tabuľkovej interpretácie $Q(s(n), a(n))$ :
 \item ako aproximovať $Q(s(n), a(n))$?
 \end{itemize}
 
-\end{frame}
-
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Aproximácia neurónovou sieťou}
-
-Utopická predstava :
-
-\begin{figure}[!htb]
-\includegraphics[scale=.5]{../diagrams/q_learning_nn.eps}
-\end{figure}
-
-Prečo nedáva správne výsledky?
-\end{frame}
-
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Hypotéza}
-
-Na základe experimetov - Snowball problém
-
-\begin{figure}[!htb]
-\includegraphics[scale=.5]{../diagrams/q_chain_problem.eps}
-\end{figure}
-
-Pre korektné vyplnenie hodnôt v $s_{n-1}$ sa vyžaduje korektá hodnota v $s_{n}$
-
-\begin{align*}
-    Q(s(1),a(1)) &= R(s(1),a(1)) + \gamma \max_{a(0) \in \mathbb{A}} Q(s(0), a(0)) \\
-    Q(s(2),a(2)) &= R(s(2),a(2)) + \gamma \max_{a(1) \in \mathbb{A}} Q(s(1), a(1)) \\
-    & \dots
-\end{align*}
+Je možné zostaviť neurónovú sieť, ktorá sa dá naučiť lokálne?
 
 \end{frame}
 
 
+\begin{frame}{\bf Experiment s novou bázickou funkciou}
 
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Učenie doprednej siete}
+Experimentálne sa zitili typické rysy funkcie pre
 
-\begin{itemize}
- \item Nie je homogénne! \\
- \item V priebehu učenia $Q(s(n),a(n))$ chaoticky osciluje okolo požadovanej hodnoty. \\
- \item Ani po 10-mil. iteráciach sa hodnota neustáli na požadovanej hodnote.
-\end{itemize}
+\begin{equation*}
+Q_{n}(s(n),a(n)) = R(s(n),a(n)) + \gamma \max_{a(n-1) \in \mathbb{A}} Q_{n-1}(s(n-1), a(n-1))
+\label{eq:q_learning}
+\end{equation*}
 
-\end{frame}
-
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Je možné zostaviť neurónovú sieť, ktorá sa dá naučiť lokálne?}
-
-\begin{figure}[!htb]
-\includegraphics[scale=.35]{../pictures/gaussian.png}
+\begin{figure}[]
+\center
+\includegraphics[scale=.35]{../pictures/peak_hill_function.png}
+\caption{Znázornenie predmetnej funkcie}
+\label{img:peak_hill_funcion}
 \end{figure}
 
 \end{frame}
 
+\begin{frame}{\bf Experiment s novou bázickou funkciou}
 
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - aproximácia}
-
-Bázické funkcie
-
-\begin{align*}
-f_j^1(\boldmath{s, a}) &= e^{ -\beta_{aj} \sum\limits_{i=1}^{n_s}{(s_i - \alpha_{aji})^2} }  \\
-f_j^2(\boldmath{s, a}) &= \frac{1}{1 + {\beta_{aj} \sum\limits_{i=1}^{n_s}(s_i - \alpha_{aji})^2}}  \\
-\end{align*}
-
-a ich lineárna kombinácia
-
-\begin{align}
-    Q^x(s, a)&= \sum\limits_{j=1}^{l}w_{j a}f^x_{j}(s, a) \nonumber
-\end{align}
-
-kde $l$ je počet bázických funkcií a $x$ je voľba typu bázickej funkcie.
-
-\end{frame}
-
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - aproximácia}
-
-Tabuľka pre vybrané hodnoty - umožní zachytit skokovú zmenu \\
-Gaussova krivka - dokáže pokryť nenulovými hodnotami celý definyčný obor \\
+{\bf P}eak and {\bf H}ill funkcia
 
 \begin{align}
 P_i(s(n), a(n)) &=
@@ -429,33 +393,16 @@ P_i(s(n), a(n)) &=
   \label{eq:peak_hill}
 \end{align}
 
+kde \\
+$\alpha^1_j$ sú oblasti kde $H_j(s(n))$ nadobúda nenulové hodnoty \\
+$\alpha^2_j$ sú oblasti pre ktoré $f_j(\boldmath{s(n), a(n)})$ nadobúda maximum \\
+$r_{ai}$ je hodnota okamžitej odmeny $R(s(n))$ v tomto stave \\
+$w_{aj}$ je váha a zobovedá veľkosti maxima resp. minima pre fukciu \\
+$\beta_{aj}$ je strmosť, a platí $\beta > 0$ \\
+$I$ a $J$ sú počty bázických funkcií \\
 
 \end{frame}
 
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Q-learning algoritmus - aproximácia}
-
-\begin{figure}[]
-\center
-\includegraphics[scale=.35]{../pictures/peak_hill_function.png}
-\caption{Znázornenie predmetnej funkcie}
-\label{img:peak_hill_funcion}
-\end{figure}
-
-\end{frame}
-
-
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Bloková schéma syntézy testovaného riešenia}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.4]{../diagrams/q_learning_hybrid.eps}
-\end{figure}
-
-\end{frame}
 
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Schéma priebehu experimentov}
@@ -469,55 +416,14 @@ P_i(s(n), a(n)) &=
 
 
 
-
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Návrh experimentov - podmienky}
-
-\begin{itemize}
-\item 50000 iterácií učenia
-\item rozmer $s$ je $n_s = 2$, rozmer $a$ je $n_a = 2$
-\item predpis funkcie ohodnotení
-\begin{align}
-&Q(s(n),a(n)) = \nonumber \\
-&\alpha Q(s(n-1),a(n-1)) \nonumber \\
-&(1- \alpha)(R(s(n),a(n)) + \gamma \max_{a(n-1) \in \mathbb{A}} Q(s(n-1), a(n-1)) \nonumber
-\end{align}
-
-\item $R(s(n), a(n)) \in \langle -1, 1 \rangle$ náhodná mapa s 1 cieľovým stavom
-\item $\gamma = 0.98$ a $\alpha = 0.7$
-\item hustota referenčného riešenia = 1/32  (4096 stavov)
-\item počet akcií v každom stave = 8
-\item hustota riedkej tabuľky = 1/8  (1:16 pomer)
-\item počet bázických funkcií $l = 64$
-\item rozsah parametrov
-    \begin{itemize}
-      \item $\alpha_{ja}(n) \in \langle -1, 1 \rangle$
-      \item $\beta_{ja}(n) \in \langle 0, 200 \rangle$
-      \item $w_{ja}(n) \in \langle -4, 4 \rangle$
-    \end{itemize}
-\end{itemize}
-
-\end{frame}
-
-
-
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Funkcia R(s, a), mapa 1 - Výsledky experimentov}
-pre každý stav je zvolená rovnaka množina akcií. \\
-Ďalej platí $s = (s[0], s[1])$.
+\begin{frame}{\bf Porovnanie s ostatnými}
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.4]{../../results_q_learning/map_2/reward_value_surface.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_2/trials_average_results.png}
 \end{figure}
 
 \end{frame}
-
-
-
-
 
 
 \begin{frame}{\bf Porovnanie s ostatnými}
@@ -546,153 +452,31 @@ pre každý stav je zvolená rovnaka množina akcií. \\
 
 \end{frame}
 
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Chybové funkcie - Výsledky experimentov}
-
-\begin{equation}
-e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
-\end{equation}
-
-\begin{minipage}{.5\textwidth}
+\begin{frame}{\bf Doplnkový experiment}
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_1/q_learning_error.png}
-\caption{sparse table}
-\end{figure}
-
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_2/q_learning_error.png}
-\caption{linear combination Gauss}
-\end{figure}
-
-
-\end{minipage}
-\end{frame}
-
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Chybové funkcie - Výsledky experimentov}
-
-\begin{equation}
-e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
-\end{equation}
-
-\begin{minipage}{.5\textwidth}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_3/q_learning_error.png}
-\caption{sparse table + linear combination Gauss}
-\end{figure}
-
-
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_4/q_learning_error.png}
-\caption{linear combination Kohonen function}
-\end{figure}
-
-
-\end{minipage}
-\end{frame}
-
-
-
-
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf max Q(s, a) - Výsledky experimentov}
-
-\begin{minipage}{.5\textwidth}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_0/iterations_10/q_learning_result.png}
-\caption{reference table}
-\end{figure}
-
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_3/iterations_10/q_learning_result.png}
-\caption{sparse table + linear combination Gauss}
-\end{figure}
-
-
-\end{minipage}
-\end{frame}
-
-
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Mapa 0 - Výsledky experimentov}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.36]{../../results_q_learning/map_0/trials_average_results.png}
+\includegraphics[scale=.05]{../pictures/motoko_aftermath_front.jpg}
+\label{img:motoko_robot_photo}
 \end{figure}
 
 \end{frame}
 
 
-\begin{frame}{\bf Porovnanie s ostatnými}
+\begin{frame}{\bf Doplnkový experiment}
+
+Bloková schéma robota
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.4]{../../results_q_learning/map_2/trials_average_results.png}
+\includegraphics[scale=.25]{../diagrams/motoko_robot_block.eps}
+\label{img:motoko_robot_block}
 \end{figure}
 
 \end{frame}
 
 
 
-
-
-
-
-
-
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Mapa 1 - Výsledky experimentov}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.36]{../../results_q_learning/map_0/trials_average_results.png}
-\end{figure}
-
-\end{frame}
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Mapa 2 - Výsledky experimentov}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.36]{../../results_q_learning/map_2/trials_average_results.png}
-\end{figure}
-
-\end{frame}
-
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Mapa 3 - Výsledky experimentov}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.36]{../../results_q_learning/map_3/trials_average_results.png}
-\end{figure}
-
-\end{frame}
 
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Ďakujem za pozornosť}
@@ -702,11 +486,22 @@ e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.15]{../pictures/me.jpg}
+\includegraphics[scale=.2]{../pictures/me_ferrata.jpg}
 \end{figure}
 
-
-
 \end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \end{document}
