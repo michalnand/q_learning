@@ -275,153 +275,293 @@ priemerná, minimálna, maximálna chyba a smerodatná odchylka \\
 
 \section {Výsledky experimentu}
 
+Experiment bol spočítaný pre 4 rôzne mapy - funkcie $R(s(n), a(n))$. Je potrebné
+poznamenať, že takto navrhnuté prostredie umožňuje agentovi aby nastala
+každý možný stav - to komplikuje možnosť redukcie počtu stavov. Ukážka mapy č. 2
+je na obrázku \ref{img:experiment_reward_function}. Pričom ako bolo v predošlej
+časti povedané, platí $R^k(s(n), a(n)) = R^k(s(n))$, t.j. odmena je rovnaká v každom
+prechode vedúcom do rovnakého stavu.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{../../results_q_learning/map_2/reward_value_surface.png}
+\caption{Odmeňovacia funkcia R(s(n), a(n)), mapa 2}
+\label{img:experiment_reward_function}
+\end{figure}
+
+
+Pre riešenie Q funkcie s použitím tabuľky, ktoré bude vzhľadom na podmienky experimentu presným
+rieším je graf funkcie $\max_{a(n) \in \mathbb{A}} Q_{n}(s(n), a(n))$ na obrázku \ref{img:experiment_reference}.
+Je možné ľahko pozorovať maximum v oblasti jediného kladného $R(s(n), a(n))$. Od tohto
+maxima sa šíria hodnoty na celý definičný obor podľa vzťahu \ref{eq:q_learning}. Ďalej
+je možné pozrovať záporné hodnoty, ktoré sa nešíria ďalej - predstavujú oblasti kde $R(s(n), a(n))$
+nadobúda tiež záporné hodnoty. Na základe známeho $Q(s(n),a(n))$ je možné
+zostaviť mapu ktorú akciu číslovanú 0 až 7 má agent zvoliť - mapa najlepších
+akcií v danom stave je znázornená na obrázku \ref{img:experiment_reference_action}.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{../../results_q_learning/map_2/function_type_0/iterations_10/q_learning_result.png}
+\caption{Referenčné riešenie}
+\label{img:experiment_reference}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{../../results_q_learning/map_2/function_type_0/iterations_10/action_best_value_log_surface.png}
+\caption{Číslo najlepšej akcie použitím referenčného riešenia}
+\label{img:experiment_reference_action}
+\end{figure}
+
+\newpage
+Riešenie pre použitie riedkej tabuľky na aproximáciu je viditeľné na obrázku \ref{img:experiment_sparse_table}.
+Je vidieť nespojité zmeny, a absenciu schopnosti aproximovať náhle záporné hodnoty požadované zápornou
+$R(s(n), a(n))$. Zo známeho $Q(s(n), a(n))$ je ďalej možné zostaviť mapu najlepších akcií (očíslované od
+0..7). Závislosť čísla najlepšej akcie od stavu je na obrázku \ref{img:experiment_sparse_table_actions}.
 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.4]{../../results_q_learning/map_1/reward_value_surface.png}
-\caption{odmeňovacia funkcia}
-\end{figure}
-
-
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_1/iterations_10/action_best_value_log_surface.png}
-\caption{fig:sparse table}
-\end{figure}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_2/iterations_10/action_best_value_log_surface.png}
-\caption{fig:linear combination Gauss}
-\end{figure}
-
-
-
-
-\begin{figure}[!htb]
-\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_3/iterations_10/action_best_value_log_surface.png}
-\caption{sparse table + linear combination Gauss}
-\end{figure}
-
-
-\begin{figure}[!htb]
-\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_4/iterations_10/action_best_value_log_surface.png}
-\caption{linear combination Kohonen function}
-\end{figure}
-
-
-
-
-\begin{equation}
-e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
-\end{equation}
-
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_1/q_learning_error.png}
-\caption{sparse table}
-\end{figure}
-
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_2/q_learning_error.png}
-\caption{linear combination Gauss}
-\end{figure}
-
-
-
-Chybové funkcie - Výsledky experimentov
-
-\begin{equation}
-e_{jt}(s) = (Q_{rt}(s,a - Q_{jt}(s,a))^2  \nonumber
-\end{equation}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_3/q_learning_error.png}
-\caption{sparse table + linear combination Gauss}
-\end{figure}
-
-
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_4/q_learning_error.png}
-\caption{linear combination Kohonen function}
-\end{figure}
-
-
-
-
-
-
-max Q(s, a) - Výsledky experimentov
-
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_0/iterations_10/q_learning_result.png}
-\caption{reference table}
+\includegraphics[scale=.4]{../../results_q_learning/map_2/function_type_1/iterations_10/q_learning_result.png}
+\caption{Riešenie aproximácie použitím riedkej tabuľky}
+\label{img:experiment_sparse_table}
 \end{figure}
 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.4]{../../results_q_learning/map_1/function_type_3/iterations_10/q_learning_result.png}
-\caption{sparse table + linear combination Gauss}
+\includegraphics[scale=.4]{../../results_q_learning/map_2/function_type_1/iterations_10/action_best_value_log_surface.png}
+\caption{Číslo Najlepšej akcie použitím riedkej tabuľky}
+\label{img:experiment_sparse_table_actions}
 \end{figure}
 
+\newpage
+Riešenie pre bázickú funkciu typu Gaussova krivka kombinovaná s riedkou tabuľkou (funkcia typu 3, obr. \ref{img:experiment_schem}) je na
+obrázku \ref{img:experiment_gauss_sparse_table}. Je možné vidieť nepojité zmeny spôsobené riedkou tabuľkou
+aj vyhladené oblasti vďaka Gaussovým krivkám. Podobne ako v predošlom prípade je možné znázorniť
+závislosť najlepšej akcie od stavu na obrázku \ref{img:experiment_gauss_sparse_table_actions}. Oproti
+riešeniu s riedkou tabuľkou je možné pozorovať zjemnenie prechodov.
 
-
-
-Priebeh trialov - Výsledky experimentov
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.4]{../../results_q_learning/map_1/trials_average_results_progress.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_2/function_type_3/iterations_10/q_learning_result.png}
+\caption{Riešenie aproximácie použitím Gaussovej krivky kombinovanej s riedkou tabuľkou}
+\label{img:experiment_gauss_sparse_table}
 \end{figure}
-
-
-
-
-Mapa 1 - Výsledky experimentov
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.4]{../../results_q_learning/map_1/trials_average_results.png}
+\includegraphics[scale=.4]{../../results_q_learning/map_2/function_type_3/iterations_10/action_best_value_log_surface.png}
+\caption{Číslo najlepšej akcie použitím Gaussovej krivky kombinovanej s riedkou tabuľkou}
+\label{img:experiment_gauss_sparse_table_actions}
+\end{figure}
+
+\newpage
+Pre úplnosť, znázornenie riešenia pre novo zavedenú funkciu  \ref{eq:peak_hill} -
+kombinujúc výhody hladkej Gaussovej krivky s tabuľkou, v bodoch kde sú záporné hodnoty $R(s(n), a(n))$.
+Výsledok pre $\max_{a(n) \in \mathbb{A}} Q_{n}(s(n), a(n))$ je možné pozrovať na obrázku
+\ref{img:experiment_gauss_adpative_table} a mapa najlepších akcií je na obrázku
+\ref{img:experiment_gauss_adpative_table_actions}.
+
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{../../results_q_learning/map_2/function_type_6/iterations_10/q_learning_result.png}
+\caption{Riešenie aproximácie použitím Gaussovej krivky kombinovanej s adaptívnou tabuľkou}
+\label{img:experiment_gauss_adpative_table}
+\end{figure}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{../../results_q_learning/map_2/function_type_6/iterations_10/action_best_value_log_surface.png}
+\caption{Číslo najlepšej akcie použitím Gaussovej krivky kombinovanej s adaptívnou tabuľkou}
+\label{img:experiment_gauss_adpative_table_actions}
 \end{figure}
 
 
+\newpage
+\section {Priemerné výsledky experimentu}
 
-Mapa 0 - Výsledky experimentov
+V predošlej časti uvedené výsledky zobrazujú výasledne riešenia pre 3 zvolené aproximačné
+metódy a jednu mapu - mapa 2. Celkové vyhodnotenie behu všetkých trialov a pre všetky
+štyri mapy je na nasledujúcich obrázkoch. Sledovali sa veličiny priemerná, maximálna, minimálna chyba
+a rozptyl chyby. Znázornenie výsledkov je na obrázkoch \ref{img:experiment_average_0},
+\ref{img:experiment_average_1}, \ref{img:experiment_average_2} a \ref{img:experiment_average_3}.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=.4]{../../results_q_learning/map_0/trials_average_results.png}
+\caption{Súhrnné výsledky pre všetky testovacie funkcie a mapu 0}
+\label{img:experiment_average_0}
 \end{figure}
 
-
-Mapa 2 - Výsledky experimentov
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=.4]{../../results_q_learning/map_1/trials_average_results.png}
+\caption{Súhrnné výsledky pre všetky testovacie funkcie a mapu 1}
+\label{img:experiment_average_1}
+\end{figure}
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=.4]{../../results_q_learning/map_2/trials_average_results.png}
+\caption{Súhrnné výsledky pre všetky testovacie funkcie a mapu 2}
+\label{img:experiment_average_2}
 \end{figure}
-
-
-Mapa 3 - Výsledky experimentov
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=.4]{../../results_q_learning/map_3/trials_average_results.png}
+\caption{Súhrnné výsledky pre všetky testovacie funkcie a mapu 3}
+\label{img:experiment_average_3}
 \end{figure}
 
+Z výsledkov je možné vybrať troch najvhodnejších kandidátov na aproximáciu :
+Gaussova krivka, Gaussova krivka kombinovaná s riedkou tabuľkou,
+Gaussova krivka kombinovaná s adaptívnou tabuľkou. Výsledky sa môžu zdať
+vyrovnané, dôležité je však znázroniť pohyby jednotlivých virtuálnych robotov a
+podľa toho urobiť záver. Pohyby robotov pre mapu 2 a jednotlivé aproximačné
+metódy je možné sledovať na obrázkoch
+\ref{img:experiment_ref_path}
+\ref{img:experiment_gauss_path}
+\ref{img:experiment_gauss_sparse_table_path}
+a   \ref{img:experiment_gauss_adaptive_table_path}. Je zrejmé, že jedina vyhovujúca
+aproximačná metóda pre uvedené parametre experimentu je novo zavedená funkcia \ref{eq:peak_hill}.
+Príčinou zlyhania ostatných je neschopnosť zebezpečiť potrebnú strmosť v oblastiach
+zápornej hodnoty $R(s(n), a(n))$. Samotná rekurentná povaha Q-learning algoritmu spôsobuje,
+že s rastúcou vzdialenosťou od jediného kladného $R(s(n), a(n))$ sa zmenšujú rozdiely
+$Q(s(n), a(n))$ pre jednotlivé akcie ktoré je možné v danom stave vykonať. To je obzvlášť nepríjemne
+pre experiment tak ako bol navrhnutý - malá zmena pohybu robota znamená aj malú zmenu stavu
+a aproximačná funkcia tak veľmi ťažko zachytí zmenu s požadovanou presnosťou.
 
-\section {Ukážkový experiment}
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.4]{../../results_q_learning/map_2/function_type_0/iterations_10/agents_path_surface.png}
+  \caption{Dráha robotov, referenčné riešenie}
+  \label{img:experiment_ref_path}
+  \end{figure}
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.4]{../../results_q_learning/map_2/function_type_2/iterations_10/agents_path_surface.png}
+  \caption{Dráha robotov, aproximacia  Gaussovou krivkou}
+  \label{img:experiment_gauss_path}
+  \end{figure}
+
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.4]{../../results_q_learning/map_2/function_type_3/iterations_10/agents_path_surface.png}
+  \caption{Dráha robotov, aproximacia  Gaussovou krivkou kombinovanou s riedkou tabuľkou}
+  \label{img:experiment_gauss_sparse_table_path}
+  \end{figure}
+
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.4]{../../results_q_learning/map_2/function_type_6/iterations_10/agents_path_surface.png}
+  \caption{Dráha robotov, aproximacia  Gaussovou krivkou kombinovanou s adaptívnou tabuľkou}
+  \label{img:experiment_gauss_adaptive_table_path}
+  \end{figure}
+
+
+
+\newpage
+\section {Doplnkový experiment}
+
+Zaujímava aplikácia uvedených metód je robot sledujúci čiaru. Vybavený je snímačmi
+polohy čiary tpy. APDS9950, mikrokontrolérom STM32F303 (72MHz arm cortex M4),
+gyroskopom a dvoma jednosmernými motormi, fotografia robota je na obrázku \ref{img:motoko_photo}
+.
+
+\begin{figure}[!htb]
+\center
+\includegraphics[scale=.08]{../pictures/motoko_aftermath_front.jpg}
+\caption{Fotografia robota}
+\label{img:motoko_photo}
+\end{figure}
+
+Pre zjednodušený fyzikálny model je robota možné aproximovať kvádrom o rozmeroch $w$, $h$, $d$ a rozhode kolies
+$b$ homogénne rozloženej hmote na ktorú pôsobia dve sily pravého a ľavého motora $F_r(t)$ a $F_l(t)$.
+Poloha robota je vztiahnutá na bod $R(x, y)$, na začiatku splývajúci s počiatkom súradnicovej sústavy
+$O$. Pôsobením týchto síl sa robot pohne a otočí na uhol $\phi(t)$, schématické znázornenie je na
+obrázku \ref{img:motoko_model}.
+
+\begin{figure}[!htb]
+\center
+\includegraphics[scale=.5]{../diagrams/robot_model.eps}
+\caption{Odvodenie fyzikálneho modelu robota}
+\label{img:motoko_model}
+\end{figure}
+
+Ak budenie motorov bude $u_l(n)$ a $u_r(n)$ a moment zotrvačnoti rotora
+je zanedbateľný oproti momentu zotrvačnosti robota potom sily pôsobiace na ľavé a pravé koleso sú približne
+\begin{align}
+  F_l(t) = ku_l(t) \\
+  F_r(t) = ku_r(t) \\
+  M_f(t) = \frac{b}{2}(F_l(t) - F_r(t))
+\end{align}
+
+kde $k$ je konštanta úmernosti a $M_f(t)$ je výsledný točivý moment robota.
+
+Pre rozmery $w$, $h$ a hmotnosť $m$ je moment zorvačnosti robota
+
+\begin{align}
+  J = \frac{1}{12}m(w^2 + h^2)
+\end{align}
+
+Pre uhol robota potom platí
+
+\begin{align}
+  \frac{d^2\phi(t)}{dt} = \frac{1}{J}M_f(t) - \frac{b}{J}\frac{d\phi(t)}{dt}
+  \label{eq:robot_model_eq_phi}
+\end{align}
+
+Rovnica \ref{eq:robot_model_eq_phi} aproximuje postupný nábeh rýchlosti
+otáčania robota prvým rádom. Za rýchlosť nábehu zodpovedá koeficient tlmenia $b$. Čo vedie na PD regulátor a
+riadi otáčanie robota, tým že riadi rozdiel rýchlosti ľavého a pravého motora.
+
+%Čo po diskretizácií a použitím Z-transformácie a diskretizačným krokom $dt$ vedie na diskrétny prenos v tvare
+%\begin{align}
+%  \frac{\phi'(z)}{M_f'(z)} = \frac{dt}{J} \frac{1}{ (1 + \frac{b}{J}) + (-2 - \frac{b}{J})z^{-1} + z^{-2} }
+%  \label{eq:robot_model_eq_phi_disc}
+%\end{align}
+%Triviálny prenos regulátora potom bude
+%\begin{align}
+% C_d(z) = \frac{\frac{J}{dt} ((1 + \frac{b}{J})z^{-1} + (-2 - \frac{b}{J})z^{-2} + z^{-3} )}{1 - z^{-1}}
+%\end{align}
+%čo je diskrétna forma PD regulátora.
+
+Pre doprednú rýchlosť robota a koeficient tlmenia $c$ platí
+
+\begin{align}
+  F(t) = F_l(t) + F_r(t) \\
+ \frac{dv(t)}{dt} = \frac{F(t)}{m} - cv(t)
+\end{align}
+
+a po úpravach je možné dostať PI regulátor. Regulátor zodpovedá za doprednú rýchlosť robota.
+%čo vedie na diskrétny ekvivalent PI regulátora
+%\begin{align}
+% P_v(z) = \frac{ \frac{m}{dt}((1+c)z^{-1} - z^{-2}) }{1-z^{-1}}
+%\end{align}
+
+Riadenie ľavého $l(n)$ a pravého motora $r(n)$ je teda rozdelené na dve časti
+\begin{align}
+  l(n) = v(n) + d(n) \\
+  r(n) = v(n) + d(n) \\
+\end{align}
+
+$v(n)$ je dopredná rýchlosť a $d(n)$ je rozdiel rýchlosti motorov.
+
+Poloha čiary je získana zo snímača, nadobúda 256 diskrétnych hodnôt a na blokovej schéme \ref{img:motoko_block} je
+označená ako $s(n)$. Vzorkovacia frekvencia je 200Hz.
+
+Tu je potrebné poznamenať, že požadovaná hodnota $r(n)$ nie je známa ani pre uhol natočenia ani pre rýchlosť.
+Dráha po ktorej robot prechádza má zákruty rôzneho tvaru aj rovné úseky.
+Triviálny prípad je $r(n) = 0$. Robot tak na základe chyby $e(n) = r(n) - s(n)$
+môže upravovať rychlosť aj natočenie.
 
 \begin{figure}[!htb]
 \center
@@ -430,10 +570,23 @@ Mapa 3 - Výsledky experimentov
 \label{img:motoko_block}
 \end{figure}
 
+Práve tu sa ukazuje ako zaujimavé riešenie použiť Q-learning algoritmus na stanovenie
+požadovanej hodnoty $r(n)$. Stav robota je určený niekoľkými po sebe zmeranými polohami čiary so senzora
+$s(n)$. V tomto konrétnom prípade ide o 16 vzoriek.
+Kedže existuje veľmi veľký počet možných stavov (pre symetrické správanie sa
+v ľavo aj pravotočivých zákrutách je to $128^16$)bol použitá Kohonenová neurónová
+sieť na klasterizáciu stavov do 16 kategórií - predstavujú zákruty s rôznou strmosťou
+\ref{img:motoko_kohonen}. Na osy iteration vidno vstupnú vzorku v poradí $n..n-16$
+na ose output je hodnota snímača čiary. Po niekoľkých prejdeniach trénovacej dráhy
+sa tvary zákrut ustálili tak ako sú na obrázku. Každému typu zákruty (stavu) je tak
+možné priradiť žiadanú hodnotu $r(n)$. Mechanizmus stanovenia týchto hodnôt je algoritmus
+Q-learning. Akcie boli zvíšiť rýchlosť pre daný typ zákruty alebo znížiť. Odmeňovacia funkcia
+je filtrovaná poloha čiary - čím viac sa robot odchyľuje od požaovanej dráhy, tým väčší je trest.
+Robota je možné vidieť na videu \cite{bib:mototko_video}.
 
 \begin{figure}[!htb]
 \center
-\includegraphics[scale=.08]{../pictures/motoko_aftermath_front.jpg}
-\caption{Fotografia robota}
-\label{img:motoko_photo}
+\includegraphics[scale=.4]{../pictures/motoko_curves.png}
+\caption{Klasterizácia rôznych zákrut}
+\label{img:motoko_kohonen}
 \end{figure}
