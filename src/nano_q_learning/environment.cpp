@@ -107,7 +107,7 @@ void CEnvironment::process(u32 iterations_max)
   float t = 0.0;
   for (iterations = 0; iterations < iterations_max; iterations++)
   {
-    t+= dt/2.0; //(2.0*PI*iterations)/iterations_max;
+    t+= dt/1.1; //(2.0*PI*iterations)/iterations_max;
     target_position[0] = 0.7*cos(t);
     target_position[1] = 0.7*sin(t);
 

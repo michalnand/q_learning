@@ -1,7 +1,7 @@
 #ifndef _NANO_Q_H_
 #define _NANO_Q_H_
 
-#include "../common/common.h"
+#include "../../../common/common.h"
 
 #define NANO_Q_ACTIONS_COUNT  ((u32)4)
 #define NANO_Q_GAMMA_MAX      ((i32)64)

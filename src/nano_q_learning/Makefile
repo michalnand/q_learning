@@ -1,6 +1,6 @@
 ELF = bin/main.elf
 
-COMMON_PATH = ../common
+COMMON_PATH = ../../../common
 
 COMMON+= $(COMMON_PATH)/math.o
 COMMON+= $(COMMON_PATH)/log.o

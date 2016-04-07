@@ -8,8 +8,8 @@ int main()
 
 
   float dt = 0.001;
-  float gamma = 0.7;
-  float noise = 0.1;
+  float gamma = 0.9;
+  float noise = 0.3;
   u32 robots_count = 32;
   u32 iterations_max = 22000;
 
@@ -18,7 +18,7 @@ int main()
   environment_tmp->save();
   delete environment_tmp;
 
-
+  return 0;
 
   class CLog *summary_result_log;
   summary_result_log = new CLog((char*)"summary_result.log", 4);
