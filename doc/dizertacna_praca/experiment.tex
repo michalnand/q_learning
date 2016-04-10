@@ -44,18 +44,18 @@ Pre korektné vyplnenie hodnôt v $s_{n-1}$ sa vyžaduje korektá hodnota v $s_{
     & \dots
 \end{align*}
 
-V prípade dobrednej siete učenej algoritmon Backpropagation, zmena hodnoty v jendom bode $Q(s(n),a(n))$ spôsobí
-zmenu vo všetkých ostatných hodotách a nikde nie je zaručené, že k správnej hodnote -
+V prípade doprednej siete učenej algoritmom Backpropagation, zmena hodnoty v jednom bode $Q(s(n),a(n))$ spôsobí
+zmenu vo všetkých ostatných hodnotách a nikde nie je zaručené, že k správnej hodnote -
 v určitom štádiu učenia sa tak môže zdať, že hodnoty koretkne kovergujú, a inom
 sa môžu vzďaľovať. Práve preto sa pre klasické úlohy rozpoznávania predkladajú sieti vzory
 v náhodonom poradí a v mnohých opakovaniach. Vzory a požadované výstupy sú však nezávislé.
 
 \subsection{Divergencia riešenia}
 
-Tento efekt divergencie bol pozovaný nie len vyžšie uvedenými autormi, ale aj experimentálne
+Tento efekt divergencie bol pozrovaný nie len vyššie uvedenými autormi, ale aj experimentálne
 overený v tejto práci. Usporiadanie experimentu je na obrázku \ref{img:1D_experiment_schem}.
 Robot má dve akcie, pohyb o pevne zvolený krkok vľavo alebo vpravo. Úlohou je dostať sa
-do cieľa, ktorý môže byť umiestnený kdekoľvek. Pre jednoduchosť bol vybraný 2 rozmerný stavový priestor
+do cieľa, ktorý môže byť umiestnený kdekoľvek. Pre jednoduchosť bol vybraný dvoj rozmerný stavový priestor
 z rozsahu $s \in \langle -1, 1 \rangle$. Stav systému charakterizovaný vektorom $s$ je
 poloha robota voči počiatku a poloha cieľa voči počiatku, takýto systém je aj dobre graficky znázorniteľný.
 
@@ -70,7 +70,7 @@ Z ostatných parametrov ktoré boli použité pre beh experimentu :
 
 \begin{itemize}
 \item počet iterácií = 10000000
-\item delenie stavoého priestoru = 1/8.0
+\item delenie stavového priestoru = 1/8.0
 \item $\gamma = 0.7$
 \item neurónová sieť :
   \begin{itemize}
@@ -83,7 +83,7 @@ Z ostatných parametrov ktoré boli použité pre beh experimentu :
 
 Najskôr bolo určené riešenie použitím tabuľky (ktoré bolo pre malý počet stavov možné spočítať).
 Najdôležitejší výstup je výber korektnej akcie, kde $+1$ znamená jeden smer a $-1$ smer opačný.
-Veľmi ľahko sa dá očakávať ostré rozdelnie stavového priestoru po diagonále :
+Veľmi ľahko sa dá očakávať ostré rozdelenie stavového priestoru po diagonále :
 ak je robot naľavo od cieľa musí sa pohybovať doprava a naopak. Výsledok je na obrázku
 \ref{img:divergence_table_action}. Pre úplnosť, obrázok \ref{img:divergence_table_q_map}
 znázorňuje hodnoty $\max_{a(n-1) \in \mathbb{A}} Q(s, a)$. Opäť sa dá ľahko očakávať
@@ -126,13 +126,37 @@ Backpropagation algoritmom je na obrázkoch \ref{img:divergence_table_action} a
 \end{figure}
 
 Napriek jednoduchej úlohe, nie je možné povedať že sieť úspešne aproximuje tento problém.
-Porovním výstupov najlepších akcií je možné vidieť určitý náznak podobnosti, ktorý je
+Porovnaním výstupov najlepších akcií je možné vidieť určitý náznak podobnosti, ktorý je
 však vzhľadom na irelevantnosť úlohy bezpredmentný a dosahuje priveľkú chybu, najmä
 ak sa robot už blížil k cieľu.
 
+Najlepšie výsledky dosahovala dopredná neurónová sieť s novo zavedeným modelom
+neurónu v tvare
+
+\begin{equation}
+y(x(n)) = tanh(\sum\limits_{i=0}^{N-1} w_ix_i(n) + \sum\limits_{j=0}^{N-1} \sum\limits_{i=0}^{j} v_{ij}x_i(n)x_j(n))
+\label{eq:neuron_model}
+\end{equation}
+
+kde
+x(n) je vstup do neurónu \\
+w je vektor váh \\
+v je matica váh \\
+
+Takto definovaný model neurónu umožňuje okrem bežných funkcí McCuloh-Pittsovho neurónu aj násobiť
+prvky vstupného vektora (časť $v_{ij}x_i(n)x_j(n)$). Dôsledkom toho je realizácia zložitých
+funkcií len s použitím jednej skrytej vrstvy - výrazne sa tak zjednoduší učenie. Medzi typické
+funkcie ktoré sa s McCuloh-Pittsovim neurónom a jendou skytou vrstvou ťažko realizujú, možno uviesť napr :
+Fourierova transformácia, zmiešavanie signálov, riadenie toku dát na základe inej časti dát.
+Najmä posledne uvedená zvyšuje stupeň abstrakcie, kde neurónová sieť neaproximuje len jeden
+naučený druh funkcie, ale môže aproximovať viac, úplne rozdielných a medzi nimi vyberať.
+Uvedený model bol doteraz nepublikovaný v inej literatúre.
+
+
+
 \section {Riešenie aproximácie}
 
-Uvedení autory najčastejšie používajú tzv. príznaky (features) na aproximovanie $Q(s(n), a(n))$
+Uvedení autori najčastejšie používajú tzv. príznaky (features) na aproximovanie $Q(s(n), a(n))$
 \begin{align}
 Q(s(n), a(n)) = \sum\limits_{j=1} w_j g_j(s(n), a(n))
 \label{eq:features_func}
@@ -141,9 +165,9 @@ Q(s(n), a(n)) = \sum\limits_{j=1} w_j g_j(s(n), a(n))
 kde $g_j(s(n), a(n))$ sú funkcie príznakov, ktorých je konečný počet a
 $w_j$ predstavuje váhy ich lineárnej kombinácie.
 
-Príznaky sú zvolené pevne a závisia od typu úlohy. Práve to predstavuje najväčší
+Príznaky sú funkcie, ktoré sú pevne zvolené a závisia od typu úlohy. Práve to predstavuje najväčší
 nedostatok. Cieľom navrhovaného experimentu je využiť príznaky ktorých parametre
-sa menia. Vzniká tak akýsi hybrid medzi neurónovou sieťou a lineárnou kombináciou
+sa menia - bázické funkcie. Vzniká tak akýsi hybrid medzi neurónovou sieťou a lineárnou kombináciou
 pevne zvolených príznakov.
 
 Z ohľadom na minimalizovanie vplyvu zmeny parametrov j-teho príznaku alebo váhy $w_j$
@@ -383,7 +407,7 @@ Výsledok pre $\max_{a(n) \in \mathbb{A}} Q_{n}(s(n), a(n))$ je možné pozrova�
 \newpage
 \section {Priemerné výsledky experimentu}
 
-V predošlej časti uvedené výsledky zobrazujú výasledne riešenia pre 3 zvolené aproximačné
+V predošlej časti uvedené výsledky zobrazujú výsledne riešenia pre 3 zvolené aproximačné
 metódy a jednu mapu - mapa 2. Celkové vyhodnotenie behu všetkých trialov a pre všetky
 štyri mapy je na nasledujúcich obrázkoch. Sledovali sa veličiny priemerná, maximálna, minimálna chyba
 a rozptyl chyby. Znázornenie výsledkov je na obrázkoch \ref{img:experiment_average_0},
@@ -471,10 +495,11 @@ a aproximačná funkcia tak veľmi ťažko zachytí zmenu s požadovanou presnos
 \newpage
 \section {Doplnkový experiment}
 
-Zaujímava aplikácia uvedených metód je robot sledujúci čiaru. Vybavený je snímačmi
-polohy čiary tpy. APDS9950, mikrokontrolérom STM32F303 (72MHz arm cortex M4),
-gyroskopom a dvoma jednosmernými motormi, fotografia robota je na obrázku \ref{img:motoko_photo}
-.
+Zaujímava aplikácia uvedených metód je robot sledujúci čiaru. Robot má dva motory, kde zmenou
+rýchlosti otáčania jednotlivých motorov je možné meniť jeho polohu. Cieľom je prejsť
+po čiare za čo najkratší čas.
+Vybavený je snímačmi polohy čiary typ APDS9950, mikrokontrolérom STM32F303 (72MHz arm cortex M4),
+gyroskopom a dvoma jednosmernými motormi, fotografia robota je na obrázku \ref{img:motoko_photo}.
 
 \begin{figure}[!htb]
 \center
@@ -483,8 +508,8 @@ gyroskopom a dvoma jednosmernými motormi, fotografia robota je na obrázku \ref
 \label{img:motoko_photo}
 \end{figure}
 
-Pre zjednodušený fyzikálny model je robota možné aproximovať kvádrom o rozmeroch $w$, $h$, $d$ a rozhode kolies
-$b$ homogénne rozloženej hmote na ktorú pôsobia dve sily pravého a ľavého motora $F_r(t)$ a $F_l(t)$.
+Pre zjednodušený fyzikálny model je robota možné aproximovať kvádrom o rozmeroch $w$, $h$, $d$ a rozchode
+kolies $b$ homogénne rozloženej hmote na ktorú pôsobia dve sily pravého a ľavého motora $F_r(t)$ a $F_l(t)$.
 Poloha robota je vztiahnutá na bod $R(x, y)$, na začiatku splývajúci s počiatkom súradnicovej sústavy
 $O$. Pôsobením týchto síl sa robot pohne a otočí na uhol $\phi(t)$, schématické znázornenie je na
 obrázku \ref{img:motoko_model}.
@@ -512,7 +537,7 @@ Pre rozmery $w$, $h$ a hmotnosť $m$ je moment zorvačnosti robota
   J = \frac{1}{12}m(w^2 + h^2)
 \end{align}
 
-Pre uhol robota potom platí
+Pre uhol robota je potom možné napísať
 
 \begin{align}
   \frac{d^2\phi(t)}{dt} = \frac{1}{J}M_f(t) - \frac{b}{J}\frac{d\phi(t)}{dt}
@@ -520,8 +545,8 @@ Pre uhol robota potom platí
 \end{align}
 
 Rovnica \ref{eq:robot_model_eq_phi} aproximuje postupný nábeh rýchlosti
-otáčania robota prvým rádom. Za rýchlosť nábehu zodpovedá koeficient tlmenia $b$. Čo vedie na PD regulátor a
-riadi otáčanie robota, tým že riadi rozdiel rýchlosti ľavého a pravého motora.
+otáčania robota prvým rádom. Za rýchlosť nábehu zodpovedá koeficient tlmenia $b$.
+Riadenie hondoty uhla potom vedie na PD regulátor. Ten riadi rozdiel rýchlosti ľavého a pravého motora, $d(n)$.
 
 %Čo po diskretizácií a použitím Z-transformácie a diskretizačným krokom $dt$ vedie na diskrétny prenos v tvare
 %\begin{align}
@@ -541,16 +566,17 @@ Pre doprednú rýchlosť robota a koeficient tlmenia $c$ platí
  \frac{dv(t)}{dt} = \frac{F(t)}{m} - cv(t)
 \end{align}
 
-a po úpravach je možné dostať PI regulátor. Regulátor zodpovedá za doprednú rýchlosť robota.
+po úpravach je podobne ako pre uhol možné navrhnúť regulátor,
+tentoraz ale PI regulátor - žiadaná hodnota je dopredná rýchlosť $v(n)$, nie poloha.
 %čo vedie na diskrétny ekvivalent PI regulátora
 %\begin{align}
 % P_v(z) = \frac{ \frac{m}{dt}((1+c)z^{-1} - z^{-2}) }{1-z^{-1}}
 %\end{align}
 
-Riadenie ľavého $l(n)$ a pravého motora $r(n)$ je teda rozdelené na dve časti
+Riadenie ľavého $u_l(n)$ a pravého motora $u_r(n)$ je teda rozdelené na dve časti
 \begin{align}
-  l(n) = v(n) + d(n) \\
-  r(n) = v(n) + d(n) \\
+  u_l(n) = v(n) + d(n) \\
+  u_r(n) = v(n) - d(n) \\
 \end{align}
 
 $v(n)$ je dopredná rýchlosť a $d(n)$ je rozdiel rýchlosti motorov.
@@ -560,7 +586,7 @@ označená ako $s(n)$. Vzorkovacia frekvencia je 200Hz.
 
 Tu je potrebné poznamenať, že požadovaná hodnota $r(n)$ nie je známa ani pre uhol natočenia ani pre rýchlosť.
 Dráha po ktorej robot prechádza má zákruty rôzneho tvaru aj rovné úseky.
-Triviálny prípad je $r(n) = 0$. Robot tak na základe chyby $e(n) = r(n) - s(n)$
+Triviálny prípad je možné získať pre $r(n) = 0$. Robot tak na základe chyby $e(n) = r(n) - s(n)$
 môže upravovať rychlosť aj natočenie.
 
 \begin{figure}[!htb]
@@ -574,15 +600,15 @@ Práve tu sa ukazuje ako zaujimavé riešenie použiť Q-learning algoritmus na 
 požadovanej hodnoty $r(n)$. Stav robota je určený niekoľkými po sebe zmeranými polohami čiary so senzora
 $s(n)$. V tomto konrétnom prípade ide o 16 vzoriek.
 Kedže existuje veľmi veľký počet možných stavov (pre symetrické správanie sa
-v ľavo aj pravotočivých zákrutách je to $128^16$)bol použitá Kohonenová neurónová
-sieť na klasterizáciu stavov do 16 kategórií - predstavujú zákruty s rôznou strmosťou
-\ref{img:motoko_kohonen}. Na osy iteration vidno vstupnú vzorku v poradí $n..n-16$
+v ľavo aj pravotočivých zákrutách je to $128^{16}$ bola použitá Kohonenová neurónová
+sieť na klasterizáciu stavov do 16 kategórií - predstavujú zákruty s rôznou strmosťou, obrázok
+\ref{img:motoko_kohonen}. Na ose iteration vidno vstupnú vzorku v poradí $n..n-16$
 na ose output je hodnota snímača čiary. Po niekoľkých prejdeniach trénovacej dráhy
 sa tvary zákrut ustálili tak ako sú na obrázku. Každému typu zákruty (stavu) je tak
 možné priradiť žiadanú hodnotu $r(n)$. Mechanizmus stanovenia týchto hodnôt je algoritmus
 Q-learning. Akcie boli zvíšiť rýchlosť pre daný typ zákruty alebo znížiť. Odmeňovacia funkcia
-je filtrovaná poloha čiary - čím viac sa robot odchyľuje od požaovanej dráhy, tým väčší je trest.
-Robota je možné vidieť na videu \cite{bib:mototko_video}.
+je filtrovaná poloha čiary - čím viac sa robot odchyľuje od požadovanej dráhy, tým väčší je trest.
+Robota v prevádzke je možné vidieť na videu \cite{bib:mototko_video}.
 
 \begin{figure}[!htb]
 \center

@@ -10,25 +10,25 @@
 \contentsline {section}{\numberline {2.4}Ohodnocovanie vykonan\IeC {\'y}ch akci\IeC {\'\i }}{14}{section.2.4}
 \contentsline {section}{\numberline {2.5}Jednostavov\IeC {\'y} syst\IeC {\'e}m}{17}{section.2.5}
 \contentsline {subsection}{\numberline {2.5.1}V\IeC {\'y}sledky experimentu}{18}{subsection.2.5.1}
-\contentsline {chapter}{\numberline {3}Q-larning algoritmus}{26}{chapter.3}
-\contentsline {section}{\numberline {3.1}Defin\IeC {\'\i }cia algoritmu}{26}{section.3.1}
-\contentsline {section}{\numberline {3.2}V\IeC {\'y}ber akcie}{30}{section.3.2}
-\contentsline {section}{\numberline {3.3}Probl\IeC {\'e}my v\IeC {\'y}po\IeC {\v c}tu $Q(s, a)$}{31}{section.3.3}
-\contentsline {section}{\numberline {3.4}Tabu\IeC {\v l}ka}{33}{section.3.4}
-\contentsline {section}{\numberline {3.5}Dopredn\IeC {\'a} neur\IeC {\'o}nov\IeC {\'a} sie\IeC {\v t}}{33}{section.3.5}
-\contentsline {section}{\numberline {3.6}Kohonenov\IeC {\'a} neur\IeC {\'o}nov\IeC {\'a} sie\IeC {\v t}}{36}{section.3.6}
-\contentsline {section}{\numberline {3.7}Neur\IeC {\'o}nov\IeC {\'a} sie\IeC {\v t} b\IeC {\'a}zickych funkci\IeC {\'\i }}{39}{section.3.7}
-\contentsline {subsection}{\numberline {3.7.1}Ur\IeC {\v c}enie parametrov $\alpha $}{41}{subsection.3.7.1}
-\contentsline {subsection}{\numberline {3.7.2}Ur\IeC {\v c}enie parametrov $\beta $}{42}{subsection.3.7.2}
-\contentsline {subsection}{\numberline {3.7.3}Ur\IeC {\v c}enie v\IeC {\'a}hov\IeC {\'y}ch parametrov $w$}{43}{subsection.3.7.3}
-\contentsline {subsection}{\numberline {3.7.4}Hybridn\IeC {\'y} variant}{43}{subsection.3.7.4}
-\contentsline {chapter}{\numberline {4}Experiment\IeC {\'a}lna \IeC {\v c}as\IeC {\v t}}{46}{chapter.4}
-\contentsline {section}{\numberline {4.1}Ciele experimentu}{46}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Divergencia rie\IeC {\v s}enia}{47}{subsection.4.1.1}
-\contentsline {section}{\numberline {4.2}Rie\IeC {\v s}enie aproxim\IeC {\'a}cie}{48}{section.4.2}
-\contentsline {section}{\numberline {4.3}N\IeC {\'a}vrh experimentu}{51}{section.4.3}
-\contentsline {section}{\numberline {4.4}V\IeC {\'y}sledky experimentu}{54}{section.4.4}
-\contentsline {section}{\numberline {4.5}Priemern\IeC {\'e} v\IeC {\'y}sledky experimentu}{60}{section.4.5}
-\contentsline {section}{\numberline {4.6}Doplnkov\IeC {\'y} experiment}{62}{section.4.6}
-\contentsline {chapter}{\numberline {5}Z\IeC {\'a}ver}{69}{chapter.5}
-\contentsline {chapter}{Literat\IeC {\'u}ra}{71}{chapter*.65}
+\contentsline {chapter}{\numberline {3}Q-larning algoritmus}{27}{chapter.3}
+\contentsline {section}{\numberline {3.1}Defin\IeC {\'\i }cia algoritmu}{27}{section.3.1}
+\contentsline {section}{\numberline {3.2}V\IeC {\'y}ber akcie}{31}{section.3.2}
+\contentsline {section}{\numberline {3.3}Probl\IeC {\'e}my v\IeC {\'y}po\IeC {\v c}tu $Q(s, a)$}{32}{section.3.3}
+\contentsline {section}{\numberline {3.4}Tabu\IeC {\v l}ka}{34}{section.3.4}
+\contentsline {section}{\numberline {3.5}Dopredn\IeC {\'a} neur\IeC {\'o}nov\IeC {\'a} sie\IeC {\v t}}{34}{section.3.5}
+\contentsline {section}{\numberline {3.6}Kohonenova neur\IeC {\'o}nov\IeC {\'a} sie\IeC {\v t}}{37}{section.3.6}
+\contentsline {section}{\numberline {3.7}Neur\IeC {\'o}nov\IeC {\'a} sie\IeC {\v t} b\IeC {\'a}zickych funkci\IeC {\'\i }}{40}{section.3.7}
+\contentsline {subsection}{\numberline {3.7.1}Ur\IeC {\v c}enie parametrov $\alpha $}{42}{subsection.3.7.1}
+\contentsline {subsection}{\numberline {3.7.2}Ur\IeC {\v c}enie parametrov $\beta $}{43}{subsection.3.7.2}
+\contentsline {subsection}{\numberline {3.7.3}Ur\IeC {\v c}enie v\IeC {\'a}hov\IeC {\'y}ch parametrov $w$}{44}{subsection.3.7.3}
+\contentsline {subsection}{\numberline {3.7.4}Hybridn\IeC {\'y} variant}{44}{subsection.3.7.4}
+\contentsline {chapter}{\numberline {4}Experiment\IeC {\'a}lna \IeC {\v c}as\IeC {\v t}}{47}{chapter.4}
+\contentsline {section}{\numberline {4.1}Ciele experimentu}{47}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Divergencia rie\IeC {\v s}enia}{48}{subsection.4.1.1}
+\contentsline {section}{\numberline {4.2}Rie\IeC {\v s}enie aproxim\IeC {\'a}cie}{52}{section.4.2}
+\contentsline {section}{\numberline {4.3}N\IeC {\'a}vrh experimentu}{52}{section.4.3}
+\contentsline {section}{\numberline {4.4}V\IeC {\'y}sledky experimentu}{56}{section.4.4}
+\contentsline {section}{\numberline {4.5}Priemern\IeC {\'e} v\IeC {\'y}sledky experimentu}{62}{section.4.5}
+\contentsline {section}{\numberline {4.6}Doplnkov\IeC {\'y} experiment}{64}{section.4.6}
+\contentsline {chapter}{\numberline {5}Z\IeC {\'a}ver}{70}{chapter.5}
+\contentsline {chapter}{Literat\IeC {\'u}ra}{72}{chapter*.65}

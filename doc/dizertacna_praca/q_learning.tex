@@ -11,8 +11,8 @@ s \ref{eq:q_quality}.
 \section{Definícia algoritmu}
 
 Autorom Q-learning algoritmu je Christopher J.C.H. Watkins, v roku 1992 publikoval
-článok kde tento algoritmus predstavil \cite{bib:q_learning_watkins} a niekoľko ďalších,
-jednoduchých vysvetlení tohto algoritmu je možné nájsť v \cite{bib:q_tutorial_01} alebo
+článok kde tento algoritmus predstavil \cite{bib:q_learning_watkins} a niekoľko ďalších
+vysvetlení tohto algoritmu je možné nájsť v \cite{bib:q_tutorial_01} alebo
 \cite{bib:q_tutorial_02}. Dôkazy o konvergencií k otimálnemu riešeniu (v zmysle
 s \ref{eq:q_quality}) sú k dispozícií \cite{bib:q_proof_01}, \cite{bib:q_proof_02},
 \cite{bib:q_proof_03}, \cite{bib:q_proof_04}.
@@ -49,8 +49,8 @@ Q_{n}(s(n),a(n)) = R(s(n),a(n)) + \gamma \max_{a(n-1) \in \mathbb{A}} Q_{n-1}(s(
 \end{itemize}
 
 Funkcia $\ref{eq:q_learning}$ definuje ohodnotenie akcií vo všetkých stavoch t.j.
-agent ktorý sa dostal do stavu $s(n)$ vykonaním akcie $a(n)$ zo stavu
-$s(n-1)$ získal odmenu $R(s(n),a(n))$ a zlomok najväčšieho možného ohodnotenia ktoré
+agent, ktorý sa dostal do stavu $s(n)$ vykonaním akcie $a(n)$ zo stavu
+$s(n-1)$ získal odmenu $R(s(n),a(n))$ a zlomok najväčšieho možného ohodnotenia, ktoré
 mohol získať dostaním sa do stavu $s(n-1)$, situáciu ilustruje obrázok \ref{img:q_learning}.
 
 
@@ -61,10 +61,10 @@ mohol získať dostaním sa do stavu $s(n-1)$, situáciu ilustruje obrázok \ref
 \label{img:q_learning}
 \end{figure}
 
-Je potrebné poznamenať, ža práve časť $\max_{a(n-1) \in \mathbb{A}} Q_{n-1}(s(n-1), a(n-1)$
+Je potrebné poznamenať, že práve časť $\max_{a(n-1) \in \mathbb{A}} Q_{n-1}(s(n-1), a(n-1)$
 zabezpečuje nezávislosť konvergencie k optimu bez ohľadu voľby stratégie výberu akcie -
 postačuje, aby každá akcia, v každom stave mala nenulovú pravdepodobnosť vykonania.
-Určitým variantom, je algoritmus SARSA \cite{bib:sarsa}
+Určitým variantom je algoritmus SARSA \cite{bib:sarsa}
 
 \begin{align}
 Q_{n}(s(n),a(n)) &= \nonumber \\
@@ -73,8 +73,8 @@ Q_{n}(s(n),a(n)) &= \nonumber \\
 \label{eq:sarsa}
 \end{align}
 
-kde $\alpha \in (0, 1)$, hodnota $Q_{n}(s(n),a(n))$ sa  teda ustáli na strednej hodnote,
-a závisí na stratégie výberu akcií. Q-learning teda vychádza z toho, čo najlepšie sa mohlo stať
+kde $\alpha \in (0, 1)$, hodnota $Q_{n}(s(n),a(n))$ sa  teda ustáli na strednej hodnote
+a závisí od stratégie výberu akcií. Q-learning teda vychádza z toho, čo najlepšie sa mohlo stať
 a SARSA z toho čo sa naozaj stalo.
 
 
@@ -134,7 +134,7 @@ ktorú rekurentne spočíta pre všetky doteraz vykonané akcie.
 Pre zjednodušenú variantu \ref{eq:q_learning} by bolo možné pamätať si len jeden
 predošlý stav a nepostupovať v ohodnocovaní rekuretne. V praktickej aplikácií
 je potrebné obmedziť hĺbku rekurzie, a pamätať si len posledných $P$ stavov a vnich
-urobených rozhodnutiach. V tomto jedńoduchom príklade však nie sú nutné tieto obmedzenia, je teda
+vykonaných rozhodnutiach. V tomto jednoduchom príklade však nie sú nutné tieto obmedzenia, je teda
 možné pamätať si celú cestu.
 
 \begin{figure}[!htb]
@@ -179,7 +179,7 @@ hodnoty Q-funkcie sa teda pri pevne danom $R(s(n), a(n))$ už nemenia.
 \section{Výber akcie}
 
 Pre nájdenie konečných hodnôt funkcie ohodnotení podľa \ref{eq:q_learning_finish}
-stačí aby každý prechod mal nenulovú pravdepodobnosť vykonania. Pre ďalšie vyšetrovanie
+stačí, aby každý prechod mal nenulovú pravdepodobnosť vykonania. Pre ďalšie vyšetrovanie
 konania agenta ja daná pravdepodobnosť výberu akcie  ako
 
 \begin{equation}
@@ -199,7 +199,9 @@ dostupné akcie. Pre učenie agenta je teda vhodné zvoliť malé $k$.
 Je možné definovať ľubovolné iné možnosti výberu akcie, napr. uprednostňovať menej
 často vykonané akcie, prípadne podľa zmeny
 $\mid Q_{n}(s(n), a(n)) - Q_{n-1}(s(n), a(n)) \mid$ uprednostňovať prechody s veľkou hodnotou zmeny.
-
+Metóda výberu akcie nie je pre konečný výsledok $Q(s(n),a(n))$ v prípade Q-learning
+algoritmu dôležitá, preto sa jej práca nevenuje. V prípade požiadavku na učenie
+agenta v reálnom čase má kľúčový význam práve spôsob výberu akcie.
 
 \section{Problémy výpočtu $Q(s, a)$}
 
@@ -217,7 +219,7 @@ C = {d_s}^{n_s} {d_a}^{n_a}
 \end{equation}
 
 Samotný počet hodnôt ktoré treba spočítať teda exponenciálne narastná s rastom
-počtu prvkov stavového a vektora akcií.
+počtu prvkov stavového vektora a vektora akcií.
 
 Pre úlohy kde do systému vstupuje mnoho nezávislých vstupov sa stáva implentácia Q(s(n), a(n))
 problémom najmä z dôvodov :
@@ -254,14 +256,14 @@ Tie najbežnejšie sú
 \item neurónová sieť
   \begin{itemize}
     \item dopredná neurónová sieť
-    \item kohonenova mapa
+    \item Kohonenova mapa
     \item neurónová sieť bázickych funkcií
   \end{itemize}
 \end{itemize}
 
 \section{Tabuľka}
 
-Priamočíarým prístupm je ukladať hodnoty $Q(s(n), a(n))$ do tabuľky. Pre
+Priamočiarím prístupm je ukladať hodnoty $Q(s(n), a(n))$ do tabuľky. Pre
 diskrétnu a konečnú množinu akcií možno tabuľku rozdeliť na viac častí,
 čím sa urýchli vyhľadávanie. Počet stavov v reálnych aplikáciach však môže byť
 vysoký (vo všeobecnosti tvoria stavy spojitú množinu).
@@ -302,7 +304,7 @@ existuje niekoľko algoritmov, medzi najčastejšie patria
 
 Najpoužívanejší Backpropagation má množstvo problémov, najmä postupný pokles gradientu
 v hlbokých neurónových sieťach. Kedy sú vnorené vrstvy prakticky neučené. Ďalší závažný problém
-je uviaznutie v lokálnom minime, čo sa autory snažia vyriešiť zavedným zotrvačnosti
+je uviaznutie v lokálnom minime, čo sa autori snažia vyriešiť zavedným zotrvačnosti
 do zmeny váh siete. Istým nádejným východiskom sa zdá byť simulované žíhanie \cite{bib:annealing_01}.
 Pre problém Q-learning algoritmu je však potrebný prístup ktorý postupne zlepšuje riešenie,
 a to je jedine niektorá z gradientových metód.
@@ -401,12 +403,12 @@ problematicky spĺňa postutlát \ref{post:02}. Dobre však spĺňa postulát \r
 vhodnou voľbou počtu vrstiev a počtu neurónov je možné dosiahnúť ľubovolnú
 presnosť aproximácie.
 
-\section{Kohonenová neurónová sieť}
+\section{Kohonenova neurónová sieť}
 
 Kohonenova neurónová sieť je inšpirovaná rovinnými štruktúrami v mozgovej kôre,
 kde výrazne dominujú prepojenia v rámci vrstvy a prepojení medzi vrstvami je
 podstatne menej \ref{img:cortical_column}. Napriek týmto rovinatým štruktúram,
-mozog bežne spracúva mnohodimenzionálne problémy - vstupm sú podnety s miliónov
+mozog bežne spracúva mnohodimenzionálne problémy - vsutpom sú podnety z miliónov
 receptorov.
 
 \begin{figure}[]
@@ -424,8 +426,9 @@ zhluky sa utvárajú postupne, tak ako sú do siete predkladané dáta.
 
 Každému zhluku je však možné priradiť požadovanú výstupnú hodnotu. Sieť tak môže
 pracovať podobne ako tabuľka - vstupné dáta priradí do najbližšieho zhluku a výstupom
-je hodnota prisluchújalúca k tomuto zhluku. V tomto prípda už treba stanoviť chybu,
-ako rozdiel požadovanej hodnoty a skutočnej hodnoty výstupu siete.
+je hodnota prisluchajúca k tomuto zhluku. V tomto prípade už treba stanoviť chybu,
+ako rozdiel požadovanej hodnoty a skutočnej hodnoty výstupu siete. Samotné
+zhluky sa však tvoria bez učiteľa.
 Algoritmus má niekoľko krokov :
 \\
 Najpr sa spočítajú vzdialenosti od vstupného vektora
@@ -534,21 +537,21 @@ Najjednoduhším príkladom takýchto funkcií  je
 f_j(X(n)) =
 \left\{
 	\begin{array}{ll}
-		k_j  & ak \ X(n) = X_0 \\
+		k_j  & ak \ X(n) = X^j_0 \\
 		0 & inak
 	\end{array}
 \right.
 \label{eq:bfnn_simple}
 \end{equation}
 
-kde $k_j$ je hodnota požadovaná v bode $X_0$. Výstupom siete potom je
+kde $k_j$ je hodnota požadovaná v bode $X^j_0$. Výstupom siete potom je
 
 \begin{align}
 y(X) = \sum\limits_{j=1} f_j(X(n))
 \label{eq:bfnn_simple_res}
 \end{align}
 
-Z charakteru Q-learning algoritmu majú hodnoty $Q(s(n),a(n))$ charakter aj
+Z charakteru Q-learning algoritmu majú hodnoty $Q(s(n),a(n))$ charakter
 postupne klesajúcich hodnôt. Je teda potrebné vybrať iné funkcie.
 
 Nasledujú preto definície funkcií s ktorými boli urobené experimenty.
@@ -573,7 +576,7 @@ popisuje bod kde $R(s(n), a(n))$ dosahuje malé hodnoty (obvykle záporné), bud
 vysoká strmosť tejto funkcie - obe požiadavky sú zhrnuté v bode 3. Bod 4 umožňuje rozumne
 ohraničiť rozsah funkcie.
 
-Niektoré tvary bázických funkcií
+Niektoré tvary bázických funkcií ktoré možno uvažovať pre problém aproximácie
 \begin{align}
     f_j^1(\boldmath{s(n), a(n)}) &= e^{ -\sum\limits_{i=1}^{n_s}{\beta_{aji}(n)(s_i(n) - \alpha_{aji}(n))^2} }  \\
     f_j^2(\boldmath{s(n), a(n)}) &= \frac{1}{1 + \sum\limits_{i=1}^{n_s}{\beta_{aji}(n)(s_i(n) - \alpha_{aji}(n))^2}}  \\
@@ -585,7 +588,7 @@ kde \\
 $\alpha_{aji}(n) \in \langle -1, 1 \rangle$ určuje polohu maxima funkcie \\
 $\beta_{aji}(n) \in (0, \infty)$ určuje strmosť funkcie.
 
-Ich priebeh pre prvé dve je na \ref{img:basis_funcions}.
+Ich priebehy pre prvé dve uvedené sú na obrázku \ref{img:basis_funcions}.
 
 \begin{figure}[]
 \center
@@ -677,12 +680,13 @@ $r$ je maximálny rozsah váh \\
 Ak by funkcia $R(s(n), a(n))$ mala len jednu kladnú hodnotu a ostatné by boli
 nulové, aproximáciu $Q(s(n), a(n))$ by veľmi dobre popísala Gaussova krivka \ref{eq:basis_functions}.
 Ak by funkcia $R(s(n), a(n))$ mala len záporné hodnoty a ostatné by boli
-nulové, funkcia $Q(s(n), a(n))$ by s ohliadnutím na \ref{eq:q_learning} by
+nulové, funkcia $Q(s(n), a(n))$ by s ohliadnutím na \ref{eq:q_learning}
 si boli rovné. Vo funkcí $Q(s(n), a(n))$ by sa tak objavilo niekoľko záporných
 hodnôt, ostro ohraničených.
 
-Vyjdúc z týchto úvah, je možné skombinovať výhody oboch : Gaussova krivka
-ktorá dokáže pokryť nenulovými hodnotami celý definyčný obor a funkcie \ref{eq:bfnn_simple}.
+Vyjduc z týchto úvah, je možné skombinovať výhody oboch : Gaussova krivka
+ktorá dokáže pokryť nenulovými hodnotami celý definyčný obor a má
+možnosť tak šíriť hodnoty Q na ďalšie stavy a funkcie \ref{eq:bfnn_simple}.
 Funkcia \ref{eq:bfnn_simple} predstavuje vlastne tabuľku, ktorá nadobúda
 nenulové hodnoty vo vybraných bodoch - tvorí tak adaptívnu tabuľku.
 
@@ -705,7 +709,7 @@ P_i(s(n), a(n)) &=
 kde \\
 $\alpha^1_j$ sú oblasti kde $H_j(s(n))$ nadobúda nenulové hodnoty \\
 $\alpha^2_j$ sú oblasti pre ktoré $f_j(\boldmath{s(n), a(n)})$ nadobúda maximum \\
-$r_{ai}$ je hodnota okamžitej odmeny $R(s(n))$ v tomto stave \\
+$r_{ai}$ je hodnota zápornej odmeny $R(s(n), a(n))$ \\
 $w_{aj}$ je váha a zobovedá veľkosti maxima resp. minima pre fukciu \\
 $\beta_{aj}$ je strmosť, a platí $\beta > 0$ \\
 $I$ a $J$ sú počty bázických funkcií \\
@@ -716,6 +720,9 @@ Mechanizmus učenia zostáva rovnaký ako pre bázické funkcie v predošlej ča
 priebehu funkcie pre dve premenné je na obrázku \ref{img:peak_hill_funcion}.
 Počet funkcií $P_i(s(n), a(n))$ bol zvolený 30 a počet funkcií $P_i(s(n), a(n))$ 20.
 Pre názornosť boli parametre $r_{ai}$ zvolené záporné a parametre $\beta_{aj}$ kladné.
+
+Funkcia \label{eq:peak_hill} predstavuje nový tvar bázických funkcií pre
+aproximovanie funkcie ohodnotení $Q(s(n), a(n))$.
 
 \begin{figure}[]
 \center
