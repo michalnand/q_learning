@@ -1,0 +1,223 @@
+
+\begin{titlepage}
+\phantom.
+
+\bigskip
+
+\begin{center}
+{\sc\LARGE ŽILINSKÁ UNIVERZITA V ŽILINE}
+\medskip
+
+{\sc\Large Fakulta riadenia a informatiky}
+
+\vfill\vfill\vfill\vfill
+
+{\sc\LARGE AUTOREFERÁT DIZERTAČNEJ PRÁCE}
+
+\medskip
+
+{\large Študijný odbor: {\bf Aplikovaná informatika}}
+\end{center}
+
+
+\vfill\vfill\vfill\vfill
+
+Žilina, Apríl, 2016 \\
+\\
+autor : Ing. Michal Chovanec \\
+vedúci: prof. Ing. Juraj Miček, PhD
+
+\medskip
+
+
+
+\end{titlepage}
+
+
+
+
+
+
+
+
+\begin{titlepage}
+\phantom.
+
+\bigskip
+
+\begin{center}
+{\sc\Large ŽILINSKÁ UNIVERZITA V ŽILINE}
+\medskip
+
+{\sc\Large Fakulta riadenia a informatiky}
+
+
+
+\vfill\vfill\vfill\vfill
+{\bf Ing. Michal Chovanec}
+\vfill\vfill\vfill\vfill
+
+Autoreferát dizertačnej práce
+
+Aproximácia funkcie ohodnotení v algoritmoch Q-learning neurónovou sieťou
+
+
+
+ \vfill\vfill\vfill\vfill
+
+
+
+na získanie akademického titulu  philosophiae doctor (v skratke PhD.) \\
+v študijnom programe doktorandského štúdia \\
+aplikovaná informatika \\
+v študijnom odbore: \\
+9.2.9 aplikovaná informatika
+\end{center}
+\end{titlepage}
+
+
+
+
+
+\begin{titlepage}
+
+
+Dizertačná práca bola vypracovaná v dennej forme doktorandského štúdia forme doktorandského štúdia
+na katedre technickej kybernetiky, Fakulte riadenia a informatiky Žilinskej univerzity v Žiline
+
+
+\vfill
+
+Predkladateľ: \\
+Ing. Michal Chovanec \\
+Katedra technickej kybernetiky \\
+Fakulta riadenia a informatiky \\
+Žilinská univerzita v Žiline \\
+
+\vfill
+
+Školiteľ:	\\
+prof. Ing. Juraj Miček, PhD \\
+Katedra technickej kybernetiky \\
+Fakulta riadenia a informatiky \\
+Žilinská univerzita v Žiline \\
+
+\vfill
+\vfill
+\vfill
+
+
+Oponenti:
+\vfill
+Titul, meno a priezvisko  : \\
+Názov pracoviska          : \\
+\vfill
+Titul, meno a priezvisko  : \\
+Názov pracoviska          : \\
+\vfill
+Titul, meno a priezvisko  : \\
+Názov pracoviska          : \\
+
+\vfill
+\vfill
+
+Autoreferát bol rozoslaný dňa: .............................................
+
+\vfill
+
+Obhajoba dizertačnej práce sa koná dňa ....................................... o ............ h.
+pred komisiou pre obhajobu dizertačnej práce schválenou odborovou komisiou v študijnom
+odbore 9.2.9 aplikovaná informatika, v študijnom programe aplikovaná informatika,
+vymenovanou dekanom Fakulty riadenia a informatiky Žilinskej univerzity v Žiline dňa ......................
+
+
+\vfill
+
+
+prof. Ing.Martin Klimo, PhD.
+predseda odborovej komisie
+študijného programu aplikovaná informatika
+v študijnom odbore 9.2.9 aplikovaná informatika
+Fakulta riadenia a informatiky
+Žilinská univerzita
+Univerzitná 8215/1
+010 26 Žilina
+
+
+\end{titlepage}
+
+
+
+\section{Abstrakt}
+
+Práca sa zaoberá aproximáciou funkcie ohodnotení konania agenta, v algoritmoch Q-learning.
+V priestoroch s malým počtom stavov predstavuje vhodné riešenie tabuľka.
+Pre prípady veľkého počtu stavov je tabuľkové riešenie ťažko vypočítateľné. Je tak nutné použiť
+aproximáciu. Vhodným kandidátom je neurónová sieť. Tradičné riešenie doprednej
+siete je však nepoužiteľné z dôvodov nemožnosti takúto sieť učiť. V práci
+je preto venovaný priestor neurónovej sieti bázických funkcií ktorú už je možné
+na daný problém trénovať iteračnými metódami.
+
+\section{Použité metódy}
+
+Niektoré tvary bázických funkcií ktoré možno uvažovať pre problém aproximácie
+\begin{align}
+    f_j^1(\boldmath{s(n), a(n)}) &= e^{ -\sum\limits_{i=1}^{n_s}{\beta_{aji}(n)(s_i(n) - \alpha_{aji}(n))^2} }  \\
+    f_j^2(\boldmath{s(n), a(n)}) &= \frac{1}{1 + \sum\limits_{i=1}^{n_s}{\beta_{aji}(n)(s_i(n) - \alpha_{aji}(n))^2}}  \\
+    f_j^3(\boldmath{s(n), a(n)}) &= e^{ -\sum\limits_{i=1}^{n_s}{\beta_{aji}(n)\mid s_i(n) - \alpha_{aji}(n) \mid} }
+    \label{eq:basis_functions_01}
+\end{align}
+
+kde \\
+$\alpha_{aji}(n) \in \langle -1, 1 \rangle$ určuje polohu maxima funkcie \\
+$\beta_{aji}(n) \in (0, \infty)$ určuje strmosť funkcie.
+
+Aproximovaná funkcia ohodnotení pre $l$ bázických funkcií je potom
+
+\begin{align}
+Q^x(s(n), a(n)) = \sum\limits_{j=1}^{l} w(n)_j^x f_j^x(\boldmath{s(n), a(n)})
+\label{eq:knn_y_update}
+\end{align}
+
+kde $w(n)_j^x$ sú váhy bázických funkcií.
+
+
+V práci je ďalej definovaná nová bázická funkcia ktorá kombinuje niekoľko rôznych funkcií,
+čo vedie na vzťahy
+
+\begin{align}
+P_i(s(n), a(n)) &=
+\left\{
+	\begin{array}{ll}
+		r_{ai}  & if \ s(n) = \alpha^1_i \\
+		0 & inak
+	\end{array}
+\right. \\
+  H_j(s(n), a(n)) &= w_{aj} e^{ -\beta_{aj} \sum\limits_{i=1}^{n_s}{(s_i(n) - \alpha^2_{aji})^2 }} \\
+  Q(s(n), a(n)) &= \sum\limits_{i=1}^{I} P_i(s(n),a(n)) + \sum\limits_{j=1}^{J} H_j(s(n), a(n))
+  \label{eq:peak_hill}
+\end{align}
+
+kde \\
+$\alpha^1_j$ sú oblasti kde $H_j(s(n))$ nadobúda nenulové hodnoty \\
+$\alpha^2_j$ sú oblasti pre ktoré $f_j(\boldmath{s(n), a(n)})$ nadobúda maximum \\
+$r_{ai}$ je hodnota zápornej odmeny $R(s(n), a(n))$ \\
+$w_{aj}$ je váha a zobovedá veľkosti maxima resp. minima pre fukciu \\
+$\beta_{aj}$ je strmosť, a platí $\beta > 0$ \\
+$I$ a $J$ sú počty bázických funkcií \\
+
+Označenia $P$ a $H$ vznikli z tvaru funkcií : peak a hill. Funkcia bude na ďalších
+grafoch označená ako Gauss + AT : kombinácia Gaussovej krivky a adaptívnej tabuľky.
+Mechanizmus učenia zostáva rovnaký ako pre bázické funkcie v predošlej časti.
+Počet funkcií $P_i(s(n), a(n))$ bol zvolený 30 a počet funkcií $P_i(s(n), a(n))$ 20.
+Pre názornosť boli parametre $r_{ai}$ zvolené záporné a parametre $\beta_{aj}$ kladné.
+
+Funkcia \label{eq:peak_hill} predstavuje nový tvar bázických funkcií pre
+aproximovanie funkcie ohodnotení $Q(s(n), a(n))$.
+
+
+\section{Experimentálne výsledky}
+
+Úplne znenie práce a cca 15000 súborov s výsledkami je možné nájsť v \cite{bib:q_learning_git}.
+Video a zdrojové súbory doplnkového experimentu s robotom je možné nájsť v \cite{bib:mototko_video} a
+\cite{bib:motoko_git}.

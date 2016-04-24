@@ -1,0 +1,80 @@
+\documentclass[a4paper,8pt,openany,oneside]{report}
+%\documentclass[8pt]{article}
+%\usepackage[a5paper]{geometry}
+%\usepackage{lipsum}  % this package is for creating filler text
+
+
+\usepackage[slovak,english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb,amsfonts,amscd}
+\usepackage{array,hhline}
+\usepackage{makeidx}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{listings}
+    %%\usepackage{titlepage}
+    %%\usepackage{multicol}
+\usepackage{eurosym}
+\usepackage{url,mathptmx}
+\usepackage[pdftex,unicode,bookmarks=false]{hyperref}
+
+\usepackage{caption}
+
+\usepackage{a4wide}
+
+\newtheorem{theorem}{Postulát}
+
+
+\renewcommand{\baselinestretch}{1.0}  % pre zvascenie riadkovania
+
+\addtolength{\oddsidemargin}{-.5cm}
+\addtolength{\evensidemargin}{-1.9cm}
+\addtolength{\topmargin}{0cm}
+\addtolength{\textheight}{0pt}
+\addtolength{\textwidth}{1.cm}
+\addtolength{\textheight}{1.cm}
+\newlength{\verbcorr}
+\setlength{\verbcorr}{0ex}
+
+
+
+
+\begin{document}
+\selectlanguage{slovak}
+
+
+\pagestyle{empty}
+\pagenumbering{arabic}
+
+\include{title}	% Titulna strana, Abstrakt, Prehlasenie
+
+\pagestyle{myheadings}
+
+%%%%%%%%%%%%%%%%%% obsah
+
+%{\setlength{\parskip}{1pt plus 1pt}
+%\markboth{}{}
+%\tableofcontents
+%}
+
+%\markboth{}{}
+
+%\clearpage
+
+%%%%%%%%%%%%%%%%%% obsah - koniec
+
+
+%%%%%%%%%%%%%%%%%% kapitoly
+\include{ciele}
+%\include{learning_systems}
+%\include{q_learning}
+\include{experiment}
+\include{end}
+
+
+%%%%%%%%%%%%%%%%%% literatura
+\include{lit}
+
+\end{document}
