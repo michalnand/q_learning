@@ -26,7 +26,7 @@ stringstyle=\color{orange}}
 
 
 %-------------------------------------------------------------------------------------
-\title{\bf Aproximácia funkcie ohodnotení v algoritmoch Q-learning}
+\title{\bf Aproximácia funkcie ohodnotení v algoritmoch Q-learning neurónovou sieťou}
 \author{Ing. Michal CHOVANEC \\Fakulta riadenia a informatiky}
 
 \date[EURP]{\it August 2016}
@@ -39,7 +39,7 @@ stringstyle=\color{orange}}
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Reinforcement learing}
+\begin{frame}{\bf Reinforcement learning}
 
 “A way of programming agents by reward and
 punishment without needing to specify how the
@@ -297,7 +297,7 @@ P_i(s(n), a(n)) &=
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Návrh experimentov - podmienky}
 
-$Q_{rt}(s(n),a(n))$ referenčná funkcia Q (funkcia 0), kde $t \in \langle 0, 19 \rangle $ je číslo trialu  \\
+$Q_{rt}(s(n),a(n))$ referenčná funkcia Q (funkcia r = 0), kde $t \in \langle 0, 19 \rangle $ je číslo trialu  \\
 $Q_{jt}(s(n),a(n))$ testované funkcie Q a $j \in \langle 1, 5 \rangle $. \\
 
 Celková chyba behu trialu $t$ je \\
@@ -317,13 +317,13 @@ priemerná, minimálna, maximálna chyba a smerodatná odchylka \\
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Funkcia R(s, a), prostredie 1 - Výsledky experimentov}
-pre každý stav je zvolená rovnaka množina akcií. \\
+\begin{frame}{\bf Funkcia R(s, a), prostredie 2 - Výsledky experimentov}
+Pre každý stav je zvolená rovnaka množina akcií. \\
 Ďalej platí $s = (s[0], s[1])$.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.4]{../../results_q_learning/map_1/reward_value_surface.png}
+\includegraphics[scale=.35]{../../results_q_learning/map_2/reward_value_surface.png}
 \end{figure}
 
 \end{frame}
@@ -339,8 +339,8 @@ Funkcia voľby najlepšej z 8 akcií v stave  $s = (s[0], s[1])$.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.21]{../../results_q_learning/map_1/function_type_1/iterations_10/action_best_value_log_surface.png}
-\caption{sparse table}
+\includegraphics[scale=.21]{../../results_q_learning/map_2/function_type_0/iterations_10/action_best_value_log_surface.png}
+\caption{reference solution}
 \end{figure}
 
 \end{minipage}%
@@ -348,8 +348,8 @@ Funkcia voľby najlepšej z 8 akcií v stave  $s = (s[0], s[1])$.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.21]{../../results_q_learning/map_1/function_type_2/iterations_10/action_best_value_log_surface.png}
-\caption{linear combination Gauss}
+\includegraphics[scale=.21]{../../results_q_learning/map_2/function_type_1/iterations_10/action_best_value_log_surface.png}
+\caption{sparse table}
 \end{figure}
 
 
@@ -365,7 +365,7 @@ Funkcia voľby najlepšej z 8 akcií v stave  $s = (s[0], s[1])$.
 \begin{minipage}{.5\textwidth}
 
 \begin{figure}
-\includegraphics[scale=.21]{../../results_q_learning/map_1/function_type_3/iterations_10/action_best_value_log_surface.png}
+\includegraphics[scale=.21]{../../results_q_learning/map_2/function_type_3/iterations_10/action_best_value_log_surface.png}
 \caption{sparse table + linear combination Gauss}
 \end{figure}
 
@@ -374,8 +374,8 @@ Funkcia voľby najlepšej z 8 akcií v stave  $s = (s[0], s[1])$.
 \begin{minipage}{.5\textwidth}
 
 \begin{figure}
-\includegraphics[scale=.21]{../../results_q_learning/map_1/function_type_4/iterations_10/action_best_value_log_surface.png}
-\caption{linear combination Kohonen function}
+\includegraphics[scale=.21]{../../results_q_learning/map_2/function_type_6/iterations_10/action_best_value_log_surface.png}
+\caption{adaptive table + linear combination Gauss}
 \end{figure}
 
 
@@ -402,8 +402,8 @@ e_{jt}(s) = (Q_{rt}(s,a) - Q_{jt}(s,a))^2  \nonumber
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_1/q_learning_error.png}
-\caption{sparse table}
+\includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_3/q_learning_error.png}
+\caption{sparse table + linear combination Gauss}
 \end{figure}
 
 \end{minipage}%
@@ -411,8 +411,8 @@ e_{jt}(s) = (Q_{rt}(s,a) - Q_{jt}(s,a))^2  \nonumber
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_2/q_learning_error.png}
-\caption{linear combination Gauss}
+\includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_6/q_learning_error.png}
+\caption{adaptive table + linear combination Gauss}
 \end{figure}
 
 
@@ -420,29 +420,50 @@ e_{jt}(s) = (Q_{rt}(s,a) - Q_{jt}(s,a))^2  \nonumber
 \end{frame}
 
 
-%-------------------------------------------------------------------------------------
-\begin{frame}{\bf Chybové funkcie - Výsledky experimentov}
+\begin{frame}{\bf Dráhy agentov pri voľbe najlepšej akcie}
 
-\begin{equation}
-e_{jt}(s) = (Q_{rt}(s,a) - Q_{jt}(s,a))^2  \nonumber
-\end{equation}
+\begin{minipage}{.5\textwidth}
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_3/iterations_10/agents_path_surface.png}
+  \caption{sparse table + linear combination Gauss}
+  \end{figure}
+
+
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_6/iterations_10/agents_path_surface.png}
+  \caption{adaptive table + linear combination Gauss}
+  \end{figure}
+
+\end{minipage}
+
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------------------
+\begin{frame}{\bf max Q(s, a) - Výsledky experimentov}
 
 \begin{minipage}{.5\textwidth}
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_3/q_learning_error.png}
-\caption{sparse table + linear combination Gauss}
+\includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_0/iterations_10/q_learning_result.png}
+\caption{reference table}
 \end{figure}
-
 
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_4/q_learning_error.png}
-\caption{linear combination Kohonen function}
+\includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_3/iterations_10/q_learning_result.png}
+\caption{sparse table + linear combination Gauss}
 \end{figure}
 
 
@@ -460,7 +481,7 @@ e_{jt}(s) = (Q_{rt}(s,a) - Q_{jt}(s,a))^2  \nonumber
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_0/iterations_10/q_learning_result.png}
+\includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_0/iterations_10/q_learning_result.png}
 \caption{reference table}
 \end{figure}
 
@@ -469,8 +490,8 @@ e_{jt}(s) = (Q_{rt}(s,a) - Q_{jt}(s,a))^2  \nonumber
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.2]{../../results_q_learning/map_1/function_type_3/iterations_10/q_learning_result.png}
-\caption{sparse table + linear combination Gauss}
+\includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_6/iterations_10/q_learning_result.png}
+\caption{adaptive table + linear combination Gauss}
 \end{figure}
 
 
@@ -510,7 +531,7 @@ e_{jt}(s) = (Q_{rt}(s,a) - Q_{jt}(s,a))^2  \nonumber
 \includegraphics[scale=.36]{../../results_q_learning/map_0/trials_average_results.png}
 \end{figure}
 
-\end{frame} 
+\end{frame}
 
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Prostredie 2 - Výsledky experimentov}
@@ -535,31 +556,7 @@ e_{jt}(s) = (Q_{rt}(s,a) - Q_{jt}(s,a))^2  \nonumber
 
 
 
-\begin{frame}{\bf Porovnanie s ostatnými}
 
-\begin{minipage}{.5\textwidth}
-
-  \begin{figure}[!htb]
-  \centering
-  \includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_2/iterations_10/agents_path_surface.png}
-  \caption{Dráha robotov, funkcia 2 - Gauss}
-  \label{img:knn_path}
-  \end{figure}
-
-
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
-
-  \begin{figure}[!htb]
-  \centering
-  \includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_6/iterations_10/agents_path_surface.png}
-  \caption{Dráha robotov, funkcia 6 - Peak and Hill}
-  \label{img:peak_and_hill_path}
-  \end{figure}
-
-\end{minipage}
-
-\end{frame}
 
 \begin{frame}{\bf Doplnkový experiment - robot}
 
@@ -602,7 +599,7 @@ $D(n) = f( A(n) )$
 
 \begin{frame}{\bf Adaptive sparse distributed memory}
 
-Pokrytie priestoru s hard locations
+Pokrytie priestoru s hard locations (3D rez 50D priestorom)
 
 \begin{minipage}{.5\textwidth}
 

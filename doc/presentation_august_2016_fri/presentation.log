@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.5.4)  17 AUG 2016 09:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.5.4)  18 AUG 2016 20:21
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1141,6 +1141,11 @@ File: lstlang2.sty 2015/06/04 1.6 listings language file
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\\' on input line 30.
 
+
+Package hyperref Warning: Composite letter `\textasciicaron+t'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 33.
+
 (./presentation.aux
 
 LaTeX Warning: Label `img:motoko_robot_block' multiply defined.
@@ -1336,9 +1341,18 @@ Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count174
  (./presentation.nav)
+Overfull \hbox (54.01453pt too wide) in paragraph at lines 33--33
+ [][][][]  
+ []
+
 
 LaTeX Font Warning: Font shape `T1/cmss/m/n' in size <4> not available
 (Font)              size <5> substituted on input line 37.
+
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
 
 [1
 
@@ -1386,13 +1400,17 @@ File: ../diagrams/markovov_process-eps-converted-to.pdf Graphic file (type pdf)
 Package pdftex.def Info: ../diagrams/markovov_process-eps-converted-to.pdf used
  on input line 76.
 (pdftex.def)             Requested size: 138.3143pt x 83.10902pt.
- [2
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[2
 
  <../diagrams/agent.png> <../diagrams/markovov_process-eps-converted-to.pdf>]
 LaTeX Font Info:    Try loading font information for OMS+cmss on input line 100
 .
 LaTeX Font Info:    No file OMScmss.fd. on input line 100.
-
 
 LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
@@ -1418,7 +1436,12 @@ File: ../diagrams/q_learning_detail-eps-converted-to.pdf Graphic file (type pdf
 Package pdftex.def Info: ../diagrams/q_learning_detail-eps-converted-to.pdf use
 d on input line 100.
 (pdftex.def)             Requested size: 270.6062pt x 69.85976pt.
- [3
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[3
 
  <../diagrams/q_learning_detail-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <../diagrams/rf_cycle_states.eps>
@@ -1440,9 +1463,19 @@ File: ../diagrams/rf_cycle_states-eps-converted-to.pdf Graphic file (type pdf)
 Package pdftex.def Info: ../diagrams/rf_cycle_states-eps-converted-to.pdf used 
 on input line 120.
 (pdftex.def)             Requested size: 210.28511pt x 115.93283pt.
- [4
 
- <../diagrams/rf_cycle_states-eps-converted-to.pdf>] [5
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[4
+
+ <../diagrams/rf_cycle_states-eps-converted-to.pdf>]
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[5
 
 ]
 Package epstopdf Info: Source file: <../diagrams/q_learning_nn.eps>
@@ -1464,7 +1497,12 @@ File: ../diagrams/q_learning_nn-eps-converted-to.pdf Graphic file (type pdf)
 Package pdftex.def Info: ../diagrams/q_learning_nn-eps-converted-to.pdf used on
  input line 154.
 (pdftex.def)             Requested size: 283.05681pt x 131.49092pt.
- [6
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[6
 
  <../diagrams/q_learning_nn-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <../diagrams/q_chain_problem.eps>
@@ -1489,6 +1527,11 @@ on input line 173.
 
 Overfull \hbox (15.41496pt too wide) in paragraph at lines 173--173
  [] 
+ []
+
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
  []
 
 [7
@@ -1537,12 +1580,21 @@ Overfull \hbox (0.52834pt too wide) in paragraph at lines 206--206
 Overfull \vbox (1.22527pt too high) detected at line 206
  []
 
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
 [8
 
- <../pictures/gaussian_1D.png>] [9
+ <../pictures/gaussian_1D.png>]
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
 
-]
-<../pictures/peak_hill_function.png, id=302, 770.88pt x 578.16pt>
+[9
+
+] <../pictures/peak_hill_function.png, id=302, 770.88pt x 578.16pt>
 File: ../pictures/peak_hill_function.png Graphic file (type png)
 
 <use ../pictures/peak_hill_function.png>
@@ -1556,6 +1608,11 @@ Overfull \hbox (1.05667pt too wide) in paragraph at lines 240--240
 
 
 Overfull \vbox (23.42554pt too high) detected at line 240
+ []
+
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
  []
 
 [10
@@ -1581,7 +1638,12 @@ File: ../diagrams/q_learning_hybrid-eps-converted-to.pdf Graphic file (type pdf
 Package pdftex.def Info: ../diagrams/q_learning_hybrid-eps-converted-to.pdf use
 d on input line 256.
 (pdftex.def)             Requested size: 248.1226pt x 180.2703pt.
- [11
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[11
 
  <../diagrams/q_learning_hybrid-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <../diagrams/experiment_map_q_learning.eps>
@@ -1611,45 +1673,60 @@ Overfull \hbox (15.11563pt too wide) in paragraph at lines 266--266
  [] 
  []
 
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
 [12
 
- <../diagrams/experiment_map_q_learning-eps-converted-to.pdf>] [13
+ <../diagrams/experiment_map_q_learning-eps-converted-to.pdf>]
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[13
 
 ]
 Overfull \vbox (2.94229pt too high) detected at line 316
  []
 
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
 [14
 
 ]
-<../../results_q_learning/map_1/reward_value_surface.png, id=442, 770.88pt x 57
+<../../results_q_learning/map_2/reward_value_surface.png, id=442, 770.88pt x 57
 8.16pt>
-File: ../../results_q_learning/map_1/reward_value_surface.png Graphic file (typ
+File: ../../results_q_learning/map_2/reward_value_surface.png Graphic file (typ
 e png)
- <use ../../results_q_learning/map_1/reward_value_surface.png>
-Package pdftex.def Info: ../../results_q_learning/map_1/reward_value_surface.pn
+ <use ../../results_q_learning/map_2/reward_value_surface.png>
+Package pdftex.def Info: ../../results_q_learning/map_2/reward_value_surface.pn
 g used on input line 329.
-(pdftex.def)             Requested size: 308.34654pt x 231.2599pt.
+(pdftex.def)             Requested size: 269.81204pt x 202.35902pt.
 
-Overfull \hbox (1.05667pt too wide) in paragraph at lines 329--329
- [] 
+Overfull \vbox (28.86215pt too high) detected at line 329
  []
 
 
-Overfull \vbox (68.62555pt too high) detected at line 329
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
  []
 
 [15
 
- <../../results_q_learning/map_1/reward_value_surface.png>]
-<../../results_q_learning/map_1/function_type_1/iterations_10/action_best_value
+ <../../results_q_learning/map_2/reward_value_surface.png>]
+<../../results_q_learning/map_2/function_type_0/iterations_10/action_best_value
 _log_surface.png, id=470, 770.88pt x 578.16pt>
-File: ../../results_q_learning/map_1/function_type_1/iterations_10/action_best_
+File: ../../results_q_learning/map_2/function_type_0/iterations_10/action_best_
 value_log_surface.png Graphic file (type png)
 
-<use ../../results_q_learning/map_1/function_type_1/iterations_10/action_best_v
+<use ../../results_q_learning/map_2/function_type_0/iterations_10/action_best_v
 alue_log_surface.png>
-Package pdftex.def Info: ../../results_q_learning/map_1/function_type_1/iterati
+Package pdftex.def Info: ../../results_q_learning/map_2/function_type_0/iterati
 ons_10/action_best_value_log_surface.png used on input line 357.
 (pdftex.def)             Requested size: 161.88957pt x 121.41718pt.
 
@@ -1658,34 +1735,39 @@ Overfull \hbox (8.24464pt too wide) in paragraph at lines 357--357
  []
 
 
-<../../results_q_learning/map_1/function_type_2/iterations_10/action_best_value
+<../../results_q_learning/map_2/function_type_1/iterations_10/action_best_value
 _log_surface.png, id=471, 770.88pt x 578.16pt>
-File: ../../results_q_learning/map_1/function_type_2/iterations_10/action_best_
+File: ../../results_q_learning/map_2/function_type_1/iterations_10/action_best_
 value_log_surface.png Graphic file (type png)
 
-<use ../../results_q_learning/map_1/function_type_2/iterations_10/action_best_v
+<use ../../results_q_learning/map_2/function_type_1/iterations_10/action_best_v
 alue_log_surface.png>
-Package pdftex.def Info: ../../results_q_learning/map_1/function_type_2/iterati
+Package pdftex.def Info: ../../results_q_learning/map_2/function_type_1/iterati
 ons_10/action_best_value_log_surface.png used on input line 357.
 (pdftex.def)             Requested size: 161.88957pt x 121.41718pt.
 
 Overfull \hbox (8.24464pt too wide) in paragraph at lines 357--357
  [] 
+ []
+
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
  []
 
 [16
 
- <../../results_q_learning/map_1/function_type_1/iterations_10/action_best_valu
-e_log_surface.png> <../../results_q_learning/map_1/function_type_2/iterations_1
+ <../../results_q_learning/map_2/function_type_0/iterations_10/action_best_valu
+e_log_surface.png> <../../results_q_learning/map_2/function_type_1/iterations_1
 0/action_best_value_log_surface.png>]
-<../../results_q_learning/map_1/function_type_3/iterations_10/action_best_value
+<../../results_q_learning/map_2/function_type_3/iterations_10/action_best_value
 _log_surface.png, id=501, 770.88pt x 578.16pt>
-File: ../../results_q_learning/map_1/function_type_3/iterations_10/action_best_
+File: ../../results_q_learning/map_2/function_type_3/iterations_10/action_best_
 value_log_surface.png Graphic file (type png)
 
-<use ../../results_q_learning/map_1/function_type_3/iterations_10/action_best_v
+<use ../../results_q_learning/map_2/function_type_3/iterations_10/action_best_v
 alue_log_surface.png>
-Package pdftex.def Info: ../../results_q_learning/map_1/function_type_3/iterati
+Package pdftex.def Info: ../../results_q_learning/map_2/function_type_3/iterati
 ons_10/action_best_value_log_surface.png used on input line 383.
 (pdftex.def)             Requested size: 161.88957pt x 121.41718pt.
 
@@ -1694,33 +1776,38 @@ Overfull \hbox (8.24464pt too wide) in paragraph at lines 383--383
  []
 
 
-<../../results_q_learning/map_1/function_type_4/iterations_10/action_best_value
+<../../results_q_learning/map_2/function_type_6/iterations_10/action_best_value
 _log_surface.png, id=502, 770.88pt x 578.16pt>
-File: ../../results_q_learning/map_1/function_type_4/iterations_10/action_best_
+File: ../../results_q_learning/map_2/function_type_6/iterations_10/action_best_
 value_log_surface.png Graphic file (type png)
 
-<use ../../results_q_learning/map_1/function_type_4/iterations_10/action_best_v
+<use ../../results_q_learning/map_2/function_type_6/iterations_10/action_best_v
 alue_log_surface.png>
-Package pdftex.def Info: ../../results_q_learning/map_1/function_type_4/iterati
+Package pdftex.def Info: ../../results_q_learning/map_2/function_type_6/iterati
 ons_10/action_best_value_log_surface.png used on input line 383.
 (pdftex.def)             Requested size: 161.88957pt x 121.41718pt.
 
 Overfull \hbox (8.24464pt too wide) in paragraph at lines 383--383
  [] 
+ []
+
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
  []
 
 [17
 
- <../../results_q_learning/map_1/function_type_3/iterations_10/action_best_valu
-e_log_surface.png> <../../results_q_learning/map_1/function_type_4/iterations_1
+ <../../results_q_learning/map_2/function_type_3/iterations_10/action_best_valu
+e_log_surface.png> <../../results_q_learning/map_2/function_type_6/iterations_1
 0/action_best_value_log_surface.png>]
-<../../results_q_learning/map_1/function_type_1/q_learning_error.png, id=531, 7
+<../../results_q_learning/map_2/function_type_3/q_learning_error.png, id=531, 7
 70.88pt x 578.16pt>
-File: ../../results_q_learning/map_1/function_type_1/q_learning_error.png Graph
+File: ../../results_q_learning/map_2/function_type_3/q_learning_error.png Graph
 ic file (type png)
 
-<use ../../results_q_learning/map_1/function_type_1/q_learning_error.png>
-Package pdftex.def Info: ../../results_q_learning/map_1/function_type_1/q_learn
+<use ../../results_q_learning/map_2/function_type_3/q_learning_error.png>
+Package pdftex.def Info: ../../results_q_learning/map_2/function_type_3/q_learn
 ing_error.png used on input line 420.
 (pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
 
@@ -1729,116 +1816,180 @@ Overfull \hbox (0.52834pt too wide) in paragraph at lines 420--420
  []
 
 
-<../../results_q_learning/map_1/function_type_2/q_learning_error.png, id=532, 7
+<../../results_q_learning/map_2/function_type_6/q_learning_error.png, id=532, 7
 70.88pt x 578.16pt>
-File: ../../results_q_learning/map_1/function_type_2/q_learning_error.png Graph
+File: ../../results_q_learning/map_2/function_type_6/q_learning_error.png Graph
 ic file (type png)
 
-<use ../../results_q_learning/map_1/function_type_2/q_learning_error.png>
-Package pdftex.def Info: ../../results_q_learning/map_1/function_type_2/q_learn
+<use ../../results_q_learning/map_2/function_type_6/q_learning_error.png>
+Package pdftex.def Info: ../../results_q_learning/map_2/function_type_6/q_learn
 ing_error.png used on input line 420.
 (pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
 
 Overfull \hbox (0.52834pt too wide) in paragraph at lines 420--420
  [] 
+ []
+
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
  []
 
 [18
 
- <../../results_q_learning/map_1/function_type_1/q_learning_error.png> <../../r
-esults_q_learning/map_1/function_type_2/q_learning_error.png>]
-<../../results_q_learning/map_1/function_type_3/q_learning_error.png, id=561, 7
-70.88pt x 578.16pt>
-File: ../../results_q_learning/map_1/function_type_3/q_learning_error.png Graph
-ic file (type png)
+ <../../results_q_learning/map_2/function_type_3/q_learning_error.png> <../../r
+esults_q_learning/map_2/function_type_6/q_learning_error.png>]
+<../../results_q_learning/map_2/function_type_3/iterations_10/agents_path_surfa
+ce.png, id=561, 770.88pt x 578.16pt>
+File: ../../results_q_learning/map_2/function_type_3/iterations_10/agents_path_
+surface.png Graphic file (type png)
 
-<use ../../results_q_learning/map_1/function_type_3/q_learning_error.png>
-Package pdftex.def Info: ../../results_q_learning/map_1/function_type_3/q_learn
-ing_error.png used on input line 450.
+<use ../../results_q_learning/map_2/function_type_3/iterations_10/agents_path_s
+urface.png>
+Package pdftex.def Info: ../../results_q_learning/map_2/function_type_3/iterati
+ons_10/agents_path_surface.png used on input line 445.
 (pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
 
-Overfull \hbox (0.52834pt too wide) in paragraph at lines 450--450
+Overfull \hbox (0.52834pt too wide) in paragraph at lines 445--445
  [] 
  []
 
 
-<../../results_q_learning/map_1/function_type_4/q_learning_error.png, id=562, 7
-70.88pt x 578.16pt>
-File: ../../results_q_learning/map_1/function_type_4/q_learning_error.png Graph
-ic file (type png)
+<../../results_q_learning/map_2/function_type_6/iterations_10/agents_path_surfa
+ce.png, id=562, 770.88pt x 578.16pt>
+File: ../../results_q_learning/map_2/function_type_6/iterations_10/agents_path_
+surface.png Graphic file (type png)
 
-<use ../../results_q_learning/map_1/function_type_4/q_learning_error.png>
-Package pdftex.def Info: ../../results_q_learning/map_1/function_type_4/q_learn
-ing_error.png used on input line 450.
+<use ../../results_q_learning/map_2/function_type_6/iterations_10/agents_path_s
+urface.png>
+Package pdftex.def Info: ../../results_q_learning/map_2/function_type_6/iterati
+ons_10/agents_path_surface.png used on input line 445.
 (pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
 
-Overfull \hbox (0.52834pt too wide) in paragraph at lines 450--450
+Overfull \hbox (0.52834pt too wide) in paragraph at lines 445--445
  [] 
+ []
+
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
  []
 
 [19
 
- <../../results_q_learning/map_1/function_type_3/q_learning_error.png> <../../r
-esults_q_learning/map_1/function_type_4/q_learning_error.png>]
-<../../results_q_learning/map_1/function_type_0/iterations_10/q_learning_result
+ <../../results_q_learning/map_2/function_type_3/iterations_10/agents_path_surf
+ace.png> <../../results_q_learning/map_2/function_type_6/iterations_10/agents_p
+ath_surface.png>]
+<../../results_q_learning/map_2/function_type_0/iterations_10/q_learning_result
 .png, id=592, 770.88pt x 578.16pt>
-File: ../../results_q_learning/map_1/function_type_0/iterations_10/q_learning_r
+File: ../../results_q_learning/map_2/function_type_0/iterations_10/q_learning_r
 esult.png Graphic file (type png)
 
-<use ../../results_q_learning/map_1/function_type_0/iterations_10/q_learning_re
+<use ../../results_q_learning/map_2/function_type_0/iterations_10/q_learning_re
 sult.png>
-Package pdftex.def Info: ../../results_q_learning/map_1/function_type_0/iterati
-ons_10/q_learning_result.png used on input line 478.
+Package pdftex.def Info: ../../results_q_learning/map_2/function_type_0/iterati
+ons_10/q_learning_result.png used on input line 471.
 (pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
 
-Overfull \hbox (0.52834pt too wide) in paragraph at lines 478--478
+Overfull \hbox (0.52834pt too wide) in paragraph at lines 471--471
  [] 
  []
 
 
-<../../results_q_learning/map_1/function_type_3/iterations_10/q_learning_result
+<../../results_q_learning/map_2/function_type_3/iterations_10/q_learning_result
 .png, id=593, 770.88pt x 578.16pt>
-File: ../../results_q_learning/map_1/function_type_3/iterations_10/q_learning_r
+File: ../../results_q_learning/map_2/function_type_3/iterations_10/q_learning_r
 esult.png Graphic file (type png)
 
-<use ../../results_q_learning/map_1/function_type_3/iterations_10/q_learning_re
+<use ../../results_q_learning/map_2/function_type_3/iterations_10/q_learning_re
 sult.png>
-Package pdftex.def Info: ../../results_q_learning/map_1/function_type_3/iterati
-ons_10/q_learning_result.png used on input line 478.
+Package pdftex.def Info: ../../results_q_learning/map_2/function_type_3/iterati
+ons_10/q_learning_result.png used on input line 471.
 (pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
 
-Overfull \hbox (0.52834pt too wide) in paragraph at lines 478--478
+Overfull \hbox (0.52834pt too wide) in paragraph at lines 471--471
  [] 
+ []
+
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
  []
 
 [20
 
- <../../results_q_learning/map_1/function_type_0/iterations_10/q_learning_resul
-t.png> <../../results_q_learning/map_1/function_type_3/iterations_10/q_learning
+ <../../results_q_learning/map_2/function_type_0/iterations_10/q_learning_resul
+t.png> <../../results_q_learning/map_2/function_type_3/iterations_10/q_learning
 _result.png>]
-<../../results_q_learning/map_1/trials_average_results_progress.png, id=623, 77
+File: ../../results_q_learning/map_2/function_type_0/iterations_10/q_learning_r
+esult.png Graphic file (type png)
+
+<use ../../results_q_learning/map_2/function_type_0/iterations_10/q_learning_re
+sult.png>
+Package pdftex.def Info: ../../results_q_learning/map_2/function_type_0/iterati
+ons_10/q_learning_result.png used on input line 499.
+(pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
+
+Overfull \hbox (0.52834pt too wide) in paragraph at lines 499--499
+ [] 
+ []
+
+
+<../../results_q_learning/map_2/function_type_6/iterations_10/q_learning_result
+.png, id=623, 770.88pt x 578.16pt>
+File: ../../results_q_learning/map_2/function_type_6/iterations_10/q_learning_r
+esult.png Graphic file (type png)
+
+<use ../../results_q_learning/map_2/function_type_6/iterations_10/q_learning_re
+sult.png>
+Package pdftex.def Info: ../../results_q_learning/map_2/function_type_6/iterati
+ons_10/q_learning_result.png used on input line 499.
+(pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
+
+Overfull \hbox (0.52834pt too wide) in paragraph at lines 499--499
+ [] 
+ []
+
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[21
+
+ <../../results_q_learning/map_2/function_type_6/iterations_10/q_learning_resul
+t.png>]
+<../../results_q_learning/map_1/trials_average_results_progress.png, id=651, 77
 0.88pt x 578.16pt>
 File: ../../results_q_learning/map_1/trials_average_results_progress.png Graphi
 c file (type png)
 
 <use ../../results_q_learning/map_1/trials_average_results_progress.png>
 Package pdftex.def Info: ../../results_q_learning/map_1/trials_average_results_
-progress.png used on input line 490.
+progress.png used on input line 511.
 (pdftex.def)             Requested size: 277.51659pt x 208.13744pt.
 
-[21
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[22
 
  <../../results_q_learning/map_1/trials_average_results_progress.png>]
-<../../results_q_learning/map_0/trials_average_results.png, id=651, 770.88pt x 
+<../../results_q_learning/map_0/trials_average_results.png, id=679, 770.88pt x 
 578.16pt>
 File: ../../results_q_learning/map_0/trials_average_results.png Graphic file (t
 ype png)
  <use ../../results_q_learning/map_0/trials_average_results.png>
 Package pdftex.def Info: ../../results_q_learning/map_0/trials_average_results.
-png used on input line 502.
+png used on input line 523.
 (pdftex.def)             Requested size: 277.51659pt x 208.13744pt.
 
-[22
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[23
 
  <../../results_q_learning/map_0/trials_average_results.png>]
 File: ../../results_q_learning/map_0/trials_average_results.png Graphic file (t
@@ -1846,81 +1997,63 @@ ype png)
 
 <use ../../results_q_learning/map_0/trials_average_results.png>
 Package pdftex.def Info: ../../results_q_learning/map_0/trials_average_results.
-png used on input line 513.
+png used on input line 534.
 (pdftex.def)             Requested size: 277.51659pt x 208.13744pt.
- [23
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[24
 
 ]
-<../../results_q_learning/map_2/trials_average_results.png, id=705, 770.88pt x 
+<../../results_q_learning/map_2/trials_average_results.png, id=734, 770.88pt x 
 578.16pt>
 File: ../../results_q_learning/map_2/trials_average_results.png Graphic file (t
 ype png)
  <use ../../results_q_learning/map_2/trials_average_results.png>
 Package pdftex.def Info: ../../results_q_learning/map_2/trials_average_results.
-png used on input line 523.
+png used on input line 544.
 (pdftex.def)             Requested size: 277.51659pt x 208.13744pt.
 
-[24
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[25
 
  <../../results_q_learning/map_2/trials_average_results.png>]
-<../../results_q_learning/map_3/trials_average_results.png, id=734, 770.88pt x 
+<../../results_q_learning/map_3/trials_average_results.png, id=763, 770.88pt x 
 578.16pt>
 File: ../../results_q_learning/map_3/trials_average_results.png Graphic file (t
 ype png)
  <use ../../results_q_learning/map_3/trials_average_results.png>
 Package pdftex.def Info: ../../results_q_learning/map_3/trials_average_results.
-png used on input line 533.
+png used on input line 554.
 (pdftex.def)             Requested size: 277.51659pt x 208.13744pt.
 
-[25
-
- <../../results_q_learning/map_3/trials_average_results.png>]
-<../../results_q_learning/map_2/function_type_2/iterations_10/agents_path_surfa
-ce.png, id=763, 770.88pt x 578.16pt>
-File: ../../results_q_learning/map_2/function_type_2/iterations_10/agents_path_
-surface.png Graphic file (type png)
-
-<use ../../results_q_learning/map_2/function_type_2/iterations_10/agents_path_s
-urface.png>
-Package pdftex.def Info: ../../results_q_learning/map_2/function_type_2/iterati
-ons_10/agents_path_surface.png used on input line 562.
-(pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
-
-Overfull \hbox (0.52834pt too wide) in paragraph at lines 562--562
- [] 
- []
-
-
-<../../results_q_learning/map_2/function_type_6/iterations_10/agents_path_surfa
-ce.png, id=764, 770.88pt x 578.16pt>
-File: ../../results_q_learning/map_2/function_type_6/iterations_10/agents_path_
-surface.png Graphic file (type png)
-
-<use ../../results_q_learning/map_2/function_type_6/iterations_10/agents_path_s
-urface.png>
-Package pdftex.def Info: ../../results_q_learning/map_2/function_type_6/iterati
-ons_10/agents_path_surface.png used on input line 562.
-(pdftex.def)             Requested size: 154.17326pt x 115.62994pt.
-
-Overfull \hbox (0.52834pt too wide) in paragraph at lines 562--562
- [] 
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
  []
 
 [26
 
- <../../results_q_learning/map_2/function_type_2/iterations_10/agents_path_surf
-ace.png> <../../results_q_learning/map_2/function_type_6/iterations_10/agents_p
-ath_surface.png>]
-<../pictures/robot_hardware_white.jpg, id=795, 4111.36pt x 2306.6175pt>
+ <../../results_q_learning/map_3/trials_average_results.png>]
+<../pictures/robot_hardware_white.jpg, id=791, 4111.36pt x 2306.6175pt>
 File: ../pictures/robot_hardware_white.jpg Graphic file (type jpg)
 
 <use ../pictures/robot_hardware_white.jpg>
 Package pdftex.def Info: ../pictures/robot_hardware_white.jpg used on input lin
-e 573.
+e 570.
 (pdftex.def)             Requested size: 370.00644pt x 207.58661pt.
 
-Overfull \hbox (62.71657pt too wide) in paragraph at lines 573--573
+Overfull \hbox (62.71657pt too wide) in paragraph at lines 570--570
  [] 
+ []
+
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
  []
 
 [27
@@ -1935,97 +2068,122 @@ ed-to.pdf>
 (epstopdf)                    size: 39225 bytes
 (epstopdf)             Command: <epstopdf --outfile=../diagrams/motoko_robot_bl
 ock-eps-converted-to.pdf ../diagrams/motoko_robot_block.eps>
-(epstopdf)             \includegraphics on input line 585.
+(epstopdf)             \includegraphics on input line 582.
 Package epstopdf Info: Output file is already uptodate.
 
-<../diagrams/motoko_robot_block-eps-converted-to.pdf, id=822, 1156.32pt x 538.0
+<../diagrams/motoko_robot_block-eps-converted-to.pdf, id=818, 1156.32pt x 538.0
 1pt>
 File: ../diagrams/motoko_robot_block-eps-converted-to.pdf Graphic file (type pd
 f)
  <use ../diagrams/motoko_robot_block-eps-converted-to.pdf>
 Package pdftex.def Info: ../diagrams/motoko_robot_block-eps-converted-to.pdf us
-ed on input line 585.
+ed on input line 582.
 (pdftex.def)             Requested size: 231.2599pt x 107.60008pt.
- [28
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[28
 
  <../diagrams/motoko_robot_block-eps-converted-to.pdf>]
-<../pictures/sdm.pdf, id=853, 845.1575pt x 339.2675pt>
+<../pictures/sdm.pdf, id=849, 845.1575pt x 339.2675pt>
 File: ../pictures/sdm.pdf Graphic file (type pdf)
 
 <use ../pictures/sdm.pdf>
-Package pdftex.def Info: ../pictures/sdm.pdf used on input line 600.
+Package pdftex.def Info: ../pictures/sdm.pdf used on input line 597.
 (pdftex.def)             Requested size: 338.057pt x 135.70459pt.
 pdfTeX warning (ext4): destination with the same identifier (name{img:motoko_ro
 bot_block}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.600 \end{frame}
+l.597 \end{frame}
                  
-Overfull \hbox (30.76714pt too wide) in paragraph at lines 600--600
+Overfull \hbox (30.76714pt too wide) in paragraph at lines 597--597
  [][][][] 
  []
 
 
-Overfull \vbox (8.27025pt too high) detected at line 600
+Overfull \vbox (8.27025pt too high) detected at line 597
+ []
+
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
  []
 
 [29
 
  <../pictures/sdm.pdf>]
-<../pictures/sdm_hard_locations_all_original.png, id=887, 770.88pt x 578.16pt>
+<../pictures/sdm_hard_locations_all_original.png, id=883, 770.88pt x 578.16pt>
 File: ../pictures/sdm_hard_locations_all_original.png Graphic file (type png)
 
 <use ../pictures/sdm_hard_locations_all_original.png>
 Package pdftex.def Info: ../pictures/sdm_hard_locations_all_original.png used o
-n input line 626.
+n input line 623.
 (pdftex.def)             Requested size: 192.71953pt x 144.53964pt.
 
-Overfull \hbox (39.0746pt too wide) in paragraph at lines 626--626
+Overfull \hbox (39.0746pt too wide) in paragraph at lines 623--623
  [][][][] 
  []
 
-<../pictures/sdm_hard_locations_all_new.png, id=888, 770.88pt x 578.16pt>
+<../pictures/sdm_hard_locations_all_new.png, id=884, 770.88pt x 578.16pt>
 File: ../pictures/sdm_hard_locations_all_new.png Graphic file (type png)
 
 <use ../pictures/sdm_hard_locations_all_new.png>
 Package pdftex.def Info: ../pictures/sdm_hard_locations_all_new.png used on inp
-ut line 626.
+ut line 623.
 (pdftex.def)             Requested size: 192.71953pt x 144.53964pt.
 
-Overfull \hbox (39.0746pt too wide) in paragraph at lines 626--626
+Overfull \hbox (39.0746pt too wide) in paragraph at lines 623--623
  [][][][] 
+ []
+
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
  []
 
 [30
 
  <../pictures/sdm_hard_locations_all_original.png> <../pictures/sdm_hard_locati
 ons_all_new.png>]
-<../pictures/aproximation_result_all.png, id=919, 770.88pt x 578.16pt>
+<../pictures/aproximation_result_all.png, id=915, 770.88pt x 578.16pt>
 File: ../pictures/aproximation_result_all.png Graphic file (type png)
 
 <use ../pictures/aproximation_result_all.png>
 Package pdftex.def Info: ../pictures/aproximation_result_all.png used on input 
-line 641.
+line 638.
 (pdftex.def)             Requested size: 269.81204pt x 202.35902pt.
 pdfTeX warning (ext4): destination with the same identifier (name{img:oroginal_
 sdm}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.641 \end{frame}
+l.638 \end{frame}
                  
-Overfull \vbox (10.2533pt too high) detected at line 641
+Overfull \vbox (10.2533pt too high) detected at line 638
+ []
+
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
  []
 
 [31
 
  <../pictures/aproximation_result_all.png>]
-<../pictures/me_ferrata.jpg, id=948, 1188.44pt x 668.4975pt>
+<../pictures/me_ferrata.jpg, id=944, 1188.44pt x 668.4975pt>
 File: ../pictures/me_ferrata.jpg Graphic file (type jpg)
 
 <use ../pictures/me_ferrata.jpg>
-Package pdftex.def Info: ../pictures/me_ferrata.jpg used on input line 657.
+Package pdftex.def Info: ../pictures/me_ferrata.jpg used on input line 654.
 (pdftex.def)             Requested size: 297.10927pt x 167.12396pt.
- [32
+
+Overfull \hbox (54.01453pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[32
 
  <../pictures/me_ferrata.jpg>]
 \tf@nav=\write6
@@ -2037,12 +2195,11 @@ Package pdftex.def Info: ../pictures/me_ferrata.jpg used on input line 657.
 \tf@snm=\write8
 \openout8 = `presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 659.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 659.
-
-(./presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 659.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 659.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 656.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 656.
+ (./presentation.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 656.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 656.
 Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -2056,13 +2213,13 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 659.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 656.
  ) 
 Here is how much of TeX's memory you used:
- 20755 strings out of 493029
- 387044 string characters out of 6136235
+ 20743 strings out of 493029
+ 386472 string characters out of 6136235
  477757 words of memory out of 5000000
- 23694 multiletter control sequences out of 15000+600000
+ 23689 multiletter control sequences out of 15000+600000
  24314 words of font info for 69 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,15n,55p,416b,588s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2088,10 +2245,10 @@ sr/share/texmf/fonts/type1/public/cm-super/sfss0800.pfb></usr/share/texmf/fonts
 er/sfss1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfsx0600.pfb></us
 r/share/texmf/fonts/type1/public/cm-super/sfsx1440.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on presentation.pdf (32 pages, 2059880 bytes).
+Output written on presentation.pdf (32 pages, 2023732 bytes).
 PDF statistics:
- 1067 PDF objects out of 1200 (max. 8388607)
- 933 compressed objects within 10 object streams
- 73 named destinations out of 1000 (max. 500000)
- 225 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1061 PDF objects out of 1200 (max. 8388607)
+ 929 compressed objects within 10 object streams
+ 71 named destinations out of 1000 (max. 500000)
+ 220 words of extra memory for PDF output out of 10000 (max. 10000000)
 
