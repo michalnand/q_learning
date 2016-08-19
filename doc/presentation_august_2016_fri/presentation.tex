@@ -23,17 +23,18 @@ commentstyle = \ttfamily\color{red},
 keywordstyle=\ttfamily\color{blue},
 stringstyle=\color{orange}}
 
-
+\setbeamertemplate{footline}[frame number]
 
 %-------------------------------------------------------------------------------------
 \title{\bf Aproximácia funkcie ohodnotení v algoritmoch Q-learning neurónovou sieťou}
-\author{Ing. Michal CHOVANEC \\Fakulta riadenia a informatiky}
-
+\author{Ing. Michal CHOVANEC (2013..2016) \\Fakulta riadenia a informatiky}
 \date[EURP]{\it August 2016}
 \begin{document}
 
 \begin{frame}
 \titlepage
+katedra technickej kybernetiky \\
+školiteľ : prof. Ing. Juraj Miček, PhD.
 \end{frame}
 
 
@@ -79,7 +80,7 @@ task is to be achieved.”
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Funkcia ohodnotení}
 
-Daná je funkcia ohodnotení (Watkins, 1989)
+Daná je funkcia ohodnotení (Watkins 1989, konvergencia : Melo, Even-Dar, Kearns)
 
 \begin{equation}
 Q(s(n),a(n)) = R(s(n),a(n)) + \gamma \max_{a(n-1) \in \mathbb{A}} Q(s(n-1), a(n-1)) \nonumber
@@ -126,7 +127,7 @@ kde \\
 \begin{frame}{\bf Implementačné problémy}
 
 Problémy tabuľkovej interpretácie $Q(s(n), a(n))$ :
-
+(Philip Sabes 1996, Melo 2007, Alborz Geramifard 2013)
 \begin{enumerate}
 \item pre veľké počty stavov, mnohorozmerné stavové priestory alebo veľký počet akcíí narastajú pamäťové nároky
   \begin{itemize}
@@ -137,7 +138,9 @@ Problémy tabuľkovej interpretácie $Q(s(n), a(n))$ :
 \item pre rozsiahle stavové priestory ťažko vypočítateľné,
 \item ako aproximovať $Q(s(n), a(n))$?
 \end{enumerate}
-
+\bigskip
+cieľ : {\color{red} Aproximovať funkciu $Q(s(n), a(n))$}, so zreteľom
+na rýchlosť učenia.
 \end{frame}
 
 
@@ -145,6 +148,7 @@ Problémy tabuľkovej interpretácie $Q(s(n), a(n))$ :
 \begin{frame}{\bf Aproximácia doprednou perceptronovou neurónovou sieťou}
 
 Utopická predstava :
+(Sebastian Thrun 1993, Leemon Baird N/A, Silvia Ferrari 2005, Ma Yumei 2012)
 
 \begin{figure}[!htb]
 \includegraphics[scale=.5]{../diagrams/q_learning_nn.eps}
@@ -209,7 +213,7 @@ a ich lineárna kombinácia
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Nová bázická funkcia}
 
-Tabuľka pre vybrané hodnoty - umožní zachytit skokovú zmenu \\
+Tabuľka pre vybrané hodnoty (adaptívna tabuľka - AT)- umožní zachytit skokovú zmenu \\
 Gaussova krivka - dokáže pokryť nenulovými hodnotami celý definičný obor \\
 
 \begin{align}
@@ -305,7 +309,7 @@ Celková chyba behu trialu $t$ je \\
 e_{jt} = \sum\limits_{s, a}{(Q_{rt}(s,a) - Q_{jt}(s,a))^2}  \nonumber
 \end{equation}
 
-priemerná, minimálna, maximálna chyba a smerodatná odchylka \\
+priemerná, minimálna, maximálna chyba a smerodajná odchylka \\
 \begin{align}
 \bar{a_j} &= \frac{1}{20}\sum\limits_{t}{e_{jt}}  \nonumber \\
 {e^{min}_j} &= \min_{t}{e_{jt}}  \nonumber \\
@@ -390,6 +394,32 @@ Funkcia voľby najlepšej z 8 akcií v stave  $s = (s[0], s[1])$.
 
 
 
+\begin{frame}{\bf Dráhy agentov pri voľbe najlepšej akcie}
+
+\begin{minipage}{.5\textwidth}
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_3/iterations_10/agents_path_surface.png}
+  \caption{sparse table + linear combination Gauss}
+  \end{figure}
+
+
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+
+  \begin{figure}[!htb]
+  \centering
+  \includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_6/iterations_10/agents_path_surface.png}
+  \caption{adaptive table + linear combination Gauss}
+  \end{figure}
+
+\end{minipage}
+
+\end{frame}
+
+
+
 
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Chybové funkcie - Výsledky experimentov}
@@ -418,32 +448,6 @@ e_{jt}(s) = (Q_{rt}(s,a) - Q_{jt}(s,a))^2  \nonumber
 
 \end{minipage}
 \end{frame}
-
-
-\begin{frame}{\bf Dráhy agentov pri voľbe najlepšej akcie}
-
-\begin{minipage}{.5\textwidth}
-
-  \begin{figure}[!htb]
-  \centering
-  \includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_3/iterations_10/agents_path_surface.png}
-  \caption{sparse table + linear combination Gauss}
-  \end{figure}
-
-
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
-
-  \begin{figure}[!htb]
-  \centering
-  \includegraphics[scale=.2]{../../results_q_learning/map_2/function_type_6/iterations_10/agents_path_surface.png}
-  \caption{adaptive table + linear combination Gauss}
-  \end{figure}
-
-\end{minipage}
-
-\end{frame}
-
 
 
 %-------------------------------------------------------------------------------------
@@ -505,7 +509,7 @@ e_{jt}(s) = (Q_{rt}(s,a) - Q_{jt}(s,a))^2  \nonumber
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[scale=.36]{../../results_q_learning/map_1/trials_average_results_progress.png}
+\includegraphics[scale=.36]{../../results_q_learning/map_2/trials_average_results_progress.png}
 \end{figure}
 
 \end{frame}
@@ -558,7 +562,7 @@ e_{jt}(s) = (Q_{rt}(s,a) - Q_{jt}(s,a))^2  \nonumber
 
 
 
-\begin{frame}{\bf Doplnkový experiment - robot}
+\begin{frame}{\bf Praktický experiment - robot sledujúci čiaru}
 
 \begin{figure}[!htb]
 \centering
@@ -569,7 +573,7 @@ e_{jt}(s) = (Q_{rt}(s,a) - Q_{jt}(s,a))^2  \nonumber
 
 \end{frame}
 
-\begin{frame}{\bf Doplnkový experiment - robot}
+\begin{frame}{\bf Praktický experiment - robot sledujúci čiaru}
 
 Bloková schéma riadiaceho bloku robota
 
@@ -585,7 +589,7 @@ Bloková schéma riadiaceho bloku robota
 
 sparse distributed memory - Pentti Kenerva 1988 \\
 hierarchical temporal memory - Jeff Hawkins 2012 \\
-adaptive sparse distributed memory - Michal Chovanec 2016 \\
+adaptive sparse distributed memory - Michal Chovanec 2016 (v tlači) \\
 \bigskip
 aproximácia
 $D(n) = f( A(n) )$
@@ -633,6 +637,28 @@ Pokrytie priestoru s hard locations (3D rez 50D priestorom)
 \includegraphics[scale=.35]{../pictures/aproximation_result_all.png}
 \label{img:oroginal_sdm}
 \end{figure}
+
+\end{frame}
+
+
+\begin{frame}{\bf Publikácie}
+
+
+  	\tiny
+\begin{itemize}
+  \item Intelligent traffic-safety mirror [Inteligentné dopravné zabezpečovacie zrkadlo] / M. Hodoň, M. Chovanec, M. Hyben.
+  \item Intelligent traffic-safety mirror by using wireless sensor network [Inteligentné dopravno-bezpečnostné zrkadlo s použitím bezdrôtovej siete] / Peter Danišovič, Michal Hodoň, Michal Chovanec.
+  \item Tiny low-power WSN node for the vehicle detection [Jednoduchý energeticky-efektívny nód bezdôtovej senzorovej siete určený na detekciu automobilov] / Michal Chovanec, Michal Hodon and Lukas Cechovic.
+  \item Maximizing performance of low-power WSN node on the basis of event-driven-programming approach : Minimization of operational energy costs of WSN node control unit / Michal Hodoň ... [et al.].
+  \item Real-time schedule for mobile robotics and WSN aplications / Michal Chovanec, Peter Šarafín.
+  \item Universal synchronization algorithm for wireless sensor networks - FUSA algorithm / Michal Chovanec ... [et al.].
+  \item Investigation of the gyro-sensor contribution to the straight movement of vehicle [Analýza vplyvu gyroskopického senzora pri priamom pohybe vozidla] / Michal Hodoň, Michal Chovanec.
+  \item Udalosťami riadené programovanie v OS Suzuha = Event driven programming in Suzuha OS / Michal Chovanec.
+  \item Required value classification using Kohonen neural network = Klasifikácia žiadanej hodnoty Kohonenovou neurónovou sieťou / Michal Chovanec.
+  \item Akcelerometrické meranie výstrelu z luku = Accelerometrics measuring bow shot / Michal Chovanec a Jaroslav Múčka.
+  \item Wireless sensor networks for intelligent transportation systems / Michal Hodoň, Juraj Miček, Michal Chovanec.
+  \item Signal mixing using neural network / Michal Chovanec.
+\end{itemize}
 
 
 \end{frame}
