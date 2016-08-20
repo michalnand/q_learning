@@ -14,7 +14,6 @@
 
 \usepackage{tabularx}
 
-
 \usepackage{listings}
 \lstloadlanguages{Ruby}
 \lstset{%
@@ -80,7 +79,8 @@ task is to be achieved.”
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Funkcia ohodnotení}
 
-Daná je funkcia ohodnotení (Watkins 1989, konvergencia : Melo, Even-Dar, Kearns)
+Daná je funkcia ohodnotení \\
+{\footnotesize Watkins 1989, konvergencia k optimálnej stratégií : Melo, Even-Dar, Kearns : $\left( V = \sum\limits_{n=0}^{\infty} \gamma^n T(n) \right)$}
 
 \begin{equation}
 Q(s(n),a(n)) = R(s(n),a(n)) + \gamma \max_{a(n-1) \in \mathbb{A}} Q(s(n-1), a(n-1)) \nonumber
@@ -124,31 +124,74 @@ kde \\
 
 
 %-------------------------------------------------------------------------------------
-\begin{frame}{\bf Implementačné problémy}
+\begin{frame}{\bf Cieľ práce}
 
-Problémy tabuľkovej interpretácie $Q(s(n), a(n))$ :
-(Philip Sabes 1996, Melo 2007, Alborz Geramifard 2013)
-\begin{enumerate}
-\item pre veľké počty stavov, mnohorozmerné stavové priestory alebo veľký počet akcíí narastajú pamäťové nároky
+\begin{block}{Problémy interpretácie $Q(s(n), a(n))$}
+  \vspace{-2mm}
+  {\footnotesize (Philip Sabes 1996, Melo 2007, Alborz Geramifard 2013)}
+  \vspace{-1mm}
   \begin{itemize}
-  \item robot s 20 senzormi kde každý má 256 hodnôt sa môže nachádzať v $1.46*10^{48}$ stavoch
-  \item odhadovaný počet atómov v pozorovateľnom vesmíre je $10^{80}$
+    \vspace{-1mm}
+    \item pre veľké počty stavov, mnohorozmerné stavové priestory alebo veľký počet akcíí narastajú pamäťové nároky
+
+          \begin{itemize}
+          \item robot s 20 senzormi kde každý má 256 hodnôt sa môže nachádzať v $1.46*10^{48}$ stavoch
+          \item odhadovaný počet atómov v pozorovateľnom vesmíre je $10^{80}$
+          \end{itemize}
+
+    \vspace{-1mm}
+    \item o nevyplnených $Q(s(n), a(n))$ nevieme povedať nič
+
+    \vspace{-1mm}
+    \item pre rozsiahle stavové priestory ťažko vypočítateľné
+
+    \vspace{-1mm}
+    \item ako aproximovať $Q(s(n), a(n))$?
+
   \end{itemize}
-\item o nevyplnených $Q(s(n), a(n))$ nevieme povedať nič,
-\item pre rozsiahle stavové priestory ťažko vypočítateľné,
-\item ako aproximovať $Q(s(n), a(n))$?
-\end{enumerate}
-\bigskip
-cieľ : {\color{red} Aproximovať funkciu $Q(s(n), a(n))$}, so zreteľom
-na rýchlosť učenia.
+
+\end{block}
+
+\vspace{-3mm}
+
+\begin{exampleblock}{Používané prístupy}
+  \vspace{-3mm}
+  \begin{itemize}
+
+  \vspace{-1mm}
+  \item tabuľka
+
+  \vspace{-1mm}
+  \item bázické funkcie {\footnotesize (Sabes, Menache,  Keller)}
+
+  \vspace{-1mm}
+  \item sparse distributed memory {\footnotesize (Kenerva, Hawkins)}
+  \end{itemize}
+\end{exampleblock}
+
+
+\vspace{-3mm}
+
+\begin{alertblock}{Cieľ : aproximovať funkciu $Q(s(n), a(n))$}
+  \vspace{-3mm}
+  \begin{itemize}
+
+  \vspace{-1mm}
+  \item rýchle učenie
+
+  \vspace{-1mm}
+  \item kvalita riešenia
+  \end{itemize}
+\end{alertblock}
+
 \end{frame}
 
 
 %-------------------------------------------------------------------------------------
 \begin{frame}{\bf Aproximácia doprednou perceptronovou neurónovou sieťou}
 
-Utopická predstava :
-(Sebastian Thrun 1993, Leemon Baird N/A, Silvia Ferrari 2005, Ma Yumei 2012)
+Utopická predstava : \\
+{\footnotesize (Sebastian Thrun 1993, Leemon Baird N/A, Silvia Ferrari 2005, Ma Yumei 2012) }
 
 \begin{figure}[!htb]
 \includegraphics[scale=.5]{../diagrams/q_learning_nn.eps}
@@ -575,21 +618,28 @@ e_{jt}(s) = (Q_{rt}(s,a) - Q_{jt}(s,a))^2  \nonumber
 
 \begin{frame}{\bf Praktický experiment - robot sledujúci čiaru}
 
-Bloková schéma riadiaceho bloku robota
+\begin{enumerate}
+ \item senzorová úroveň : \textcolor{blue}{interpolácia z 8 RGB senzorov + filtrácia}
+ \item vrchná úroveň : \textcolor{ForestGreen}{stanovenie žiadanej hodnoty pomocou Q learning}
+ \item spodná úroveň : \textcolor{red}{riadenie dvojicou PD + PI}
+\end{enumerate}
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=.2]{../diagrams/motoko_robot_block.eps}
+\caption{Bloková schéma riadiaceho bloku robota}
 \label{img:motoko_robot_block}
 \end{figure}
+
 
 \end{frame}
 
 \begin{frame}{\bf Ďalšie smerovanie - sparse distributed memory (SDM)}
-
-sparse distributed memory - Pentti Kenerva 1988 \\
-hierarchical temporal memory - Jeff Hawkins 2012 \\
-adaptive sparse distributed memory - Michal Chovanec 2016 (v tlači) \\
+\begin{enumerate}
+ \item sparse distributed memory {(\footnotesize Pentti Kenerva 1988)}
+ \item  hierarchical temporal memory {(\footnotesize Jeff Hawkins 2012 )}
+ \item adaptive sparse distributed memory {(\footnotesize Michal Chovanec 2016, v tlači)}
+\end{enumerate}
 \bigskip
 aproximácia
 $D(n) = f( A(n) )$
@@ -603,12 +653,14 @@ $D(n) = f( A(n) )$
 
 \begin{frame}{\bf Adaptive sparse distributed memory}
 
-Pokrytie priestoru s hard locations (3D rez 50D priestorom)
+Pokrytie priestoru s hard locations (3D rez 50D priestoru) pre dáta
+s nerovnomerným rozdelením pravdepodobnosti
 
 \begin{minipage}{.5\textwidth}
 
 \begin{figure}[!htb]
 \includegraphics[scale=.25]{../pictures/sdm_hard_locations_all_original.png}
+\caption{Slabé pokrytie}
 \label{img:oroginal_sdm}
 \end{figure}
 
@@ -618,6 +670,7 @@ Pokrytie priestoru s hard locations (3D rez 50D priestorom)
 
 \begin{figure}[!htb]
 \includegraphics[scale=.25]{../pictures/sdm_hard_locations_all_new.png}
+\caption{Vylepšené pokrytie}
 \label{img:adaptive_sdm}
 \end{figure}
 
@@ -642,23 +695,23 @@ Pokrytie priestoru s hard locations (3D rez 50D priestorom)
 
 
 \begin{frame}{\bf Publikácie}
-
-
   	\tiny
-\begin{itemize}
+\begin{enumerate}
   \item Intelligent traffic-safety mirror [Inteligentné dopravné zabezpečovacie zrkadlo] / M. Hodoň, M. Chovanec, M. Hyben.
   \item Intelligent traffic-safety mirror by using wireless sensor network [Inteligentné dopravno-bezpečnostné zrkadlo s použitím bezdrôtovej siete] / Peter Danišovič, Michal Hodoň, Michal Chovanec.
   \item Tiny low-power WSN node for the vehicle detection [Jednoduchý energeticky-efektívny nód bezdôtovej senzorovej siete určený na detekciu automobilov] / Michal Chovanec, Michal Hodon and Lukas Cechovic.
   \item Maximizing performance of low-power WSN node on the basis of event-driven-programming approach : Minimization of operational energy costs of WSN node control unit / Michal Hodoň ... [et al.].
-  \item Real-time schedule for mobile robotics and WSN aplications / Michal Chovanec, Peter Šarafín.
+  \item \textcolor{red}{Real-time schedule for mobile robotics and WSN aplications / Michal Chovanec, Peter Šarafín.}
   \item Universal synchronization algorithm for wireless sensor networks - FUSA algorithm / Michal Chovanec ... [et al.].
-  \item Investigation of the gyro-sensor contribution to the straight movement of vehicle [Analýza vplyvu gyroskopického senzora pri priamom pohybe vozidla] / Michal Hodoň, Michal Chovanec.
-  \item Udalosťami riadené programovanie v OS Suzuha = Event driven programming in Suzuha OS / Michal Chovanec.
-  \item Required value classification using Kohonen neural network = Klasifikácia žiadanej hodnoty Kohonenovou neurónovou sieťou / Michal Chovanec.
+  \item \textcolor{red}{Investigation of the gyro-sensor contribution to the straight movement of vehicle [Analýza vplyvu gyroskopického senzora pri priamom pohybe vozidla] / Michal Hodoň, Michal Chovanec.}
+  \item \textcolor{red}{Udalosťami riadené programovanie v OS Suzuha = Event driven programming in Suzuha OS / Michal Chovanec.}
+  \item \textcolor{red}{Required value classification using Kohonen neural network = Klasifikácia žiadanej hodnoty Kohonenovou neurónovou sieťou / Michal Chovanec.}
   \item Akcelerometrické meranie výstrelu z luku = Accelerometrics measuring bow shot / Michal Chovanec a Jaroslav Múčka.
   \item Wireless sensor networks for intelligent transportation systems / Michal Hodoň, Juraj Miček, Michal Chovanec.
-  \item Signal mixing using neural network / Michal Chovanec.
-\end{itemize}
+  \item \textcolor{red}{Signal mixing using neural network / Michal Chovanec.}
+  \item \textcolor{red}{Adaptive sparse distributed memory as function approximator / Michal Chovanec, Peter Šarafín} - v tlači
+  \item \textcolor{red}{Aeris – robots laboratory with dynamic environment / Michal Chovanec, Lukáš Čechovič and Lukáš Mandák} - v tlači
+\end{enumerate}
 
 
 \end{frame}
@@ -673,6 +726,7 @@ Pokrytie priestoru s hard locations (3D rez 50D priestorom)
 \begin{figure}[!htb]
 \centering
 \includegraphics[scale=.25]{../pictures/me_ferrata.jpg}
+%\includegraphics[scale=.1]{../pictures/me_chimney.jpg}
 \end{figure}
 
 
